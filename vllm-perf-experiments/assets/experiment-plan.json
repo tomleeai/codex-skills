@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "intent": "design",
+  "question": "在固定资源和负载下比较已声明参数或拓扑的端到端性能",
+  "protocol_id": null,
+  "authorization_scope": {"execution_authorized": false, "owned_resources": [], "restore_target": null},
+  "system": {"model": null, "weight_hash": null, "tokenizer_hash": null, "vllm_commit": null, "ascend_commit": null, "client_commit": null, "hardware": null, "fixed_startup_args": {}, "warnings_retained": []},
+  "topology": {"kind": "coupled", "placements": [], "p_d_ratio": null, "per_stage_parallelism": {}, "kv_connector": null, "router": null, "network": null, "equal_resource_baseline": null},
+  "variables": {"swept_parameter": null, "values": [], "fixed_parameters": {}, "interaction_followup": [], "order": "blocked_with_local_baselines"},
+  "workload": {"dataset_manifest_hash": null, "input_token_distribution": null, "output_token_distribution": null, "requests_per_batch": null, "client_concurrency": null, "request_rate": null, "rate_semantics": null, "measurement_mode": "finite_batch", "generation_args": {}},
+  "prefix_control": {"nominal_repeat_rate": null, "initial_cached_tokens": null, "cache_block_tokens": null, "warming_recipe": null, "runtime_hit_rate_role": "outcome_unless_explicitly_manipulated"},
+  "aisbench_policy": {"data_num_rule": "data_num = 4 * concurrency", "data_num": null, "concurrency": null},
+  "repetition": {"warmup_policy": "one separate warmup round before each formal test group, including unknown startup time and after service restart or recovery; then establish protocol cache state", "formal_repeats": null, "startup_ready_check": null, "baseline_policy": "same_placement_before_after", "timeout_seconds": null, "budget": null},
+  "recovery": {"max_attempts": 3, "attempts_used": 0, "on_exhausted": "preserve scene, summarize existing results and checkpoint, stop automatic retries and wait for human intervention", "checkpoint_state_on_exhausted": "waiting_for_human"},
+  "acceptance": {"success_target": null, "per_request_lengths": true, "server_request_delta": true, "initial_cache_when_required": true, "external_interference_check": true, "runtime_cache_or_preemption_is_not_an_automatic_failure": true},
+  "metrics": {"ttft": "client request mean with declared boundary", "tpot": "client request mean with declared definition", "output_tps": "total measured output tokens / common duration", "auxiliary": ["e2e", "tail_latency", "active_waiting", "kv_usage", "prefix_hit", "preemptions", "host_network"]},
+  "artifacts": {"records_dir": null, "compact_probe": null, "logs_dir": null, "public_package_allowlist": [], "private_files_excluded": true}
+}

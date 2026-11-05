@@ -1,0 +1,4 @@
+interface:
+  display_name: "vLLM性能实验"
+  short_description: "设计、执行并复盘vLLM与Ascend控制变量压测和单机多机PD分离实验"
+  default_prompt: "使用 $vllm-perf-experiments，按当前模型、硬件与拓扑设计可复现的性能实验，明确本次是讨论方案、离线分析还是实际执行。"

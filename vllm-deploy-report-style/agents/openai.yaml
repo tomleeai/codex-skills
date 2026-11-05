@@ -1,0 +1,3 @@
+interface:
+  display_name: "vLLM 部署脚本与排障报告写作风格"
+  short_description: "脚本简洁易读；vLLM loop 保留原件、隐藏过程文件，写清部署修复与人工复检"
