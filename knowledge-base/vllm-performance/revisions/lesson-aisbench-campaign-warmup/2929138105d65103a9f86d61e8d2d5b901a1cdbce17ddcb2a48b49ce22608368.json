@@ -1,0 +1,59 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend"
+    ],
+    "models": [
+      "DeepSeek-V4-Pro"
+    ],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "finite_batch"
+    ]
+  },
+  "body": {
+    "do_not_use_when": [
+      "统计比较已有正式重复设计时。",
+      "当前用户要求冷启动或不同预热协议时。"
+    ],
+    "evidence_type": "用户协议修订及执行记录，不是所有场景的性能定律。",
+    "limitations": [
+      "2–3次检查不构成统计充分性保证；本次历史混合观察不能反向充当完整证明。"
+    ],
+    "method": [
+      "先固定代表性case/并发检查TPS、TTFT、TPOT、成功数及长度。",
+      "正式扫描不逐点加完整预热，不默认重测赢家。",
+      "实际服务重启或影响稳态的配置变化后重新预热；仅SSH重连不触发。"
+    ],
+    "use_when": [
+      "稳定服务上的有限case摸测，且用户未指定另一套重复协议。"
+    ]
+  },
+  "created_at": "2026-11-08",
+  "evidence": [
+    {
+      "ref": "case:case-deepseek-v4-pro-aisbench-20261106",
+      "role": "Locally scoped evidence and protocol decisions",
+      "sha256": "4a1a7fc7d69ab09871a4240f15cc4c7f83a885a2c0229b15bcd844ce41e040f8"
+    }
+  ],
+  "id": "lesson-aisbench-campaign-warmup",
+  "kind": "lesson",
+  "observed_at": "2026-11-06",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "用户约定的case摸测在整场开始固定配置检查2–3次，后续新并发点各正式一次；前缀准备仍是独立前置条件。",
+  "supersedes": [],
+  "tags": [
+    "AISBench",
+    "预热",
+    "warmup",
+    "稳定性",
+    "case_sweep"
+  ],
+  "title": "AISBench摸测：整场预热与逐点缓存构建分开",
+  "updated_at": "2026-11-08"
+}

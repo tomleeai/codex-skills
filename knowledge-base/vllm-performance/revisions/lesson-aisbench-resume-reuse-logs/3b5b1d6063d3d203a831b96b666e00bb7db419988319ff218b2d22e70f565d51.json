@@ -1,0 +1,59 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend"
+    ],
+    "models": [
+      "DeepSeek-V4-Pro"
+    ],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "finite_batch"
+    ]
+  },
+  "body": {
+    "do_not_use_when": [
+      "服务周期、数据、缓存协议改变后未经可比性核对直接混用历史点。"
+    ],
+    "limitations": [
+      "文件名或mtime不能单独证明有效；不可恢复的计数窗口明确未知。"
+    ],
+    "method": [
+      "先接管仍活跃的客户端，不重复派发。",
+      "核对负载、服务、协议、请求成功数和逐请求长度后复用历史结果。",
+      "明确已完成、待测、缺失证据和协议修订，逐点原子保存。"
+    ],
+    "use_when": [
+      "同一已授权实验暂停、控制器退出或SSH中断后的续跑。"
+    ]
+  },
+  "created_at": "2026-11-08",
+  "evidence": [
+    {
+      "ref": "case:case-deepseek-v4-pro-aisbench-20261106",
+      "role": "Locally scoped evidence and protocol decisions",
+      "sha256": "4a1a7fc7d69ab09871a4240f15cc4c7f83a885a2c0229b15bcd844ce41e040f8"
+    }
+  ],
+  "id": "lesson-aisbench-resume-reuse-logs",
+  "kind": "lesson",
+  "observed_at": "2026-11-06",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "聊天或SSH中断不等于压测终止。恢复前核查客户端、控制器、锁和完整结果，再从原日志补录，不重复全套实验。",
+  "supersedes": [],
+  "tags": [
+    "AISBench",
+    "断点",
+    "续跑",
+    "日志",
+    "复用",
+    "resume",
+    "去重"
+  ],
+  "title": "AISBench续跑：先接管活跃任务并复用日志，再补缺失点",
+  "updated_at": "2026-11-08"
+}

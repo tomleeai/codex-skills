@@ -1,0 +1,61 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend"
+    ],
+    "models": [
+      "DeepSeek-V4-Pro"
+    ],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "finite_batch"
+    ]
+  },
+  "body": {
+    "do_not_use_when": [
+      "只凭字段名推断其他wrapper/版本定义。"
+    ],
+    "limitations": [
+      "导出器不替代case选择、请求明细验证或实际缓存验收。"
+    ],
+    "method": [
+      "请求平均E2EL通常取E2EL avg毫秒换算秒；E2E_time是整轮秒数。",
+      "rr为配置率时，0不限速不能解释为实测0；实测请求率使用同窗口QPS。",
+      "真实单卡归一用已核实总卡数；未核实时留空，或明确保留原single_*口径。",
+      "缺失值留空，不补0；UTF-8 BOM、列顺序、行数和原JSON逐格核对。"
+    ],
+    "use_when": [
+      "从已核验的选中结果字典导出固定模板。"
+    ]
+  },
+  "created_at": "2026-11-08",
+  "evidence": [
+    {
+      "ref": "case:case-deepseek-v4-pro-aisbench-20261106",
+      "role": "Locally scoped evidence and protocol decisions",
+      "sha256": "4a1a7fc7d69ab09871a4240f15cc4c7f83a885a2c0229b15bcd844ce41e040f8"
+    }
+  ],
+  "id": "lesson-aisbench-csv-metric-semantics",
+  "kind": "lesson",
+  "observed_at": "2026-11-06",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "固定模板导出前核对rr、qps、E2E_time、E2EL avg与single_*的含义；原字段兼容与按字面语义转换必须显式区分。",
+  "supersedes": [],
+  "tags": [
+    "AISBench",
+    "CSV",
+    "E2EL",
+    "E2E_time",
+    "单卡",
+    "qps",
+    "rr",
+    "指标口径"
+  ],
+  "title": "AISBench CSV：请求时延、批次耗时、到达率和单卡口径",
+  "updated_at": "2026-11-08"
+}

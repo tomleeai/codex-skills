@@ -1,0 +1,204 @@
+{
+  "entries": [
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend"
+        ],
+        "models": [
+          "DeepSeek-V4-Pro"
+        ],
+        "software_versions": {},
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "finite_batch"
+        ]
+      },
+      "id": "case-deepseek-v4-pro-aisbench-20261106",
+      "kind": "case",
+      "path": "cases/case-deepseek-v4-pro-aisbench-20261106.json",
+      "revision": "9f8f36d34509974312899ae1221ef3f335ba4cce09200b104f866bbc6d241cd9",
+      "status": "partial",
+      "summary": "稳定服务上完成7个目标行；修订整场预热，按TPOT调整并发，复用历史日志，修复前缀覆盖，并按17列模板交付CSV。部分缓存与稳定SLO证据仍有限。",
+      "tags": [
+        "DeepSeek-V4-Pro",
+        "AISBench",
+        "TPOT",
+        "并发",
+        "预热",
+        "prefix",
+        "DP",
+        "断点",
+        "CSV"
+      ],
+      "title": "DeepSeek-V4-Pro AISBench case摸测与TPOT并发选点",
+      "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend"
+        ],
+        "models": [
+          "DeepSeek-V4-Pro"
+        ],
+        "software_versions": {},
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "finite_batch"
+        ]
+      },
+      "id": "lesson-aisbench-campaign-warmup",
+      "kind": "lesson",
+      "path": "lessons/lesson-aisbench-campaign-warmup.json",
+      "revision": "01898a68d486cbed7bdb00ecb46e36b4b85d841e2aba73fcee1a20a934bfae4e",
+      "status": "verified",
+      "summary": "用户约定的case摸测在整场开始固定配置检查2–3次，后续新并发点各正式一次；前缀准备仍是独立前置条件。",
+      "tags": [
+        "AISBench",
+        "预热",
+        "warmup",
+        "稳定性",
+        "case_sweep"
+      ],
+      "title": "AISBench摸测：整场预热与逐点缓存构建分开",
+      "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend"
+        ],
+        "models": [
+          "DeepSeek-V4-Pro"
+        ],
+        "software_versions": {},
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "finite_batch"
+        ]
+      },
+      "id": "lesson-aisbench-csv-metric-semantics",
+      "kind": "lesson",
+      "path": "lessons/lesson-aisbench-csv-metric-semantics.json",
+      "revision": "dd827796d80c633a2d52de0152905f0d241793f68009261ec1746310cbeab452",
+      "status": "verified",
+      "summary": "固定模板导出前核对rr、qps、E2E_time、E2EL avg与single_*的含义；原字段兼容与按字面语义转换必须显式区分。",
+      "tags": [
+        "AISBench",
+        "CSV",
+        "E2EL",
+        "E2E_time",
+        "单卡",
+        "qps",
+        "rr",
+        "指标口径"
+      ],
+      "title": "AISBench CSV：请求时延、批次耗时、到达率和单卡口径",
+      "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend"
+        ],
+        "models": [
+          "DeepSeek-V4-Pro"
+        ],
+        "software_versions": {},
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "finite_batch"
+        ]
+      },
+      "id": "lesson-aisbench-prefix-dp-coverage",
+      "kind": "lesson",
+      "path": "lessons/lesson-aisbench-prefix-dp-coverage.json",
+      "revision": "3e526570c719033e99d94b79290696a6541cd1ed7608feb9742c2fca4d461b92",
+      "status": "verified",
+      "summary": "发送与DP数量相同的前缀请求不证明所有rank被覆盖。定向能力先核对安装版本，再按rank核验成功增量，前置计数与正式窗口隔离。",
+      "tags": [
+        "AISBench",
+        "prefix",
+        "前缀缓存",
+        "DP",
+        "覆盖",
+        "命中率",
+        "路由"
+      ],
+      "title": "前缀缓存：逐DP核查覆盖，区分名义比例与运行命中",
+      "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend"
+        ],
+        "models": [
+          "DeepSeek-V4-Pro"
+        ],
+        "software_versions": {},
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "finite_batch"
+        ]
+      },
+      "id": "lesson-aisbench-resume-reuse-logs",
+      "kind": "lesson",
+      "path": "lessons/lesson-aisbench-resume-reuse-logs.json",
+      "revision": "bfadddc95aebc34cc346adb87eb4830553d7f55b47c86edb106b9e3929bbb29b",
+      "status": "verified",
+      "summary": "聊天或SSH中断不等于压测终止。恢复前核查客户端、控制器、锁和完整结果，再从原日志补录，不重复全套实验。",
+      "tags": [
+        "AISBench",
+        "断点",
+        "续跑",
+        "日志",
+        "复用",
+        "resume",
+        "去重"
+      ],
+      "title": "AISBench续跑：先接管活跃任务并复用日志，再补缺失点",
+      "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend"
+        ],
+        "models": [
+          "DeepSeek-V4-Pro"
+        ],
+        "software_versions": {},
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "finite_batch"
+        ]
+      },
+      "id": "lesson-aisbench-tpot-concurrency-search",
+      "kind": "lesson",
+      "path": "lessons/lesson-aisbench-tpot-concurrency-search.json",
+      "revision": "c3b2b2bf8186d646020b6d889be057c31f767da3c7aed571a465996f4b57cfd2",
+      "status": "verified",
+      "summary": "初始并发参考同case证据；离目标远时粗增，接近时缩步，超标回退并补边界。相同负载多个TPOT目标共用点，最终按最高合格TPS选择。",
+      "tags": [
+        "AISBench",
+        "TPOT",
+        "并发",
+        "concurrency",
+        "初始并发",
+        "边界",
+        "吞吐"
+      ],
+      "title": "TPOT约束下自适应并发：粗扫、缩步、回退和复用",
+      "updated_at": "2026-11-08"
+    }
+  ],
+  "schema_version": 1
+}

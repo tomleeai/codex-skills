@@ -1,0 +1,4 @@
+**/__pycache__/
+**/*.pyc
+knowledge-base/**/.write.lock
+knowledge-base/**/.tmp-*

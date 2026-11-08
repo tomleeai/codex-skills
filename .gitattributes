@@ -1,0 +1,6 @@
+*.md text eol=lf
+*.json text eol=lf
+*.py text eol=lf
+*.yaml text eol=lf
+*.sh text eol=lf
+*.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

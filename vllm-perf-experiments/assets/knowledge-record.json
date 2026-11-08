@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": null,
+  "kind": "case",
+  "title": null,
+  "summary": null,
+  "status": "unresolved",
+  "created_at": null,
+  "updated_at": null,
+  "observed_at": null,
+  "tags": [],
+  "applies_to": {
+    "models": [],
+    "hardware": [],
+    "software_versions": {},
+    "workload_modes": []
+  },
+  "body": {
+    "task": null,
+    "observations": [],
+    "attempts": [],
+    "confirmed_findings": [],
+    "hypotheses": [],
+    "limitations": [],
+    "next_step": null
+  },
+  "evidence": [],
+  "related_ids": [],
+  "supersedes": []
+}

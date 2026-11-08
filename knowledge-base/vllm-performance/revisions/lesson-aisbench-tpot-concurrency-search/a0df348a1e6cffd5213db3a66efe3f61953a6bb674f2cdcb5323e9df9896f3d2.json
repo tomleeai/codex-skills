@@ -1,0 +1,85 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend"
+    ],
+    "models": [
+      "DeepSeek-V4-Pro"
+    ],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "finite_batch"
+    ]
+  },
+  "body": {
+    "do_not_use_when": [
+      "缓存构建或其他固定条件已经改变，却仍试图连成同一条曲线时。"
+    ],
+    "limitations": [
+      "并发数字、倍率、接近阈值和容差不是跨模型默认值。",
+      "离散最高TPS不是全局最优或稳定SLO保证。"
+    ],
+    "method": [
+      "已有同case结果优先；长输入、低TPOT从较低并发起步。",
+      "以TPS收益和TPOT边界共同决定下一点，插值只作有界选点启发。",
+      "多个目标共享负载组，不重复派发相同协议点。",
+      "严格达标与允许偏差候选分别报告，平均与P90目标分开判断。"
+    ],
+    "observed_sequences": {
+      "long_no_prefix": [
+        8,
+        4,
+        2,
+        1,
+        7
+      ],
+      "longer_no_prefix": [
+        2,
+        1
+      ],
+      "short_no_prefix": [
+        20,
+        24,
+        48,
+        68,
+        84,
+        104,
+        128,
+        18,
+        19
+      ]
+    },
+    "use_when": [
+      "固定服务与负载的离散并发摸测。"
+    ]
+  },
+  "created_at": "2026-11-08",
+  "evidence": [
+    {
+      "ref": "case:case-deepseek-v4-pro-aisbench-20261106",
+      "role": "Locally scoped evidence and protocol decisions",
+      "sha256": "4a1a7fc7d69ab09871a4240f15cc4c7f83a885a2c0229b15bcd844ce41e040f8"
+    }
+  ],
+  "id": "lesson-aisbench-tpot-concurrency-search",
+  "kind": "lesson",
+  "observed_at": "2026-11-06",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "初始并发参考同case证据；离目标远时粗增，接近时缩步，超标回退并补边界。相同负载多个TPOT目标共用点，最终按最高合格TPS选择。",
+  "supersedes": [],
+  "tags": [
+    "AISBench",
+    "TPOT",
+    "并发",
+    "concurrency",
+    "初始并发",
+    "边界",
+    "吞吐"
+  ],
+  "title": "TPOT约束下自适应并发：粗扫、缩步、回退和复用",
+  "updated_at": "2026-11-08"
+}

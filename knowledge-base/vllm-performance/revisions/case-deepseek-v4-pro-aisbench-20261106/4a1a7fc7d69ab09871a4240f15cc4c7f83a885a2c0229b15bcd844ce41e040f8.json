@@ -1,0 +1,201 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend"
+    ],
+    "models": [
+      "DeepSeek-V4-Pro"
+    ],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "finite_batch"
+    ]
+  },
+  "body": {
+    "attempts": [
+      {
+        "action": "逐点完整预热及赢家复测的早期调度",
+        "outcome": "用户修订为整场开始固定配置2–3次检查，此后每个新点正式一次；停止额外派发并保留证据。"
+      },
+      {
+        "action": "根据已测TPOT与TPS调整下一并发，多个TPOT目标共享负载组",
+        "outcome": "短输入粗增并缩步；长输入超标时减半，边界只补有价值的未测点。"
+      },
+      {
+        "action": "将前缀准备请求总数视作多DP覆盖",
+        "outcome": "发现覆盖不全，改为已核实版本支持的定向构建及逐rank成功计数；原入口不改。"
+      },
+      {
+        "action": "恢复前扫描指定日志并核对明细",
+        "outcome": "复用已有有效结果，仅补缺失点，不因聊天暂停重复全套实验。"
+      }
+    ],
+    "completion": "case摸测已交付；partial表示存在未验收条件，不表示全部目标均失败。",
+    "confirmed_findings": [
+      "名义50%修复后实际命中约49.97%。",
+      "名义90%实际命中约87.44%，不能作为严格90%命中验收。",
+      "4k+2k并发128的TPOT为51.0ms、TPS2242.2921；比严格50ms最优点吞吐更高但超目标。"
+    ],
+    "hypotheses": [],
+    "limitations": [
+      "4k+2k的20ms选中行来自已有日志，其历史服务端缓存窗口不能重建。",
+      "同并发20另一次正式TPOT为20.9ms；最佳一次不能证明稳定SLO。",
+      "稳定性资料混有预热与正式观察，不能写成统一协议的正式多轮统计。",
+      "平均TPOT达标不等于P90达标；软件精确版本未从当前复盘证据重新核实。",
+      "原CSV使用rr、E2E_time和single_*兼容映射，需要另行说明配置率、整轮时长与单卡含义。"
+    ],
+    "next_step": "新任务检索经验后核对当前版本、负载、缓存协议和用户目标；不将本次并发作为固定推荐。",
+    "objective": "给定输入输出、名义缓存比例和平均TPOT目标下的最高实测输出TPS，服务参数保持原状。",
+    "observations": {
+      "final_health_http_status": 200,
+      "new_formal_records": 25,
+      "original_scripts_hashes_match": true,
+      "retained_records": 26,
+      "reused_log_observations": 1,
+      "selected_results": [
+        {
+          "TPOT_SLO_P90_raw_ms": 25.8,
+          "TPOT_mean_ms": 19.4,
+          "TPOT_target_ms": 20,
+          "TTFT_mean_ms": 1678.7,
+          "actual_prefix_hit_ratio": null,
+          "concurrency": 20,
+          "input_len": 4096,
+          "nominal_prefix_ratio": 0,
+          "output_len": 2048,
+          "output_tps": 905.8772,
+          "requests": 80
+        },
+        {
+          "TPOT_SLO_P90_raw_ms": 68.1,
+          "TPOT_mean_ms": 49.6,
+          "TPOT_target_ms": 50,
+          "TTFT_mean_ms": 4533.6,
+          "actual_prefix_hit_ratio": 0.0,
+          "concurrency": 104,
+          "input_len": 4096,
+          "nominal_prefix_ratio": 0,
+          "output_len": 2048,
+          "output_tps": 1828.4599,
+          "requests": 416
+        },
+        {
+          "TPOT_SLO_P90_raw_ms": 11.9,
+          "TPOT_mean_ms": 11.2,
+          "TPOT_target_ms": 20,
+          "TTFT_mean_ms": 16215.9,
+          "actual_prefix_hit_ratio": 0.0,
+          "concurrency": 1,
+          "input_len": 65536,
+          "nominal_prefix_ratio": 0,
+          "output_len": 1024,
+          "output_tps": 36.9896,
+          "requests": 4
+        },
+        {
+          "TPOT_SLO_P90_raw_ms": 61.7,
+          "TPOT_mean_ms": 45.7,
+          "TPOT_target_ms": 50,
+          "TTFT_mean_ms": 19078.9,
+          "actual_prefix_hit_ratio": 0.0,
+          "concurrency": 7,
+          "input_len": 65536,
+          "nominal_prefix_ratio": 0,
+          "output_len": 1024,
+          "output_tps": 105.8389,
+          "requests": 28
+        },
+        {
+          "TPOT_SLO_P90_raw_ms": 13.3,
+          "TPOT_mean_ms": 12.4,
+          "TPOT_target_ms": 20,
+          "TTFT_mean_ms": 32300.7,
+          "actual_prefix_hit_ratio": 0.0,
+          "concurrency": 1,
+          "input_len": 131072,
+          "nominal_prefix_ratio": 0,
+          "output_len": 1024,
+          "output_tps": 22.7768,
+          "requests": 4
+        },
+        {
+          "TPOT_SLO_P90_raw_ms": 52.9,
+          "TPOT_mean_ms": 37.5,
+          "TPOT_target_ms": 50,
+          "TTFT_mean_ms": 17527.2,
+          "actual_prefix_hit_ratio": 0.4996831042629863,
+          "concurrency": 4,
+          "input_len": 131072,
+          "nominal_prefix_ratio": 0.5,
+          "output_len": 1024,
+          "output_tps": 71.4015,
+          "requests": 16
+        },
+        {
+          "TPOT_SLO_P90_raw_ms": 64.7,
+          "TPOT_mean_ms": 48.5,
+          "TPOT_target_ms": 50,
+          "TTFT_mean_ms": 7027.3,
+          "actual_prefix_hit_ratio": 0.8744456176619559,
+          "concurrency": 18,
+          "input_len": 131072,
+          "nominal_prefix_ratio": 0.9,
+          "output_len": 1024,
+          "output_tps": 316.6665,
+          "requests": 72
+        }
+      ]
+    }
+  },
+  "created_at": "2026-11-08",
+  "evidence": [
+    {
+      "ref": "skill://vllm-perf-experiments/references/case-deepseek-v4-pro-20261106.md",
+      "role": "Detailed sanitized retrospective; factual and protocol boundaries",
+      "sha256": "8d108436a754c30a9d07118096fe5dc99522c2e2fe61be37c89bf0fc4807d364"
+    },
+    {
+      "ref": "artifact:case_summary.json",
+      "role": "Original project metric evidence; locate by logical name and hash",
+      "sha256": "4b7e90778c5e58bfb971e53fb8e26acb08064628a8b1eab4ae17f1b8340f09b7"
+    },
+    {
+      "ref": "artifact:selected_raw_results.json",
+      "role": "Original project metric evidence; locate by logical name and hash",
+      "sha256": "6b3efa128bcd7a3ea790326f36cf3d63863bec373c67d68d1cbddf0b18ffb305"
+    },
+    {
+      "ref": "artifact:all_trials.json",
+      "role": "Original project metric evidence; locate by logical name and hash",
+      "sha256": "e24b41fdc84b4ca775122dae126544560f3be5f22d4a40d1190c4996fbaaae29"
+    },
+    {
+      "ref": "artifact:stability_check.json",
+      "role": "Original project metric evidence; locate by logical name and hash",
+      "sha256": "3492834c940e137dd40d39d90528cce74d97584ab745e74c135284fec9fde8bf"
+    }
+  ],
+  "id": "case-deepseek-v4-pro-aisbench-20261106",
+  "kind": "case",
+  "observed_at": "2026-11-06",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "稳定服务上完成7个目标行；修订整场预热，按TPOT调整并发，复用历史日志，修复前缀覆盖，并按17列模板交付CSV。部分缓存与稳定SLO证据仍有限。",
+  "supersedes": [],
+  "tags": [
+    "DeepSeek-V4-Pro",
+    "AISBench",
+    "TPOT",
+    "并发",
+    "预热",
+    "prefix",
+    "DP",
+    "断点",
+    "CSV"
+  ],
+  "title": "DeepSeek-V4-Pro AISBench case摸测与TPOT并发选点",
+  "updated_at": "2026-11-08"
+}

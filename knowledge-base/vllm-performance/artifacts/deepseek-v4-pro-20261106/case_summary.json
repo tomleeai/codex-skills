@@ -1,0 +1,219 @@
+[
+  {
+    "input_len": 4096,
+    "output_len": 2048,
+    "TPOT_target_ms": 20,
+    "nominal_prefix_ratio": 0,
+    "strict_selected": {
+      "run_id": "20261106_114538-existing-aiv-4k+2k-concurrency_20-measure",
+      "concurrency": 20,
+      "data_num": 80,
+      "TTFT_avg_ms": 1678.7,
+      "TPOT_avg_ms": 19.4,
+      "output_throughput": 905.8772,
+      "actual_prefix_hit_rate": null,
+      "targeted_prefix": false,
+      "source": "preexisting_log",
+      "validation_scope": "Client request details; historical server counter window unavailable."
+    },
+    "within_5pct_candidate": {
+      "run_id": "20261106_114538-existing-aiv-4k+2k-concurrency_20-measure",
+      "concurrency": 20,
+      "data_num": 80,
+      "TTFT_avg_ms": 1678.7,
+      "TPOT_avg_ms": 19.4,
+      "output_throughput": 905.8772,
+      "actual_prefix_hit_rate": null,
+      "targeted_prefix": false,
+      "source": "preexisting_log",
+      "validation_scope": "Client request details; historical server counter window unavailable."
+    },
+    "actual_prefix_note": null
+  },
+  {
+    "input_len": 4096,
+    "output_len": 2048,
+    "TPOT_target_ms": 50,
+    "nominal_prefix_ratio": 0,
+    "strict_selected": {
+      "run_id": "20261106_130820-aiv-4k+2k-concurrency_104-measure",
+      "concurrency": 104,
+      "data_num": 416,
+      "TTFT_avg_ms": 4533.6,
+      "TPOT_avg_ms": 49.6,
+      "output_throughput": 1828.4599,
+      "actual_prefix_hit_rate": 0.0,
+      "targeted_prefix": false,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "within_5pct_candidate": {
+      "run_id": "20261106_131645-aiv-4k+2k-concurrency_128-measure",
+      "concurrency": 128,
+      "data_num": 512,
+      "TTFT_avg_ms": 6739.3,
+      "TPOT_avg_ms": 51.0,
+      "output_throughput": 2242.2921,
+      "actual_prefix_hit_rate": 0.0,
+      "targeted_prefix": false,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "actual_prefix_note": null
+  },
+  {
+    "input_len": 65536,
+    "output_len": 1024,
+    "TPOT_target_ms": 20,
+    "nominal_prefix_ratio": 0,
+    "strict_selected": {
+      "run_id": "20261106_134519-aiv-64k+1k-concurrency_1-measure",
+      "concurrency": 1,
+      "data_num": 4,
+      "TTFT_avg_ms": 16215.9,
+      "TPOT_avg_ms": 11.2,
+      "output_throughput": 36.9896,
+      "actual_prefix_hit_rate": 0.0,
+      "targeted_prefix": false,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "within_5pct_candidate": {
+      "run_id": "20261106_134519-aiv-64k+1k-concurrency_1-measure",
+      "concurrency": 1,
+      "data_num": 4,
+      "TTFT_avg_ms": 16215.9,
+      "TPOT_avg_ms": 11.2,
+      "output_throughput": 36.9896,
+      "actual_prefix_hit_rate": 0.0,
+      "targeted_prefix": false,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "actual_prefix_note": null
+  },
+  {
+    "input_len": 65536,
+    "output_len": 1024,
+    "TPOT_target_ms": 50,
+    "nominal_prefix_ratio": 0,
+    "strict_selected": {
+      "run_id": "20261106_134745-aiv-64k+1k-concurrency_7-measure",
+      "concurrency": 7,
+      "data_num": 28,
+      "TTFT_avg_ms": 19078.9,
+      "TPOT_avg_ms": 45.7,
+      "output_throughput": 105.8389,
+      "actual_prefix_hit_rate": 0.0,
+      "targeted_prefix": false,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "within_5pct_candidate": {
+      "run_id": "20261106_134745-aiv-64k+1k-concurrency_7-measure",
+      "concurrency": 7,
+      "data_num": 28,
+      "TTFT_avg_ms": 19078.9,
+      "TPOT_avg_ms": 45.7,
+      "output_throughput": 105.8389,
+      "actual_prefix_hit_rate": 0.0,
+      "targeted_prefix": false,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "actual_prefix_note": null
+  },
+  {
+    "input_len": 131072,
+    "output_len": 1024,
+    "TPOT_target_ms": 20,
+    "nominal_prefix_ratio": 0,
+    "strict_selected": {
+      "run_id": "20261106_135722-aiv-128k+1k-concurrency_1-measure",
+      "concurrency": 1,
+      "data_num": 4,
+      "TTFT_avg_ms": 32300.7,
+      "TPOT_avg_ms": 12.4,
+      "output_throughput": 22.7768,
+      "actual_prefix_hit_rate": 0.0,
+      "targeted_prefix": false,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "within_5pct_candidate": {
+      "run_id": "20261106_135722-aiv-128k+1k-concurrency_1-measure",
+      "concurrency": 1,
+      "data_num": 4,
+      "TTFT_avg_ms": 32300.7,
+      "TPOT_avg_ms": 12.4,
+      "output_throughput": 22.7768,
+      "actual_prefix_hit_rate": 0.0,
+      "targeted_prefix": false,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "actual_prefix_note": null
+  },
+  {
+    "input_len": 131072,
+    "output_len": 1024,
+    "TPOT_target_ms": 50,
+    "nominal_prefix_ratio": 0.5,
+    "strict_selected": {
+      "run_id": "20261106_153916-aiv-128k+1k-prefix_0.5-concurrency_4-measure",
+      "concurrency": 4,
+      "data_num": 16,
+      "TTFT_avg_ms": 17527.2,
+      "TPOT_avg_ms": 37.5,
+      "output_throughput": 71.4015,
+      "actual_prefix_hit_rate": 0.4996831042629863,
+      "targeted_prefix": true,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "within_5pct_candidate": {
+      "run_id": "20261106_153916-aiv-128k+1k-prefix_0.5-concurrency_4-measure",
+      "concurrency": 4,
+      "data_num": 16,
+      "TTFT_avg_ms": 17527.2,
+      "TPOT_avg_ms": 37.5,
+      "output_throughput": 71.4015,
+      "actual_prefix_hit_rate": 0.4996831042629863,
+      "targeted_prefix": true,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "actual_prefix_note": null
+  },
+  {
+    "input_len": 131072,
+    "output_len": 1024,
+    "TPOT_target_ms": 50,
+    "nominal_prefix_ratio": 0.9,
+    "strict_selected": {
+      "run_id": "20261106_143416-aiv-128k+1k-prefix_0.9-concurrency_18-measure",
+      "concurrency": 18,
+      "data_num": 72,
+      "TTFT_avg_ms": 7027.3,
+      "TPOT_avg_ms": 48.5,
+      "output_throughput": 316.6665,
+      "actual_prefix_hit_rate": 0.8744456176619559,
+      "targeted_prefix": true,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "within_5pct_candidate": {
+      "run_id": "20261106_143416-aiv-128k+1k-prefix_0.9-concurrency_18-measure",
+      "concurrency": 18,
+      "data_num": 72,
+      "TTFT_avg_ms": 7027.3,
+      "TPOT_avg_ms": 48.5,
+      "output_throughput": 316.6665,
+      "actual_prefix_hit_rate": 0.8744456176619559,
+      "targeted_prefix": true,
+      "source": "structured_measurement",
+      "validation_scope": "Client details and server counter window"
+    },
+    "actual_prefix_note": "Nominal 90%; observed 87.4446% during the formal window."
+  }
+]

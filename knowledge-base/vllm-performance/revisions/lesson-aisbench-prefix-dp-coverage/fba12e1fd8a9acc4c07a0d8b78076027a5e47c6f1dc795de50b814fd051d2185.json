@@ -1,0 +1,61 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend"
+    ],
+    "models": [
+      "DeepSeek-V4-Pro"
+    ],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "finite_batch"
+    ]
+  },
+  "body": {
+    "confirmed": "本次修复前置覆盖后名义50%实际约49.97%；名义90%实际约87.44%。",
+    "do_not_use_when": [
+      "要求冷缓存的实验。",
+      "将当时的定向header未经查证用于其他版本。"
+    ],
+    "limitations": [
+      "覆盖完整后的驱逐、抢占及运行命中下降是实验结果，不能自动判无效。"
+    ],
+    "method": [
+      "核对当前版本路由能力。",
+      "验证每个相关rank的前置请求成功计数，等待计数稳定后取正式基线。",
+      "名义比例、真实token边界、前置覆盖与运行命中分别记录。"
+    ],
+    "use_when": [
+      "多DP服务，且实验要求正式计时前各相关rank具有指定前缀缓存。"
+    ]
+  },
+  "created_at": "2026-11-08",
+  "evidence": [
+    {
+      "ref": "case:case-deepseek-v4-pro-aisbench-20261106",
+      "role": "Locally scoped evidence and protocol decisions",
+      "sha256": "4a1a7fc7d69ab09871a4240f15cc4c7f83a885a2c0229b15bcd844ce41e040f8"
+    }
+  ],
+  "id": "lesson-aisbench-prefix-dp-coverage",
+  "kind": "lesson",
+  "observed_at": "2026-11-06",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "发送与DP数量相同的前缀请求不证明所有rank被覆盖。定向能力先核对安装版本，再按rank核验成功增量，前置计数与正式窗口隔离。",
+  "supersedes": [],
+  "tags": [
+    "AISBench",
+    "prefix",
+    "前缀缓存",
+    "DP",
+    "覆盖",
+    "命中率",
+    "路由"
+  ],
+  "title": "前缀缓存：逐DP核查覆盖，区分名义比例与运行命中",
+  "updated_at": "2026-11-08"
+}
