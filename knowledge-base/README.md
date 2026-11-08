@@ -3,6 +3,8 @@
 这里保存可跨机器、跨相关技能复用的脱敏经验。共享来源为本仓库，各机器通过Git获取工作副本并回传经审阅的更新。
 
 - `vllm-performance/`：vLLM/AISBench性能案例、经验、索引和修订历史。
+- [基线驱动、跨模型与跨 case 自动寻优扩展方案（候选设计）](vllm-performance/artifacts/autotune-extension-design-20261108/README.md)
+- [DeepSeek-V4-Pro 寻优上下文与历史证据采集（2026-11-08）](vllm-performance/artifacts/deepseek-v4-pro-autotune-context-20261108/README.md)
 - [DeepSeek-V4-Pro完整结果与CSV](vllm-performance/artifacts/deepseek-v4-pro-20261106/README.md)
 - [最终7行、17列CSV](vllm-performance/artifacts/deepseek-v4-pro-20261106/benchmark_summary.csv)
 - [使用、归档与同步流程](../vllm-perf-experiments/references/knowledge-base.md)

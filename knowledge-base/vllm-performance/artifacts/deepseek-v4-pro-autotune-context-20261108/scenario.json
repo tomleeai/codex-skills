@@ -1,0 +1,347 @@
+{
+  "extension_version": 1,
+  "role": "scenario_collection",
+  "observed_at": "2026-11-08",
+  "historical_test_date": "2026-11-06",
+  "historical_reference": {
+    "case_id": "case-deepseek-v4-pro-aisbench-20261106",
+    "case_revision": "9f8f36d34509974312899ae1221ef3f335ba4cce09200b104f866bbc6d241cd9",
+    "source": "artifact:deepseek-v4-pro-20261106/all_trials.json",
+    "formal_observations": 26,
+    "new_formal_records": 25,
+    "reused_log_observations": 1,
+    "software_versions_from_saved_environment": {
+      "vllm": "0.30.0+empty",
+      "vllm-ascend": "0.30.1.dev12+gcb629ea19.d20261102",
+      "ais-bench-benchmark": "3.1.20260630"
+    }
+  },
+  "current_nodes": [
+    {
+      "node_role": "node-a",
+      "observed_at_utc": "2026-11-08T03:44:16.332824+00:00",
+      "container_state": "running",
+      "container_started_at_utc": "2026-11-08T03:24:39.14086684Z",
+      "image_content_id": "sha256:ea570b0b6072bdaf0c41a2784032aee347bdcc5b3103fbbb56b889e3a4b668af",
+      "python_version": "3.11.10",
+      "packages": {
+        "vllm": "0.30.0+empty",
+        "vllm-ascend": "0.30.1.dev12+gcb629ea19.d20261102",
+        "torch": "2.10.0",
+        "torch-npu": "2.10.0.post7",
+        "transformers": "5.14.1",
+        "tokenizers": "0.22.2",
+        "ais-bench": null,
+        "ais-bench-benchmark": "3.1.20260630",
+        "numpy": "1.26.4",
+        "safetensors": "0.8.0"
+      },
+      "runtime_versions": {
+        "CANN": "9.2.0",
+        "driver": "25.6.rc3"
+      },
+      "hardware": {
+        "device_count": 8,
+        "devices": [
+          {
+            "logical_device": 0,
+            "device_model": "Ascend950DT",
+            "health": "Warning"
+          },
+          {
+            "logical_device": 1,
+            "device_model": "Ascend950DT",
+            "health": "Warning"
+          },
+          {
+            "logical_device": 2,
+            "device_model": "Ascend950DT",
+            "health": "Warning"
+          },
+          {
+            "logical_device": 3,
+            "device_model": "Ascend950DT",
+            "health": "OK"
+          },
+          {
+            "logical_device": 4,
+            "device_model": "Ascend950DT",
+            "health": "OK"
+          },
+          {
+            "logical_device": 5,
+            "device_model": "Ascend950DT",
+            "health": "Warning"
+          },
+          {
+            "logical_device": 6,
+            "device_model": "Ascend950DT",
+            "health": "Warning"
+          },
+          {
+            "logical_device": 7,
+            "device_model": "Ascend950DT",
+            "health": "Alarm"
+          }
+        ],
+        "hbm_capacity_mb_per_device": 98304,
+        "architecture": "aarch64",
+        "logical_cpu_count": 384,
+        "numa_nodes": 4
+      },
+      "target_service_process_count": 0,
+      "process_scope": "No matching target vLLM CLI/engine in container proc snapshot; no inference or health HTTP request performed."
+    },
+    {
+      "node_role": "node-b",
+      "observed_at_utc": "2026-11-08T03:43:54.005119+00:00",
+      "container_state": "running",
+      "container_started_at_utc": "2026-11-08T03:24:00.36837075Z",
+      "image_content_id": "sha256:5ae2e768c6877c0800465c85bac8b954b9813f9448c33066c727deb834107ccb",
+      "python_version": "3.11.10",
+      "packages": {
+        "vllm": "0.30.0+empty",
+        "vllm-ascend": "0.30.1.dev12+gcb629ea19.d20261102",
+        "torch": "2.10.0",
+        "torch-npu": "2.10.0.post7",
+        "transformers": "5.14.1",
+        "tokenizers": "0.22.2",
+        "ais-bench": null,
+        "ais-bench-benchmark": "3.1.20260630",
+        "numpy": "1.26.4",
+        "safetensors": "0.8.0"
+      },
+      "runtime_versions": {
+        "CANN": "9.2.0",
+        "driver": "25.6.rc3"
+      },
+      "hardware": {
+        "device_count": 8,
+        "devices": [
+          {
+            "logical_device": 0,
+            "device_model": "Ascend950DT",
+            "health": "OK"
+          },
+          {
+            "logical_device": 1,
+            "device_model": "Ascend950DT",
+            "health": "OK"
+          },
+          {
+            "logical_device": 2,
+            "device_model": "Ascend950DT",
+            "health": "OK"
+          },
+          {
+            "logical_device": 3,
+            "device_model": "Ascend950DT",
+            "health": "OK"
+          },
+          {
+            "logical_device": 4,
+            "device_model": "Ascend950DT",
+            "health": "Critical"
+          },
+          {
+            "logical_device": 5,
+            "device_model": "Ascend950DT",
+            "health": "OK"
+          },
+          {
+            "logical_device": 6,
+            "device_model": "Ascend950DT",
+            "health": "OK"
+          },
+          {
+            "logical_device": 7,
+            "device_model": "Ascend950DT",
+            "health": "OK"
+          }
+        ],
+        "hbm_capacity_mb_per_device": 98304,
+        "architecture": "aarch64",
+        "logical_cpu_count": 384,
+        "numa_nodes": 4
+      },
+      "target_service_process_count": 0,
+      "process_scope": "No matching target vLLM CLI/engine in container proc snapshot; no inference or health HTTP request performed."
+    }
+  ],
+  "model_attributes": {
+    "model": "DeepSeek-V4-Pro",
+    "checkpoint_label": "DeepSeek-V4-Pro-0813",
+    "architecture": "DeepseekV4ForCausalLM",
+    "model_type": "deepseek_v4",
+    "num_hidden_layers": 61,
+    "hidden_size": 7168,
+    "routed_experts": 384,
+    "shared_experts": 1,
+    "activated_experts_per_token": 6,
+    "expert_dtype": "fp4",
+    "weight_quantization": {
+      "activation_scheme": "dynamic",
+      "fmt": "e4m3",
+      "quant_method": "fp8",
+      "scale_fmt": "ue8m0",
+      "weight_block_size": [
+        128,
+        128
+      ]
+    },
+    "model_torch_dtype": "bfloat16",
+    "model_max_position_embeddings": 1048576,
+    "config_sha256": "9dd2a89255469e120b333668ef5a169b7ae46c00f6bbab786bf0be457546aec0",
+    "tokenizer_config_sha256": "21aa165d554e2c2f252a49730b71962edc15c36bbfa4b090ab7bd3340a2fa549",
+    "tokenizer_data_sha256": "8421075aceec0741baf15179b6c337f443f9029e53ea88d8c1e909dd0d69b70b",
+    "weight_index_sha256": "b70d3f58fe7376ab53ad4103f31c2c6f88fb803725cb49fc379232f259b5720a",
+    "weight_index_total_size_bytes": 892727580904,
+    "tensor_count": 149782,
+    "weight_shards": 66,
+    "whole_checkpoint_content_hash": null,
+    "historical_checkpoint_identity_verified": false,
+    "scope": "Current metadata and tokenizer hashes agree across both nodes; weight shard contents not read or hashed and historical weight immutability not established."
+  },
+  "workload_groups": [
+    {
+      "nominal_input_tokens": 4096,
+      "nominal_output_tokens": 2048,
+      "nominal_prefix_ratio": 0,
+      "client_concurrency_values": [
+        18,
+        19,
+        20,
+        24,
+        48,
+        68,
+        84,
+        104,
+        128
+      ],
+      "run_ids": [
+        "20261106_120811-aiv-4k+2k-concurrency_20-measure",
+        "20261106_121601-aiv-4k+2k-concurrency_24-measure",
+        "20261106_122617-aiv-4k+2k-concurrency_48-measure",
+        "20261106_123859-aiv-4k+2k-concurrency_68-measure",
+        "20261106_125316-aiv-4k+2k-concurrency_84-measure",
+        "20261106_130820-aiv-4k+2k-concurrency_104-measure",
+        "20261106_131645-aiv-4k+2k-concurrency_128-measure",
+        "20261106_132517-aiv-4k+2k-concurrency_18-measure",
+        "20261106_132855-aiv-4k+2k-concurrency_19-measure",
+        "20261106_114538-existing-aiv-4k+2k-concurrency_20-measure"
+      ]
+    },
+    {
+      "nominal_input_tokens": 65536,
+      "nominal_output_tokens": 1024,
+      "nominal_prefix_ratio": 0.0,
+      "client_concurrency_values": [
+        1,
+        2,
+        4,
+        7,
+        8
+      ],
+      "run_ids": [
+        "20261106_133243-aiv-64k+1k-concurrency_8-measure",
+        "20261106_133832-aiv-64k+1k-concurrency_4-measure",
+        "20261106_134205-aiv-64k+1k-concurrency_2-measure",
+        "20261106_134519-aiv-64k+1k-concurrency_1-measure",
+        "20261106_134745-aiv-64k+1k-concurrency_7-measure"
+      ]
+    },
+    {
+      "nominal_input_tokens": 131072,
+      "nominal_output_tokens": 1024,
+      "nominal_prefix_ratio": 0.0,
+      "client_concurrency_values": [
+        1,
+        2
+      ],
+      "run_ids": [
+        "20261106_135255-aiv-128k+1k-concurrency_2-measure",
+        "20261106_135722-aiv-128k+1k-concurrency_1-measure"
+      ]
+    },
+    {
+      "nominal_input_tokens": 131072,
+      "nominal_output_tokens": 1024,
+      "nominal_prefix_ratio": 0.5,
+      "client_concurrency_values": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "run_ids": [
+        "20261106_140057-aiv-128k+1k-prefix_0.5-concurrency_6-measure",
+        "20261106_140716-aiv-128k+1k-prefix_0.5-concurrency_8-measure",
+        "20261106_141353-aiv-128k+1k-prefix_0.5-concurrency_5-measure",
+        "20261106_150713-aiv-128k+1k-prefix_0.5-concurrency_7-measure",
+        "20261106_153916-aiv-128k+1k-prefix_0.5-concurrency_4-measure"
+      ]
+    },
+    {
+      "nominal_input_tokens": 131072,
+      "nominal_output_tokens": 1024,
+      "nominal_prefix_ratio": 0.9,
+      "client_concurrency_values": [
+        12,
+        16,
+        18,
+        20
+      ],
+      "run_ids": [
+        "20261106_141909-aiv-128k+1k-prefix_0.9-concurrency_12-measure",
+        "20261106_142336-aiv-128k+1k-prefix_0.9-concurrency_16-measure",
+        "20261106_142839-aiv-128k+1k-prefix_0.9-concurrency_20-measure",
+        "20261106_143416-aiv-128k+1k-prefix_0.9-concurrency_18-measure"
+      ]
+    }
+  ],
+  "protocol": {
+    "measurement_mode": "finite_batch",
+    "request_rate_setting": 0,
+    "requests_per_batch_rule": "4 * client concurrency",
+    "formal_repeats_per_new_configuration": 1,
+    "warmup_and_canceled_rounds_separate": true,
+    "strict_tpot_targets_mean_ms": [
+      20,
+      50
+    ],
+    "relaxed_candidate_tolerance_fraction": 0.05,
+    "runtime_prefix_hit_role": "outcome_after_valid_initial_coverage",
+    "per_round_dataset_hashes": "round-manifest.json",
+    "historical_generation_options": "Not inferred from changed current benchmark sources. Exact settings require archived request/config evidence."
+  },
+  "baseline_state": {
+    "historical_configuration_bound": true,
+    "historical_performance_reference_available": true,
+    "current_target_baseline_validated": false,
+    "performance_experiment_run_this_collection": false,
+    "correctness_quality_gate_validated": false,
+    "stability_gate_validated": false,
+    "peak_memory_margin_validated": false,
+    "bottleneck_confirmed": false,
+    "blocking_observations": [
+      "Target service not observed running in either container snapshot.",
+      "Non-OK device health observed on both nodes."
+    ]
+  },
+  "gaps": [
+    "No new baseline or full correctness/quality validation.",
+    "No new stability, latency-tail acceptance or peak-memory experiment.",
+    "No controlled effect measurements for startup parameter combinations.",
+    "No speculative acceptance counters in saved selected metrics.",
+    "No exact installed-source tree proof from repository commit alone.",
+    "Historical checkpoint shard identity and some generation settings remain unverified."
+  ],
+  "collection_scope": {
+    "remote_mutations": false,
+    "service_lifecycle_actions": false,
+    "inference_requests": false,
+    "new_benchmarks": false,
+    "old_chats_read": false
+  }
+}

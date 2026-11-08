@@ -1,0 +1,24 @@
+{
+  "source_snapshot": {
+    "source_file": "20261106_130040-aiv-4k+2k-concurrency_104-warmup.json",
+    "original_source_sha256": "a4c15112d4e802e6996a7acffc2b52bee6df22eccccc8c15befacdcc6dbbe06d",
+    "normalization": "Private paths replaced by logical references; raw_log key renamed measurement_log_ref. All finite metric values retained."
+  },
+  "record": {
+    "state": "aborted_by_user_protocol_change",
+    "run_id": "20261106_130040-aiv-4k+2k-concurrency_104-warmup",
+    "phase": "warmup",
+    "pid": 2932343,
+    "cc": 104,
+    "ratio": 0.0,
+    "input_len": 4096,
+    "output_len": 2048,
+    "log": "<LOCAL_ARTIFACT>",
+    "started": 1793941240.9614189,
+    "child_pid": 2932458,
+    "valid": false,
+    "result": null,
+    "reason": "User canceled per-point warmup and repeated measurements; incomplete warmup excluded",
+    "ended": 1793941561.8132558
+  }
+}

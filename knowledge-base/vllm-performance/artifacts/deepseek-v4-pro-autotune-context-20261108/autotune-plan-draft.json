@@ -1,0 +1,45 @@
+{
+  "extension_version": 1,
+  "enabled": false,
+  "intent": "design_only",
+  "execution_authorized": false,
+  "target_case": "case-deepseek-v4-pro-autotune-context-20261108",
+  "baseline_state": "historical_reference_available_current_baseline_unvalidated",
+  "baseline_ref": "scenario.json",
+  "search_space": {
+    "parameter_names": [
+      "max_num_batched_tokens",
+      "max_num_seqs",
+      "enable_chunked_prefill",
+      "enable_prefix_caching",
+      "speculative_config",
+      "compilation_config",
+      "additional_config"
+    ],
+    "candidate_values": null,
+    "pinned_values": null,
+    "scope": "Allowed values, pinned choices and any fixed-resource topology search need a target plan; no executable candidates are produced."
+  },
+  "constraints": {
+    "correctness": null,
+    "stability": null,
+    "memory_margin": null,
+    "latency_per_case": null,
+    "primary_objective": null
+  },
+  "budget": {
+    "max_trials": null,
+    "time_seconds": null,
+    "resource_budget": null,
+    "confirmation_reserve": null,
+    "restore_reserve": null
+  },
+  "restore_target": null,
+  "candidate_stage": "not_generated",
+  "required_before_execution": [
+    "Resolve device-health eligibility and resource ownership.",
+    "Establish current target baseline and effective configuration.",
+    "Declare gates, search ranges, pinned values, budget and restore target.",
+    "Use existing validated/approved execution workflow within current authorization."
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend"
+    ],
+    "models": [
+      "DeepSeek-V4-Pro"
+    ],
+    "software_versions": {
+      "ais-bench-benchmark": "3.1.20260630",
+      "vllm": "0.30.0+empty",
+      "vllm-ascend": "0.30.1.dev12+gcb629ea19.d20261102"
+    },
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "statistical_comparison"
+    ]
+  },
+  "body": {
+    "confirmed_findings": [
+      "两份AIV脚本哈希与历史结果绑定一致。",
+      "7份共享性能结果与原知识库文件逐字节一致。",
+      "从当时保存的environment恢复vLLM/vLLM-Ascend/AISBench版本，未用当前版本代填。",
+      "当前benchmark入口与config哈希已变化，不能作为原负载配置。",
+      "两台容器快照均未发现目标vLLM服务；两台设备均存在非OK状态。"
+    ],
+    "limitations": [
+      "No new baseline or full correctness/quality validation.",
+      "No new stability, latency-tail acceptance or peak-memory experiment.",
+      "No controlled effect measurements for startup parameter combinations.",
+      "No speculative acceptance counters in saved selected metrics.",
+      "No exact installed-source tree proof from repository commit alone.",
+      "Historical checkpoint shard identity and some generation settings remain unverified."
+    ],
+    "next_step": "按新任务声明目标、门槛、预算和恢复目标，先核实资源/健康并建立当前基线；此记录不授权实验。",
+    "optimization": {
+      "automatic_optimization_enabled": false,
+      "baseline_qualified": false,
+      "collection_completed": true,
+      "extension_version": 1,
+      "historical_source_case": "case-deepseek-v4-pro-aisbench-20261106",
+      "historical_source_revision": "9f8f36d34509974312899ae1221ef3f335ba4cce09200b104f866bbc6d241cd9",
+      "new_experiments": 0,
+      "role": "scenario_collection",
+      "scenario_ref": "artifact:deepseek-v4-pro-autotune-context-20261108/scenario.json",
+      "startup_parameter_gain_verified": false
+    }
+  },
+  "created_at": "2026-11-08",
+  "evidence": [
+    {
+      "ref": "case:case-deepseek-v4-pro-aisbench-20261106",
+      "role": "Existing historical reference retained unchanged.",
+      "sha256": "9f8f36d34509974312899ae1221ef3f335ba4cce09200b104f866bbc6d241cd9"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/autotune-plan-draft.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "89cd597edeb690415626516a3c8a03df2393c6783b4748b80e2eacfd54cbf55c"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/config.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "9dd2a89255469e120b333668ef5a169b7ae46c00f6bbab786bf0be457546aec0"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/generation_config.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "5fccff80f55a4d455bbe516bdd552edf3e9623df95e99fbf2a3c3389fdf91af0"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/historical-protocol.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "ab488ea390b359fa7eee71a8cf2b72d809278712c3ed175c118b8ea8e606292b"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/historical-runtime.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "7da82060d71aee0a6d44da7aeebb4213b85acf1524f22c4e02efb317f01b21b2"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/implementation-evidence.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "21ecd82918667d4debd0b703b3f0fac17ee35afc3d2774e687e9fb3b498c62be"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/README.md",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "8fd7c54dd91f217b582b843d249c81b35e2fabd30a374e470bcd062f7f67c140"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/relation-candidates.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "5baa4d5e0a040bfc045ee4675907ab7429aa05b70cdf3c87f9122f0e26898c6d"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/round-manifest.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "63488a8e16457e8a19cc93932114e5da21e6cf0eac5237b94d956b83c60007bc"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_120349-aiv-4k-plus-2k-concurrency_20-warmup.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "b807f6fbd13c23218f5377e5887f58cea7f32b479f0404e98854d20a725095f4"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_120811-aiv-4k-plus-2k-concurrency_20-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "e8b80f56591d3cc83cad53dd791720e3c6e1fa1fe15c6fcf08d4e3f54dab46da"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_121159-aiv-4k-plus-2k-concurrency_24-warmup.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "f821b991ef0f2f3f9b5f8d182a1faa90931a8ade24ab49eb137e305a5e683858"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_121601-aiv-4k-plus-2k-concurrency_24-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "645ef783d00753cf043fe5d710444a72b02b7020c85300282a976ca5d081e0c3"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_122021-aiv-4k-plus-2k-concurrency_48-warmup.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "2817d7f2cbb12f150ad7a1663ec9375883894688339089d35c6709a4b04f9017"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_122617-aiv-4k-plus-2k-concurrency_48-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "c0a9c9a68f56cbc3d793c5cb61740758d95caeb7f5120892c036f7456f3c93de"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_123215-aiv-4k-plus-2k-concurrency_68-warmup.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "3231a0c67fa7afe3f93ea9ac1f63b6d3422df0dc70c08c2ad3a9bdfb4028ba07"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_123859-aiv-4k-plus-2k-concurrency_68-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "62b5cff01b39885665368c692846af30ca39e900d013df7d924ed5590e726e6e"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_124555-aiv-4k-plus-2k-concurrency_84-warmup.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "f8708bd60cc044288b09b5b19e1a137cd1e44746a2861a7692c91692e513d86e"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_125316-aiv-4k-plus-2k-concurrency_84-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "1ae443761fd8118ecad9a121e7f0b084eda9bcddc5910984de7ff862d7f43220"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_130040-aiv-4k-plus-2k-concurrency_104-warmup.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "141c8e8c6ea132a86cc694ea7ec60114834d446392556e033dbb2727b2d70f17"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_130820-aiv-4k-plus-2k-concurrency_104-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "daaf307d088e18f92cffc044f038d0a29039817d7332660c9704b6ac94f8dc5b"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_131645-aiv-4k-plus-2k-concurrency_128-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "1e0686aa4db2a0bfb3ee56529021356057b344ffaa2afd4409789fef2de79e27"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_132517-aiv-4k-plus-2k-concurrency_18-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "e96727b41d8fe6cc192b9c971b55fc009691741c91498ddb070410f13ecc3b27"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_132855-aiv-4k-plus-2k-concurrency_19-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "4a051a0b54d6f2bf586e642026d36247de713e68ade8c48a5ccccbd2cb3155b8"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_133243-aiv-64k-plus-1k-concurrency_8-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "bc9ae955496472b5352c3428ad64b915aa94ed7c005e7f02093131c74ed67c41"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_133832-aiv-64k-plus-1k-concurrency_4-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "c5a8cbe3f4d9c5244274a49fdfca9f0290e3838751289e7f20bb69f5aaf0f1b1"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_134205-aiv-64k-plus-1k-concurrency_2-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "ee0533f057c8f90b0635d7da5b439803b5d6a06a382c1215a32eabccf05f2d4c"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_134519-aiv-64k-plus-1k-concurrency_1-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "75e37a99624db97d9d7afeda4255befc9418cdb427c915cf76bfdaabbaa5a61c"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_134745-aiv-64k-plus-1k-concurrency_7-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "bc1554137cb56650fbd91c26334c9f24faabe0091f88108156e0834a67b12893"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_135255-aiv-128k-plus-1k-concurrency_2-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "3a0f5fae085d8f38d060ddd76b56d6480bd92c43b67f008cb2e4a06095bd500f"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_135722-aiv-128k-plus-1k-concurrency_1-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "1d15da85b27f1469ec6883773838d0ed913552f3d76d768cf923002db61fd3bf"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_140057-aiv-128k-plus-1k-prefix_0.5-concurrency_6-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "99ace0a3c1d7318649f74807f9285393ededf5617a3a06fc4db105da4ad1c913"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_140716-aiv-128k-plus-1k-prefix_0.5-concurrency_8-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "64f577fac57991d8c346cc75fac0cc96534caf08839caeb102e5c36e802fdba1"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_141353-aiv-128k-plus-1k-prefix_0.5-concurrency_5-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "7ae2c24e3824ff7d68a138784d0f43f1bc5acf4494e7b9c9156ed7550d16d508"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_141909-aiv-128k-plus-1k-prefix_0.9-concurrency_12-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "f361cd190a2cf4a55548320934bad3dfc1eafab4c13e31e5b58ab441b269d273"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_142336-aiv-128k-plus-1k-prefix_0.9-concurrency_16-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "2c6dd86a7d9d983cc5af51533c94d378ee9a9a678a3f3325f2ac3e6d2957045e"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_142839-aiv-128k-plus-1k-prefix_0.9-concurrency_20-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "79e30ae2173199ec8b1b215e0ccaf4e6f6a015e3f89e71eadd3ae852d7b43b4b"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_143416-aiv-128k-plus-1k-prefix_0.9-concurrency_18-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "8d58d856ccd793c28daefeadd5d942fd0de38df5dee97fa1d28c9015ab53587b"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_150713-aiv-128k-plus-1k-prefix_0.5-concurrency_7-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "60462d1e1bd214710be37e917fa7174578f518077212501d91596581d9101f6a"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/rounds/20261106_153916-aiv-128k-plus-1k-prefix_0.5-concurrency_4-measure.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "80f625d51533313cd3e4f82f359b56fac8afff261554524f14c34aa5695a2a3c"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/scenario.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "0fc9f457c495e1ac1aa3a141f2504af11ec71ca56a4eb79b7765a7276fe26e71"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/source-provenance.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "059dfc479d5a5cc2c961d94f3865227f6dff0644793d40a7f8a1b31aacd4505d"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/startup-config.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "a3bd7e32b4994966fafe07ab7b13430a91d742bf805c19119355317ad36ee36c"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/tokenizer_config.json",
+      "role": "Collected source snapshot or normalized evidence; scope and original-source hashes are recorded inside the artifact.",
+      "sha256": "21aa165d554e2c2f252a49730b71962edc15c36bbfa4b090ab7bd3340a2fa549"
+    }
+  ],
+  "id": "case-deepseek-v4-pro-autotune-context-20261108",
+  "kind": "case",
+  "observed_at": "2026-11-08",
+  "related_ids": [
+    "case-deepseek-v4-pro-aisbench-20261106",
+    "lesson-baseline-guided-cross-scenario-autotune-design"
+  ],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "关联历史AIV脚本与性能结果，补齐模型、历史三组件版本、31份逐轮快照、有效配置和当前环境。当前未发现目标服务且设备有告警，未建立新基线、未运行实验。",
+  "supersedes": [],
+  "tags": [
+    "DeepSeek-V4-Pro",
+    "自动参数寻优",
+    "baseline",
+    "上下文采集",
+    "AIV",
+    "DP",
+    "PCP",
+    "EP",
+    "证据边界",
+    "负结果"
+  ],
+  "title": "DeepSeek-V4-Pro双机寻优上下文与历史证据只读采集",
+  "updated_at": "2026-11-08"
+}

@@ -1,0 +1,173 @@
+{
+  "extension_version": 1,
+  "role": "conditional_relation_candidates",
+  "relations": [
+    {
+      "id": "source-mc2-multistream-auto-disable",
+      "assertion_type": "observation",
+      "observation_layer": "current_source_control_flow",
+      "status": "source_supported_runtime_unverified",
+      "parameters": [
+        "additional_config.enable_fused_mc2",
+        "additional_config.multistream_overlap_shared_expert"
+      ],
+      "relation_type": "conflict",
+      "conditions": {
+        "source_file": "vllm_ascend/ascend_config.py",
+        "source_lines": [
+          850,
+          854
+        ],
+        "post_normalization_fused_mc2_equals": 1,
+        "multistream_requested": true
+      },
+      "observed_rule": "The checked source sets multistream_overlap_shared_expert to False in this branch and logs a warning.",
+      "mechanism": "Requested combinations can be rewritten before execution; declared flags do not prove simultaneous activation.",
+      "baseline_values": {
+        "enable_fused_mc2": 0,
+        "multistream_overlap_shared_expert": true
+      },
+      "measured_performance_effect": null,
+      "migration": {
+        "decision": "needs_evidence",
+        "required": [
+          "Match installed source behavior and upstream normalization.",
+          "Check final effective config and fallback.",
+          "Measure legal combinations on target baseline."
+        ]
+      },
+      "counterexamples": [],
+      "evidence_file": "implementation-evidence.json"
+    },
+    {
+      "id": "source-scheduler-token-sequence-capacity",
+      "assertion_type": "observation",
+      "observation_layer": "current_source_validation",
+      "status": "source_supported_runtime_unverified",
+      "parameters": [
+        "max_num_batched_tokens",
+        "max_num_seqs",
+        "enable_chunked_prefill",
+        "max_model_len"
+      ],
+      "relation_type": "dependency",
+      "conditions": {
+        "source_file": "vllm/config/scheduler.py",
+        "source_lines": [
+          290,
+          314
+        ]
+      },
+      "observed_rule": "The source validates token budget against sequence capacity and applies the model-length comparison conditionally on chunked prefill.",
+      "baseline_values": {
+        "max_num_batched_tokens": 2048,
+        "max_num_seqs": 16,
+        "enable_chunked_prefill": true,
+        "max_model_len": 524288
+      },
+      "measured_performance_effect": null,
+      "migration": {
+        "decision": "needs_evidence",
+        "required": [
+          "Check complete target validation logic and effective defaults.",
+          "Do not confuse client concurrency with per-engine max_num_seqs."
+        ]
+      },
+      "counterexamples": [],
+      "evidence_file": "implementation-evidence.json"
+    },
+    {
+      "id": "hypothesis-batch-sequence-kv-load-interaction",
+      "assertion_type": "hypothesis",
+      "status": "unverified",
+      "relation_type": "nonlinear",
+      "parameters": [
+        "max_num_batched_tokens",
+        "max_num_seqs",
+        "workload.input_tokens",
+        "workload.client_concurrency"
+      ],
+      "mechanism": "Scheduling capacity and per-step token budget can change active work, prefill/decode interference and KV pressure.",
+      "conditions": {
+        "required": [
+          "fixed version/model/resources/protocol",
+          "legal parameter ranges",
+          "known cache starting conditions"
+        ],
+        "unknown": [
+          "binding bottleneck",
+          "turning points",
+          "effect reversal thresholds"
+        ]
+      },
+      "predicted_direction": "conditional_unknown",
+      "measured_performance_effect": null,
+      "minimum_validation": "Small crossed baseline/A/B/A+B comparison on a short and a long representative case, with predeclared correctness, SLO and memory gates; no experiment authorized by this record.",
+      "counterexamples": [],
+      "evidence_file": "startup-config.json"
+    },
+    {
+      "id": "hypothesis-dspark-graph-batch-interaction",
+      "assertion_type": "hypothesis",
+      "status": "unverified",
+      "relation_type": "synergy",
+      "parameters": [
+        "speculative_config.num_speculative_tokens",
+        "compilation_config.cudagraph_mode",
+        "max_num_seqs"
+      ],
+      "mechanism": "Draft acceptance and validation work may change graph shapes, scheduling and memory costs; effect may reverse with load or acceptance.",
+      "conditions": {
+        "required": [
+          "checkpoint/method-specific valid values",
+          "same output quality criterion",
+          "effective execution path evidence"
+        ],
+        "unknown": [
+          "acceptance rate",
+          "legal alternative values",
+          "interaction effect",
+          "reversal boundary"
+        ]
+      },
+      "baseline_values": {
+        "method": "dspark",
+        "num_speculative_tokens": 5,
+        "graph_mode": "FULL_DECODE_ONLY"
+      },
+      "predicted_direction": "unknown",
+      "measured_performance_effect": null,
+      "migration": {
+        "decision": "needs_evidence",
+        "required": [
+          "Resolve DeepSeek-specific method/checkpoint constraints; do not import Qwen-only block-size rules.",
+          "Collect acceptance/verification cost under target load."
+        ]
+      },
+      "counterexamples": [],
+      "evidence_file": "historical-runtime.json"
+    },
+    {
+      "id": "aiv-workaround-causal-claim-not-established",
+      "assertion_type": "hypothesis",
+      "status": "unverified",
+      "relation_type": "dependency",
+      "parameters": [
+        "HCCL_OP_EXPANSION_MODE"
+      ],
+      "observed_baseline_value": "AIV",
+      "mechanism": "Script comments describe avoiding a CCU AllGather stall; comments and a successful service alone do not establish causation or a throughput gain.",
+      "measured_performance_effect": null,
+      "migration": {
+        "decision": "reference_only",
+        "required": [
+          "Match platform, operator path and software implementation.",
+          "Obtain failure/repair evidence before treating the workaround as a conditional rule."
+        ]
+      },
+      "counterexamples": [],
+      "evidence_file": "startup-config.json"
+    }
+  ],
+  "statement": "No startup parameter performance benefit is claimed; empty counterexamples mean none linked in this collection, not absence of counterexamples."
+}

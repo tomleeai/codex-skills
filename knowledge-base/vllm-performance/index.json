@@ -43,6 +43,46 @@
         "models": [
           "DeepSeek-V4-Pro"
         ],
+        "software_versions": {
+          "ais-bench-benchmark": "3.1.20260630",
+          "vllm": "0.30.0+empty",
+          "vllm-ascend": "0.30.1.dev12+gcb629ea19.d20261102"
+        },
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "statistical_comparison"
+        ]
+      },
+      "id": "case-deepseek-v4-pro-autotune-context-20261108",
+      "kind": "case",
+      "path": "cases/case-deepseek-v4-pro-autotune-context-20261108.json",
+      "revision": "b1e516ca9e3984fb757a49eb2d15edf5d9de482fbcf11c21f13a9a136d6728e1",
+      "status": "partial",
+      "summary": "关联历史AIV脚本与性能结果，补齐模型、历史三组件版本、31份逐轮快照、有效配置和当前环境。当前未发现目标服务且设备有告警，未建立新基线、未运行实验。",
+      "tags": [
+        "DeepSeek-V4-Pro",
+        "自动参数寻优",
+        "baseline",
+        "上下文采集",
+        "AIV",
+        "DP",
+        "PCP",
+        "EP",
+        "证据边界",
+        "负结果"
+      ],
+      "title": "DeepSeek-V4-Pro双机寻优上下文与历史证据只读采集",
+      "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend"
+        ],
+        "models": [
+          "DeepSeek-V4-Pro"
+        ],
         "software_versions": {},
         "workload_modes": [
           "AISBench",
@@ -197,6 +237,70 @@
         "吞吐"
       ],
       "title": "TPOT约束下自适应并发：粗扫、缩步、回退和复用",
+      "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [],
+        "models": [],
+        "software_versions": {},
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "statistical_comparison"
+        ]
+      },
+      "id": "lesson-baseline-guided-cross-scenario-autotune-design",
+      "kind": "lesson",
+      "path": "lessons/lesson-baseline-guided-cross-scenario-autotune-design.json",
+      "revision": "39e2d1bb7cdee17173fdeb4b637b321c7a7f93ff857cede7338fa7b772c4a822",
+      "status": "candidate",
+      "summary": "保留现有知识库功能与旧schema，在body增加条件化关系、迁移判断及有界寻优约定；按需启用，负结果同样入库。仅方案，未实现自动规划器。",
+      "tags": [
+        "自动参数寻优",
+        "baseline",
+        "参数组合",
+        "机制",
+        "跨模型",
+        "跨case"
+      ],
+      "title": "基于性能基线的跨模型与跨case自动参数寻优扩展设计",
+      "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend"
+        ],
+        "models": [
+          "DeepSeek-V4-Pro"
+        ],
+        "software_versions": {
+          "ais-bench-benchmark": "3.1.20260630",
+          "vllm": "0.30.0+empty",
+          "vllm-ascend": "0.30.1.dev12+gcb629ea19.d20261102"
+        },
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "statistical_comparison"
+        ]
+      },
+      "id": "lesson-deepseek-v4-pro-autotune-relations-20261108",
+      "kind": "lesson",
+      "path": "lessons/lesson-deepseek-v4-pro-autotune-relations-20261108.json",
+      "revision": "86158157014247b12154cf1796f9c68ff0d1430859a80fdd9621a0668ca9c252",
+      "status": "candidate",
+      "summary": "记录当前源码中的MC2与多流自动改写、调度参数合法性，以及批量/序列/KV、DSpark/图模式交互假设；没有启动参数收益实测，不跨版本直接执行。",
+      "tags": [
+        "自动参数寻优",
+        "baseline",
+        "参数组合",
+        "机制",
+        "跨模型",
+        "跨case"
+      ],
+      "title": "DeepSeek-V4-Pro参数交互：源码条件与待验证机制",
       "updated_at": "2026-11-08"
     }
   ],

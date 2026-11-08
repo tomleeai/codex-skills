@@ -1,0 +1,248 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend"
+    ],
+    "models": [
+      "DeepSeek-V4-Pro"
+    ],
+    "software_versions": {
+      "ais-bench-benchmark": "3.1.20260630",
+      "vllm": "0.30.0+empty",
+      "vllm-ascend": "0.30.1.dev12+gcb629ea19.d20261102"
+    },
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "statistical_comparison"
+    ]
+  },
+  "body": {
+    "do_not_use_when": [
+      "源码或软件能力不匹配。",
+      "将脚本声明当作特性同时生效。",
+      "将Qwen专有DSpark限制用于DeepSeek。",
+      "跳过目标新基线或硬门槛。"
+    ],
+    "limitations": [
+      "源码规则不等于运行验证或性能收益。",
+      "尚无启动参数组合的受控正反比较或效果反转实测。",
+      "空反例列表不证明不存在反例。"
+    ],
+    "optimization": {
+      "claim_scope": "Current source-control observations and explicitly unverified hypotheses; no measured startup-parameter effect.",
+      "extension_version": 1,
+      "relations": [
+        {
+          "assertion_type": "observation",
+          "baseline_values": {
+            "enable_fused_mc2": 0,
+            "multistream_overlap_shared_expert": true
+          },
+          "conditions": {
+            "multistream_requested": true,
+            "post_normalization_fused_mc2_equals": 1,
+            "source_file": "vllm_ascend/ascend_config.py",
+            "source_lines": [
+              850,
+              854
+            ]
+          },
+          "counterexamples": [],
+          "evidence_file": "implementation-evidence.json",
+          "id": "source-mc2-multistream-auto-disable",
+          "measured_performance_effect": null,
+          "mechanism": "Requested combinations can be rewritten before execution; declared flags do not prove simultaneous activation.",
+          "migration": {
+            "decision": "needs_evidence",
+            "required": [
+              "Match installed source behavior and upstream normalization.",
+              "Check final effective config and fallback.",
+              "Measure legal combinations on target baseline."
+            ]
+          },
+          "observation_layer": "current_source_control_flow",
+          "observed_rule": "The checked source sets multistream_overlap_shared_expert to False in this branch and logs a warning.",
+          "parameters": [
+            "additional_config.enable_fused_mc2",
+            "additional_config.multistream_overlap_shared_expert"
+          ],
+          "relation_type": "conflict",
+          "status": "source_supported_runtime_unverified"
+        },
+        {
+          "assertion_type": "observation",
+          "baseline_values": {
+            "enable_chunked_prefill": true,
+            "max_model_len": 524288,
+            "max_num_batched_tokens": 2048,
+            "max_num_seqs": 16
+          },
+          "conditions": {
+            "source_file": "vllm/config/scheduler.py",
+            "source_lines": [
+              290,
+              314
+            ]
+          },
+          "counterexamples": [],
+          "evidence_file": "implementation-evidence.json",
+          "id": "source-scheduler-token-sequence-capacity",
+          "measured_performance_effect": null,
+          "migration": {
+            "decision": "needs_evidence",
+            "required": [
+              "Check complete target validation logic and effective defaults.",
+              "Do not confuse client concurrency with per-engine max_num_seqs."
+            ]
+          },
+          "observation_layer": "current_source_validation",
+          "observed_rule": "The source validates token budget against sequence capacity and applies the model-length comparison conditionally on chunked prefill.",
+          "parameters": [
+            "max_num_batched_tokens",
+            "max_num_seqs",
+            "enable_chunked_prefill",
+            "max_model_len"
+          ],
+          "relation_type": "dependency",
+          "status": "source_supported_runtime_unverified"
+        },
+        {
+          "assertion_type": "hypothesis",
+          "conditions": {
+            "required": [
+              "fixed version/model/resources/protocol",
+              "legal parameter ranges",
+              "known cache starting conditions"
+            ],
+            "unknown": [
+              "binding bottleneck",
+              "turning points",
+              "effect reversal thresholds"
+            ]
+          },
+          "counterexamples": [],
+          "evidence_file": "startup-config.json",
+          "id": "hypothesis-batch-sequence-kv-load-interaction",
+          "measured_performance_effect": null,
+          "mechanism": "Scheduling capacity and per-step token budget can change active work, prefill/decode interference and KV pressure.",
+          "minimum_validation": "Small crossed baseline/A/B/A+B comparison on a short and a long representative case, with predeclared correctness, SLO and memory gates; no experiment authorized by this record.",
+          "parameters": [
+            "max_num_batched_tokens",
+            "max_num_seqs",
+            "workload.input_tokens",
+            "workload.client_concurrency"
+          ],
+          "predicted_direction": "conditional_unknown",
+          "relation_type": "nonlinear",
+          "status": "unverified"
+        },
+        {
+          "assertion_type": "hypothesis",
+          "baseline_values": {
+            "graph_mode": "FULL_DECODE_ONLY",
+            "method": "dspark",
+            "num_speculative_tokens": 5
+          },
+          "conditions": {
+            "required": [
+              "checkpoint/method-specific valid values",
+              "same output quality criterion",
+              "effective execution path evidence"
+            ],
+            "unknown": [
+              "acceptance rate",
+              "legal alternative values",
+              "interaction effect",
+              "reversal boundary"
+            ]
+          },
+          "counterexamples": [],
+          "evidence_file": "historical-runtime.json",
+          "id": "hypothesis-dspark-graph-batch-interaction",
+          "measured_performance_effect": null,
+          "mechanism": "Draft acceptance and validation work may change graph shapes, scheduling and memory costs; effect may reverse with load or acceptance.",
+          "migration": {
+            "decision": "needs_evidence",
+            "required": [
+              "Resolve DeepSeek-specific method/checkpoint constraints; do not import Qwen-only block-size rules.",
+              "Collect acceptance/verification cost under target load."
+            ]
+          },
+          "parameters": [
+            "speculative_config.num_speculative_tokens",
+            "compilation_config.cudagraph_mode",
+            "max_num_seqs"
+          ],
+          "predicted_direction": "unknown",
+          "relation_type": "synergy",
+          "status": "unverified"
+        },
+        {
+          "assertion_type": "hypothesis",
+          "counterexamples": [],
+          "evidence_file": "startup-config.json",
+          "id": "aiv-workaround-causal-claim-not-established",
+          "measured_performance_effect": null,
+          "mechanism": "Script comments describe avoiding a CCU AllGather stall; comments and a successful service alone do not establish causation or a throughput gain.",
+          "migration": {
+            "decision": "reference_only",
+            "required": [
+              "Match platform, operator path and software implementation.",
+              "Obtain failure/repair evidence before treating the workaround as a conditional rule."
+            ]
+          },
+          "observed_baseline_value": "AIV",
+          "parameters": [
+            "HCCL_OP_EXPANSION_MODE"
+          ],
+          "relation_type": "dependency",
+          "status": "unverified"
+        }
+      ],
+      "role": "conditional_relation_candidates"
+    },
+    "use_when": [
+      "围绕参数依赖、冲突、协同和瓶颈生成待验证候选，而非按模型名照抄数值。"
+    ]
+  },
+  "created_at": "2026-11-08",
+  "evidence": [
+    {
+      "ref": "case:case-deepseek-v4-pro-autotune-context-20261108",
+      "role": "Collected context and explicit evidence boundaries; collection does not certify a new baseline.",
+      "sha256": "b1e516ca9e3984fb757a49eb2d15edf5d9de482fbcf11c21f13a9a136d6728e1"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/relation-candidates.json",
+      "role": "Typed relation candidates with assertion types, source scope and validation requirements.",
+      "sha256": "5baa4d5e0a040bfc045ee4675907ab7429aa05b70cdf3c87f9122f0e26898c6d"
+    },
+    {
+      "ref": "artifact:deepseek-v4-pro-autotune-context-20261108/implementation-evidence.json",
+      "role": "Current installed source excerpts with line numbers and complete source-file hashes.",
+      "sha256": "21ecd82918667d4debd0b703b3f0fac17ee35afc3d2774e687e9fb3b498c62be"
+    }
+  ],
+  "id": "lesson-deepseek-v4-pro-autotune-relations-20261108",
+  "kind": "lesson",
+  "observed_at": "2026-11-08",
+  "related_ids": [
+    "case-deepseek-v4-pro-autotune-context-20261108",
+    "lesson-baseline-guided-cross-scenario-autotune-design"
+  ],
+  "schema_version": 1,
+  "status": "candidate",
+  "summary": "记录当前源码中的MC2与多流自动改写、调度参数合法性，以及批量/序列/KV、DSpark/图模式交互假设；没有启动参数收益实测，不跨版本直接执行。",
+  "supersedes": [],
+  "tags": [
+    "自动参数寻优",
+    "baseline",
+    "参数组合",
+    "机制",
+    "跨模型",
+    "跨case"
+  ],
+  "title": "DeepSeek-V4-Pro参数交互：源码条件与待验证机制",
+  "updated_at": "2026-11-08"
+}

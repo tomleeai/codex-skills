@@ -1,0 +1,190 @@
+{
+  "extension_version": 1,
+  "script_bindings": [
+    {
+      "node_role": "node-a",
+      "file": "run_node0-aiv.sh",
+      "source_sha256": "4801fe4f95d159d1c39d15705a1069ec14ad3baa7605fd1e42a6e49d6009e78f",
+      "matches_historical_test_manifest": true,
+      "unchanged_across_collection": true
+    },
+    {
+      "node_role": "node-a",
+      "file": "run_node1-aiv.sh",
+      "source_sha256": "c7065ff17e63d38baae0c3ca8825243188cc27b1296b09f3100c3f711f4ece5d",
+      "matches_historical_test_manifest": true,
+      "unchanged_across_collection": true
+    },
+    {
+      "node_role": "node-b",
+      "file": "run_node0-aiv.sh",
+      "source_sha256": "4801fe4f95d159d1c39d15705a1069ec14ad3baa7605fd1e42a6e49d6009e78f",
+      "matches_historical_test_manifest": true,
+      "unchanged_across_collection": true
+    },
+    {
+      "node_role": "node-b",
+      "file": "run_node1-aiv.sh",
+      "source_sha256": "c7065ff17e63d38baae0c3ca8825243188cc27b1296b09f3100c3f711f4ece5d",
+      "matches_historical_test_manifest": true,
+      "unchanged_across_collection": true
+    }
+  ],
+  "configurations": {
+    "run_node0-aiv.sh": {
+      "argv_parameters": {
+        "api-server-count": 4,
+        "data-parallel-size": 8,
+        "data-parallel-size-local": 4,
+        "tensor-parallel-size": 1,
+        "pipeline-parallel-size": 1,
+        "prefill-context-parallel-size": 2,
+        "decode-context-parallel-size": 1,
+        "distributed-executor-backend": "mp",
+        "data-parallel-backend": "mp",
+        "enable-expert-parallel": true,
+        "served-model-name": "$MODEL_NAME",
+        "max-model-len": 524288,
+        "max-num-batched-tokens": 2048,
+        "max-num-seqs": 16,
+        "gpu-memory-utilization": 0.95,
+        "block-size": 32,
+        "enable-chunked-prefill": true,
+        "enable-prefix-caching": true,
+        "no-disable-hybrid-kv-cache-manager": true,
+        "async-scheduling": true,
+        "compilation-config": {
+          "cudagraph_mode": "FULL_DECODE_ONLY"
+        },
+        "kv-cache-dtype": "fp8",
+        "attention_config.indexer_kv_dtype": "fp8",
+        "tokenizer-mode": "deepseek_v4",
+        "tool-call-parser": "deepseek_v4",
+        "enable-auto-tool-choice": true,
+        "reasoning-parser": "deepseek_v4",
+        "trust-remote-code": true,
+        "seed": 1024,
+        "model-loader-extra-config": {
+          "enable_multithread_load": true,
+          "num_threads": 128
+        },
+        "speculative-config": {
+          "method": "dspark",
+          "num_speculative_tokens": 5
+        },
+        "additional-config": {
+          "ascend_compilation_config": {
+            "enable_npugraph_ex": true,
+            "enable_static_kernel": false
+          },
+          "enable_cpu_binding": true,
+          "enable_fused_mc2": 0,
+          "multistream_overlap_shared_expert": true,
+          "enable_pcp_o_proj_weight_sharding": true,
+          "enable_pcp_embedding_lmhead_weight_sharding": true
+        }
+      },
+      "performance_environment": {
+        "HCCL_OP_EXPANSION_MODE": "AIV",
+        "HCCL_BUFFSIZE": "1024",
+        "HCCL_CONNECT_TIMEOUT": "1200",
+        "HCCL_EXEC_TIMEOUT": "2040",
+        "VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS": "3000",
+        "PYTORCH_NPU_ALLOC_CONF": "expandable_segments:True",
+        "OMP_PROC_BIND": "false",
+        "OMP_NUM_THREADS": "10",
+        "TASK_QUEUE_ENABLE": "1",
+        "VLLM_USE_V2_MODEL_RUNNER": "1",
+        "VLLM_USE_FASTOKENS": "1"
+      },
+      "identity_arguments_excluded": [
+        "--host",
+        "--port",
+        "--data-parallel-address",
+        "--data-parallel-rpc-port"
+      ],
+      "scope": "Static startup configuration bound by exact script hashes; runtime resolution separately evidenced."
+    },
+    "run_node1-aiv.sh": {
+      "argv_parameters": {
+        "headless": true,
+        "api-server-count": 0,
+        "data-parallel-size": 8,
+        "data-parallel-size-local": 4,
+        "data-parallel-start-rank": 4,
+        "tensor-parallel-size": 1,
+        "pipeline-parallel-size": 1,
+        "prefill-context-parallel-size": 2,
+        "decode-context-parallel-size": 1,
+        "distributed-executor-backend": "mp",
+        "data-parallel-backend": "mp",
+        "enable-expert-parallel": true,
+        "served-model-name": "$MODEL_NAME",
+        "max-model-len": 524288,
+        "max-num-batched-tokens": 2048,
+        "max-num-seqs": 16,
+        "gpu-memory-utilization": 0.95,
+        "block-size": 32,
+        "enable-chunked-prefill": true,
+        "enable-prefix-caching": true,
+        "no-disable-hybrid-kv-cache-manager": true,
+        "async-scheduling": true,
+        "compilation-config": {
+          "cudagraph_mode": "FULL_DECODE_ONLY"
+        },
+        "kv-cache-dtype": "fp8",
+        "attention_config.indexer_kv_dtype": "fp8",
+        "tokenizer-mode": "deepseek_v4",
+        "tool-call-parser": "deepseek_v4",
+        "enable-auto-tool-choice": true,
+        "reasoning-parser": "deepseek_v4",
+        "trust-remote-code": true,
+        "seed": 1024,
+        "model-loader-extra-config": {
+          "enable_multithread_load": true,
+          "num_threads": 128
+        },
+        "speculative-config": {
+          "method": "dspark",
+          "num_speculative_tokens": 5
+        },
+        "additional-config": {
+          "ascend_compilation_config": {
+            "enable_npugraph_ex": true,
+            "enable_static_kernel": false
+          },
+          "enable_cpu_binding": true,
+          "enable_fused_mc2": 0,
+          "multistream_overlap_shared_expert": true,
+          "enable_pcp_o_proj_weight_sharding": true,
+          "enable_pcp_embedding_lmhead_weight_sharding": true
+        }
+      },
+      "performance_environment": {
+        "HCCL_OP_EXPANSION_MODE": "AIV",
+        "HCCL_BUFFSIZE": "1024",
+        "HCCL_CONNECT_TIMEOUT": "1200",
+        "HCCL_EXEC_TIMEOUT": "2040",
+        "VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS": "3000",
+        "PYTORCH_NPU_ALLOC_CONF": "expandable_segments:True",
+        "OMP_PROC_BIND": "false",
+        "OMP_NUM_THREADS": "10",
+        "TASK_QUEUE_ENABLE": "1",
+        "VLLM_USE_V2_MODEL_RUNNER": "1",
+        "VLLM_USE_FASTOKENS": "1"
+      },
+      "identity_arguments_excluded": [
+        "--host",
+        "--port",
+        "--data-parallel-address",
+        "--data-parallel-rpc-port"
+      ],
+      "scope": "Static startup configuration bound by exact script hashes; runtime resolution separately evidenced."
+    }
+  },
+  "interpretation": [
+    "The directory name does not establish P/D disaggregation: these scripts launch a coupled DP/PCP/EP service.",
+    "Client concurrency and per-engine max-num-seqs are different quantities.",
+    "Static flags, effective parsed configuration, and executed kernels are separate evidence layers."
+  ]
+}

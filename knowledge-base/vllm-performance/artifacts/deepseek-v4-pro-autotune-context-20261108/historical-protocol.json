@@ -1,0 +1,121 @@
+{
+  "sources": [
+    {
+      "source_file": "environment.json",
+      "original_source_sha256": "532a293d3630668fd15dad97b4c7879a3cd66b7ef37573e88875034a773f9174",
+      "content": {
+        "versions": {
+          "vllm": "0.30.0+empty",
+          "vllm-ascend": "0.30.1.dev12+gcb629ea19.d20261102",
+          "ais-bench-benchmark": "3.1.20260630"
+        },
+        "source_hashes_by_filename": {
+          "run_node0-aiv.sh": "4801fe4f95d159d1c39d15705a1069ec14ad3baa7605fd1e42a6e49d6009e78f",
+          "run_node1-aiv.sh": "c7065ff17e63d38baae0c3ca8825243188cc27b1296b09f3100c3f711f4ece5d",
+          "aisbench_test.py": "a90fa5eebfa40eb3ef166933fc959ade9e2f6013e1a7920794cdf329fd78fc90",
+          "config.py": "639614542bdcc49202622378d8743e75815e86e73ed58bbd1ddcc5a60d68b1ec",
+          "generate_dataset.py": "8e4d0d04e17ab8a6a8d45b7e4d1c2fc6d0cbd608f534440718c77519545b6f5a",
+          "save_file.py": "f664683e69c35a7af39c9a4e897b5ec60ccdbcc70e583f31fe3c9b24f63fe756",
+          "default_api.py": "10bf4220fa786299c3b0f6296fce1e9ad830dc2c8f4aabe1865ef9812774c778"
+        },
+        "protocol_at_initial_capture": {
+          "data_num": "4 * concurrency",
+          "request_rate": 0,
+          "warmup": "full workload before each concurrency point, excluded",
+          "seed": "distinct per phase; only first three tokens seeded by upstream generator",
+          "prefix_ratio": "nominal repeat_rate, server counter delta separately recorded",
+          "cache_reset": "unavailable in server routes, unique dataset tokens avoid unintended full-prompt reuse",
+          "selection": "max valid output_throughput with TPOT avg <= 1.05 * target; report actual TPOT"
+        },
+        "scope": "Initial capture predates protocol_revision.json. Revised warmup/repeat/selection rules take precedence."
+      }
+    },
+    {
+      "source_file": "protocol_revision.json",
+      "original_source_sha256": "4887406be8f8742103eeef451e5250f9afaccf9507c7d8361246827b296868a0",
+      "content": {
+        "previous": {
+          "updated": 1793940318.6933467,
+          "reason": "Add fine concurrency points at strict TPOT20/50 boundaries; retain both strict and +5% candidates, without discarding existing observations",
+          "primary_selection": "highest valid measured output_throughput with TPOT avg <= target; +5% fallback only when strict has no point",
+          "fine_points": "at most two per target after coarse search",
+          "repeat": "repeat selected unique concurrency per group with full warmup"
+        },
+        "updated": 1793941698.159857,
+        "user_instruction": "Warmup only at beginning of complete campaign, repeated same case2-3 times to inspect TPS stability. Each following concurrency point measured once.",
+        "per_point_warmup": false,
+        "selected_point_repeats": false,
+        "existing_extra_warmup": "preserved separately, excluded from formal selection",
+        "canceled_run": "20261106_130040-aiv-4k+2k-concurrency_104-warmup",
+        "primary_selection": "strict TPOT best output_throughput, +5% alternative retained"
+      }
+    },
+    {
+      "source_file": "targeted_prefix_change.json",
+      "original_source_sha256": "d6087d36e3507a520361f0a86c2e6cc8725255b59bee92d986aced25a2ebfebd",
+      "content": {
+        "original": "<LOCAL_ARTIFACT>",
+        "copy": "<PROJECT_ARTIFACT>",
+        "original_sha256": "a90fa5eebfa40eb3ef166933fc959ade9e2f6013e1a7920794cdf329fd78fc90",
+        "copy_sha256": "e213bd2e5ea303791701316e2d04ecd31859ed01c07bc29eae89925cf772e92b",
+        "change": "Prefix preparation only: exactly one output-1 request to each DP rank via supported X-data-parallel-rank header; full AISBench command, dataset, metrics unchanged"
+      }
+    },
+    {
+      "source_file": "resume_existing_baseline.json",
+      "original_source_sha256": "35db9284a4ce39f5ac9e7e0ba4a4194396827922404d7bb5579af00354674e96",
+      "content": {
+        "state": "legacy_validated",
+        "source": "preexisting_log",
+        "run_id": "20261106_114538-existing-aiv-4k+2k-concurrency_20-measure",
+        "cc": 20,
+        "ratio": 0,
+        "input_len": 4096,
+        "output_len": 2048,
+        "phase": "measure",
+        "valid": true,
+        "targeted_prefix": false,
+        "detail_check": {
+          "count": 80,
+          "all_success": true,
+          "output_min": 2048,
+          "output_max": 2048
+        },
+        "result": {
+          "current_time": "2026-11-06 11:45:38",
+          "input_len": 4179.0625,
+          "output_len": 2048.0,
+          "total_req": 80.0,
+          "max_cc": "20",
+          "cc": 18.348,
+          "rr": "0",
+          "repeat_rate": 0.0,
+          "TTFT avg": 1678.7,
+          "TTFT P90": 2391.6,
+          "TPOT avg": 19.4,
+          "TPOT SLO_P90": 25.8,
+          "E2E_time": 180.8633712,
+          "output_throughput": 905.8772,
+          "single_output_throughput": 905.8772,
+          "E2E_throughput": 2754.372,
+          "single_E2E_throughput": 2754.372,
+          "qps": 0.4423,
+          "qpm": 26.538,
+          "input_token_throughput": 1848.4948,
+          "prefill_token_throughput": 2489.4858,
+          "E2EL avg": 41481.1,
+          "E2EL P90": 54368.2
+        },
+        "actual_hit": null,
+        "prefix_queries": null,
+        "prefix_hits": null,
+        "preemptions": null,
+        "successful_requests": 80,
+        "dataset_sha256": null,
+        "log_sha256": "f8d93c0e018d9446e39ee26358d7af79ab6a783573f4a8a9e518ddfc982d54fb",
+        "validation_scope": "Client request details; historical server counter window unavailable."
+      }
+    }
+  ],
+  "resolution": "Apply the saved protocol revision; preserve earlier rules as superseded protocol history, not as current requirements."
+}

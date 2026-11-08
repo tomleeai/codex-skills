@@ -1,0 +1,86 @@
+{
+  "applies_to": {
+    "hardware": [],
+    "models": [],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "statistical_comparison"
+    ]
+  },
+  "body": {
+    "limitations": [
+      "本文是设计及验收要求，不表示规划器、扩展语义校验或自适应执行已实现。",
+      "正向收益不是知识入库或验收前提。"
+    ],
+    "optimization": {
+      "assertion_types": [
+        "observation",
+        "mechanism",
+        "conditional_experience",
+        "hypothesis",
+        "protocol_decision"
+      ],
+      "enabled_by_default": false,
+      "extension_semantic_validator_implemented": false,
+      "extension_version": 1,
+      "implementation_status": "design_only",
+      "intent": "Preserve compatibility while adding condition-aware transfer and baseline-guided bounded optimization.",
+      "outcomes": [
+        "positive",
+        "no_gain",
+        "regression",
+        "unsupported",
+        "not_activated",
+        "gate_failure",
+        "invalid_control",
+        "interrupted",
+        "inconclusive"
+      ],
+      "relation_types": [
+        "dependency",
+        "synergy",
+        "conflict",
+        "nonlinear",
+        "sign_reversal"
+      ],
+      "retrieval_scope": [
+        "same_model_same_case",
+        "same_model_different_case",
+        "different_model_same_case",
+        "different_model_different_case"
+      ],
+      "role": "design"
+    },
+    "use_when": [
+      "设计基于目标环境新基线、利用历史作用关系的跨场景寻优扩展。"
+    ]
+  },
+  "created_at": "2026-11-08",
+  "evidence": [
+    {
+      "ref": "artifact:autotune-extension-design-20261108/README.md",
+      "role": "Canonical extension design and acceptance contract; no performance claim.",
+      "sha256": "f3cba4bbb408847585ae31d07daa1d2f4530f393134f905a3035203774aef156"
+    }
+  ],
+  "id": "lesson-baseline-guided-cross-scenario-autotune-design",
+  "kind": "lesson",
+  "observed_at": "2026-11-08",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "candidate",
+  "summary": "保留现有知识库功能与旧schema，在body增加条件化关系、迁移判断及有界寻优约定；按需启用，负结果同样入库。仅方案，未实现自动规划器。",
+  "supersedes": [],
+  "tags": [
+    "自动参数寻优",
+    "baseline",
+    "参数组合",
+    "机制",
+    "跨模型",
+    "跨case"
+  ],
+  "title": "基于性能基线的跨模型与跨case自动参数寻优扩展设计",
+  "updated_at": "2026-11-08"
+}

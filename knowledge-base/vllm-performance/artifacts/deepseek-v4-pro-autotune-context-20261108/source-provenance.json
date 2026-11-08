@@ -1,0 +1,83 @@
+{
+  "historical_environment_source_sha256": "532a293d3630668fd15dad97b4c7879a3cd66b7ef37573e88875034a773f9174",
+  "historical_versions": {
+    "vllm": "0.30.0+empty",
+    "vllm-ascend": "0.30.1.dev12+gcb629ea19.d20261102",
+    "ais-bench-benchmark": "3.1.20260630"
+  },
+  "source_comparison": {
+    "run_node0-aiv.sh": {
+      "historical_sha256": "4801fe4f95d159d1c39d15705a1069ec14ad3baa7605fd1e42a6e49d6009e78f",
+      "collected_current_sha256": null,
+      "match": null
+    },
+    "run_node1-aiv.sh": {
+      "historical_sha256": "c7065ff17e63d38baae0c3ca8825243188cc27b1296b09f3100c3f711f4ece5d",
+      "collected_current_sha256": null,
+      "match": null
+    },
+    "aisbench_test.py": {
+      "historical_sha256": "a90fa5eebfa40eb3ef166933fc959ade9e2f6013e1a7920794cdf329fd78fc90",
+      "collected_current_sha256": "d17eca9a80b6e5f008a02ff6424ae16c1ed47dd312397f4858d104e106984d51",
+      "match": false
+    },
+    "config.py": {
+      "historical_sha256": "639614542bdcc49202622378d8743e75815e86e73ed58bbd1ddcc5a60d68b1ec",
+      "collected_current_sha256": "b00872e6910ac39b415f2263533a74c709cdab15315d68200e993a3791c5ee67",
+      "match": false
+    },
+    "generate_dataset.py": {
+      "historical_sha256": "8e4d0d04e17ab8a6a8d45b7e4d1c2fc6d0cbd608f534440718c77519545b6f5a",
+      "collected_current_sha256": "8e4d0d04e17ab8a6a8d45b7e4d1c2fc6d0cbd608f534440718c77519545b6f5a",
+      "match": true
+    },
+    "save_file.py": {
+      "historical_sha256": "f664683e69c35a7af39c9a4e897b5ec60ccdbcc70e583f31fe3c9b24f63fe756",
+      "collected_current_sha256": null,
+      "match": null
+    },
+    "default_api.py": {
+      "historical_sha256": "10bf4220fa786299c3b0f6296fce1e9ad830dc2c8f4aabe1865ef9812774c778",
+      "collected_current_sha256": null,
+      "match": null
+    },
+    "bench_point.py": {
+      "collected_sha256": "19190db5de2736a4dc3a50b43c9679a213445825aa5fc192c82089921dd00f2a",
+      "historical_binding": "historical_location_and_source_snapshot_only"
+    },
+    "aisbench_targeted_prefix.py": {
+      "collected_sha256": "e213bd2e5ea303791701316e2d04ecd31859ed01c07bc29eae89925cf772e92b",
+      "historical_binding": "exactly_bound_by_targeted_prefix_change"
+    },
+    "make_targeted_prefix.py": {
+      "collected_sha256": "3a725e3907b1f6c3fdd709772379a1bfadb0d6751a686f50299e3701764b9b29",
+      "historical_binding": "historical_location_and_source_snapshot_only"
+    }
+  },
+  "current_source_repositories": [
+    {
+      "role": "node-a",
+      "repositories": [
+        {
+          "source_role": "vllm",
+          "head": "26891717a3e3f46cafb484e18cc154039e14f2b5",
+          "head_exit_code": 0,
+          "tracked_changes_present": false
+        }
+      ]
+    },
+    {
+      "role": "node-b",
+      "repositories": []
+    }
+  ],
+  "benchmark_source_repository": {
+    "head": "15750c37451339b48798255d840e8711b81de7fe",
+    "tracked_changes_present": true
+  },
+  "limitations": [
+    "A source repository commit does not prove the installed package equals the entire commit.",
+    "Current aisbench_test.py and config.py differ from the historical hashes; their present contents cannot fill historical workload settings.",
+    "Only vllm, vllm-ascend and AISBench versions are recovered from the saved historical environment; other current component versions remain current observations."
+  ]
+}

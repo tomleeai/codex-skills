@@ -1,0 +1,2792 @@
+{
+  "observed_at": "2026-11-08",
+  "scope": "Current installed source only; partial excerpts with complete source file hashes.",
+  "sources": [
+    {
+      "package": "vllm",
+      "relative_file": "vllm/config/scheduler.py",
+      "source_sha256": "822179da62be4bca0619c8590082ae09123f5c4415f9cc2037be673748239edb",
+      "lines": [
+        {
+          "line": 45,
+          "text": ""
+        },
+        {
+          "line": 46,
+          "text": "    runner_type: RunnerType = \"generate\""
+        },
+        {
+          "line": 47,
+          "text": "    \"\"\"The runner type to launch for the model.\"\"\""
+        },
+        {
+          "line": 48,
+          "text": ""
+        },
+        {
+          "line": 49,
+          "text": "    max_num_batched_tokens: int = Field(default=DEFAULT_MAX_NUM_BATCHED_TOKENS, ge=1)"
+        },
+        {
+          "line": 50,
+          "text": "    \"\"\"Maximum number of tokens that can be processed in a single iteration."
+        },
+        {
+          "line": 51,
+          "text": ""
+        },
+        {
+          "line": 52,
+          "text": "    The default value here is mainly for convenience when testing."
+        },
+        {
+          "line": 53,
+          "text": "    In real usage, this should be set in `EngineArgs.create_engine_config`."
+        },
+        {
+          "line": 54,
+          "text": "    \"\"\""
+        },
+        {
+          "line": 55,
+          "text": ""
+        },
+        {
+          "line": 56,
+          "text": "    max_num_scheduled_tokens: int | None = Field(default=None, ge=0)"
+        },
+        {
+          "line": 57,
+          "text": "    \"\"\"Maximum number of tokens that the scheduler may issue in a single iteration."
+        },
+        {
+          "line": 58,
+          "text": "    "
+        },
+        {
+          "line": 59,
+          "text": "    This is usually equal to max_num_batched_tokens, but can be smaller in cases"
+        },
+        {
+          "line": 60,
+          "text": "    when the model might append tokens into the batch (such as speculative decoding)."
+        },
+        {
+          "line": 61,
+          "text": "    Defaults to max_num_batched_tokens.\"\"\""
+        },
+        {
+          "line": 62,
+          "text": ""
+        },
+        {
+          "line": 63,
+          "text": "    max_num_seqs: int = Field(default=DEFAULT_MAX_NUM_SEQS, ge=1)"
+        },
+        {
+          "line": 64,
+          "text": "    \"\"\"Maximum number of sequences to be processed in a single iteration."
+        },
+        {
+          "line": 65,
+          "text": ""
+        },
+        {
+          "line": 66,
+          "text": "    The default value here is mainly for convenience when testing."
+        },
+        {
+          "line": 67,
+          "text": "    In real usage, this should be set in `EngineArgs.create_engine_config`."
+        },
+        {
+          "line": 68,
+          "text": "    \"\"\""
+        },
+        {
+          "line": 69,
+          "text": ""
+        },
+        {
+          "line": 70,
+          "text": "    long_prefill_token_threshold: int = Field(default=0, ge=0)"
+        },
+        {
+          "line": 77,
+          "text": "    requests are rejected with HTTP 503 so the client can retry on another"
+        },
+        {
+          "line": 78,
+          "text": "    instance. This bounds vLLM's otherwise unbounded request queue and is"
+        },
+        {
+          "line": 79,
+          "text": "    primarily a coarse capacity valve."
+        },
+        {
+          "line": 80,
+          "text": ""
+        },
+        {
+          "line": 81,
+          "text": "    Unlike ``max_num_seqs``, which applies per data-parallel rank, this"
+        },
+        {
+          "line": 82,
+          "text": "    limit is enforced in the API server process and counts in-flight"
+        },
+        {
+          "line": 83,
+          "text": "    requests across all DP ranks it routes to. Size it as roughly"
+        },
+        {
+          "line": 84,
+          "text": "    ``data_parallel_size * max_num_seqs`` plus the desired queue depth if"
+        },
+        {
+          "line": 85,
+          "text": "    it should not bind before per-rank admission does.\"\"\""
+        },
+        {
+          "line": 86,
+          "text": ""
+        },
+        {
+          "line": 87,
+          "text": "    max_num_queued_tokens: int | None = Field(default=None, ge=0)"
+        },
+        {
+          "line": 88,
+          "text": "    \"\"\"Maximum total prompt tokens of requests currently in the prefill"
+        },
+        {
+          "line": 89,
+          "text": "    phase, or None for no limit. When the limit is reached, new requests"
+        },
+        {
+          "line": 90,
+          "text": "    are rejected with HTTP 503."
+        },
+        {
+          "line": 91,
+          "text": ""
+        },
+        {
+          "line": 112,
+          "text": "    — the safe direction for QoS.  The impact is limited to long"
+        },
+        {
+          "line": 113,
+          "text": "    prompts under chunked prefill; short prompts that prefill in a"
+        },
+        {
+          "line": 114,
+          "text": "    single iteration are unaffected.\"\"\""
+        },
+        {
+          "line": 115,
+          "text": ""
+        },
+        {
+          "line": 116,
+          "text": "    enable_chunked_prefill: bool = True"
+        },
+        {
+          "line": 117,
+          "text": "    \"\"\"If True, prefill requests can be chunked based"
+        },
+        {
+          "line": 118,
+          "text": "    on the remaining `max_num_batched_tokens`."
+        },
+        {
+          "line": 119,
+          "text": ""
+        },
+        {
+          "line": 120,
+          "text": "    The default value here is mainly for convenience when testing."
+        },
+        {
+          "line": 121,
+          "text": "    In real usage, this should be set in `EngineArgs.create_engine_config`."
+        },
+        {
+          "line": 122,
+          "text": "    \"\"\""
+        },
+        {
+          "line": 123,
+          "text": ""
+        },
+        {
+          "line": 124,
+          "text": "    is_multimodal_model: bool = False"
+        },
+        {
+          "line": 125,
+          "text": "    \"\"\"True if the model is multimodal.\"\"\""
+        },
+        {
+          "line": 128,
+          "text": "    max_num_encoder_input_tokens: int = Field(init=False)"
+        },
+        {
+          "line": 129,
+          "text": "    \"\"\"Multimodal encoder compute budget, only used in V1."
+        },
+        {
+          "line": 130,
+          "text": ""
+        },
+        {
+          "line": 131,
+          "text": "    NOTE: This is not currently configurable. It will be overridden by"
+        },
+        {
+          "line": 132,
+          "text": "    max_num_batched_tokens in case max multimodal embedding size is larger.\"\"\""
+        },
+        {
+          "line": 133,
+          "text": ""
+        },
+        {
+          "line": 134,
+          "text": "    # TODO (ywang96): Make this configurable."
+        },
+        {
+          "line": 135,
+          "text": "    encoder_cache_size: int = Field(init=False)"
+        },
+        {
+          "line": 136,
+          "text": "    \"\"\"Multimodal encoder cache size, only used in V1."
+        },
+        {
+          "line": 137,
+          "text": ""
+        },
+        {
+          "line": 138,
+          "text": "    NOTE: This is not currently configurable. It will be overridden by"
+        },
+        {
+          "line": 139,
+          "text": "    max_num_batched_tokens in case max multimodal embedding size is larger.\"\"\""
+        },
+        {
+          "line": 140,
+          "text": ""
+        },
+        {
+          "line": 141,
+          "text": "    policy: SchedulerPolicy = \"fcfs\""
+        },
+        {
+          "line": 142,
+          "text": "    \"\"\"The scheduling policy to use:"
+        },
+        {
+          "line": 143,
+          "text": ""
+        },
+        {
+          "line": 144,
+          "text": "    - \"fcfs\" means first come first served, i.e. requests are handled in order "
+        },
+        {
+          "line": 145,
+          "text": "      of arrival."
+        },
+        {
+          "line": 146,
+          "text": "    - \"priority\" means requests are handled based on given priority (lower"
+        },
+        {
+          "line": 245,
+          "text": "        the final hidden states."
+        },
+        {
+          "line": 246,
+          "text": "        \"\"\""
+        },
+        {
+          "line": 247,
+          "text": "        factors: list[Any] = []"
+        },
+        {
+          "line": 248,
+          "text": ""
+        },
+        {
+          "line": 249,
+          "text": "        # max_num_batched_tokens need to be included in the hash due"
+        },
+        {
+          "line": 250,
+          "text": "        # to two reasons:"
+        },
+        {
+          "line": 251,
+          "text": "        # 1. LoRA creates static buffers based on max_num_batched_tokens."
+        },
+        {
+          "line": 252,
+          "text": "        #   The tensor sizes and strides get captured in the torch.compile"
+        },
+        {
+          "line": 253,
+          "text": "        #   graph explicitly."
+        },
+        {
+          "line": 254,
+          "text": "        # 2. Inductor decides whether using 32-bit or 64-bit indexing integer"
+        },
+        {
+          "line": 255,
+          "text": "        #   based on the data sizes. `max_num_batched_tokens` has an"
+        },
+        {
+          "line": 256,
+          "text": "        #   impact on that. For more details, please check"
+        },
+        {
+          "line": 257,
+          "text": "        #   <SERVICE_REFERENCE>"
+        },
+        {
+          "line": 258,
+          "text": "        factors.append(self.max_num_batched_tokens)"
+        },
+        {
+          "line": 259,
+          "text": ""
+        },
+        {
+          "line": 260,
+          "text": "        # PLE and other model components allocate static per-request buffers."
+        },
+        {
+          "line": 261,
+          "text": "        # Their shapes are captured in compiled graphs."
+        },
+        {
+          "line": 262,
+          "text": "        factors.append(self.max_num_seqs)"
+        },
+        {
+          "line": 263,
+          "text": ""
+        },
+        {
+          "line": 264,
+          "text": "        hash_str = safe_hash(str(factors).encode(), usedforsecurity=False).hexdigest()"
+        },
+        {
+          "line": 265,
+          "text": "        return hash_str"
+        },
+        {
+          "line": 266,
+          "text": ""
+        },
+        {
+          "line": 267,
+          "text": "    @field_validator(\"scheduler_cls\", \"async_scheduling\", mode=\"wrap\")"
+        },
+        {
+          "line": 268,
+          "text": "    @classmethod"
+        },
+        {
+          "line": 269,
+          "text": "    def _skip_none_validation(cls, value: Any, handler: Callable) -> Any:"
+        },
+        {
+          "line": 273,
+          "text": "    def __post_init__(self, max_model_len: int, is_encoder_decoder: bool) -> None:"
+        },
+        {
+          "line": 274,
+          "text": "        if is_encoder_decoder:"
+        },
+        {
+          "line": 275,
+          "text": "            # Chunked prefill should be disabled for encoder-decoder models."
+        },
+        {
+          "line": 276,
+          "text": "            self.disable_chunked_mm_input = True"
+        },
+        {
+          "line": 277,
+          "text": "            self.enable_chunked_prefill = False"
+        },
+        {
+          "line": 278,
+          "text": "            self.long_prefill_token_threshold = 0"
+        },
+        {
+          "line": 279,
+          "text": "            logger.info("
+        },
+        {
+          "line": 280,
+          "text": "                \"Encoder-decoder models do not support chunked prefill nor\""
+        },
+        {
+          "line": 281,
+          "text": "                \" prefix caching; disabling both.\""
+        },
+        {
+          "line": 282,
+          "text": "            )"
+        },
+        {
+          "line": 283,
+          "text": ""
+        },
+        {
+          "line": 284,
+          "text": "        self.max_num_encoder_input_tokens = self.max_num_batched_tokens"
+        },
+        {
+          "line": 285,
+          "text": "        self.encoder_cache_size = self.max_num_batched_tokens"
+        },
+        {
+          "line": 286,
+          "text": ""
+        },
+        {
+          "line": 287,
+          "text": "        if self.enable_chunked_prefill:"
+        },
+        {
+          "line": 288,
+          "text": "            logger.info_once("
+        },
+        {
+          "line": 289,
+          "text": "                \"Chunked prefill is enabled with max_num_batched_tokens=%d.\","
+        },
+        {
+          "line": 290,
+          "text": "                self.max_num_batched_tokens,"
+        },
+        {
+          "line": 291,
+          "text": "            )"
+        },
+        {
+          "line": 292,
+          "text": ""
+        },
+        {
+          "line": 293,
+          "text": "        self.verify_max_model_len(max_model_len)"
+        },
+        {
+          "line": 294,
+          "text": ""
+        },
+        {
+          "line": 295,
+          "text": "    def verify_max_model_len(self, max_model_len: int) -> Self:"
+        },
+        {
+          "line": 296,
+          "text": "        if ("
+        },
+        {
+          "line": 297,
+          "text": "            self.max_num_batched_tokens < max_model_len"
+        },
+        {
+          "line": 298,
+          "text": "            and not self.enable_chunked_prefill"
+        },
+        {
+          "line": 299,
+          "text": "        ):"
+        },
+        {
+          "line": 300,
+          "text": "            raise ValueError("
+        },
+        {
+          "line": 301,
+          "text": "                f\"max_num_batched_tokens ({self.max_num_batched_tokens}) is \""
+        },
+        {
+          "line": 302,
+          "text": "                f\"smaller than max_model_len ({max_model_len}). \""
+        },
+        {
+          "line": 303,
+          "text": "                \"This effectively limits the maximum sequence length to \""
+        },
+        {
+          "line": 304,
+          "text": "                \"max_num_batched_tokens and makes vLLM reject longer \""
+        },
+        {
+          "line": 305,
+          "text": "                \"sequences. Please increase max_num_batched_tokens or \""
+        },
+        {
+          "line": 306,
+          "text": "                \"decrease max_model_len.\""
+        },
+        {
+          "line": 307,
+          "text": "            )"
+        },
+        {
+          "line": 308,
+          "text": ""
+        },
+        {
+          "line": 309,
+          "text": "        if self.max_num_batched_tokens < self.max_num_seqs:"
+        },
+        {
+          "line": 310,
+          "text": "            raise ValueError("
+        },
+        {
+          "line": 311,
+          "text": "                f\"max_num_batched_tokens ({self.max_num_batched_tokens}) must \""
+        },
+        {
+          "line": 312,
+          "text": "                \"be greater than or equal to max_num_seqs \""
+        },
+        {
+          "line": 313,
+          "text": "                f\"({self.max_num_seqs}).\""
+        },
+        {
+          "line": 314,
+          "text": "            )"
+        },
+        {
+          "line": 315,
+          "text": ""
+        },
+        {
+          "line": 316,
+          "text": "        if self.max_num_batched_tokens > self.max_num_seqs * max_model_len:"
+        },
+        {
+          "line": 317,
+          "text": "            logger.warning("
+        },
+        {
+          "line": 318,
+          "text": "                \"max_num_batched_tokens (%d) exceeds max_num_seqs \""
+        },
+        {
+          "line": 319,
+          "text": "                \"* max_model_len (%d). This may lead to unexpected behavior.\","
+        },
+        {
+          "line": 320,
+          "text": "                self.max_num_batched_tokens,"
+        },
+        {
+          "line": 321,
+          "text": "                self.max_num_seqs * max_model_len,"
+        },
+        {
+          "line": 322,
+          "text": "            )"
+        },
+        {
+          "line": 323,
+          "text": ""
+        },
+        {
+          "line": 324,
+          "text": "        if self.long_prefill_token_threshold > max_model_len:"
+        },
+        {
+          "line": 325,
+          "text": "            raise ValueError("
+        },
+        {
+          "line": 326,
+          "text": "                \"long_prefill_token_threshold \""
+        },
+        {
+          "line": 327,
+          "text": "                f\"({self.long_prefill_token_threshold}) cannot be greater \""
+        },
+        {
+          "line": 328,
+          "text": "                f\"than the max_model_len ({max_model_len}).\""
+        }
+      ]
+    },
+    {
+      "package": "vllm",
+      "relative_file": "vllm/config/speculative.py",
+      "source_sha256": "9c642a87264339c0dbc1d0b57330572149df0f9d5e16c6893b9895e50a619e19",
+      "lines": [
+        {
+          "line": 64,
+          "text": "    \"glm5_next_mtp\","
+        },
+        {
+          "line": 65,
+          "text": "]"
+        },
+        {
+          "line": 66,
+          "text": "NgramGPUTypes = Literal[\"ngram_gpu\"]"
+        },
+        {
+          "line": 67,
+          "text": "DFlashModelTypes = Literal[\"dflash\"]"
+        },
+        {
+          "line": 68,
+          "text": "DSparkModelTypes = Literal[\"dspark\"]"
+        },
+        {
+          "line": 69,
+          "text": "EagleModelTypes = Literal["
+        },
+        {
+          "line": 70,
+          "text": "    \"eagle\", \"eagle3\", \"extract_hidden_states\", MTPModelTypes, DFlashModelTypes"
+        },
+        {
+          "line": 71,
+          "text": "]"
+        },
+        {
+          "line": 72,
+          "text": "SpeculativeMethod = Literal["
+        },
+        {
+          "line": 73,
+          "text": "    \"ngram\","
+        },
+        {
+          "line": 74,
+          "text": "    \"medusa\","
+        },
+        {
+          "line": 75,
+          "text": "    \"mlp_speculator\","
+        },
+        {
+          "line": 131,
+          "text": "        return nested_config.get(name)"
+        },
+        {
+          "line": 132,
+          "text": "    return getattr(nested_config, name, None)"
+        },
+        {
+          "line": 133,
+          "text": ""
+        },
+        {
+          "line": 134,
+          "text": ""
+        },
+        {
+          "line": 135,
+          "text": "def _get_qwen3_dspark_value(config: Any, name: str) -> Any:"
+        },
+        {
+          "line": 136,
+          "text": "    # Match DFlashQwen3Model's precedence: dflash_config overrides"
+        },
+        {
+          "line": 137,
+          "text": "    # eagle_config, and top-level values are the modern fallback."
+        },
+        {
+          "line": 138,
+          "text": "    value = _get_nested_config_value(config, \"dflash_config\", name)"
+        },
+        {
+          "line": 139,
+          "text": "    if value is None:"
+        },
+        {
+          "line": 140,
+          "text": "        value = _get_nested_config_value(config, \"eagle_config\", name)"
+        },
+        {
+          "line": 141,
+          "text": "    if value is None:"
+        },
+        {
+          "line": 142,
+          "text": "        value = getattr(config, name, None)"
+        },
+        {
+          "line": 143,
+          "text": "    return value"
+        },
+        {
+          "line": 144,
+          "text": ""
+        },
+        {
+          "line": 145,
+          "text": ""
+        },
+        {
+          "line": 146,
+          "text": "def _validate_qwen3_omni_dspark("
+        },
+        {
+          "line": 147,
+          "text": "    target_model_config: ModelConfig,"
+        },
+        {
+          "line": 148,
+          "text": "    draft_model_config: ModelConfig,"
+        },
+        {
+          "line": 149,
+          "text": "    num_speculative_tokens: int,"
+        },
+        {
+          "line": 150,
+          "text": ") -> None:"
+        },
+        {
+          "line": 151,
+          "text": "    \"\"\"Validate the standalone Qwen3-Omni DSpark checkpoint contract.\"\"\""
+        },
+        {
+          "line": 152,
+          "text": "    if not _is_qwen3_omni_target(target_model_config):"
+        },
+        {
+          "line": 153,
+          "text": "        return"
+        },
+        {
+          "line": 154,
+          "text": ""
+        },
+        {
+          "line": 155,
+          "text": "    draft_hf_config = draft_model_config.hf_config"
+        },
+        {
+          "line": 156,
+          "text": "    draft_architectures = set(getattr(draft_model_config, \"architectures\", ()) or ())"
+        },
+        {
+          "line": 161,
+          "text": "            f\"architectures=['{_QWEN3_OMNI_DSPARK_ARCHITECTURE}']; generic \""
+        },
+        {
+          "line": 162,
+          "text": "            \"Qwen3DSparkModel checkpoints must be converted first.\""
+        },
+        {
+          "line": 163,
+          "text": "        )"
+        },
+        {
+          "line": 164,
+          "text": ""
+        },
+        {
+          "line": 165,
+          "text": "    block_size = _get_qwen3_dspark_value(draft_hf_config, \"block_size\")"
+        },
+        {
+          "line": 166,
+          "text": "    if block_size is None:"
+        },
+        {
+          "line": 167,
+          "text": "        block_size = _get_qwen3_dspark_value(draft_hf_config, \"dspark_block_size\")"
+        },
+        {
+          "line": 168,
+          "text": "    if ("
+        },
+        {
+          "line": 169,
+          "text": "        not isinstance(block_size, int)"
+        },
+        {
+          "line": 170,
+          "text": "        or isinstance(block_size, bool)"
+        },
+        {
+          "line": 171,
+          "text": "        or block_size <= 0"
+        },
+        {
+          "line": 172,
+          "text": "    ):"
+        },
+        {
+          "line": 173,
+          "text": "        raise ValueError("
+        },
+        {
+          "line": 174,
+          "text": "            \"Qwen3-Omni DSpark requires a positive integer block_size in the \""
+        },
+        {
+          "line": 175,
+          "text": "            \"draft config.\""
+        },
+        {
+          "line": 176,
+          "text": "        )"
+        },
+        {
+          "line": 177,
+          "text": "    if num_speculative_tokens != block_size:"
+        },
+        {
+          "line": 178,
+          "text": "        raise ValueError("
+        },
+        {
+          "line": 179,
+          "text": "            \"Qwen3-Omni DSpark requires num_speculative_tokens to match the \""
+        },
+        {
+          "line": 180,
+          "text": "            f\"trained block_size ({block_size}); got {num_speculative_tokens}.\""
+        },
+        {
+          "line": 181,
+          "text": "        )"
+        },
+        {
+          "line": 182,
+          "text": ""
+        },
+        {
+          "line": 183,
+          "text": "    target_text_config = _get_qwen3_omni_text_config(target_model_config)"
+        },
+        {
+          "line": 184,
+          "text": "    if target_text_config is None:"
+        },
+        {
+          "line": 185,
+          "text": "        raise ValueError("
+        },
+        {
+          "line": 186,
+          "text": "            \"Qwen3-Omni DSpark could not resolve the target thinker text_config.\""
+        },
+        {
+          "line": 187,
+          "text": "        )"
+        },
+        {
+          "line": 241,
+          "text": "    target_layer_ids = _get_nested_config_value("
+        },
+        {
+          "line": 242,
+          "text": "        draft_hf_config, \"dflash_config\", \"target_layer_ids\""
+        },
+        {
+          "line": 243,
+          "text": "    )"
+        },
+        {
+          "line": 244,
+          "text": "    if target_layer_ids is None:"
+        },
+        {
+          "line": 245,
+          "text": "        target_layer_ids = getattr(draft_hf_config, \"dspark_target_layer_ids\", None)"
+        },
+        {
+          "line": 246,
+          "text": "    if target_layer_ids is None:"
+        },
+        {
+          "line": 247,
+          "text": "        target_layer_ids = getattr(draft_hf_config, \"target_layer_ids\", None)"
+        },
+        {
+          "line": 248,
+          "text": "    if not isinstance(target_layer_ids, (list, tuple)) or not target_layer_ids:"
+        },
+        {
+          "line": 249,
+          "text": "        raise ValueError("
+        },
+        {
+          "line": 250,
+          "text": "            \"Qwen3-Omni DSpark requires a non-empty target_layer_ids list in \""
+        },
+        {
+          "line": 251,
+          "text": "            \"the draft config.\""
+        },
+        {
+          "line": 252,
+          "text": "        )"
+        },
+        {
+          "line": 271,
+          "text": "            \"Qwen3-Omni DSpark target_layer_ids must be zero-based text-layer \""
+        },
+        {
+          "line": 272,
+          "text": "            f\"indices in [0, {target_num_layers - 1}]; got {target_layer_ids}.\""
+        },
+        {
+          "line": 273,
+          "text": "        )"
+        },
+        {
+          "line": 274,
+          "text": ""
+        },
+        {
+          "line": 275,
+          "text": "    if _get_qwen3_dspark_value(draft_hf_config, \"use_aux_hidden_state\") is not True:"
+        },
+        {
+          "line": 276,
+          "text": "        raise ValueError("
+        },
+        {
+          "line": 277,
+          "text": "            \"Qwen3-Omni DSpark requires use_aux_hidden_state=true because Omni \""
+        },
+        {
+          "line": 278,
+          "text": "            \"conditioning is supplied through thinker hidden states.\""
+        },
+        {
+          "line": 279,
+          "text": "        )"
+        },
+        {
+          "line": 280,
+          "text": ""
+        },
+        {
+          "line": 281,
+          "text": "    markov_rank = getattr(draft_hf_config, \"markov_rank\", None)"
+        },
+        {
+          "line": 282,
+          "text": "    if ("
+        },
+        {
+          "line": 295,
+          "text": "            f\"got {markov_head_type!r}.\""
+        },
+        {
+          "line": 296,
+          "text": "        )"
+        },
+        {
+          "line": 297,
+          "text": ""
+        },
+        {
+          "line": 298,
+          "text": "    sample_from_anchor = getattr(draft_hf_config, \"sample_from_anchor\", True)"
+        },
+        {
+          "line": 299,
+          "text": "    bonus_anchor = getattr(draft_hf_config, \"dspark_bonus_anchor\", False)"
+        },
+        {
+          "line": 300,
+          "text": "    if sample_from_anchor is not True or bonus_anchor is not False:"
+        },
+        {
+          "line": 301,
+          "text": "        raise ValueError("
+        },
+        {
+          "line": 302,
+          "text": "            \"Qwen3-Omni DSpark requires sample_from_anchor=true and \""
+        },
+        {
+          "line": 303,
+          "text": "            \"dspark_bonus_anchor=false.\""
+        },
+        {
+          "line": 304,
+          "text": "        )"
+        },
+        {
+          "line": 305,
+          "text": ""
+        },
+        {
+          "line": 306,
+          "text": "    target_vocab_size = getattr("
+        },
+        {
+          "line": 307,
+          "text": "        target_text_config,"
+        },
+        {
+          "line": 308,
+          "text": "        \"vocab_size\","
+        },
+        {
+          "line": 309,
+          "text": "        target_model_config.get_vocab_size(),"
+        },
+        {
+          "line": 310,
+          "text": "    )"
+        },
+        {
+          "line": 336,
+          "text": "        draft_hf_config, \"dflash_config\", \"mask_token_id\""
+        },
+        {
+          "line": 337,
+          "text": "    )"
+        },
+        {
+          "line": 338,
+          "text": "    for name in ("
+        },
+        {
+          "line": 339,
+          "text": "        \"mask_token_id\","
+        },
+        {
+          "line": 340,
+          "text": "        \"dspark_noise_token_id\","
+        },
+        {
+          "line": 341,
+          "text": "        \"pard_token\","
+        },
+        {
+          "line": 342,
+          "text": "        \"ptd_token_id\","
+        },
+        {
+          "line": 343,
+          "text": "    ):"
+        },
+        {
+          "line": 344,
+          "text": "        if noise_token_id is None:"
+        },
+        {
+          "line": 345,
+          "text": "            noise_token_id = getattr(draft_hf_config, name, None)"
+        },
+        {
+          "line": 346,
+          "text": "        if noise_token_id is not None:"
+        },
+        {
+          "line": 347,
+          "text": "            break"
+        },
+        {
+          "line": 377,
+          "text": ""
+        },
+        {
+          "line": 378,
+          "text": "    enforce_eager: bool | None = None"
+        },
+        {
+          "line": 379,
+          "text": "    \"\"\"Override the default enforce_eager from model_config\"\"\""
+        },
+        {
+          "line": 380,
+          "text": "    # General speculative decoding control"
+        },
+        {
+          "line": 381,
+          "text": "    num_speculative_tokens: int = Field(default=None, gt=0)  # type: ignore[assignment]"
+        },
+        {
+          "line": 382,
+          "text": "    \"\"\"The number of speculative tokens, if provided. It will default to the"
+        },
+        {
+          "line": 383,
+          "text": "    number in the draft model config if present, otherwise, it is required.\"\"\""
+        },
+        {
+          "line": 384,
+          "text": "    model: str | None = None"
+        },
+        {
+          "line": 385,
+          "text": "    \"\"\"The name of the draft model, eagle head, or additional weights, if"
+        },
+        {
+          "line": 386,
+          "text": "    provided.\"\"\""
+        },
+        {
+          "line": 387,
+          "text": "    method: SpeculativeMethod | None = None"
+        },
+        {
+          "line": 388,
+          "text": "    \"\"\"The name of the speculative method to use. If users provide and set the"
+        },
+        {
+          "line": 475,
+          "text": "    target_parallel_config: SkipValidation[ParallelConfig] = None  # type: ignore"
+        },
+        {
+          "line": 476,
+          "text": "    \"\"\"The parallel configuration for the target model.\"\"\""
+        },
+        {
+          "line": 477,
+          "text": ""
+        },
+        {
+          "line": 478,
+          "text": "    # dynamic speculative decoding control"
+        },
+        {
+          "line": 479,
+          "text": "    num_speculative_tokens_per_batch_size: list[tuple[int, int, int]] | None = None"
+        },
+        {
+          "line": 480,
+          "text": "    \"\"\"Batch-size schedule used to dynamically choose speculative-token count."
+        },
+        {
+          "line": 481,
+          "text": ""
+        },
+        {
+          "line": 482,
+          "text": "    Each entry is ``(range_start, range_end, num_speculative_tokens)`` with an"
+        },
+        {
+          "line": 483,
+          "text": "    inclusive batch-size range."
+        },
+        {
+          "line": 484,
+          "text": "    \"\"\""
+        },
+        {
+          "line": 485,
+          "text": ""
+        },
+        {
+          "line": 486,
+          "text": "    # params generated in the post-init stage"
+        },
+        {
+          "line": 487,
+          "text": "    draft_model_config: SkipValidation[ModelConfig] = None  # type: ignore"
+        },
+        {
+          "line": 488,
+          "text": "    \"\"\"The configuration of the draft model initialized internal.\"\"\""
+        },
+        {
+          "line": 489,
+          "text": "    draft_parallel_config: SkipValidation[ParallelConfig] = None  # type: ignore"
+        },
+        {
+          "line": 525,
+          "text": "    synthetic_acceptance_rates: list[float] | None = None"
+        },
+        {
+          "line": 526,
+          "text": "    \"\"\"Per-position *unconditional* acceptance rates for synthetic rejection"
+        },
+        {
+          "line": 527,
+          "text": "    sampling. Position i's entry is the marginal probability that the first"
+        },
+        {
+          "line": 528,
+          "text": "    i+1 draft tokens are all accepted; the list must have length"
+        },
+        {
+          "line": 529,
+          "text": "    num_speculative_tokens, each entry in [0, 1], and be monotonically"
+        },
+        {
+          "line": 530,
+          "text": "    non-increasing. Only valid when rejection_sample_method is 'synthetic'."
+        },
+        {
+          "line": 531,
+          "text": "    Mutually exclusive with synthetic_acceptance_length.\"\"\""
+        },
+        {
+          "line": 532,
+          "text": ""
+        },
+        {
+          "line": 533,
+          "text": "    synthetic_acceptance_length: float | None = None"
+        },
+        {
+          "line": 534,
+          "text": "    \"\"\"Target mean acceptance length for synthetic rejection sampling, in"
+        },
+        {
+          "line": 535,
+          "text": "    [1, num_speculative_tokens + 1]. Resolved internally to"
+        },
+        {
+          "line": 536,
+          "text": "    synthetic_acceptance_rates. Only valid when rejection_sample_method is 'synthetic'."
+        },
+        {
+          "line": 537,
+          "text": "    Mutually exclusive with synthetic_acceptance_rates.\"\"\""
+        },
+        {
+          "line": 538,
+          "text": ""
+        },
+        {
+          "line": 539,
+          "text": "    enable_adaptive_verification: bool = False"
+        },
+        {
+          "line": 540,
+          "text": "    \"\"\"Whether to adaptively size the draft-verification budget from per-request"
+        },
+        {
+          "line": 541,
+          "text": "    confidence. Currently only supported for method=\"dspark\".\"\"\""
+        },
+        {
+          "line": 542,
+          "text": ""
+        },
+        {
+          "line": 543,
+          "text": "    @staticmethod"
+        },
+        {
+          "line": 544,
+          "text": "    def _acceptance_length_to_rates(length: float, n: int) -> list[float]:"
+        },
+        {
+          "line": 545,
+          "text": "        \"\"\"Mean acceptance length to unconditional per-position rates, using"
+        },
+        {
+          "line": 546,
+          "text": "        the minimum-variance schedule.\"\"\""
+        },
+        {
+          "line": 547,
+          "text": "        num_drafts = length - 1  # expected number of accepted draft tokens"
+        },
+        {
+          "line": 548,
+          "text": "        num_full = int(num_drafts)"
+        },
+        {
+          "line": 592,
+          "text": "    distribution and uses the full draft logits for the probability ratio test"
+        },
+        {
+          "line": 593,
+          "text": "    during rejection sampling. This comes at the cost of additional GPU memory"
+        },
+        {
+          "line": 594,
+          "text": "    usage.\"\"\""
+        },
+        {
+          "line": 595,
+          "text": ""
+        },
+        {
+          "line": 596,
+          "text": "    dspark_draft_topk: int | None = Field(default=None, ge=1)"
+        },
+        {
+          "line": 597,
+          "text": "    \"\"\"For Qwen3 DSpark drafting, evaluate the Markov projection only for the"
+        },
+        {
+          "line": 598,
+          "text": "    top-k base-logit candidates. Requires draft tensor parallel size 1.\"\"\""
+        },
+        {
+          "line": 599,
+          "text": ""
+        },
+        {
+          "line": 600,
+          "text": "    def compute_hash(self) -> str:"
+        },
+        {
+          "line": 601,
+          "text": "        \"\"\""
+        },
+        {
+          "line": 602,
+          "text": "        WARNING: Whenever a new field is added to this config,"
+        },
+        {
+          "line": 603,
+          "text": "        ensure that it is included in the factors list if"
+        },
+        {
+          "line": 615,
+          "text": "        uses_aux_hidden_states = self.method in ("
+        },
+        {
+          "line": 616,
+          "text": "            \"eagle3\","
+        },
+        {
+          "line": 617,
+          "text": "            \"extract_hidden_states\","
+        },
+        {
+          "line": 618,
+          "text": "            \"dflash\","
+        },
+        {
+          "line": 619,
+          "text": "            \"dspark\","
+        },
+        {
+          "line": 620,
+          "text": "        )"
+        },
+        {
+          "line": 621,
+          "text": "        factors.append(uses_aux_hidden_states)"
+        },
+        {
+          "line": 622,
+          "text": ""
+        },
+        {
+          "line": 623,
+          "text": "        if self.draft_model_config is not None:"
+        },
+        {
+          "line": 624,
+          "text": "            factors.append(self.draft_model_config.compute_hash())"
+        },
+        {
+          "line": 625,
+          "text": "            # The specific layers used also affect the computation graph."
+        },
+        {
+          "line": 626,
+          "text": "            layer_ids = getattr("
+        },
+        {
+          "line": 1123,
+          "text": "                \"method `%s` is deprecated and replaced with mtp.\", self.method"
+        },
+        {
+          "line": 1124,
+          "text": "            )"
+        },
+        {
+          "line": 1125,
+          "text": "            self.method = \"mtp\""
+        },
+        {
+          "line": 1126,
+          "text": ""
+        },
+        {
+          "line": 1127,
+          "text": "        if self.model is None and self.num_speculative_tokens is not None:"
+        },
+        {
+          "line": 1128,
+          "text": "            if self.method == \"mtp\":"
+        },
+        {
+          "line": 1129,
+          "text": "                if self.target_model_config is None:"
+        },
+        {
+          "line": 1130,
+          "text": "                    raise ValueError(\"target_model_config must be present for mtp\")"
+        },
+        {
+          "line": 1131,
+          "text": "                # use the draft model from the same model:"
+        },
+        {
+          "line": 1132,
+          "text": "                # Use model_weights if set (e.g. runai_streamer replaces"
+        },
+        {
+          "line": 1133,
+          "text": "                # model with a local cache dir but keeps the original path"
+        },
+        {
+          "line": 1134,
+          "text": "                # in model_weights), so the draft model can load weights"
+        },
+        {
+          "line": 1140,
+          "text": "                # Align the quantization of draft model for cases such as"
+        },
+        {
+          "line": 1141,
+          "text": "                # --quantization fp8 with a bf16 checkpoint."
+        },
+        {
+          "line": 1142,
+          "text": "                if not self.quantization:"
+        },
+        {
+          "line": 1143,
+          "text": "                    self.quantization = self.target_model_config.quantization"
+        },
+        {
+          "line": 1144,
+          "text": "            elif self.method == \"dspark\":"
+        },
+        {
+          "line": 1145,
+          "text": "                # DeepSeek DSpark can ship the weights inside the target checkpoint"
+        },
+        {
+          "line": 1146,
+          "text": "                if self.target_model_config is None:"
+        },
+        {
+          "line": 1147,
+          "text": "                    raise ValueError(\"target_model_config must be present for dspark\")"
+        },
+        {
+          "line": 1148,
+          "text": "                self.model = self.target_model_config.model"
+        },
+        {
+          "line": 1149,
+          "text": "                if not self.quantization:"
+        },
+        {
+          "line": 1150,
+          "text": "                    self.quantization = self.target_model_config.quantization"
+        },
+        {
+          "line": 1151,
+          "text": "            elif self.method in (\"ngram\", \"[ngram]\"):"
+        },
+        {
+          "line": 1152,
+          "text": "                self.model = \"ngram\""
+        },
+        {
+          "line": 1153,
+          "text": "            elif self.method == \"ngram_gpu\":"
+        },
+        {
+          "line": 1154,
+          "text": "                self.model = \"ngram_gpu\""
+        },
+        {
+          "line": 1165,
+          "text": "                        \"custom proposer module path (e.g., 'my_module.MyProposer').\""
+        },
+        {
+          "line": 1166,
+          "text": "                    )"
+        },
+        {
+          "line": 1167,
+          "text": "            else:"
+        },
+        {
+          "line": 1168,
+          "text": "                raise ValueError("
+        },
+        {
+          "line": 1169,
+          "text": "                    \"num_speculative_tokens was provided but without speculative model.\""
+        },
+        {
+          "line": 1170,
+          "text": "                )"
+        },
+        {
+          "line": 1171,
+          "text": ""
+        },
+        {
+          "line": 1172,
+          "text": "        if self.method in (\"ngram\", \"[ngram]\"):"
+        },
+        {
+          "line": 1173,
+          "text": "            self.method = \"ngram\""
+        },
+        {
+          "line": 1174,
+          "text": ""
+        },
+        {
+          "line": 1175,
+          "text": "        if self.method in (\"ngram\", \"ngram_gpu\"):"
+        },
+        {
+          "line": 1176,
+          "text": "            # Set default values if not provided"
+        },
+        {
+          "line": 1303,
+          "text": "                        draft_hf.vocab_size = target_vocab"
+        },
+        {
+          "line": 1304,
+          "text": "                        draft_hf.truncated_vocab_size = target_vocab"
+        },
+        {
+          "line": 1305,
+          "text": ""
+        },
+        {
+          "line": 1306,
+          "text": "                # Automatically detect the method"
+        },
+        {
+          "line": 1307,
+          "text": "                if self.method in (\"eagle\", \"eagle3\", \"dflash\", \"dspark\"):"
+        },
+        {
+          "line": 1308,
+          "text": "                    pass"
+        },
+        {
+          "line": 1309,
+          "text": "                # examples:"
+        },
+        {
+          "line": 1310,
+          "text": "                # yuhuili/EAGLE-LLaMA3-Instruct-8B"
+        },
+        {
+          "line": 1311,
+          "text": "                # yuhuili/EAGLE3-LLaMA3.1-Instruct-8B"
+        },
+        {
+          "line": 1312,
+          "text": "                # AngelSlim/Qwen3-8B_eagle3"
+        },
+        {
+          "line": 1313,
+          "text": "                # deepseek-ai/dspark_qwen3_8b_block7"
+        },
+        {
+          "line": 1314,
+          "text": "                elif \"eagle-\" in self.draft_model_config.model.lower():"
+        },
+        {
+          "line": 1315,
+          "text": "                    self.method = \"eagle\""
+        },
+        {
+          "line": 1316,
+          "text": "                elif \"eagle3\" in self.draft_model_config.model.lower():"
+        },
+        {
+          "line": 1317,
+          "text": "                    self.method = \"eagle3\""
+        },
+        {
+          "line": 1318,
+          "text": "                elif ("
+        },
+        {
+          "line": 1319,
+          "text": "                    \"dflash\" in self.draft_model_config.model.lower()"
+        },
+        {
+          "line": 1320,
+          "text": "                    or \"MuseGlimmerAssistantModel\""
+        },
+        {
+          "line": 1321,
+          "text": "                    in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1322,
+          "text": "                ):"
+        },
+        {
+          "line": 1323,
+          "text": "                    self.method = \"dflash\""
+        },
+        {
+          "line": 1324,
+          "text": "                elif ("
+        },
+        {
+          "line": 1325,
+          "text": "                    \"dspark\" in self.draft_model_config.model.lower()"
+        },
+        {
+          "line": 1326,
+          "text": "                    or \"Qwen3DSparkModel\" in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1327,
+          "text": "                    or _QWEN3_OMNI_DSPARK_ARCHITECTURE"
+        },
+        {
+          "line": 1328,
+          "text": "                    in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1329,
+          "text": "                    or \"Gemma4DSparkModel\" in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1330,
+          "text": "                    or ("
+        },
+        {
+          "line": 1331,
+          "text": "                        \"DSparkDraftModel\" in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1332,
+          "text": "                        and self.draft_model_config.hf_config.model_type == \"qwen3\""
+        },
+        {
+          "line": 1333,
+          "text": "                    )"
+        },
+        {
+          "line": 1334,
+          "text": "                ):"
+        },
+        {
+          "line": 1335,
+          "text": "                    self.method = \"dspark\""
+        },
+        {
+          "line": 1336,
+          "text": "                elif self.draft_model_config.hf_config.model_type == \"medusa\":"
+        },
+        {
+          "line": 1337,
+          "text": "                    self.method = \"medusa\""
+        },
+        {
+          "line": 1338,
+          "text": "                elif self.draft_model_config.hf_config.model_type == \"mlp_speculator\":"
+        },
+        {
+          "line": 1339,
+          "text": "                    self.method = \"mlp_speculator\""
+        },
+        {
+          "line": 1340,
+          "text": "                elif self.draft_model_config.hf_config.model_type in get_args("
+        },
+        {
+          "line": 1341,
+          "text": "                    MTPModelTypes"
+        },
+        {
+          "line": 1342,
+          "text": "                ):"
+        },
+        {
+          "line": 1350,
+          "text": "                            \"DeepSeek V4.1 has no classic-MTP draft: its \""
+        },
+        {
+          "line": 1351,
+          "text": "                            \"checkpoints ship DSpark stages under mtp.* \""
+        },
+        {
+          "line": 1352,
+          "text": "                            \"(main_proj/markov_head/confidence_head) and carry \""
+        },
+        {
+          "line": 1353,
+          "text": "                            \"no e_proj/h_proj/enorm/hnorm/hc_head weights. Use \""
+        },
+        {
+          "line": 1354,
+          "text": "                            \"speculative method 'dspark' instead of 'mtp'.\""
+        },
+        {
+          "line": 1355,
+          "text": "                        )"
+        },
+        {
+          "line": 1356,
+          "text": "                    if ("
+        },
+        {
+          "line": 1357,
+          "text": "                        self.num_speculative_tokens > 1"
+        },
+        {
+          "line": 1358,
+          "text": "                        and self.draft_model_config.hf_config.model_type"
+        },
+        {
+          "line": 1359,
+          "text": "                        not in (\"step3p5_mtp\", \"inkling_mtp\")"
+        },
+        {
+          "line": 1360,
+          "text": "                    ):"
+        },
+        {
+          "line": 1361,
+          "text": "                        logger.warning("
+        },
+        {
+          "line": 1362,
+          "text": "                            \"Enabling num_speculative_tokens > 1 will run \""
+        },
+        {
+          "line": 1363,
+          "text": "                            \"multiple times of forward on same MTP layer\""
+        },
+        {
+          "line": 1364,
+          "text": "                            \",which may result in lower acceptance rate\""
+        },
+        {
+          "line": 1365,
+          "text": "                        )"
+        },
+        {
+          "line": 1366,
+          "text": "                elif self.method == \"draft_model\":"
+        },
+        {
+          "line": 1367,
+          "text": "                    pass"
+        },
+        {
+          "line": 1368,
+          "text": "                else:"
+        },
+        {
+          "line": 1369,
+          "text": "                    raise NotImplementedError("
+        },
+        {
+          "line": 1400,
+          "text": "                        self.draft_model_config.hf_config = eagle_config"
+        },
+        {
+          "line": 1401,
+          "text": "                        self.update_arch_()"
+        },
+        {
+          "line": 1402,
+          "text": ""
+        },
+        {
+          "line": 1403,
+          "text": "                if ("
+        },
+        {
+          "line": 1404,
+          "text": "                    self.method == \"dspark\""
+        },
+        {
+          "line": 1405,
+          "text": "                    and \"DSparkDraftModel\" in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1406,
+          "text": "                    and self.draft_model_config.hf_config.model_type == \"qwen3\""
+        },
+        {
+          "line": 1407,
+          "text": "                ):"
+        },
+        {
+          "line": 1408,
+          "text": "                    self.draft_model_config.hf_config.architectures = ["
+        },
+        {
+          "line": 1409,
+          "text": "                        \"Qwen3DSparkModel\""
+        },
+        {
+          "line": 1410,
+          "text": "                    ]"
+        },
+        {
+          "line": 1411,
+          "text": "                    self.update_arch_()"
+        },
+        {
+          "line": 1412,
+          "text": "                elif self.method == \"dspark\" and ("
+        },
+        {
+          "line": 1413,
+          "text": "                    \"Qwen3DSparkModel\" not in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1414,
+          "text": "                    and _QWEN3_OMNI_DSPARK_ARCHITECTURE"
+        },
+        {
+          "line": 1415,
+          "text": "                    not in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1416,
+          "text": "                    and \"Gemma4DSparkModel\" not in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1417,
+          "text": "                    and \"K3DSparkModel\" not in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1418,
+          "text": "                ):"
+        },
+        {
+          "line": 1419,
+          "text": "                    # DeepSeek-V4(.1) DSpark reuses the full target config"
+        },
+        {
+          "line": 1430,
+          "text": "                    ]"
+        },
+        {
+          "line": 1431,
+          "text": "                    if is_v41:"
+        },
+        {
+          "line": 1432,
+          "text": "                        # hf_config_override set n_predict to the number of"
+        },
+        {
+          "line": 1433,
+          "text": "                        # MTP stages (3), but one DSpark round drafts"
+        },
+        {
+          "line": 1434,
+          "text": "                        # dspark_block_size tokens; num_speculative_tokens"
+        },
+        {
+          "line": 1435,
+          "text": "                        # divisibility is checked against n_predict below."
+        },
+        {
+          "line": 1436,
+          "text": "                        draft_hf_config.n_predict = getattr("
+        },
+        {
+          "line": 1437,
+          "text": "                            draft_hf_config, \"dspark_block_size\", None"
+        },
+        {
+          "line": 1438,
+          "text": "                        ) or getattr(draft_hf_config, \"n_predict\", None)"
+        },
+        {
+          "line": 1439,
+          "text": "                    self.draft_model_config.quantization = ("
+        },
+        {
+          "line": 1440,
+          "text": "                        self.target_model_config.quantization"
+        },
+        {
+          "line": 1441,
+          "text": "                    )"
+        },
+        {
+          "line": 1442,
+          "text": "                    self.update_arch_()"
+        },
+        {
+          "line": 1443,
+          "text": "                elif ("
+        },
+        {
+          "line": 1444,
+          "text": "                    self.method == \"dspark\""
+        },
+        {
+          "line": 1445,
+          "text": "                    and \"Gemma4DSparkModel\" in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1446,
+          "text": "                ):"
+        },
+        {
+          "line": 1447,
+          "text": "                    # Normalize the self-contained Gemma4 draft's config keys to"
+        },
+        {
+          "line": 1448,
+          "text": "                    # the DSpark conventions."
+        },
+        {
+          "line": 1449,
+          "text": "                    hf = self.draft_model_config.hf_config"
+        },
+        {
+          "line": 1450,
+          "text": "                    if ("
+        },
+        {
+          "line": 1451,
+          "text": "                        getattr(hf, \"dspark_target_layer_ids\", None) is None"
+        },
+        {
+          "line": 1452,
+          "text": "                        and getattr(hf, \"target_layer_ids\", None) is not None"
+        },
+        {
+          "line": 1453,
+          "text": "                    ):"
+        },
+        {
+          "line": 1454,
+          "text": "                        hf.dspark_target_layer_ids = hf.target_layer_ids"
+        },
+        {
+          "line": 1455,
+          "text": "                    if ("
+        },
+        {
+          "line": 1456,
+          "text": "                        getattr(hf, \"n_predict\", None) is None"
+        },
+        {
+          "line": 1457,
+          "text": "                        and getattr(hf, \"block_size\", None) is not None"
+        },
+        {
+          "line": 1458,
+          "text": "                    ):"
+        },
+        {
+          "line": 1459,
+          "text": "                        hf.n_predict = hf.block_size"
+        },
+        {
+          "line": 1460,
+          "text": ""
+        },
+        {
+          "line": 1461,
+          "text": "                if self.method in (\"dflash\", \"dspark\"):"
+        },
+        {
+          "line": 1462,
+          "text": "                    self.parallel_drafting = True"
+        },
+        {
+          "line": 1463,
+          "text": ""
+        },
+        {
+          "line": 1464,
+          "text": "                if self.num_speculative_tokens is not None and hasattr("
+        },
+        {
+          "line": 1465,
+          "text": "                    self.draft_model_config.hf_config, \"num_lookahead_tokens\""
+        },
+        {
+          "line": 1466,
+          "text": "                ):"
+        },
+        {
+          "line": 1467,
+          "text": "                    self.draft_model_config.hf_config.num_lookahead_tokens = ("
+        },
+        {
+          "line": 1468,
+          "text": "                        self.num_speculative_tokens"
+        },
+        {
+          "line": 1469,
+          "text": "                    )"
+        },
+        {
+          "line": 1470,
+          "text": ""
+        },
+        {
+          "line": 1471,
+          "text": "                n_predict = getattr("
+        },
+        {
+          "line": 1472,
+          "text": "                    self.draft_model_config.hf_config, \"n_predict\", None"
+        },
+        {
+          "line": 1473,
+          "text": "                )"
+        },
+        {
+          "line": 1474,
+          "text": "                if n_predict is not None:"
+        },
+        {
+          "line": 1475,
+          "text": "                    if self.num_speculative_tokens is None:"
+        },
+        {
+          "line": 1476,
+          "text": "                        # Default to max value defined in draft model config."
+        },
+        {
+          "line": 1477,
+          "text": "                        self.num_speculative_tokens = n_predict"
+        },
+        {
+          "line": 1478,
+          "text": "                    elif ("
+        },
+        {
+          "line": 1479,
+          "text": "                        self.num_speculative_tokens > n_predict"
+        },
+        {
+          "line": 1480,
+          "text": "                        and self.num_speculative_tokens % n_predict != 0"
+        },
+        {
+          "line": 1481,
+          "text": "                    ):"
+        },
+        {
+          "line": 1482,
+          "text": "                        # Ensure divisibility for MTP module reuse."
+        },
+        {
+          "line": 1483,
+          "text": "                        raise ValueError("
+        },
+        {
+          "line": 1484,
+          "text": "                            f\"num_speculative_tokens:{self.num_speculative_tokens}\""
+        },
+        {
+          "line": 1485,
+          "text": "                            f\" must be divisible by {n_predict=}\""
+        },
+        {
+          "line": 1486,
+          "text": "                        )"
+        },
+        {
+          "line": 1487,
+          "text": ""
+        },
+        {
+          "line": 1488,
+          "text": "                if self.num_speculative_tokens is None:"
+        },
+        {
+          "line": 1489,
+          "text": "                    raise ValueError("
+        },
+        {
+          "line": 1490,
+          "text": "                        \"A speculative model was provided, but \""
+        },
+        {
+          "line": 1491,
+          "text": "                        \"`num_speculative_tokens` was not provided\""
+        },
+        {
+          "line": 1492,
+          "text": "                    )"
+        },
+        {
+          "line": 1493,
+          "text": ""
+        },
+        {
+          "line": 1494,
+          "text": "                if self.dspark_draft_topk is not None and self.method != \"dspark\":"
+        },
+        {
+          "line": 1495,
+          "text": "                    raise ValueError(\"dspark_draft_topk is only supported by DSpark\")"
+        },
+        {
+          "line": 1496,
+          "text": ""
+        },
+        {
+          "line": 1497,
+          "text": "                dspark_draft_topk = None"
+        },
+        {
+          "line": 1498,
+          "text": "                if self.method == \"dspark\":"
+        },
+        {
+          "line": 1499,
+          "text": "                    hf_config = self.draft_model_config.hf_config"
+        },
+        {
+          "line": 1500,
+          "text": "                    dspark_draft_topk = self.dspark_draft_topk"
+        },
+        {
+          "line": 1501,
+          "text": "                    if dspark_draft_topk is None:"
+        },
+        {
+          "line": 1502,
+          "text": "                        dspark_draft_topk = getattr("
+        },
+        {
+          "line": 1503,
+          "text": "                            hf_config, \"dspark_draft_topk\", None"
+        },
+        {
+          "line": 1504,
+          "text": "                        )"
+        },
+        {
+          "line": 1505,
+          "text": "                    if dspark_draft_topk is not None:"
+        },
+        {
+          "line": 1506,
+          "text": "                        draft_vocab_size = ("
+        },
+        {
+          "line": 1507,
+          "text": "                            getattr(hf_config, \"draft_vocab_size\", None)"
+        },
+        {
+          "line": 1508,
+          "text": "                            or hf_config.vocab_size"
+        },
+        {
+          "line": 1509,
+          "text": "                        )"
+        },
+        {
+          "line": 1510,
+          "text": "                        if not 1 <= dspark_draft_topk <= draft_vocab_size:"
+        },
+        {
+          "line": 1511,
+          "text": "                            raise ValueError("
+        },
+        {
+          "line": 1512,
+          "text": "                                \"dspark_draft_topk must be between 1 and the \""
+        },
+        {
+          "line": 1513,
+          "text": "                                f\"draft vocabulary size ({draft_vocab_size})\""
+        },
+        {
+          "line": 1514,
+          "text": "                            )"
+        },
+        {
+          "line": 1515,
+          "text": "                        if ("
+        },
+        {
+          "line": 1516,
+          "text": "                            \"Qwen3DSparkModel\""
+        },
+        {
+          "line": 1517,
+          "text": "                            not in self.draft_model_config.architectures"
+        },
+        {
+          "line": 1518,
+          "text": "                            and _QWEN3_OMNI_DSPARK_ARCHITECTURE"
+        }
+      ]
+    },
+    {
+      "package": "vllm-ascend",
+      "relative_file": "vllm_ascend/ascend_config.py",
+      "source_sha256": "8595413ba51a2545589d8900148e228293af73c38f4460e740d66fdf962f7d32",
+      "lines": [
+        {
+          "line": 423,
+          "text": "            \"enable_cpu_binding\": true,"
+        },
+        {
+          "line": 424,
+          "text": "            \"multistream_dsv4_dsa_overlap\": true,"
+        },
+        {
+          "line": 425,
+          "text": "            \"multistream_engram_overlap\": true,"
+        },
+        {
+          "line": 426,
+          "text": "            \"enable_prefill_mc2\": false,"
+        },
+        {
+          "line": 427,
+          "text": "            \"multistream_overlap_shared_expert\": false,"
+        },
+        {
+          "line": 428,
+          "text": "            \"enable_kv_nz\": false,"
+        },
+        {
+          "line": 429,
+          "text": "            \"enable_mc2_hierarchy_comm\": false,"
+        },
+        {
+          "line": 430,
+          "text": "            \"enable_dsa_cp\": false,"
+        },
+        {
+          "line": 431,
+          "text": "            \"sfa_dcp_force_tmajor_restore\": false,"
+        },
+        {
+          "line": 432,
+          "text": "            \"enable_force_eplb\": false,"
+        },
+        {
+          "line": 433,
+          "text": "            \"enable_pcp_o_proj_weight_sharding\": true,"
+        },
+        {
+          "line": 434,
+          "text": "            \"enable_pcp_embedding_lmhead_weight_sharding\": true,"
+        },
+        {
+          "line": 435,
+          "text": "            \"draft_window_size\": null,"
+        },
+        {
+          "line": 436,
+          "text": "            \"mix_placement\": false,"
+        },
+        {
+          "line": 437,
+          "text": "            \"pa_shape_list\": [],"
+        },
+        {
+          "line": 438,
+          "text": "            \"mega_moe_max_tokens\": 65536,"
+        },
+        {
+          "line": 439,
+          "text": "            \"ascend_log_path\": \"~/ascend/log/vllm_ascend\","
+        },
+        {
+          "line": 440,
+          "text": "            \"enable_fused_mc2\": 0,"
+        },
+        {
+          "line": 441,
+          "text": "            \"enable_mlapo\": true,"
+        },
+        {
+          "line": 442,
+          "text": "            \"mlapo_keep_prefill_weights\": false,"
+        },
+        {
+          "line": 443,
+          "text": "            \"msmonitor_use_daemon\": false,"
+        },
+        {
+          "line": 444,
+          "text": "            \"enable_transpose_kv_cache_by_block\": true,"
+        },
+        {
+          "line": 445,
+          "text": "            \"weight_nz_mode\": 1,"
+        },
+        {
+          "line": 446,
+          "text": "            \"enable_shared_expert_dp\": false,"
+        },
+        {
+          "line": 447,
+          "text": "            \"enable_sparse_sfa_c8\": false,"
+        },
+        {
+          "line": 571,
+          "text": "        default_factory=lambda: get_current_hardware_profile().device_adaptor_family"
+        },
+        {
+          "line": 572,
+          "text": "        == DeviceAdaptorFamily.FP8_OPTIMIZED"
+        },
+        {
+          "line": 573,
+          "text": "    )"
+        },
+        {
+          "line": 574,
+          "text": "    enable_prefill_mc2: bool = False"
+        },
+        {
+          "line": 575,
+          "text": "    multistream_overlap_shared_expert: bool = False"
+        },
+        {
+          "line": 576,
+          "text": "    enable_kv_nz: bool = False"
+        },
+        {
+          "line": 577,
+          "text": "    enable_mc2_hierarchy_comm: bool = False  # deprecated, will be replaced by mc2_comm_alg = \"hierarchy\""
+        },
+        {
+          "line": 578,
+          "text": "    enable_dsa_cp: bool = False"
+        },
+        {
+          "line": 579,
+          "text": "    sfa_dcp_force_tmajor_restore: bool = False"
+        },
+        {
+          "line": 580,
+          "text": "    enable_force_eplb: bool = False"
+        },
+        {
+          "line": 581,
+          "text": "    enable_pcp_o_proj_weight_sharding: bool = True"
+        },
+        {
+          "line": 582,
+          "text": "    enable_pcp_embedding_lmhead_weight_sharding: bool = True"
+        },
+        {
+          "line": 583,
+          "text": "    draft_window_size: int | None = None"
+        },
+        {
+          "line": 584,
+          "text": "    mix_placement: bool = False"
+        },
+        {
+          "line": 585,
+          "text": "    # When non-zero, force the MC2 combine stage's comm quant_mode to this"
+        },
+        {
+          "line": 586,
+          "text": "    # value (e.g. 4 = MXFP float8_e4m3 communication quantization) regardless of the"
+        },
+        {
+          "line": 587,
+          "text": "    # model's quant_type, 0 means disabled (use the model's own quant)."
+        },
+        {
+          "line": 588,
+          "text": "    combine_quant_mode: Literal[0, 2, 3, 4] = 0"
+        },
+        {
+          "line": 589,
+          "text": "    pa_shape_list: list[Any] = dataclasses.field(default_factory=list)"
+        },
+        {
+          "line": 601,
+          "text": "    dump_config_path: str | None = None"
+        },
+        {
+          "line": 602,
+          "text": "    mc2_comm_alg: Literal[\"\", \"fullmesh\", \"hierarchy\", \"fullmesh_v2\"] = \"\""
+        },
+        {
+          "line": 603,
+          "text": ""
+        },
+        {
+          "line": 604,
+          "text": "    # ---- A-family (envs fallback): default = envs module value, before-validator injects ----"
+        },
+        {
+          "line": 605,
+          "text": "    enable_fused_mc2: int = 0"
+        },
+        {
+          "line": 606,
+          "text": "    enable_mlapo: bool = True"
+        },
+        {
+          "line": 607,
+          "text": "    # When True, keep MLAPO prefill weights on NPU instead of freeing them"
+        },
+        {
+          "line": 608,
+          "text": "    # on kv_consumer D nodes. Trades NPU memory for stability — D nodes have"
+        },
+        {
+          "line": 609,
+          "text": "    # normal local-prefill paths (recompute / fallback / preempt) that crash"
+        },
+        {
+          "line": 610,
+          "text": "    # when the weights are freed (issue #11882). Default False (preserve"
+        },
+        {
+          "line": 611,
+          "text": "    # existing memory-saving behavior)."
+        },
+        {
+          "line": 612,
+          "text": "    mlapo_keep_prefill_weights: bool = False"
+        },
+        {
+          "line": 657,
+          "text": "        # TODO(zzzzwwjj): remove it after deprecating `enable_mc2_hierarchy_comm`."
+        },
+        {
+          "line": 658,
+          "text": "        if self.enable_mc2_hierarchy_comm:"
+        },
+        {
+          "line": 659,
+          "text": "            self.mc2_comm_alg = \"hierarchy\""
+        },
+        {
+          "line": 660,
+          "text": "        # TODO(zzzzwwjj): Currently, there are many problems with the megamoe op."
+        },
+        {
+          "line": 661,
+          "text": "        # We will first roll back the megamoe internally and keep `enable_fused_mc2=2`"
+        },
+        {
+          "line": 662,
+          "text": "        # to enable the megamoe for testing capabilities."
+        },
+        {
+          "line": 663,
+          "text": "        # These codes will be removed after megamoe is ready."
+        },
+        {
+          "line": 664,
+          "text": "        global _MEGA_MOE_SUPPORTED"
+        },
+        {
+          "line": 665,
+          "text": "        if self.enable_fused_mc2 in (0, 1):"
+        },
+        {
+          "line": 666,
+          "text": "            # When enable_fused_mc2=1, roll back to dispatch_ffn_combine."
+        },
+        {
+          "line": 667,
+          "text": "            _MEGA_MOE_SUPPORTED = False"
+        },
+        {
+          "line": 668,
+          "text": "        elif self.enable_fused_mc2 == 2:"
+        },
+        {
+          "line": 669,
+          "text": "            _MEGA_MOE_SUPPORTED = importlib.util.find_spec(\"cann_ops_transformer\") is not None"
+        },
+        {
+          "line": 670,
+          "text": "            self.enable_fused_mc2 = 1"
+        },
+        {
+          "line": 671,
+          "text": "        return self"
+        },
+        {
+          "line": 672,
+          "text": ""
+        },
+        {
+          "line": 673,
+          "text": "    # ---- derivations + cross-config downgrades/mutex ----"
+        },
+        {
+          "line": 674,
+          "text": "    # Business validation: invoked explicitly by init_ascend_config (NOT a"
+        },
+        {
+          "line": 675,
+          "text": "    # pydantic after-validator). Preserves the original __init__ ordering —"
+        },
+        {
+          "line": 676,
+          "text": "    # multi-step downgrades are order-dependent (e.g. profiling_chunk reads"
+        },
+        {
+          "line": 677,
+          "text": "    # the max_num_batched_tokens that sequence-parallel writeback corrected)."
+        },
+        {
+          "line": 836,
+          "text": "                \"oproj_tensor_parallel_size / mlp_tensor_parallel_size require \""
+        },
+        {
+          "line": 837,
+          "text": "                \"recompute_scheduler_enable=true: it keeps decode-node steps decode-shaped.\","
+        },
+        {
+          "line": 838,
+          "text": "            )"
+        },
+        {
+          "line": 839,
+          "text": ""
+        },
+        {
+          "line": 840,
+          "text": "        # enable_fused_mc2 enum + MiniMax mutex + multistream auto-disable"
+        },
+        {
+          "line": 841,
+          "text": "        assert self.enable_fused_mc2 in (0, 1), f\"enable_fused_mc2 must be 0 or 1, got {self.enable_fused_mc2}\""
+        },
+        {
+          "line": 842,
+          "text": "        model_architectures = getattr(vc.model_config, \"architectures\", None) or []"
+        },
+        {
+          "line": 843,
+          "text": "        is_minimax_m3 = any(architecture.startswith(\"MiniMaxM3\") for architecture in model_architectures)"
+        },
+        {
+          "line": 844,
+          "text": "        # dispatch_ffn_combine (enable_fused_mc2=1 after MegaMoe rollback) does not"
+        },
+        {
+          "line": 845,
+          "text": "        # support MiniMax M3 SwiGLU-OAI. MegaMoe (enable_fused_mc2=2) is allowed."
+        },
+        {
+          "line": 846,
+          "text": "        assert not (self.enable_fused_mc2 == 1 and is_minimax_m3 and not is_mega_moe_supported()), ("
+        },
+        {
+          "line": 847,
+          "text": "            \"MiniMax M3 does not support enable_fused_mc2=1 (dispatch_ffn_combine). \""
+        },
+        {
+          "line": 848,
+          "text": "            \"Set additional_config.enable_fused_mc2 to 2 to enable MegaMoe, or 0 to disable fused MC2.\""
+        },
+        {
+          "line": 849,
+          "text": "        )"
+        },
+        {
+          "line": 850,
+          "text": "        if self.enable_fused_mc2 == 1 and self.multistream_overlap_shared_expert:"
+        },
+        {
+          "line": 851,
+          "text": "            self.multistream_overlap_shared_expert = False"
+        },
+        {
+          "line": 852,
+          "text": "            logger.warning_once("
+        },
+        {
+          "line": 853,
+          "text": "                \"enable_fused_mc2 and multistream_overlap_shared_expert \""
+        },
+        {
+          "line": 854,
+          "text": "                \"cannot be enabled at the same time. Setting multistream_overlap_shared_expert to False.\""
+        },
+        {
+          "line": 855,
+          "text": "            )"
+        },
+        {
+          "line": 856,
+          "text": "        if self.enable_fused_mc2 == 1 and is_mega_moe_supported() and not self._is_megamoe_supported_by_config(vc):"
+        },
+        {
+          "line": 857,
+          "text": "            self.enable_fused_mc2 = 0"
+        },
+        {
+          "line": 858,
+          "text": "            logger.warning_once("
+        },
+        {
+          "line": 859,
+          "text": "                \"MegaMoe is not supported for this model config; additional_config.enable_fused_mc2 will be set to 0.\""
+        },
+        {
+          "line": 860,
+          "text": "            )"
+        },
+        {
+          "line": 861,
+          "text": ""
+        },
+        {
+          "line": 862,
+          "text": "        # mlapo_keep_prefill_weights preconditions: the prefill weights are only"
+        },
+        {
+          "line": 863,
+          "text": "        # freed by MLAPO in the MLA attention path, so the keep switch is only"
+        },
+        {
+          "line": 864,
+          "text": "        # meaningful under those same conditions. Fail fast on a no-op / mistaken"
+        },
+        {
+          "line": 865,
+          "text": "        # config instead of silently leaving the switch ineffective (issue #11882)."
+        },
+        {
+          "line": 866,
+          "text": "        if self.mlapo_keep_prefill_weights:"
+        },
+        {
+          "line": 1002,
+          "text": "                f\"({num_logical_experts} logical experts + {num_redundant_experts} EPLB redundant experts).\""
+        },
+        {
+          "line": 1003,
+          "text": "            )"
+        },
+        {
+          "line": 1004,
+          "text": ""
+        },
+        {
+          "line": 1005,
+          "text": "        # Fused MC2 and hierarchy communication are mutually exclusive."
+        },
+        {
+          "line": 1006,
+          "text": "        if self.enable_fused_mc2:"
+        },
+        {
+          "line": 1007,
+          "text": "            raise ValueError("
+        },
+        {
+          "line": 1008,
+          "text": "                \"fused mc2 op cannot be used with hierarchy communication. \""
+        },
+        {
+          "line": 1009,
+          "text": "                \"Please set additional_config.enable_fused_mc2 to 0.\""
+        },
+        {
+          "line": 1010,
+          "text": "            )"
+        },
+        {
+          "line": 1011,
+          "text": ""
+        },
+        {
+          "line": 1012,
+          "text": "    def _validate_sparse_packed_kv_offload_compatibility(self) -> None:"
+        },
+        {
+          "line": 1013,
+          "text": "        if self.sparse_kv_offload_config.enabled and self.uses_packed_sfa_main_cache:"
+        },
+        {
+          "line": 1014,
+          "text": "            raise NotImplementedError("
+        },
+        {
+          "line": 1015,
+          "text": "                \"Sparse KV offload does not support packed SFA main caches (C8 or TQ4). \""
+        },
+        {
+          "line": 1016,
+          "text": "                \"Sparse LI C8 is supported because the indexer cache remains device-resident.\""
+        },
+        {
+          "line": 1043,
+          "text": "        )"
+        },
+        {
+          "line": 1044,
+          "text": ""
+        },
+        {
+          "line": 1045,
+          "text": "    def _check_mix_placement(self):"
+        },
+        {
+          "line": 1046,
+          "text": "        if self.mix_placement:"
+        },
+        {
+          "line": 1047,
+          "text": "            if self.enable_shared_expert_dp or self.multistream_overlap_shared_expert:"
+        },
+        {
+          "line": 1048,
+          "text": "                raise ValueError(\"Mix placement is not supported with shared expert DP or multistream overlap.\")"
+        },
+        {
+          "line": 1049,
+          "text": ""
+        },
+        {
+          "line": 1050,
+          "text": "    @staticmethod"
+        },
+        {
+          "line": 1051,
+          "text": "    def _is_megamoe_supported_by_config(vllm_config: VllmConfig) -> bool:"
+        },
+        {
+          "line": 1052,
+          "text": "        if get_current_hardware_profile().supports(HardwareCapability.CANN_MEGAMOE_MXFP):"
+        },
+        {
+          "line": 1053,
+          "text": "            mega_moe_supported_by_config = AscendConfig._is_a5_megamoe_supported_by_config(vllm_config)"
+        },
+        {
+          "line": 1054,
+          "text": "            logger.debug(\"mega moe operator is supported by current a5 config: %r\", mega_moe_supported_by_config)"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Source control-flow observations are not runtime validation or measured speedup.",
+    "Do not apply Qwen-specific DSpark validation to DeepSeek merely because both use method=dspark.",
+    "Fused MC2 and multistream behavior depends on source normalization and fallback, so the post-parse effective configuration must be checked."
+  ]
+}
