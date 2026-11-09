@@ -1,0 +1,1078 @@
+[
+  {
+    "rank": 0,
+    "stage_us": {
+      "Device_id": 0.0,
+      "Computing": 6995533.717999763,
+      "Communication(Not Overlapped)": 2985654.6160000144,
+      "Overlapped": 10613.021999997087,
+      "Communication": 2996267.6380000114,
+      "Free": 265770.7399998608,
+      "Stage": 10246959.0,
+      "Bubble": 0.0,
+      "Communication(Not Overlapped and Exclude Receive)": 2985654.6160000144,
+      "Preparing": 1606.25
+    },
+    "compute_kernel_count": 122936,
+    "kernel_sum_us": 7031190.608,
+    "compute_union_us": 6993889.75,
+    "comm_api_count": 5655,
+    "comm_api_union_us": 2996275.5,
+    "comm_api_types": {
+      "hcom_allReduce": [
+        5382,
+        2905870.236000013
+      ],
+      "hcom_allGather": [
+        273,
+        90397.40200000002
+      ]
+    },
+    "compute_and_comm_union_us": 9979551.25,
+    "device_span_s": 10.149248,
+    "start_us": 1794226889321599.5,
+    "end_us": 1794226899470847.5,
+    "graph_calls": [
+      {
+        "model": 49,
+        "start_s": 3.01393325,
+        "duration_ms": 58.350726
+      },
+      {
+        "model": 48,
+        "start_s": 3.0828115,
+        "duration_ms": 8.252685
+      },
+      {
+        "model": 49,
+        "start_s": 3.09296075,
+        "duration_ms": 57.330046
+      },
+      {
+        "model": 48,
+        "start_s": 3.16089375,
+        "duration_ms": 8.262686
+      },
+      {
+        "model": 49,
+        "start_s": 3.172371,
+        "duration_ms": 57.250544
+      },
+      {
+        "model": 48,
+        "start_s": 3.2401745,
+        "duration_ms": 8.242664
+      },
+      {
+        "model": 49,
+        "start_s": 3.2521585,
+        "duration_ms": 57.478048
+      },
+      {
+        "model": 48,
+        "start_s": 3.32020475,
+        "duration_ms": 8.232444
+      },
+      {
+        "model": 49,
+        "start_s": 3.33300775,
+        "duration_ms": 57.639452
+      },
+      {
+        "model": 48,
+        "start_s": 3.40117475,
+        "duration_ms": 8.244325
+      },
+      {
+        "model": 49,
+        "start_s": 3.415912,
+        "duration_ms": 57.539769
+      },
+      {
+        "model": 48,
+        "start_s": 3.48401225,
+        "duration_ms": 8.265286
+      },
+      {
+        "model": 49,
+        "start_s": 3.49885975,
+        "duration_ms": 57.718293
+      },
+      {
+        "model": 48,
+        "start_s": 3.56710525,
+        "duration_ms": 8.256005
+      },
+      {
+        "model": 49,
+        "start_s": 3.583862,
+        "duration_ms": 57.677953
+      },
+      {
+        "model": 48,
+        "start_s": 3.65275125,
+        "duration_ms": 8.228724
+      },
+      {
+        "model": 49,
+        "start_s": 3.66720325,
+        "duration_ms": 57.707673
+      },
+      {
+        "model": 48,
+        "start_s": 3.7354235,
+        "duration_ms": 8.241064
+      },
+      {
+        "model": 49,
+        "start_s": 3.7525395,
+        "duration_ms": 57.396306
+      },
+      {
+        "model": 48,
+        "start_s": 3.8205215,
+        "duration_ms": 8.238604
+      },
+      {
+        "model": 49,
+        "start_s": 3.834117,
+        "duration_ms": 57.633472
+      },
+      {
+        "model": 48,
+        "start_s": 3.9022385,
+        "duration_ms": 8.257825
+      },
+      {
+        "model": 49,
+        "start_s": 3.917095,
+        "duration_ms": 57.384787
+      },
+      {
+        "model": 48,
+        "start_s": 3.98496925,
+        "duration_ms": 8.253224
+      },
+      {
+        "model": 49,
+        "start_s": 3.99954175,
+        "duration_ms": 57.723133
+      },
+      {
+        "model": 48,
+        "start_s": 4.067786,
+        "duration_ms": 8.213744
+      },
+      {
+        "model": 49,
+        "start_s": 4.082546,
+        "duration_ms": 57.581891
+      },
+      {
+        "model": 48,
+        "start_s": 4.1506635,
+        "duration_ms": 8.275845
+      },
+      {
+        "model": 49,
+        "start_s": 4.16775275,
+        "duration_ms": 57.827915
+      },
+      {
+        "model": 48,
+        "start_s": 4.2361545,
+        "duration_ms": 8.229025
+      },
+      {
+        "model": 49,
+        "start_s": 4.25468675,
+        "duration_ms": 58.194843
+      },
+      {
+        "model": 48,
+        "start_s": 4.32343075,
+        "duration_ms": 8.253825
+      },
+      {
+        "model": 49,
+        "start_s": 4.34257175,
+        "duration_ms": 57.292805
+      },
+      {
+        "model": 48,
+        "start_s": 4.41027375,
+        "duration_ms": 8.204664
+      },
+      {
+        "model": 49,
+        "start_s": 4.42931725,
+        "duration_ms": 57.204483
+      },
+      {
+        "model": 48,
+        "start_s": 4.49695125,
+        "duration_ms": 8.185903
+      },
+      {
+        "model": 49,
+        "start_s": 4.51795125,
+        "duration_ms": 57.314226
+      },
+      {
+        "model": 48,
+        "start_s": 4.585647,
+        "duration_ms": 8.228984
+      }
+    ],
+    "comm_analyzer_totals_ms": [
+      5655,
+      2996.267638,
+      0,
+      0,
+      0,
+      2996.267638
+    ],
+    "profiler_config": {
+      "common_config": {
+        "activities": [
+          "ProfilerActivity.CPU",
+          "ProfilerActivity.NPU"
+        ],
+        "schedule": {},
+        "record_shapes": false,
+        "profile_memory": false,
+        "with_stack": false,
+        "with_flops": false,
+        "with_modules": false
+      },
+      "experimental_config": {
+        "_profiler_level": "Level1",
+        "_aic_metrics": "ACL_AICORE_PIPE_UTILIZATION",
+        "_l2_cache": false,
+        "_msprof_tx": false,
+        "_mstx": false,
+        "_data_simplification": true,
+        "record_op_args": false,
+        "_export_type": [
+          "text"
+        ],
+        "_host_sys": [],
+        "_op_attr": false,
+        "_gc_detect_threshold": null,
+        "_mstx_domain_include": [],
+        "_mstx_domain_exclude": [],
+        "_sys_io": false,
+        "_sys_interconnection": false
+      }
+    },
+    "torch_npu_version": "2.10.0.post7",
+    "cann_version": "9.2.1"
+  },
+  {
+    "rank": 1,
+    "stage_us": {
+      "Device_id": 1.0,
+      "Computing": 6987655.387999926,
+      "Communication(Not Overlapped)": 2777842.1770000043,
+      "Overlapped": 8862.142999997828,
+      "Communication": 2786704.320000002,
+      "Free": 520358.027000642,
+      "Stage": 10285855.5,
+      "Bubble": 0.0,
+      "Communication(Not Overlapped and Exclude Receive)": 2777842.1770000043,
+      "Preparing": 1418.75
+    },
+    "compute_kernel_count": 122936,
+    "kernel_sum_us": 7026237.776,
+    "compute_union_us": 6986027.5,
+    "comm_api_count": 5655,
+    "comm_api_union_us": 2786697.25,
+    "comm_api_types": {
+      "hcom_allReduce": [
+        5382,
+        2696063.4350000033
+      ],
+      "hcom_allGather": [
+        273,
+        90640.88500000002
+      ]
+    },
+    "compute_and_comm_union_us": 9763863.75,
+    "device_span_s": 10.149428,
+    "start_us": 1794226889321418.0,
+    "end_us": 1794226899470846.0,
+    "graph_calls": [
+      {
+        "model": 49,
+        "start_s": 3.01462025,
+        "duration_ms": 57.840816
+      },
+      {
+        "model": 48,
+        "start_s": 3.0829955,
+        "duration_ms": 8.245005
+      },
+      {
+        "model": 49,
+        "start_s": 3.09299225,
+        "duration_ms": 57.477409
+      },
+      {
+        "model": 48,
+        "start_s": 3.16107725,
+        "duration_ms": 8.259486
+      },
+      {
+        "model": 49,
+        "start_s": 3.17263575,
+        "duration_ms": 57.163983
+      },
+      {
+        "model": 48,
+        "start_s": 3.240357,
+        "duration_ms": 8.241605
+      },
+      {
+        "model": 49,
+        "start_s": 3.252479,
+        "duration_ms": 57.335425
+      },
+      {
+        "model": 48,
+        "start_s": 3.3203845,
+        "duration_ms": 8.232925
+      },
+      {
+        "model": 49,
+        "start_s": 3.333596,
+        "duration_ms": 57.228904
+      },
+      {
+        "model": 48,
+        "start_s": 3.401349,
+        "duration_ms": 8.249525
+      },
+      {
+        "model": 49,
+        "start_s": 3.41648675,
+        "duration_ms": 57.142501
+      },
+      {
+        "model": 48,
+        "start_s": 3.48420625,
+        "duration_ms": 8.252344
+      },
+      {
+        "model": 49,
+        "start_s": 3.49944025,
+        "duration_ms": 57.315685
+      },
+      {
+        "model": 48,
+        "start_s": 3.567291,
+        "duration_ms": 8.252825
+      },
+      {
+        "model": 49,
+        "start_s": 3.58447275,
+        "duration_ms": 57.245244
+      },
+      {
+        "model": 48,
+        "start_s": 3.6528885,
+        "duration_ms": 8.271785
+      },
+      {
+        "model": 49,
+        "start_s": 3.66775925,
+        "duration_ms": 57.330245
+      },
+      {
+        "model": 48,
+        "start_s": 3.7356045,
+        "duration_ms": 8.242084
+      },
+      {
+        "model": 49,
+        "start_s": 3.7530025,
+        "duration_ms": 57.112401
+      },
+      {
+        "model": 48,
+        "start_s": 3.8207,
+        "duration_ms": 8.243384
+      },
+      {
+        "model": 49,
+        "start_s": 3.83473175,
+        "duration_ms": 57.195803
+      },
+      {
+        "model": 48,
+        "start_s": 3.902421,
+        "duration_ms": 8.258105
+      },
+      {
+        "model": 49,
+        "start_s": 3.91754025,
+        "duration_ms": 57.116561
+      },
+      {
+        "model": 48,
+        "start_s": 3.98515625,
+        "duration_ms": 8.251424
+      },
+      {
+        "model": 49,
+        "start_s": 4.00014,
+        "duration_ms": 57.302505
+      },
+      {
+        "model": 48,
+        "start_s": 4.06797075,
+        "duration_ms": 8.210484
+      },
+      {
+        "model": 49,
+        "start_s": 4.08310075,
+        "duration_ms": 57.205702
+      },
+      {
+        "model": 48,
+        "start_s": 4.15086025,
+        "duration_ms": 8.260745
+      },
+      {
+        "model": 49,
+        "start_s": 4.16846225,
+        "duration_ms": 57.295625
+      },
+      {
+        "model": 48,
+        "start_s": 4.23633475,
+        "duration_ms": 8.233165
+      },
+      {
+        "model": 49,
+        "start_s": 4.25559525,
+        "duration_ms": 57.462888
+      },
+      {
+        "model": 48,
+        "start_s": 4.32361925,
+        "duration_ms": 8.243705
+      },
+      {
+        "model": 49,
+        "start_s": 4.34309825,
+        "duration_ms": 56.943818
+      },
+      {
+        "model": 48,
+        "start_s": 4.4104615,
+        "duration_ms": 8.198304
+      },
+      {
+        "model": 49,
+        "start_s": 4.429617,
+        "duration_ms": 57.0827
+      },
+      {
+        "model": 48,
+        "start_s": 4.49712675,
+        "duration_ms": 8.191683
+      },
+      {
+        "model": 49,
+        "start_s": 4.51847475,
+        "duration_ms": 56.968559
+      },
+      {
+        "model": 48,
+        "start_s": 4.58716375,
+        "duration_ms": 6.892997
+      }
+    ],
+    "comm_analyzer_totals_ms": [
+      5655,
+      2786.70432,
+      0,
+      0,
+      0,
+      2786.70432
+    ],
+    "profiler_config": {
+      "common_config": {
+        "activities": [
+          "ProfilerActivity.CPU",
+          "ProfilerActivity.NPU"
+        ],
+        "schedule": {},
+        "record_shapes": false,
+        "profile_memory": false,
+        "with_stack": false,
+        "with_flops": false,
+        "with_modules": false
+      },
+      "experimental_config": {
+        "_profiler_level": "Level1",
+        "_aic_metrics": "ACL_AICORE_PIPE_UTILIZATION",
+        "_l2_cache": false,
+        "_msprof_tx": false,
+        "_mstx": false,
+        "_data_simplification": true,
+        "record_op_args": false,
+        "_export_type": [
+          "text"
+        ],
+        "_host_sys": [],
+        "_op_attr": false,
+        "_gc_detect_threshold": null,
+        "_mstx_domain_include": [],
+        "_mstx_domain_exclude": [],
+        "_sys_io": false,
+        "_sys_interconnection": false
+      }
+    },
+    "torch_npu_version": "2.10.0.post7",
+    "cann_version": "9.2.1"
+  },
+  {
+    "rank": 2,
+    "stage_us": {
+      "Device_id": 2.0,
+      "Computing": 6980230.909000047,
+      "Communication(Not Overlapped)": 3077563.549000002,
+      "Overlapped": 10846.678000000305,
+      "Communication": 3088410.2270000023,
+      "Free": 224720.69699982333,
+      "Stage": 10282515.0,
+      "Bubble": 0.0,
+      "Communication(Not Overlapped and Exclude Receive)": 3077563.549000002,
+      "Preparing": 1378.0
+    },
+    "compute_kernel_count": 122936,
+    "kernel_sum_us": 7018639.786,
+    "compute_union_us": 6978601.75,
+    "comm_api_count": 5655,
+    "comm_api_union_us": 3088408.0,
+    "comm_api_types": {
+      "hcom_allReduce": [
+        5382,
+        2997423.2030000035
+      ],
+      "hcom_allGather": [
+        273,
+        90987.02400000003
+      ]
+    },
+    "compute_and_comm_union_us": 10056163.25,
+    "device_span_s": 10.149695,
+    "start_us": 1794226889321357.5,
+    "end_us": 1794226899471052.5,
+    "graph_calls": [
+      {
+        "model": 49,
+        "start_s": 3.013888,
+        "duration_ms": 58.699326
+      },
+      {
+        "model": 48,
+        "start_s": 3.083118,
+        "duration_ms": 8.25251
+      },
+      {
+        "model": 49,
+        "start_s": 3.093045,
+        "duration_ms": 57.552781
+      },
+      {
+        "model": 48,
+        "start_s": 3.16120425,
+        "duration_ms": 8.261491
+      },
+      {
+        "model": 49,
+        "start_s": 3.17264375,
+        "duration_ms": 57.28625
+      },
+      {
+        "model": 48,
+        "start_s": 3.24048725,
+        "duration_ms": 8.24237
+      },
+      {
+        "model": 49,
+        "start_s": 3.2523475,
+        "duration_ms": 57.597923
+      },
+      {
+        "model": 48,
+        "start_s": 3.3205145,
+        "duration_ms": 8.235929
+      },
+      {
+        "model": 49,
+        "start_s": 3.33325875,
+        "duration_ms": 57.698487
+      },
+      {
+        "model": 48,
+        "start_s": 3.40149025,
+        "duration_ms": 8.24469
+      },
+      {
+        "model": 49,
+        "start_s": 3.41614825,
+        "duration_ms": 57.615783
+      },
+      {
+        "model": 48,
+        "start_s": 3.484341,
+        "duration_ms": 8.25219
+      },
+      {
+        "model": 49,
+        "start_s": 3.4990995,
+        "duration_ms": 57.792191
+      },
+      {
+        "model": 48,
+        "start_s": 3.56743325,
+        "duration_ms": 8.24695
+      },
+      {
+        "model": 49,
+        "start_s": 3.584116,
+        "duration_ms": 57.739369
+      },
+      {
+        "model": 48,
+        "start_s": 3.653011,
+        "duration_ms": 8.287271
+      },
+      {
+        "model": 49,
+        "start_s": 3.667471,
+        "duration_ms": 57.757529
+      },
+      {
+        "model": 48,
+        "start_s": 3.73574475,
+        "duration_ms": 8.24089
+      },
+      {
+        "model": 49,
+        "start_s": 3.752731,
+        "duration_ms": 57.523699
+      },
+      {
+        "model": 48,
+        "start_s": 3.820842,
+        "duration_ms": 8.237729
+      },
+      {
+        "model": 49,
+        "start_s": 3.83437625,
+        "duration_ms": 57.694446
+      },
+      {
+        "model": 48,
+        "start_s": 3.90256625,
+        "duration_ms": 8.25603
+      },
+      {
+        "model": 49,
+        "start_s": 3.91728675,
+        "duration_ms": 57.51432
+      },
+      {
+        "model": 48,
+        "start_s": 3.98529975,
+        "duration_ms": 8.247769
+      },
+      {
+        "model": 49,
+        "start_s": 3.99980225,
+        "duration_ms": 57.786351
+      },
+      {
+        "model": 48,
+        "start_s": 4.06811875,
+        "duration_ms": 8.208788
+      },
+      {
+        "model": 49,
+        "start_s": 4.08280525,
+        "duration_ms": 57.648365
+      },
+      {
+        "model": 48,
+        "start_s": 4.1510025,
+        "duration_ms": 8.264111
+      },
+      {
+        "model": 49,
+        "start_s": 4.1680445,
+        "duration_ms": 57.862953
+      },
+      {
+        "model": 48,
+        "start_s": 4.2364925,
+        "duration_ms": 8.222489
+      },
+      {
+        "model": 49,
+        "start_s": 4.254947,
+        "duration_ms": 58.262729
+      },
+      {
+        "model": 48,
+        "start_s": 4.32377525,
+        "duration_ms": 8.242889
+      },
+      {
+        "model": 49,
+        "start_s": 4.34285225,
+        "duration_ms": 57.343732
+      },
+      {
+        "model": 48,
+        "start_s": 4.410617,
+        "duration_ms": 8.195507
+      },
+      {
+        "model": 49,
+        "start_s": 4.42962625,
+        "duration_ms": 57.227208
+      },
+      {
+        "model": 48,
+        "start_s": 4.497278,
+        "duration_ms": 8.195527
+      },
+      {
+        "model": 49,
+        "start_s": 4.51816,
+        "duration_ms": 57.440317
+      },
+      {
+        "model": 48,
+        "start_s": 4.58599325,
+        "duration_ms": 8.221729
+      }
+    ],
+    "comm_analyzer_totals_ms": [
+      5655,
+      3088.410227,
+      0,
+      0,
+      0,
+      3088.410227
+    ],
+    "profiler_config": {
+      "common_config": {
+        "activities": [
+          "ProfilerActivity.CPU",
+          "ProfilerActivity.NPU"
+        ],
+        "schedule": {},
+        "record_shapes": false,
+        "profile_memory": false,
+        "with_stack": false,
+        "with_flops": false,
+        "with_modules": false
+      },
+      "experimental_config": {
+        "_profiler_level": "Level1",
+        "_aic_metrics": "ACL_AICORE_PIPE_UTILIZATION",
+        "_l2_cache": false,
+        "_msprof_tx": false,
+        "_mstx": false,
+        "_data_simplification": true,
+        "record_op_args": false,
+        "_export_type": [
+          "text"
+        ],
+        "_host_sys": [],
+        "_op_attr": false,
+        "_gc_detect_threshold": null,
+        "_mstx_domain_include": [],
+        "_mstx_domain_exclude": [],
+        "_sys_io": false,
+        "_sys_interconnection": false
+      }
+    },
+    "torch_npu_version": "2.10.0.post7",
+    "cann_version": "9.2.1"
+  },
+  {
+    "rank": 3,
+    "stage_us": {
+      "Device_id": 3.0,
+      "Computing": 6984731.667999982,
+      "Communication(Not Overlapped)": 3023396.7229999914,
+      "Overlapped": 10377.49400000088,
+      "Communication": 3033774.2169999923,
+      "Free": 284073.9470002051,
+      "Stage": 10292202.5,
+      "Bubble": 0.0,
+      "Communication(Not Overlapped and Exclude Receive)": 3023396.7229999914,
+      "Preparing": 1459.0
+    },
+    "compute_kernel_count": 122936,
+    "kernel_sum_us": 7023932.519,
+    "compute_union_us": 6983095.75,
+    "comm_api_count": 5655,
+    "comm_api_union_us": 3033765.0,
+    "comm_api_types": {
+      "hcom_allReduce": [
+        5382,
+        2942869.5009999964
+      ],
+      "hcom_allGather": [
+        273,
+        90904.71599999997
+      ]
+    },
+    "compute_and_comm_union_us": 10006483.5,
+    "device_span_s": 10.149389,
+    "start_us": 1794226889321453.8,
+    "end_us": 1794226899470842.8,
+    "graph_calls": [
+      {
+        "model": 49,
+        "start_s": 3.0152455,
+        "duration_ms": 57.181442
+      },
+      {
+        "model": 48,
+        "start_s": 3.08295975,
+        "duration_ms": 8.247605
+      },
+      {
+        "model": 49,
+        "start_s": 3.09302675,
+        "duration_ms": 57.407627
+      },
+      {
+        "model": 48,
+        "start_s": 3.161044,
+        "duration_ms": 8.256045
+      },
+      {
+        "model": 49,
+        "start_s": 3.17255075,
+        "duration_ms": 57.212083
+      },
+      {
+        "model": 48,
+        "start_s": 3.24031925,
+        "duration_ms": 8.241745
+      },
+      {
+        "model": 49,
+        "start_s": 3.25227325,
+        "duration_ms": 57.505609
+      },
+      {
+        "model": 48,
+        "start_s": 3.32034975,
+        "duration_ms": 8.232544
+      },
+      {
+        "model": 49,
+        "start_s": 3.333181,
+        "duration_ms": 57.607951
+      },
+      {
+        "model": 48,
+        "start_s": 3.40131625,
+        "duration_ms": 8.246304
+      },
+      {
+        "model": 49,
+        "start_s": 3.41608575,
+        "duration_ms": 57.508969
+      },
+      {
+        "model": 48,
+        "start_s": 3.4841695,
+        "duration_ms": 8.252725
+      },
+      {
+        "model": 49,
+        "start_s": 3.499021,
+        "duration_ms": 57.697193
+      },
+      {
+        "model": 48,
+        "start_s": 3.5672605,
+        "duration_ms": 8.246145
+      },
+      {
+        "model": 49,
+        "start_s": 3.58404375,
+        "duration_ms": 57.638491
+      },
+      {
+        "model": 48,
+        "start_s": 3.6528845,
+        "duration_ms": 8.238965
+      },
+      {
+        "model": 49,
+        "start_s": 3.667381,
+        "duration_ms": 57.672132
+      },
+      {
+        "model": 48,
+        "start_s": 3.7355695,
+        "duration_ms": 8.239825
+      },
+      {
+        "model": 49,
+        "start_s": 3.75264225,
+        "duration_ms": 57.434928
+      },
+      {
+        "model": 48,
+        "start_s": 3.82066725,
+        "duration_ms": 8.237005
+      },
+      {
+        "model": 49,
+        "start_s": 3.83429175,
+        "duration_ms": 57.60009
+      },
+      {
+        "model": 48,
+        "start_s": 3.902388,
+        "duration_ms": 8.254145
+      },
+      {
+        "model": 49,
+        "start_s": 3.91723425,
+        "duration_ms": 57.387046
+      },
+      {
+        "model": 48,
+        "start_s": 3.9851195,
+        "duration_ms": 8.250205
+      },
+      {
+        "model": 49,
+        "start_s": 3.999704,
+        "duration_ms": 57.703253
+      },
+      {
+        "model": 48,
+        "start_s": 4.0679355,
+        "duration_ms": 8.209944
+      },
+      {
+        "model": 49,
+        "start_s": 4.0827185,
+        "duration_ms": 57.55111
+      },
+      {
+        "model": 48,
+        "start_s": 4.15081625,
+        "duration_ms": 8.268205
+      },
+      {
+        "model": 49,
+        "start_s": 4.1679595,
+        "duration_ms": 57.764074
+      },
+      {
+        "model": 48,
+        "start_s": 4.23630025,
+        "duration_ms": 8.230124
+      },
+      {
+        "model": 49,
+        "start_s": 4.2548605,
+        "duration_ms": 58.161522
+      },
+      {
+        "model": 48,
+        "start_s": 4.32358,
+        "duration_ms": 8.245904
+      },
+      {
+        "model": 49,
+        "start_s": 4.34274025,
+        "duration_ms": 57.266965
+      },
+      {
+        "model": 48,
+        "start_s": 4.410425,
+        "duration_ms": 8.197903
+      },
+      {
+        "model": 49,
+        "start_s": 4.42947675,
+        "duration_ms": 57.187023
+      },
+      {
+        "model": 48,
+        "start_s": 4.497086,
+        "duration_ms": 8.194744
+      },
+      {
+        "model": 49,
+        "start_s": 4.5180355,
+        "duration_ms": 57.372746
+      },
+      {
+        "model": 48,
+        "start_s": 4.58579875,
+        "duration_ms": 8.219404
+      }
+    ],
+    "comm_analyzer_totals_ms": [
+      5655,
+      3033.774217,
+      0,
+      0,
+      0,
+      3033.774217
+    ],
+    "profiler_config": {
+      "common_config": {
+        "activities": [
+          "ProfilerActivity.CPU",
+          "ProfilerActivity.NPU"
+        ],
+        "schedule": {},
+        "record_shapes": false,
+        "profile_memory": false,
+        "with_stack": false,
+        "with_flops": false,
+        "with_modules": false
+      },
+      "experimental_config": {
+        "_profiler_level": "Level1",
+        "_aic_metrics": "ACL_AICORE_PIPE_UTILIZATION",
+        "_l2_cache": false,
+        "_msprof_tx": false,
+        "_mstx": false,
+        "_data_simplification": true,
+        "record_op_args": false,
+        "_export_type": [
+          "text"
+        ],
+        "_host_sys": [],
+        "_op_attr": false,
+        "_gc_detect_threshold": null,
+        "_mstx_domain_include": [],
+        "_mstx_domain_exclude": [],
+        "_sys_io": false,
+        "_sys_interconnection": false
+      }
+    },
+    "torch_npu_version": "2.10.0.post7",
+    "cann_version": "9.2.1"
+  }
+]

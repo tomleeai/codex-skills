@@ -1,0 +1,58 @@
+[
+  {
+    "rank": 0,
+    "bandwidth_rows": 0,
+    "max_transit_time": null,
+    "max_bandwidth": null,
+    "comm_analyzer_time": [
+      5655,
+      2996.267638,
+      0,
+      0,
+      0,
+      2996.267638
+    ]
+  },
+  {
+    "rank": 1,
+    "bandwidth_rows": 0,
+    "max_transit_time": null,
+    "max_bandwidth": null,
+    "comm_analyzer_time": [
+      5655,
+      2786.70432,
+      0,
+      0,
+      0,
+      2786.70432
+    ]
+  },
+  {
+    "rank": 2,
+    "bandwidth_rows": 0,
+    "max_transit_time": null,
+    "max_bandwidth": null,
+    "comm_analyzer_time": [
+      5655,
+      3088.410227,
+      0,
+      0,
+      0,
+      3088.410227
+    ]
+  },
+  {
+    "rank": 3,
+    "bandwidth_rows": 0,
+    "max_transit_time": null,
+    "max_bandwidth": null,
+    "comm_analyzer_time": [
+      5655,
+      3033.774217,
+      0,
+      0,
+      0,
+      3033.774217
+    ]
+  }
+]

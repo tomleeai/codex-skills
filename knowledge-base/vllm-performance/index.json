@@ -78,6 +78,46 @@
     {
       "applies_to": {
         "hardware": [
+          "Ascend 910B2C 64GiB"
+        ],
+        "models": [
+          "Qwen3.8-27B"
+        ],
+        "software_versions": {
+          "CANN": "9.2.1",
+          "torch": "2.10.0+cpu",
+          "torch_npu": "2.10.0.post7",
+          "vllm": "0.30.0+empty",
+          "vllm-ascend": "0.30.0"
+        },
+        "workload_modes": [
+          "TP4 DP1 PP1",
+          "input32768 output1024 concurrency32",
+          "W8A8_DYNAMIC",
+          "MTP3 FULL_DECODE_ONLY"
+        ]
+      },
+      "id": "case-qwen38-27b-a2-profile-20261109",
+      "kind": "case",
+      "path": "cases/case-qwen38-27b-a2-profile-20261109.json",
+      "revision": "011d8074cfb393e3f35d9ac35ea7b86e8114cd6abeb1ad7a4a33ff8cabd07713",
+      "status": "partial",
+      "summary": "32K/1024/concurrency32 offline profiling; compute about 68%, exclusive communication 27-30%; bandwidth table empty; optimization candidates untested.",
+      "tags": [
+        "Qwen3.8-27B",
+        "Qwen3.5",
+        "profiling",
+        "FlashComm1",
+        "GDN",
+        "MTP",
+        "mixed-prefill-decode"
+      ],
+      "title": "Qwen3.8-27B A2 TP4 profiling: mixed batches and decode graph",
+      "updated_at": "2026-11-09"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend"
         ],
         "models": [

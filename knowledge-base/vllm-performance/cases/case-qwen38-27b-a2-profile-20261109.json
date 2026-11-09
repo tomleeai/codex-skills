@@ -1,0 +1,110 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend 910B2C 64GiB"
+    ],
+    "models": [
+      "Qwen3.8-27B"
+    ],
+    "software_versions": {
+      "CANN": "9.2.1",
+      "torch": "2.10.0+cpu",
+      "torch_npu": "2.10.0.post7",
+      "vllm": "0.30.0+empty",
+      "vllm-ascend": "0.30.0"
+    },
+    "workload_modes": [
+      "TP4 DP1 PP1",
+      "input32768 output1024 concurrency32",
+      "W8A8_DYNAMIC",
+      "MTP3 FULL_DECODE_ONLY"
+    ]
+  },
+  "body": {
+    "attempts": [
+      {
+        "method": "Read-only offline analysis of SQLite and CSV exports; merge intervals to separate overlaps.",
+        "result": "Per-rank phase partition matches existing compute union and device span; 12 windows validated. No optimization trial executed."
+      }
+    ],
+    "confirmed_findings": [
+      "Decode graph execution exists; dynamic regions contain both chunk and recurrent GDN and are mixed batches.",
+      "No clear slow compute rank in this short capture.",
+      "Communication interval exposure is material, but absent transport timing prevents a link-bandwidth diagnosis.",
+      "Host synchronization durations overlap device execution; do not add them as independent recoverable wall time."
+    ],
+    "hypotheses": [
+      "FlashComm1 dense SP may improve mixed-batch communication boundaries; benchmark required.",
+      "2048/4096/8192 token budgets trade prefill efficiency against decode interference.",
+      "MTP1/MTP2/MTP3/no-MTP and later same-device-budget TP2DP2 require independent validation."
+    ],
+    "limitations": [
+      "Only approximately10 seconds of one32K workload capture; no exactly linked complete benchmark JSON.",
+      "Raw traces and deployment identity excluded; third-party comparison data not archived.",
+      "Bandwidth decomposition unavailable. No model-only correctness benchmark or performance A/B was executed."
+    ],
+    "next_step": "Establish non-profiled matched baseline; isolate FlashComm1, token budget, and MTP changes; measure throughput plus latency, correctness, memory and stability. Keep max_model_len133120, max_num_seqs32 and memory utilization0.95 fixed for initial comparisons.",
+    "observations": [
+      "Stage duration 10.246959 to 10.2922025 seconds; compute 67.8643 to 68.2694 percent; non-overlapped communication 27.0064 to 29.9301 percent. Exact values retained in artifacts.",
+      "All ranks contain 122936 compute kernels; compute time range 6.980230909 to 6.995533718 seconds.",
+      "Rank0 communication records: AllReduce 5382 calls / 2905.870236 ms; AllGather 273 / 90.397402 ms.",
+      "Rank0 computation kernel shares: QuantBatchMatmulV3 27.66%, FusedInferAttentionScore 21.03%, ChunkGatedDeltaRuleFwd 8.96%, AddRmsNormBias 5.86%, DynamicQuant 5.03%, RecurrentGatedDeltaRule 4.01%, ScatterUpdate 4.00%, Transpose 3.46%.",
+      "Graph IDs49 and48 have19 executions each; rank0 mean durations57.59191394736842 ms and8.240396105263159 ms. ID49 contains48 GDN and16 full-attention operators per execution; ID48 contains3 full-attention operators per execution. Target/draft assignment inferred from structure.",
+      "Rank0 graph window3.01393325-4.593876 seconds: exclusive communication209.18725 ms /1579.94275 ms. Before and after graph window, exclusive communication1018.752/3013.93325 and1757.72225/5555.372 ms.",
+      "All four bandwidth tables have zero rows. Communication analyzer transit/wait/synchronization totals zero, elapsed entirely classified idle."
+    ],
+    "task": "Analyze saved four-rank profiling and propose controlled performance comparisons. No new service operation or benchmark was run."
+  },
+  "created_at": "2026-11-09",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-27b-a2-profile-20261109/communication_quality.json",
+      "role": "profiling aggregate; original traces excluded",
+      "sha256": "c1d5741691c5afea55c0b68cce543f90c7e33dd7418973ea23eea4e6f73a580d"
+    },
+    {
+      "ref": "artifact:case-qwen38-27b-a2-profile-20261109/operator_shapes.csv",
+      "role": "profiling aggregate; original traces excluded",
+      "sha256": "e7d8358bef18c9f48f73bbcc8ea335c0a02403497b35d5657d68e64bcbe4bcad"
+    },
+    {
+      "ref": "artifact:case-qwen38-27b-a2-profile-20261109/operator_summary.csv",
+      "role": "profiling aggregate; original traces excluded",
+      "sha256": "d529055035419ec42e2e20dc35843445f69bf938a32356e9407a1df9a09492af"
+    },
+    {
+      "ref": "artifact:case-qwen38-27b-a2-profile-20261109/phase_windows.csv",
+      "role": "profiling aggregate; original traces excluded",
+      "sha256": "f193077775e706c0f363862a90163cd41b2f7588dd216e026902ddcca942f257"
+    },
+    {
+      "ref": "artifact:case-qwen38-27b-a2-profile-20261109/summary.json",
+      "role": "profiling aggregate; original traces excluded",
+      "sha256": "d6dd332407f3a125a037821c94c03e7d11fbf16d90bdff76a5d3170efcb659e3"
+    },
+    {
+      "ref": "artifact:case-qwen38-27b-a2-profile-20261109/timeline_bins.csv",
+      "role": "profiling aggregate; original traces excluded",
+      "sha256": "41bd75ef076beff549ce4a3fee6d43cf8dc45a054b5e50e0b48e13e6976a3013"
+    }
+  ],
+  "id": "case-qwen38-27b-a2-profile-20261109",
+  "kind": "case",
+  "observed_at": "2026-11-09",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "32K/1024/concurrency32 offline profiling; compute about 68%, exclusive communication 27-30%; bandwidth table empty; optimization candidates untested.",
+  "supersedes": [],
+  "tags": [
+    "Qwen3.8-27B",
+    "Qwen3.5",
+    "profiling",
+    "FlashComm1",
+    "GDN",
+    "MTP",
+    "mixed-prefill-decode"
+  ],
+  "title": "Qwen3.8-27B A2 TP4 profiling: mixed batches and decode graph",
+  "updated_at": "2026-11-09"
+}
