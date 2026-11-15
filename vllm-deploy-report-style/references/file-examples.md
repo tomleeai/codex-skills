@@ -70,73 +70,81 @@ exec python3 "$script_dir/load_balance_proxy_server_example.py" \
 
 ## README.md
 
-下面展示简短的组织方式；实际状态与命令按本轮工作填写，不照抄“未启动”。占位项应填为现场值，未核实则标明未知。loop 时文件位于独立交付目录，不覆盖原 README。
+下面展示简短的组织方式；实际状态与命令按本轮工作填写，不照抄“未启动”。占位项应填为现场值，未核实则标明未知。loop 时先将原稿移入工作目录内新建的归档子目录，再在顶层维护当前脚本和 README。
 
 ````markdown
 # 模型名 PD 服务
 
-在现有容器内进入 `/path/to/work/deploy` 执行。当前只完成配置校验，尚未启动模型。
+工作目录 `/path/to/work`，在两台机器现有的 `model-pd` 容器内执行。模型名 `my-model`，权重 `/path/to/model`，权重版本/格式按本次实值填写。目标 case 与最小化、全特性或专项测试范围按本轮要求简短说明。
 
-## 环境与模型
+## 布局与参数
 
-- 主机/容器：填写实际主机与容器标识。
-- 硬件、驱动、CANN、PyTorch、vLLM/vLLM-Ascend：填写实际型号与版本，未核实项标明未知。
-- 模型名：`my-model`；权重：`/path/to/model`；权重版本/格式：填写实测信息或标明未知。
+| 角色 | 主机 / 容器 | 卡 | 并行布局 | HTTP | 脚本 |
+|---|---|---|---|---|---|
+| P | 192.0.2.10 / model-pd | 0～7 | DP2 / TP4 / EP8 | 7100 | `run_p.sh` |
+| D | 192.0.2.20 / model-pd | 0～7 | DP4 / TP2 / EP8 | 7100 | `run_d.sh` |
+| Proxy | 192.0.2.10 / model-pd | — | 连接 P、D 两个 API | 8000 | `proxy.sh` |
 
-## 配置
+按脚本实值补一张 P/D 参数表，列上下文、batch token、序列上限、显存利用率和实际存在的 MTP / 图模式差异。公共特性用短句概括；正文仅解释必要的限制，不复述表格数字或展开并行原理。
 
-| 角色 | 业务 IP | 设备 | DP | TP | EP | HTTP |
-|---|---|---|---:|---:|---:|---|
-| P | 192.0.2.10 | 0..7 | 2 | 4 | 8 | 7100 |
-| D | 192.0.2.20 | 0..7 | 4 | 2 | 8 | 7100 |
+## 环境与改动
 
-DP 为数据并行，TP 为张量并行；EP 列填写当前工具定义的专家并行规模。补充实际上下文上限、并发上限、显存利用率及一句话作用说明，与脚本保持一致。
+用一两句填写实际镜像、硬件、驱动、CANN、PyTorch、vLLM/vLLM-Ascend 版本；多机注明实际镜像是否已核对一致，未核实项集中标明。再简述相对参考脚本的必要改动、原因和影响；无改动则写无改动，影响启动的未解决项需保留。
 
-## 问题、修复与差异
+## 手工拉起
 
-简述遇到的问题、采用的方法和结果；列出相比原脚本的实际变更及原因。无改动则明确写无改动，未解决项如实列出。原文件保持不变，以下启动命令使用交付副本。
-
-## 人工启动
-
-先写清容器进入方式、必要环境初始化和权重挂载等前置条件。P、D 各开终端，进入各自交付目录：
+现有容器和权重已准备好，运行环境由脚本初始化。以下为重新启动步骤，先核对当前实例状态。两台宿主机各开终端，执行共同的进入步骤：
 
 ```bash
-# P 容器
-bash run_p.sh
-
-# D 容器
-bash run_d.sh
+cd /path/to/work
+docker exec -it -w "$PWD" model-pd bash
+mkdir -p logs
 ```
 
-确认两侧全部 rank 就绪后，在主节点另开终端，进入交付目录：
+P，192.0.2.10 的容器内：
 
 ```bash
-curl --noproxy '*' -fsS http://192.0.2.10:7100/health
-curl --noproxy '*' -fsS http://192.0.2.20:7100/health
-bash proxy.sh
+nohup bash run_p.sh > logs/p.log 2>&1 &
 ```
 
-客户端入口：`http://192.0.2.10:8000/v1`，模型名 `my-model`。
-
-## 人工验证与本轮结果
-
-两侧健康检查应返回 HTTP 200。Proxy 启动后在客户端终端执行：
+D，192.0.2.20 的容器内：
 
 ```bash
-curl --noproxy '*' -fsS http://192.0.2.10:8000/health
-curl --noproxy '*' -fsS http://192.0.2.10:8000/v1/chat/completions \
+nohup bash run_d.sh > logs/d.log 2>&1 &
+```
+
+两侧全部 rank 就绪后，在 P 容器内检查并启动 Proxy；任一检查失败时先处理，不继续启动：
+
+```bash
+if curl --noproxy '*' -fsS --max-time 10 http://192.0.2.10:7100/health &&
+   curl --noproxy '*' -fsS --max-time 10 http://192.0.2.20:7100/health; then
+  nohup bash proxy.sh > logs/proxy.log 2>&1 &
+fi
+```
+
+## 手工验证
+
+在 P 容器内执行：
+
+```bash
+curl --noproxy '*' -fsS --max-time 10 http://192.0.2.10:7100/health
+curl --noproxy '*' -fsS --max-time 10 http://192.0.2.20:7100/health
+curl --noproxy '*' -fsS --max-time 10 http://192.0.2.10:8000/healthcheck
+curl --noproxy '*' -fsS --max-time 600 http://192.0.2.10:8000/v1/chat/completions \
   -H 'Content-Type: application/json' \
   -d '{"model":"my-model","messages":[{"role":"user","content":"你好"}],"max_tokens":16}'
 ```
 
-请求应成功返回，响应的 `choices` 中包含有效输出。以上接口须按实际代理和模型能力调整；无 `/health` 接口的代理应采用实际支持的检查方式。
+通过标准：健康检查均返回 HTTP 200；请求的 `choices` 包含有效输出，PD 日志无 KV 传输致命错误，请求后服务仍健康。以上接口须按实际代理和模型能力调整；多入口场景应逐个检查实际 endpoint。
 
 本轮仅完成配置校验，尚未执行健康和模型请求验证。按实际结果更新此处，不将建议命令写成已通过。
 
-过程记录：`/path/to/work/.work/本次运行/`。原文件仍位于原路径，未修改。
+原稿归档：`/path/to/work/archive-YYYYMMDD-HHMMSS/`；归档内容未改动。当前脚本直接位于工作目录顶层，以上命令使用这套脚本。过程记录：`/path/to/work/.work/本次运行/`。
 ````
 
-如果模型请求已经验证，应替换首段和末段的状态，给出简短结果；如果仍在加载，不应写“服务正常”。README 里的命令和参数只对应当前版本。
+如果模型请求已经验证，将末段更新为简短的实际结果；可在首段注明当前状态。如果仍在加载，不应写“服务正常”。README 里的命令和参数只对应当前版本。
+
+多机同组场景，将启动步骤按“角色 + 机器 + 容器”继续展开，并注明哪些 rank 需及时一起加入；不要等组内首节点健康才启动其余 rank。参数表负责对照，环境与改动用短段收束，源码分析和逐轮记录留在隐藏过程目录。
 
 ## 辅助文件
 
@@ -144,7 +152,12 @@ curl --noproxy '*' -fsS http://192.0.2.10:8000/v1/chat/completions \
 
 ```text
 work/
-  deploy/
+  run_p.sh
+  run_d.sh
+  proxy.sh
+  load_balance_proxy_server_example.py
+  README.md
+  archive-YYYYMMDD-HHMMSS/
     run_p.sh
     run_d.sh
     proxy.sh
@@ -154,4 +167,4 @@ work/
     本次运行/
 ```
 
-loop 时 `deploy/` 中的脚本和依赖为独立工作副本，原文件保留原处。逐轮日志、脚本快照和工具状态集中放在工作目录的隐藏子目录 `.work/本次运行/`，支持时设置隐藏属性；不要把控制过程写进 `run_p.sh`、`run_d.sh`，也不要为了展示此目录结构创建空文件。
+loop 时先将原稿移入 `archive-YYYYMMDD-HHMMSS/` 并保持内容不变，顶层工作副本用于修复与最终验证；成功后保留这一套可直接执行的当前脚本。逐轮日志、脚本快照和工具状态集中在 `.work/本次运行/`，README 说明归档、过程记录及实际状态。不要把控制过程写进服务脚本，也不要为了展示此目录结构创建空文件。
