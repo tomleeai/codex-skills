@@ -78,6 +78,54 @@
     {
       "applies_to": {
         "hardware": [
+          "Ascend 650E"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "PyTorch": "2.10.0+cpu",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.32.0",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        },
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "finite_batch",
+          "PD disaggregation",
+          "zero_prefix_reuse"
+        ]
+      },
+      "id": "case-qwen38-flash-next-650e-pd-128k-20261116",
+      "kind": "case",
+      "path": "cases/case-qwen38-flash-next-650e-pd-128k-20261116.json",
+      "revision": "47b437a0ba81bde3172a08f2049108d53c2947153a7eb6eb425cf23a340e2105",
+      "status": "verified",
+      "summary": "并发 1/2/4/8 全部成功。并发 4 达 118.2791 tok/s，TTFT P90 30.0469 s。至并发 8 吞吐仅增 2.79%，TTFT P90 升至 59.9313 s。P 端 HBM/外部前缀命中和 D 端 HBM 命中均为零，D 端外部命中对应本轮 Mooncake KV 传输。",
+      "tags": [
+        "Qwen3.8-Flash-Next",
+        "650E",
+        "A5",
+        "128K+1K",
+        "PD",
+        "AISBench",
+        "MooncakeConnectorV2",
+        "Hybrid KV",
+        "QSA",
+        "前缀缓存",
+        "TTFT",
+        "TPOT",
+        "吞吐拐点",
+        "并发"
+      ],
+      "title": "Qwen3.8-Flash-Next 650E 双机 16 卡基础 PD：128K+1K 零前缀并发摸测",
+      "updated_at": "2026-11-16"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend"
         ],
         "models": [
@@ -302,6 +350,91 @@
       ],
       "title": "DeepSeek-V4-Pro参数交互：源码条件与待验证机制",
       "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend 650E"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "PyTorch": "2.10.0+cpu",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.32.0",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        },
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "finite_batch",
+          "PD disaggregation",
+          "zero_prefix_reuse"
+        ]
+      },
+      "id": "lesson-long-context-pd-ttft-throughput-knee",
+      "kind": "lesson",
+      "path": "lessons/lesson-long-context-pd-ttft-throughput-knee.json",
+      "revision": "1acad33e144d518a5dd59cee6bbfa3d392f59bf7824e18aea4a3ce93bf620f71",
+      "status": "candidate",
+      "summary": "650E 基础 PD 的 128K+1K 样本中，并发 4→8 只多 2.79% 吞吐，TTFT P90 几乎翻倍，即使 TPOT P90 改善。选点需要同时看首字等待和输出速率。",
+      "tags": [
+        "AISBench",
+        "128K+1K",
+        "PD",
+        "TTFT",
+        "TPOT",
+        "吞吐拐点",
+        "并发",
+        "650E"
+      ],
+      "title": "超长输入 PD 并发选点：同时检查输出吞吐、TTFT 尾延迟和 TPOT",
+      "updated_at": "2026-11-16"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend 650E"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "PyTorch": "2.10.0+cpu",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.32.0",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        },
+        "workload_modes": [
+          "AISBench",
+          "case_sweep",
+          "finite_batch",
+          "PD disaggregation",
+          "zero_prefix_reuse"
+        ]
+      },
+      "id": "lesson-pd-mooncake-zero-prefix-counters",
+      "kind": "lesson",
+      "path": "lessons/lesson-pd-mooncake-zero-prefix-counters.json",
+      "revision": "bfc1e32fc4262b3b494169afdeef530691f97545388af3f05c05a290e29c36e8",
+      "status": "verified",
+      "summary": "零前缀重复率要用正式窗口的实际计数验证。P 的 HBM 和外部前缀命中、D 的 HBM 命中均为零时，D 的 Mooncake 外部命中仍可能接近 100%，因为当前请求从 P 接收 KV。",
+      "tags": [
+        "MooncakeConnectorV2",
+        "AISBench",
+        "PD",
+        "prefix",
+        "前缀缓存",
+        "零前缀",
+        "DP",
+        "缓存计数",
+        "KV传输"
+      ],
+      "title": "Mooncake 基础 PD 零前缀：按角色、DP 与命中来源核对计数",
+      "updated_at": "2026-11-16"
     }
   ],
   "schema_version": 1

@@ -1,0 +1,71 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend 650E"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "PyTorch": "2.10.0+cpu",
+      "torch-npu": "2.10.0.post7",
+      "vLLM": "0.32.0",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+    },
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "finite_batch",
+      "PD disaggregation",
+      "zero_prefix_reuse"
+    ]
+  },
+  "body": {
+    "confirmed": "本例并发 4 和 8 分别为 118.2791 与 121.5790 tok/s，TTFT P90 分别为 30.0469 与 59.9313 s，TPOT P90 分别为 11.1 与 8.8 ms。",
+    "do_not_use_when": [
+      "把并发 4 当作其他长度、其他硬件或其他 PD 比例的默认最优。",
+      "从一次有限批推出线上容量或 SLO。"
+    ],
+    "limitations": [
+      "方法可作为类似任务的候选策略。本案例没有覆盖稳定到达率、重复测量或多版本对照。"
+    ],
+    "method": [
+      "先以低并发校验长度、输出和缓存条件。逐档记录整体输出吞吐和 TTFT/TPOT 均值与尾延迟。",
+      "仅在边际吞吐仍有改善且可接受延迟变化时扩点。平台期即使 TPOT 改善，也应把首字等待代价写入取舍。"
+    ],
+    "use_when": [
+      "超长输入、低到高并发有限批摸测，需要比较吞吐与交互延迟且缺少预设 SLO。"
+    ]
+  },
+  "created_at": "2026-11-16",
+  "evidence": [
+    {
+      "ref": "case:case-qwen38-flash-next-650e-pd-128k-20261116",
+      "role": "本机型实测拐点与样本边界"
+    }
+  ],
+  "id": "lesson-long-context-pd-ttft-throughput-knee",
+  "kind": "lesson",
+  "observed_at": "2026-11-16",
+  "related_ids": [
+    "case-qwen38-flash-next-650e-pd-128k-20261116",
+    "lesson-aisbench-tpot-concurrency-search"
+  ],
+  "schema_version": 1,
+  "status": "candidate",
+  "summary": "650E 基础 PD 的 128K+1K 样本中，并发 4→8 只多 2.79% 吞吐，TTFT P90 几乎翻倍，即使 TPOT P90 改善。选点需要同时看首字等待和输出速率。",
+  "supersedes": [],
+  "tags": [
+    "AISBench",
+    "128K+1K",
+    "PD",
+    "TTFT",
+    "TPOT",
+    "吞吐拐点",
+    "并发",
+    "650E"
+  ],
+  "title": "超长输入 PD 并发选点：同时检查输出吞吐、TTFT 尾延迟和 TPOT",
+  "updated_at": "2026-11-16"
+}
