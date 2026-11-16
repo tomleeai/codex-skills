@@ -126,6 +126,45 @@
     {
       "applies_to": {
         "hardware": [
+          "Ascend 950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "MemCache": "1.3.0",
+          "vLLM": "0.32.0",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "KV cache pooling",
+          "AISBench",
+          "finite_batch"
+        ]
+      },
+      "id": "case-qwen38-flash-next-950dt-pd-pool-pcp-qsa-20261117",
+      "kind": "case",
+      "path": "cases/case-qwen38-flash-next-950dt-pd-pool-pcp-qsa-20261117.json",
+      "revision": "3a9a49b1f4fbd67b400c06df9eee3a9bbca89f45ab0b10bf11063047de74e917",
+      "status": "partial",
+      "summary": "指定镜像的 8 个 PCP worker 建组后均在 QSA 构造阶段失败。纯 PD 和池化历史都用 TP4×DP2，128K+1K 并发 4 的差距集中在首 token 前。",
+      "tags": [
+        "Qwen3.8-Flash-Next",
+        "PCP",
+        "QSA",
+        "MemCache",
+        "TTFT",
+        "128K",
+        "PD"
+      ],
+      "title": "Qwen3.8-Flash-Next 双机池化 PCP4 启动被 QSA 拒绝及 128K 历史对照",
+      "updated_at": "2026-11-17"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend"
         ],
         "models": [

@@ -1,0 +1,89 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend 950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "MemCache": "1.3.0",
+      "vLLM": "0.32.0",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "KV cache pooling",
+      "AISBench",
+      "finite_batch"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "独立端口启动第二个 MetaService 被同一容器内单实例锁拒绝。",
+      "改为复用健康的原 MetaService，保留隔离的 HTTP、DP 和 Mooncake 端口。8 个 Prefill rank 建立后，所有 worker 在 QSA 构造阶段退出。Decode、Proxy 和 AISBench 未拉起，两台机器各 8 张卡均验证无进程。"
+    ],
+    "confirmed_findings": [
+      "vLLM 的 Qwen4Exp QSA 构造函数在 PCP 或 DCP 大于 1 时抛出 NotImplementedError: Qwen4Exp QSA does not support context parallelism。Ascend QSA 实现另有 supports_pcp=False。",
+      "池化两轮的 Prefill 日志分别有 3 和 2 次读取错误摘要，MemCache BatchGet lease expired，错误码 -3106；首轮没有同类错误但 TTFT P90 已到 150374.6 ms。所统计的 Mooncake 单条 data pull 日志中位数在 52.435–53.32 ms。"
+    ],
+    "deployment": {
+      "connectors": "MooncakeConnectorV2 + AscendStoreConnector，MemCache device_uboe，use_layerwise=false，SSD 关闭",
+      "d_max_num_batched_tokens": 4096,
+      "decode": "8 张卡，TP4×PCP1×DP2，EP8，FULL_DECODE_ONLY",
+      "gpu_memory_utilization": 0.9,
+      "max_model_len": 143360,
+      "max_num_seqs_per_dp": 16,
+      "mtp_tokens": 3,
+      "p_max_num_batched_tokens": 8192,
+      "prefill": "8 张卡，TP1×PCP4×DP2，EP8，NONE",
+      "weights": "W4A8 MXFP"
+    },
+    "hypotheses": [
+      "差距集中在首 token 前，池化的查找、读取、写入和调度阶段值得分别测时。相同 TP 布局下基线吞吐高得多，尚无数据量化 TP 本身和池化交互所占比例。"
+    ],
+    "limitations": [
+      "没有 PCP 性能数据。旧池化日志标称 repeat_rate=0，但缺少 P/D 分离的计数快照，聚合缓存指标不能认证零前缀复用。三个池化点为历史批次，基线不是交错复测。",
+      "Mooncake 日志计时只覆盖数据 pull，不覆盖交接排队。共享证据保留性能字典与计数，原服务器日志和环境留在项目目录。"
+    ],
+    "next_step": "使用明确支持该模型 QSA 的 PCP 实现后，先通过 128K KV 交接验收，再用新 seed 及分角色计数复测 131072+1024、C4、16 条。",
+    "observations": [
+      "三个历史池化批次并发 4 均成功 16/16，输入均值 131124.3125 token，输出 1024 token。TTFT P90 为 150374.6、209267.5、209652.2 ms，总输出吞吐分别为 30.3321、19.8486、29.7587 token/s。",
+      "同并行布局的纯 PD 并发 4 批次为 118.2791 token/s，TTFT P90 30046.9 ms，TPOT 均值 8.0 ms。池化三轮的 TPOT 均值为 7.6、7.5、7.4 ms。"
+    ],
+    "task": "在指定镜像将 Prefill 从 TP4×DP2 调整为 TP1×PCP4×DP2，保持 Decode TP4×DP2，测 128K+1K 并发 4、零前缀复用。"
+  },
+  "created_at": "2026-11-17",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-flash-next-950dt-pd-pool-pcp-qsa-20261117/metrics.json",
+      "role": "原始 AISBench 指标字典、纯 PD C4 行、池化历史对照"
+    },
+    {
+      "ref": "case:case-qwen38-flash-next-650e-pd-128k-20261116",
+      "role": "纯 PD 128K+1K 基线"
+    }
+  ],
+  "id": "case-qwen38-flash-next-950dt-pd-pool-pcp-qsa-20261117",
+  "kind": "case",
+  "observed_at": "2026-11-17",
+  "related_ids": [
+    "case-qwen38-flash-next-650e-pd-128k-20261116"
+  ],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "指定镜像的 8 个 PCP worker 建组后均在 QSA 构造阶段失败。纯 PD 和池化历史都用 TP4×DP2，128K+1K 并发 4 的差距集中在首 token 前。",
+  "supersedes": [],
+  "tags": [
+    "Qwen3.8-Flash-Next",
+    "PCP",
+    "QSA",
+    "MemCache",
+    "TTFT",
+    "128K",
+    "PD"
+  ],
+  "title": "Qwen3.8-Flash-Next 双机池化 PCP4 启动被 QSA 拒绝及 128K 历史对照",
+  "updated_at": "2026-11-17"
+}
