@@ -1,0 +1,312 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend 650E"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "PyTorch": "2.10.0+cpu",
+      "torch-npu": "2.10.0.post7",
+      "vLLM": "0.32.0",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+    },
+    "workload_modes": [
+      "AISBench",
+      "case_sweep",
+      "finite_batch",
+      "PD disaggregation",
+      "zero_prefix_reuse",
+      "direct_prefill"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "先做过 128K 输入、1 token 输出的功能验收。上一服务周期的 128K+1K 并发 1 为 4/4、43.065 tok/s，作为历史参考。本次恢复后重新测并发 1。",
+      "停掉池化服务后核对两台各 8 张卡无设备进程，用原基础 PD 入口、源码修复和编译缓存恢复。Decode 静态图 9/9 主阶段用时 40:24，第二组 9/9 用时 10:27。跟踪编译进度，服务就绪后再拉 Proxy。",
+      "早期运行中 wrapper 的 WORK_PATH 与实际加载的 AISBench 包位置不一致，切到独立工作副本，从 P/D 后端采指标。恢复后的首轮驱动曾把未接流量 DP 的缺失运行/排队 gauge 当成计数缺失。前置成功，正式批未派发。修复后强制校验双侧每个 DP 的四个累计计数器，并保留已存在 gauge 的空闲检查，复用健康 P/D/Proxy 继续压测。",
+      "并发 2 和 4 后，只有吞吐至少提高 15%、TTFT P90 增幅不超过 30%、TPOT P90 增幅不超过 35% 才试并发 8。这些阈值是本轮试探预算条件，均非 SLO。"
+    ],
+    "confirmed_findings": [
+      "并发 4 对并发 2 吞吐提高约 76.70%，TTFT P90 增加约 14.67%。并发 8 对并发 4 吞吐仅提高约 2.79%，TTFT P90 增加约 99.46%，即使 TPOT P90 从 11.1 ms 降至 8.8 ms。并发 4 是本轮测点的折中。偏向首字延迟时可对照并发 1 或 2。",
+      "四个正式批次共 60/60 成功，实际输入 131124–131127，实际输出均为 1024。P 端两类查询增量依次为 524494、1048990、2097976、4195945，两类命中均为 0。D 端 HBM 查询增量依次为 524498、1048998、2097992、4195977，命中均为 0。D 端外部查询增量与其 HBM 查询相同，外部命中增量与 P 端正式查询逐点相同，对应当前请求的 P→D KV。",
+      "基础 PD 的 P、D 和 Proxy 在批次结束后均保持健康。"
+    ],
+    "deployment": {
+      "d": "8 NPU，内部 DP2×TP4，EP8，FULL_DECODE_ONLY，启用静态 kernel",
+      "d_max_num_batched_tokens": 4096,
+      "gpu_memory_utilization": 0.9,
+      "kv_transfer": "MooncakeConnectorV2。启用前缀缓存。双端包含已验收的 Hybrid KV 页跨距和 QSA RoPE 修复",
+      "max_model_len": 143360,
+      "max_num_seqs_per_dp": 16,
+      "p": "8 NPU，内部 DP2×TP4，EP8，图模式 NONE",
+      "p_max_num_batched_tokens": 8192,
+      "speculative_decoding": "qwen3_5_mtp，3 token",
+      "weights": "W4A8 MXFP"
+    },
+    "hypotheses": [
+      "并发 8 的首字延迟增长需要结合 P 调度、DP 路由、Mooncake 传输阶段和客户端到达数据定位。当前记录只证明吞吐趋平与首字延迟上涨同时出现。"
+    ],
+    "limitations": [
+      "只有每点一个有限批，无重复统计或给定 TTFT/TPOT SLA。并发 4 的经验限定于此次权重、修复版本、基础 PD 拓扑、客户端与长度条件。",
+      "原始运行字典保留 wrapper 默认单卡字段。它们不代表双机 16 卡上测得的单卡吞吐。以 Common Metric 系统输出吞吐为准。",
+      "共享证据保留实测数值、计数快照及逐请求 token，原项目日志和请求正文留存原处。AISBench 通过仓库提交定位，未核实包版本号。"
+    ],
+    "next_step": "换输入长度、版本或拓扑时从受控低并发起点复测。若要作为容量承诺，对候选点重复运行，并按正式 SLA 记录 TTFT、TPOT、吞吐和波动。",
+    "observations": [
+      {
+        "TPOT SLO_P90": 11.1,
+        "TPOT avg": 8.7,
+        "TTFT P90": 16619,
+        "TTFT avg": 16314.1,
+        "concurrency": 1,
+        "duration_s": 100.7212803,
+        "input_max": 131126,
+        "input_min": 131124,
+        "output_throughput": 40.6667,
+        "output_tokens_per_request": 1024,
+        "success": 4,
+        "total": 4
+      },
+      {
+        "TPOT SLO_P90": 8.7,
+        "TPOT avg": 7.2,
+        "TTFT P90": 26203.1,
+        "TTFT avg": 22408,
+        "concurrency": 2,
+        "duration_s": 122.3811943,
+        "input_max": 131127,
+        "input_min": 131124,
+        "output_throughput": 66.9384,
+        "output_tokens_per_request": 1024,
+        "success": 8,
+        "total": 8
+      },
+      {
+        "TPOT SLO_P90": 11.1,
+        "TPOT avg": 8,
+        "TTFT P90": 30046.9,
+        "TTFT avg": 24755.5,
+        "concurrency": 4,
+        "duration_s": 138.51982819999998,
+        "input_max": 131126,
+        "input_min": 131124,
+        "output_throughput": 118.2791,
+        "output_tokens_per_request": 1024,
+        "success": 16,
+        "total": 16
+      },
+      {
+        "TPOT SLO_P90": 8.8,
+        "TPOT avg": 7.4,
+        "TTFT P90": 59931.3,
+        "TTFT avg": 53475.7,
+        "concurrency": 8,
+        "duration_s": 269.52023180000003,
+        "input_max": 131125,
+        "input_min": 131124,
+        "output_throughput": 121.579,
+        "output_tokens_per_request": 1024,
+        "success": 32,
+        "total": 32
+      }
+    ],
+    "prefill_128k_1token": {
+      "attempts": [
+        "并发 2 首次运行已发送正式请求，共享盘写入 SQLite 和 JSONL 时出现 I/O 错误，客户端请求明细无法完整核验，该批次判为无效。",
+        "有效并发 1 和预热批次保留。后续点先在容器本地盘落结果，关闭输出后归档至共享盘，并发 2 采用新 seed 复测，P 端持续运行。"
+      ],
+      "confirmed_findings": [
+        "本轮正式批次 28/28 成功，实际输入 131123–131126 token，每条完整输出 1 token。",
+        "并发 2 实测输入吞吐最高，15770.8902 token/s，TTFT 均值/P90 为 16.6255/17.1206 s。并发 4 的输入吞吐较并发 2 下降约 11.63%，TTFT P90 升至 47.6508 s，本轮在并发 4 后收敛。",
+        "正式批 P 侧 HBM/外部查询量依次为 524495、1048994、2097992，两类命中和抢占均为 0。结束时 P 健康，D 节点 8 张 NPU 空闲。"
+      ],
+      "deployment": "Qwen3.8-Flash-Next W4A8 MXFP 基础 PD 的 Prefill 节点，Atlas 650E 单机 8 张 Ascend 950DT，TP4×DP2、EP8，无图模式，MooncakeConnectorV2 producer，保留 Hybrid KV 和 QSA 修复。",
+      "limitations": [
+        "每点一个有效有限批次，样本为 4、8、16 条。结论限定在实测并发 1、2、4。",
+        "TTFT 来自 P 侧直连客户端，包含队列、预填充和首 token 返回。1 token 负载无 TPOT 可比口径。原始 wrapper 的单 token 占位指标仅为取证保留。",
+        "相关 PP2＋layerwise 案例为另一套部署配置。当前数据所用的基础 PD 内部 DP2×TP4、EP8 配置及直连 P 口径在此条目记录。"
+      ],
+      "observations": [
+        {
+          "TTFT P90": 16032.6,
+          "TTFT avg": 15955.0,
+          "concurrency": 1,
+          "dataset_sha256": "9cf0ca7b8e2413e71e046e5f51f5ef7a0d24551b72bee830984b6805d341339b",
+          "duration_s": 63.8352423,
+          "input_max": 131124,
+          "input_min": 131123,
+          "input_throughput": 8216.3861,
+          "output_tokens_per_request": 1,
+          "p_external_prefix_cache_hits": 0,
+          "p_external_prefix_cache_queries": 524495,
+          "p_prefix_cache_hits": 0,
+          "p_prefix_cache_queries": 524495,
+          "preemptions": 0,
+          "requests_per_second": 0.0626613114618036,
+          "seed": 171101,
+          "success": 4,
+          "total": 4,
+          "zero_reuse": true
+        },
+        {
+          "TTFT P90": 17120.6,
+          "TTFT avg": 16625.5,
+          "concurrency": 2,
+          "dataset_sha256": "e8d7a96074358bf009b35e4af58487e5d2b1859777ae0c340d1a6dc64a1abd1a",
+          "duration_s": 66.5145714,
+          "input_max": 131125,
+          "input_min": 131124,
+          "input_throughput": 15770.8902,
+          "output_tokens_per_request": 1,
+          "p_external_prefix_cache_hits": 0,
+          "p_external_prefix_cache_queries": 1048994,
+          "p_prefix_cache_hits": 0,
+          "p_prefix_cache_queries": 1048994,
+          "preemptions": 0,
+          "requests_per_second": 0.12027439749841042,
+          "seed": 171202,
+          "success": 8,
+          "total": 8,
+          "zero_reuse": true
+        },
+        {
+          "TTFT P90": 47650.8,
+          "TTFT avg": 33059.1,
+          "concurrency": 4,
+          "dataset_sha256": "93385ff0210d5b9591358effda4d177d5e1e012b5d8a2738d89a7888711e9882",
+          "duration_s": 150.5374425,
+          "input_max": 131126,
+          "input_min": 131124,
+          "input_throughput": 13936.6789,
+          "output_tokens_per_request": 1,
+          "p_external_prefix_cache_hits": 0,
+          "p_external_prefix_cache_queries": 2097992,
+          "p_prefix_cache_hits": 0,
+          "p_prefix_cache_queries": 2097992,
+          "preemptions": 0,
+          "requests_per_second": 0.10628584978119314,
+          "seed": 171204,
+          "success": 16,
+          "total": 16,
+          "zero_reuse": true
+        }
+      ],
+      "observed_at": "2026-11-17",
+      "protocol": {
+        "concurrency": [
+          1,
+          2,
+          4
+        ],
+        "dataset_type": "prefix_cache",
+        "entrypoint": "direct prefill OpenAI chat completions",
+        "ignore_eos": true,
+        "input_len": 131072,
+        "output_len": 1,
+        "prefix_test": true,
+        "repeat_rate": 0,
+        "request_rate": 0,
+        "requests_per_point": "4 × concurrency",
+        "seeds": [
+          171101,
+          171202,
+          171204
+        ],
+        "throughput": "AISBench Common Metric Input Token Throughput，以所有实际输入 token 除以正式批次耗时复核。",
+        "timing": "流式有限批。单独完成 4 条长输入预热。每个正式点的短前置请求完成后采逐 DP 的缓存计数基线，仅统计后续正式批次。",
+        "warmup_seed": 171100
+      }
+    },
+    "protocol": {
+      "concurrency": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "dataset_type": "prefix_cache",
+      "ignore_eos": true,
+      "input_len": 131072,
+      "measurement": "串行点位，流式有限批。每点生成独立数据集，换 seed，校验数据 hash 与实际命中。AISBench Common Metric 的整个正式窗口输出吞吐作为 TPS。",
+      "output_len": 1024,
+      "prefix_test": true,
+      "preflight": "每点 1 条 52 输入 token、1 输出 token 的前置请求。前置完成后再采正式缓存基线。",
+      "repeat_rate": 0,
+      "request_rate": 0,
+      "requests_per_point": "4 × concurrency",
+      "seeds": [
+        1,
+        111602,
+        111604,
+        111608
+      ]
+    },
+    "source_revisions": {
+      "aisbench": "e00d1f758310c45580576af291a3126919776c89",
+      "aisbench_wrapper": "ef2b6d8653d57487b622b0dc9db458f8a1e8dec6",
+      "vllm": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "vllm_ascend": "62fe4cde69d9e80225283f2e3edf7913d77bc9e8"
+    },
+    "task": "在两台 650E 各 8 张 NPU 上恢复已验收的基础 PD 并跑零前缀 128K 输入、1024 token 输出，核验实际长度、缓存计数、吞吐与延迟取舍。测试结束保持基础服务运行。"
+  },
+  "created_at": "2026-11-16",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-flash-next-650e-pd-128k-20261116/benchmark.json",
+      "role": "AISBench 原始指标、逐请求 token、逐 DP 计数器及历史参考",
+      "sha256": "84a90591a5710ac455799bb0d80dea0e5595198c51422240655586ebe6a2a039"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-650e-pd-128k-20261116/summary.csv",
+      "role": "正式批次原始 CSV",
+      "sha256": "4b77549e99f05db202a51c1fcc558b0403203cdb6fdcc04b8c8126df885a6e7b"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-650e-pd-128k-20261116/prefill-128k-1token.json",
+      "role": "纯 P 原始指标、逐请求 token、逐 DP 缓存计数、预热与无效批次",
+      "sha256": "44f5ab5e35cedfb9c04a59f1d2ef3ba1caba1ede0f3fdebe59af7b545edc7c0a"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-650e-pd-128k-20261116/prefill-128k-1token.csv",
+      "role": "纯 P 各正式并发点原始 CSV",
+      "sha256": "f7fb0486e8fc5f9525dd2762d2fd9e87b8b26090fe8930c4796f6bb42a962c04"
+    }
+  ],
+  "id": "case-qwen38-flash-next-650e-pd-128k-20261116",
+  "kind": "case",
+  "observed_at": "2026-11-16",
+  "related_ids": [
+    "lesson-aisbench-tpot-concurrency-search",
+    "lesson-aisbench-prefix-dp-coverage",
+    "lesson-qwen38-pp2-mooncake-v2-128k-pd-prefill-20261117"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "基础 PD 零前缀 128K+1K 经 Proxy 测试，并发 4 达 118.2791 输出 token/s，TTFT P90 30.0469 s。补测 128K+1 token 直连 P，并发 1/2/4 正式请求 28/28 成功，并发 2 达本轮最高 15770.8902 输入 token/s，TTFT P90 17.1206 s。P 侧两类前缀命中和抢占均为零。",
+  "supersedes": [],
+  "tags": [
+    "Qwen3.8-Flash-Next",
+    "650E",
+    "A5",
+    "128K+1K",
+    "PD",
+    "AISBench",
+    "MooncakeConnectorV2",
+    "Hybrid KV",
+    "QSA",
+    "前缀缓存",
+    "TTFT",
+    "TPOT",
+    "吞吐拐点",
+    "并发",
+    "128K+1 token",
+    "纯P",
+    "Prefill",
+    "输入吞吐"
+  ],
+  "title": "Qwen3.8-Flash-Next 650E 双机基础 PD：128K+1K 零前缀与 128K+1 token 纯 P",
+  "updated_at": "2026-11-17"
+}

@@ -95,15 +95,16 @@
           "case_sweep",
           "finite_batch",
           "PD disaggregation",
-          "zero_prefix_reuse"
+          "zero_prefix_reuse",
+          "direct_prefill"
         ]
       },
       "id": "case-qwen38-flash-next-650e-pd-128k-20261116",
       "kind": "case",
       "path": "cases/case-qwen38-flash-next-650e-pd-128k-20261116.json",
-      "revision": "47b437a0ba81bde3172a08f2049108d53c2947153a7eb6eb425cf23a340e2105",
+      "revision": "b9efe7d9004aee4a58dead2bb209e26419bcd7f44727b88acae6863ce49c77d7",
       "status": "verified",
-      "summary": "并发 1/2/4/8 全部成功。并发 4 达 118.2791 tok/s，TTFT P90 30.0469 s。至并发 8 吞吐仅增 2.79%，TTFT P90 升至 59.9313 s。P 端 HBM/外部前缀命中和 D 端 HBM 命中均为零，D 端外部命中对应本轮 Mooncake KV 传输。",
+      "summary": "基础 PD 零前缀 128K+1K 经 Proxy 测试，并发 4 达 118.2791 输出 token/s，TTFT P90 30.0469 s。补测 128K+1 token 直连 P，并发 1/2/4 正式请求 28/28 成功，并发 2 达本轮最高 15770.8902 输入 token/s，TTFT P90 17.1206 s。P 侧两类前缀命中和抢占均为零。",
       "tags": [
         "Qwen3.8-Flash-Next",
         "650E",
@@ -118,10 +119,14 @@
         "TTFT",
         "TPOT",
         "吞吐拐点",
-        "并发"
+        "并发",
+        "128K+1 token",
+        "纯P",
+        "Prefill",
+        "输入吞吐"
       ],
-      "title": "Qwen3.8-Flash-Next 650E 双机 16 卡基础 PD：128K+1K 零前缀并发摸测",
-      "updated_at": "2026-11-16"
+      "title": "Qwen3.8-Flash-Next 650E 双机基础 PD：128K+1K 零前缀与 128K+1 token 纯 P",
+      "updated_at": "2026-11-17"
     },
     {
       "applies_to": {

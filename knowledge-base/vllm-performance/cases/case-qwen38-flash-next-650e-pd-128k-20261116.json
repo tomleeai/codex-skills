@@ -18,7 +18,8 @@
       "case_sweep",
       "finite_batch",
       "PD disaggregation",
-      "zero_prefix_reuse"
+      "zero_prefix_reuse",
+      "direct_prefill"
     ]
   },
   "body": {
@@ -112,6 +113,113 @@
         "total": 32
       }
     ],
+    "prefill_128k_1token": {
+      "attempts": [
+        "并发 2 首次运行已发送正式请求，共享盘写入 SQLite 和 JSONL 时出现 I/O 错误，客户端请求明细无法完整核验，该批次判为无效。",
+        "有效并发 1 和预热批次保留。后续点先在容器本地盘落结果，关闭输出后归档至共享盘，并发 2 采用新 seed 复测，P 端持续运行。"
+      ],
+      "confirmed_findings": [
+        "本轮正式批次 28/28 成功，实际输入 131123–131126 token，每条完整输出 1 token。",
+        "并发 2 实测输入吞吐最高，15770.8902 token/s，TTFT 均值/P90 为 16.6255/17.1206 s。并发 4 的输入吞吐较并发 2 下降约 11.63%，TTFT P90 升至 47.6508 s，本轮在并发 4 后收敛。",
+        "正式批 P 侧 HBM/外部查询量依次为 524495、1048994、2097992，两类命中和抢占均为 0。结束时 P 健康，D 节点 8 张 NPU 空闲。"
+      ],
+      "deployment": "Qwen3.8-Flash-Next W4A8 MXFP 基础 PD 的 Prefill 节点，Atlas 650E 单机 8 张 Ascend 950DT，TP4×DP2、EP8，无图模式，MooncakeConnectorV2 producer，保留 Hybrid KV 和 QSA 修复。",
+      "limitations": [
+        "每点一个有效有限批次，样本为 4、8、16 条。结论限定在实测并发 1、2、4。",
+        "TTFT 来自 P 侧直连客户端，包含队列、预填充和首 token 返回。1 token 负载无 TPOT 可比口径。原始 wrapper 的单 token 占位指标仅为取证保留。",
+        "相关 PP2＋layerwise 案例为另一套部署配置。当前数据所用的基础 PD 内部 DP2×TP4、EP8 配置及直连 P 口径在此条目记录。"
+      ],
+      "observations": [
+        {
+          "TTFT P90": 16032.6,
+          "TTFT avg": 15955.0,
+          "concurrency": 1,
+          "dataset_sha256": "9cf0ca7b8e2413e71e046e5f51f5ef7a0d24551b72bee830984b6805d341339b",
+          "duration_s": 63.8352423,
+          "input_max": 131124,
+          "input_min": 131123,
+          "input_throughput": 8216.3861,
+          "output_tokens_per_request": 1,
+          "p_external_prefix_cache_hits": 0,
+          "p_external_prefix_cache_queries": 524495,
+          "p_prefix_cache_hits": 0,
+          "p_prefix_cache_queries": 524495,
+          "preemptions": 0,
+          "requests_per_second": 0.0626613114618036,
+          "seed": 171101,
+          "success": 4,
+          "total": 4,
+          "zero_reuse": true
+        },
+        {
+          "TTFT P90": 17120.6,
+          "TTFT avg": 16625.5,
+          "concurrency": 2,
+          "dataset_sha256": "e8d7a96074358bf009b35e4af58487e5d2b1859777ae0c340d1a6dc64a1abd1a",
+          "duration_s": 66.5145714,
+          "input_max": 131125,
+          "input_min": 131124,
+          "input_throughput": 15770.8902,
+          "output_tokens_per_request": 1,
+          "p_external_prefix_cache_hits": 0,
+          "p_external_prefix_cache_queries": 1048994,
+          "p_prefix_cache_hits": 0,
+          "p_prefix_cache_queries": 1048994,
+          "preemptions": 0,
+          "requests_per_second": 0.12027439749841042,
+          "seed": 171202,
+          "success": 8,
+          "total": 8,
+          "zero_reuse": true
+        },
+        {
+          "TTFT P90": 47650.8,
+          "TTFT avg": 33059.1,
+          "concurrency": 4,
+          "dataset_sha256": "93385ff0210d5b9591358effda4d177d5e1e012b5d8a2738d89a7888711e9882",
+          "duration_s": 150.5374425,
+          "input_max": 131126,
+          "input_min": 131124,
+          "input_throughput": 13936.6789,
+          "output_tokens_per_request": 1,
+          "p_external_prefix_cache_hits": 0,
+          "p_external_prefix_cache_queries": 2097992,
+          "p_prefix_cache_hits": 0,
+          "p_prefix_cache_queries": 2097992,
+          "preemptions": 0,
+          "requests_per_second": 0.10628584978119314,
+          "seed": 171204,
+          "success": 16,
+          "total": 16,
+          "zero_reuse": true
+        }
+      ],
+      "observed_at": "2026-11-17",
+      "protocol": {
+        "concurrency": [
+          1,
+          2,
+          4
+        ],
+        "dataset_type": "prefix_cache",
+        "entrypoint": "direct prefill OpenAI chat completions",
+        "ignore_eos": true,
+        "input_len": 131072,
+        "output_len": 1,
+        "prefix_test": true,
+        "repeat_rate": 0,
+        "request_rate": 0,
+        "requests_per_point": "4 × concurrency",
+        "seeds": [
+          171101,
+          171202,
+          171204
+        ],
+        "throughput": "AISBench Common Metric Input Token Throughput，以所有实际输入 token 除以正式批次耗时复核。",
+        "timing": "流式有限批。单独完成 4 条长输入预热。每个正式点的短前置请求完成后采逐 DP 的缓存计数基线，仅统计后续正式批次。",
+        "warmup_seed": 171100
+      }
+    },
     "protocol": {
       "concurrency": [
         1,
@@ -155,6 +263,16 @@
       "ref": "artifact:case-qwen38-flash-next-650e-pd-128k-20261116/summary.csv",
       "role": "正式批次原始 CSV",
       "sha256": "4b77549e99f05db202a51c1fcc558b0403203cdb6fdcc04b8c8126df885a6e7b"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-650e-pd-128k-20261116/prefill-128k-1token.json",
+      "role": "纯 P 原始指标、逐请求 token、逐 DP 缓存计数、预热与无效批次",
+      "sha256": "44f5ab5e35cedfb9c04a59f1d2ef3ba1caba1ede0f3fdebe59af7b545edc7c0a"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-650e-pd-128k-20261116/prefill-128k-1token.csv",
+      "role": "纯 P 各正式并发点原始 CSV",
+      "sha256": "f7fb0486e8fc5f9525dd2762d2fd9e87b8b26090fe8930c4796f6bb42a962c04"
     }
   ],
   "id": "case-qwen38-flash-next-650e-pd-128k-20261116",
@@ -162,11 +280,12 @@
   "observed_at": "2026-11-16",
   "related_ids": [
     "lesson-aisbench-tpot-concurrency-search",
-    "lesson-aisbench-prefix-dp-coverage"
+    "lesson-aisbench-prefix-dp-coverage",
+    "lesson-qwen38-pp2-mooncake-v2-128k-pd-prefill-20261117"
   ],
   "schema_version": 1,
   "status": "verified",
-  "summary": "并发 1/2/4/8 全部成功。并发 4 达 118.2791 tok/s，TTFT P90 30.0469 s。至并发 8 吞吐仅增 2.79%，TTFT P90 升至 59.9313 s。P 端 HBM/外部前缀命中和 D 端 HBM 命中均为零，D 端外部命中对应本轮 Mooncake KV 传输。",
+  "summary": "基础 PD 零前缀 128K+1K 经 Proxy 测试，并发 4 达 118.2791 输出 token/s，TTFT P90 30.0469 s。补测 128K+1 token 直连 P，并发 1/2/4 正式请求 28/28 成功，并发 2 达本轮最高 15770.8902 输入 token/s，TTFT P90 17.1206 s。P 侧两类前缀命中和抢占均为零。",
   "supersedes": [],
   "tags": [
     "Qwen3.8-Flash-Next",
@@ -182,8 +301,12 @@
     "TTFT",
     "TPOT",
     "吞吐拐点",
-    "并发"
+    "并发",
+    "128K+1 token",
+    "纯P",
+    "Prefill",
+    "输入吞吐"
   ],
-  "title": "Qwen3.8-Flash-Next 650E 双机 16 卡基础 PD：128K+1K 零前缀并发摸测",
-  "updated_at": "2026-11-16"
+  "title": "Qwen3.8-Flash-Next 650E 双机基础 PD：128K+1K 零前缀与 128K+1 token 纯 P",
+  "updated_at": "2026-11-17"
 }
