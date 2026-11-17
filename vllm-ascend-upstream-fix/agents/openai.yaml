@@ -1,0 +1,3 @@
+interface:
+  display_name: "vLLM-Ascend 上游修复"
+  short_description: "把部署现场补丁、失败复现和服务验收整理为可审查的上游修复 PR"
