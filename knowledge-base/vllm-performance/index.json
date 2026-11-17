@@ -6,39 +6,6 @@
           "Ascend"
         ],
         "models": [
-          "GLM-5.3"
-        ],
-        "software_versions": {},
-        "workload_modes": [
-          "AISBench",
-          "PD",
-          "finite_batch",
-          "prefix_cache"
-        ]
-      },
-      "id": "case-aisbench-proxy-bind-pipefail-20261117",
-      "kind": "case",
-      "path": "cases/case-aisbench-proxy-bind-pipefail-20261117.json",
-      "revision": "e45b47fe110be9ea7b3ccedd6c2af6bf7ca30db43ee68046151aab39a134a9e1",
-      "status": "verified",
-      "summary": "20请求全部连接失败后触发SUMM-MTRC-001，外层tee掩盖退出码并导出占位指标。修正Proxy和客户端路由、使用bash pipefail后，同参数20请求全部成功，并适配PrefillTokenThroughput字段。",
-      "tags": [
-        "AISBench",
-        "Proxy",
-        "pipefail",
-        "SUMM-MTRC-001",
-        "CSV",
-        "128K"
-      ],
-      "title": "AISBench API连接失败被tee掩盖：Proxy路由与退出码修复",
-      "updated_at": "2026-11-17"
-    },
-    {
-      "applies_to": {
-        "hardware": [
-          "Ascend"
-        ],
-        "models": [
           "DeepSeek-V4-Pro"
         ],
         "software_versions": {},
