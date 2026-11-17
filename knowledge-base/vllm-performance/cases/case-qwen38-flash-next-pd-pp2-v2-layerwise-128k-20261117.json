@@ -36,6 +36,45 @@
       "纯 P 的输入吞吐来自 AISBench Common Metric，首 token 后就完成，TPOT 不用于此 case。原始 wrapper 中缺测指标可能保留占位值。"
     ],
     "deployment": {
+      "configuration_stack": {
+        "common": {
+          "chunked_prefill": true,
+          "engine_prefix_caching": true,
+          "engram": "CPU offload；DP shared memory 关闭；NPU pinned memory 注册开启。",
+          "mamba_cache_mode": "align",
+          "mamba_ssm_cache_dtype": "bfloat16",
+          "max_model_len": 143360,
+          "max_num_seqs_per_service": 16,
+          "model_patches": "本机部署已具备 PLE PP、Ascend UVA 和 QSA 补丁。",
+          "model_runner": "V2",
+          "npu_memory_utilization": 0.9,
+          "speculative_decoding": "qwen3_5_mtp，3 token，eager drafter"
+        },
+        "decode": {
+          "async_scheduling": false,
+          "graph_mode": "FULL_DECODE_ONLY",
+          "max_num_batched_tokens": 4096,
+          "multistream_overlap_shared_expert": false,
+          "recompute_scheduler": true,
+          "static_kernel": false
+        },
+        "kv_path": {
+          "backport": "26612dfbf，包含 Mooncake V2 包、注册入口和 KV 布局判断；基镜像原 V2 注册入口指向 Pull。",
+          "connector": "MooncakeConnectorV2",
+          "decode_role": "kv_consumer",
+          "prefill_role": "kv_producer",
+          "proxy": "load_balance_proxy_layerwise_server_example.py",
+          "use_layerwise": true
+        },
+        "model_and_hardware": "Qwen3.8-Flash-Next W4A8 MXFP，Atlas 650E 双机 16 张 Ascend 950DT，P、D 各占一台 8 卡。",
+        "parallelism": "P、D 各自在单机内 TP4×PP2×DP1，EP4，主模型 48 层按 24+24 划分；PLE 第 2 层在 PP rank 0，MTP drafter 在末段。跨机连接由 PD KV 传输承担。",
+        "prefill": {
+          "async_scheduling": true,
+          "graph_mode": "NONE",
+          "max_num_batched_tokens": 8192,
+          "multistream_overlap_shared_expert": true
+        }
+      },
       "d": "D 侧 TP4×PP2×DP1，EP4，同步调度，目标模型 FULL_DECODE_ONLY，关闭静态 kernel，MTP drafter eager。",
       "d_max_num_batched_tokens": 4096,
       "gpu_memory_utilization": 0.9,
@@ -311,6 +350,7 @@
         "seed": "12000 plus configured concurrency, except for the C4 three-repeat baseline",
         "selection_metric": "AISBench overall input token/s"
       },
+      "prefix_control": "引擎 prefix caching 保持开启；AISBench 使用不同 seed、repeat_rate=0；逐轮确认 P/D 本地 cache 计数零命中，直连 P 的 external hits 亦为零。",
       "prefix_test": true,
       "repeat_rate": 0,
       "request_rate": 0,
@@ -362,7 +402,8 @@
   "kind": "case",
   "observed_at": "2026-11-17",
   "related_ids": [
-    "case-qwen38-flash-next-pd-pp2-push-128k-20261117"
+    "case-qwen38-flash-next-pd-pp2-push-128k-20261117",
+    "lesson-qwen38-pp2-mooncake-v2-128k-pd-prefill-20261117"
   ],
   "schema_version": 1,
   "status": "verified",

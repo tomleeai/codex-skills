@@ -203,7 +203,7 @@
       "id": "case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117",
       "kind": "case",
       "path": "cases/case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117.json",
-      "revision": "7e868a19324a4649ea02b405a9451f455da45f8e7813ea9f47463e20f05994d6",
+      "revision": "5b561e87bb18f7d472bc07119cc6f7014055eaaddca45fd60e2daab7918604fe",
       "status": "verified",
       "summary": "128K+1K 和纯 P 128K+1 各三轮正式，均 48/48 成功，P/D 本地前缀命中为零。端到端平均输出 100.8189 token/s，直连 P 平均输入 15434.5149 token/s。 同一 P 服务并发寻优中，并发 2 输入吞吐最高 15538.31 token/s，TTFT P90 16.984 s。",
       "tags": [
@@ -576,6 +576,60 @@
         "Atlas 650E"
       ],
       "title": "Qwen3.8 双机 PP2 + Mooncake Push：把并发长请求纳入启动验收",
+      "updated_at": "2026-11-17"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Atlas 650E",
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "CANN": "9.2.1",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.32.0+empty",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "PP2",
+          "MooncakeConnectorV2 layerwise",
+          "AISBench",
+          "finite_batch",
+          "zero_prefix_reuse",
+          "direct_prefill"
+        ]
+      },
+      "id": "lesson-qwen38-pp2-mooncake-v2-128k-pd-prefill-20261117",
+      "kind": "lesson",
+      "path": "lessons/lesson-qwen38-pp2-mooncake-v2-128k-pd-prefill-20261117.json",
+      "revision": "0284e1770d81be5fb8d6bc8aec4cc239eb0a84e787475557313db23ac38fe6a3",
+      "status": "verified",
+      "summary": "同一套 650E 双机 PD+PP2+Mooncake V2 Layerwise 配置，128K+1K 经 Proxy 并发 4 平均输出 100.8189 token/s；128K+1 token 直连 P 测得并发 2 输入吞吐最高 15538.3056 token/s，TTFT P90 16.9839 s。结合输入吞吐与首 token 延迟，可识别纯 P 的并发平台。",
+      "tags": [
+        "Qwen3.8-Flash-Next",
+        "W4A8 MXFP",
+        "Atlas 650E",
+        "Ascend950DT",
+        "PD 分离",
+        "PP2",
+        "MooncakeConnectorV2",
+        "use_layerwise",
+        "MTP3",
+        "AISBench",
+        "128K+1K",
+        "128K+1token",
+        "纯P",
+        "零前缀",
+        "TTFT",
+        "TPOT",
+        "并发拐点"
+      ],
+      "title": "Qwen3.8-Flash-Next W4A8 MXFP｜650E 双机 PD+PP2+Mooncake V2 Layerwise 的 128K 整链路与纯 P 测法",
       "updated_at": "2026-11-17"
     }
   ],

@@ -1,0 +1,148 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Atlas 650E",
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "CANN": "9.2.1",
+      "torch-npu": "2.10.0.post7",
+      "vLLM": "0.32.0+empty",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "PP2",
+      "MooncakeConnectorV2 layerwise",
+      "AISBench",
+      "finite_batch",
+      "zero_prefix_reuse",
+      "direct_prefill"
+    ]
+  },
+  "body": {
+    "configuration_stack": {
+      "common": {
+        "chunked_prefill": true,
+        "engine_prefix_caching": true,
+        "engram": "CPU offload；DP shared memory 关闭；NPU pinned memory 注册开启。",
+        "mamba_cache_mode": "align",
+        "mamba_ssm_cache_dtype": "bfloat16",
+        "max_model_len": 143360,
+        "max_num_seqs_per_service": 16,
+        "model_patches": "本机部署已具备 PLE PP、Ascend UVA 和 QSA 补丁。",
+        "model_runner": "V2",
+        "npu_memory_utilization": 0.9,
+        "speculative_decoding": "qwen3_5_mtp，3 token，eager drafter"
+      },
+      "decode": {
+        "async_scheduling": false,
+        "graph_mode": "FULL_DECODE_ONLY",
+        "max_num_batched_tokens": 4096,
+        "multistream_overlap_shared_expert": false,
+        "recompute_scheduler": true,
+        "static_kernel": false
+      },
+      "kv_path": {
+        "backport": "26612dfbf，包含 Mooncake V2 包、注册入口和 KV 布局判断；基镜像原 V2 注册入口指向 Pull。",
+        "connector": "MooncakeConnectorV2",
+        "decode_role": "kv_consumer",
+        "prefill_role": "kv_producer",
+        "proxy": "load_balance_proxy_layerwise_server_example.py",
+        "use_layerwise": true
+      },
+      "model_and_hardware": "Qwen3.8-Flash-Next W4A8 MXFP，Atlas 650E 双机 16 张 Ascend 950DT，P、D 各占一台 8 卡。",
+      "parallelism": "P、D 各自在单机内 TP4×PP2×DP1，EP4，主模型 48 层按 24+24 划分；PLE 第 2 层在 PP rank 0，MTP drafter 在末段。跨机连接由 PD KV 传输承担。",
+      "prefill": {
+        "async_scheduling": true,
+        "graph_mode": "NONE",
+        "max_num_batched_tokens": 8192,
+        "multistream_overlap_shared_expert": true
+      }
+    },
+    "do_not_use_when": [
+      "需要给不同模型或量化、不同 PP 切分、不同 P/D 驱动与运行时、池化、前缀复用或改变到达过程的服务定固定并发和容量。",
+      "需要从两个端点的 TTFT 或不同计量单位的 TPS 求 KV 传输或 Decode 的单项开销。这需要阶段时间戳或单变量对照。",
+      "需要线上持续到达率的容量、SLO，或判定多个平台点的小幅吞吐差具有统计显著性。"
+    ],
+    "limitations": [
+      "128K+1K 的正式基准固定并发 4。纯 P 并发 4 为三轮均值，1、2、3、8、16 各一轮。两类结果为有限批测试。",
+      "已验证整套叠加配置。各优化项的单独收益、最优全局并发和跨版本泛化仍需对应对照实验。"
+    ],
+    "method": [
+      "先通过 P、D、Proxy 健康检查和经 Proxy 的 128K×1 功能请求，接着用完整的 128K+1K 并发批确认持续输出。单条功能请求只覆盖连通性和首 token。",
+      "保持同一套引擎与权重。整链路指向 layerwise Proxy，测输出吞吐和 TTFT/TPOT；纯 P 直连 P，输出上限 1，统计 P 的输入吞吐、请求/s 与 TTFT，包含首 token 的服务开销。",
+      "两类基准分别预热，正式批使用不同 seed、request_rate=0、repeat_rate=0。检查长度、成功数和窗口计数器。复跑时使用新 seed 以保持零复用。",
+      "纯 P 先扫低并发和上限，再补平台前的邻近整数。每点请求数为并发的 4 倍。把输入 TPS、TTFT P90、成功数、前缀计数和抢占增量一起记录。本轮在各新增测点确认抢占增量为 0。"
+    ],
+    "use_when": [
+      "为上述模型、权重、每侧 8 卡 TP4×PP2×DP1、Mooncake V2 layerwise、MTP3 与 P/D 执行差异相同的部署建立零前缀 128K 基线。",
+      "在同一服务周期回答两个问题：PD 整链路能稳定交付多少输出，以及直连 Prefill 时输入吞吐是否随并发增长。"
+    ],
+    "verified_observations": {
+      "128k_1k": "经 layerwise Proxy，并发 4，三轮正式各 16 条、48/48 成功。输出吞吐均值 100.8189 token/s，逐轮范围 97.7326–104.9015。逐轮 TTFT P90 22.6844–24.3506 s，TPOT P90 23.2–27.3 ms；每条输出 1024 token。",
+      "128k_1token": "直连 P，并发 4，三轮正式各 16 条、48/48 成功。输入吞吐均值 15434.5149 token/s；TTFT P90 34.1929–34.2556 s。每条生成 1 token，报告 AISBench Common Metric 的输入 token/s、请求/s 和 TTFT。",
+      "pure_prefill_concurrency_knee": "从并发 1 到 2，实测输入吞吐增加 6.69%，TTFT P90 从 9.0189 s 增至 16.9839 s。并发 2、3、4、8、16 的输入吞吐都在本轮最高值的 0.67% 以内，并发 16 的 TTFT P90 达 135.8510 s，为并发 2 的 8.00 倍。需求侧可用并发 1 和 2 分别作为低尾延迟与高吞吐的实测参考点。",
+      "token_and_prefix": "两个并发 4 正式批的名义输入为 131072 token，计入聊天模板后为 131123–131126。按请求核验实际长度、输出和成功数。P/D 的本地命中为零，整链路 D 的 external 命中记录当前请求的 P→D KV；纯 P 的本地与外部命中均为零。"
+    }
+  },
+  "created_at": "2026-11-17",
+  "evidence": [
+    {
+      "ref": "case:case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117",
+      "role": "原始部署案例、分阶段协议及全部实测结果"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117/128k-1k/summary.csv",
+      "role": "E2E per-round CSV",
+      "sha256": "016e8576305fc00eeb2da23eafc1b459f32cfa40724006329b76842f2ab55c53"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117/128k-1token/summary.csv",
+      "role": "prefill per-round CSV",
+      "sha256": "80ce857030d86f704bb4eb2a0747c879727a75e2ab571d06aa84e8d9a8357c49"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117/prefill-sweep/128k-1token-sweep.csv",
+      "role": "同服务纯 P 并发寻优逐点指标与原始字典",
+      "sha256": "a2be0eb37751bf4f8198d104497a822a798bae52bc0b7872e714b1573a5c09d2"
+    }
+  ],
+  "id": "lesson-qwen38-pp2-mooncake-v2-128k-pd-prefill-20261117",
+  "kind": "lesson",
+  "observed_at": "2026-11-17",
+  "related_ids": [
+    "case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117",
+    "lesson-pd-mooncake-zero-prefix-counters",
+    "lesson-qwen38-pd-pp2-push-load-gate-20261117"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "同一套 650E 双机 PD+PP2+Mooncake V2 Layerwise 配置，128K+1K 经 Proxy 并发 4 平均输出 100.8189 token/s；128K+1 token 直连 P 测得并发 2 输入吞吐最高 15538.3056 token/s，TTFT P90 16.9839 s。结合输入吞吐与首 token 延迟，可识别纯 P 的并发平台。",
+  "supersedes": [],
+  "tags": [
+    "Qwen3.8-Flash-Next",
+    "W4A8 MXFP",
+    "Atlas 650E",
+    "Ascend950DT",
+    "PD 分离",
+    "PP2",
+    "MooncakeConnectorV2",
+    "use_layerwise",
+    "MTP3",
+    "AISBench",
+    "128K+1K",
+    "128K+1token",
+    "纯P",
+    "零前缀",
+    "TTFT",
+    "TPOT",
+    "并发拐点"
+  ],
+  "title": "Qwen3.8-Flash-Next W4A8 MXFP｜650E 双机 PD+PP2+Mooncake V2 Layerwise 的 128K 整链路与纯 P 测法",
+  "updated_at": "2026-11-17"
+}
