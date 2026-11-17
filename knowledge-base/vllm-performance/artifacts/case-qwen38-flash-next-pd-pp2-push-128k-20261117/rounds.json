@@ -1,0 +1,533 @@
+{
+  "counter_scope": "终值用于核对角色与命中来源，涵盖各自服务周期中前置、烟测及其他请求。每批缓存 delta 见 summary.csv。",
+  "rounds": [
+    {
+      "details": "aisbench-results/20261116_163741/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "log": "128k+1k-concurrency_4-warmup.log",
+      "metrics": {
+        "E2EL P90": 46353.5,
+        "E2EL avg": 35311.9,
+        "E2E_throughput": 13956.5994,
+        "E2E_time": 151.49621630000001,
+        "TPOT SLO_P90": 20.4,
+        "TPOT avg": 15.9,
+        "TTFT P90": 23341.1,
+        "TTFT avg": 19076.7,
+        "cc": 3.7294,
+        "current_time": "2026-11-16 16:40:32",
+        "input_len": 131124.25,
+        "input_token_throughput": 13848.4515,
+        "max_cc": "4",
+        "output_len": 1024.0,
+        "output_throughput": 108.1479,
+        "prefill_token_throughput": 9999,
+        "qpm": 6.336,
+        "qps": 0.1056,
+        "repeat_rate": 0.0,
+        "rr": "0",
+        "single_E2E_throughput": 13956.5994,
+        "single_output_throughput": 108.1479,
+        "total_req": 16.0
+      },
+      "phase": "warmup",
+      "requests": [
+        {
+          "id": 0,
+          "input_tokens": 131123,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 2,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 3,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 1,
+          "input_tokens": 131123,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 4,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 5,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 6,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 7,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 8,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 9,
+          "input_tokens": 131123,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 10,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 11,
+          "input_tokens": 131126,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 12,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 13,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 14,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 15,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        }
+      ]
+    },
+    {
+      "details": "aisbench-results/20261116_164105/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "log": "128k+1k-concurrency_4.log",
+      "metrics": {
+        "E2EL P90": 44623.1,
+        "E2EL avg": 34594.3,
+        "E2E_throughput": 14060.5707,
+        "E2E_time": 150.3760441,
+        "TPOT SLO_P90": 24.2,
+        "TPOT avg": 17.6,
+        "TTFT P90": 23730.0,
+        "TTFT avg": 16568.7,
+        "cc": 3.6808,
+        "current_time": "2026-11-16 16:43:55",
+        "input_len": 131124.3125,
+        "input_token_throughput": 13951.6172,
+        "max_cc": "4",
+        "output_len": 1024.0,
+        "output_throughput": 108.9535,
+        "prefill_token_throughput": 9999,
+        "qpm": 6.3839999999999995,
+        "qps": 0.1064,
+        "repeat_rate": 0.0,
+        "rr": "0",
+        "single_E2E_throughput": 14060.5707,
+        "single_output_throughput": 108.9535,
+        "total_req": 16.0
+      },
+      "phase": "1",
+      "requests": [
+        {
+          "id": 3,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 1,
+          "input_tokens": 131126,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 0,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 2,
+          "input_tokens": 131123,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 4,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 6,
+          "input_tokens": 131126,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 5,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 7,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 8,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 9,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 10,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 11,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 12,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 13,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 14,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 15,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        }
+      ]
+    },
+    {
+      "details": "aisbench-results/20261116_164428/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "log": "128k+1k-concurrency_4-2.log",
+      "metrics": {
+        "E2EL P90": 55030.9,
+        "E2EL avg": 40735.1,
+        "E2E_throughput": 11636.9469,
+        "E2E_time": 181.694995,
+        "TPOT SLO_P90": 37.4,
+        "TPOT avg": 24.6,
+        "TTFT P90": 22934.1,
+        "TTFT avg": 15527.0,
+        "cc": 3.5871,
+        "current_time": "2026-11-16 16:47:49",
+        "input_len": 131124.4375,
+        "input_token_throughput": 11546.7738,
+        "max_cc": "4",
+        "output_len": 1024.0,
+        "output_throughput": 90.1731,
+        "prefill_token_throughput": 9999,
+        "qpm": 5.286,
+        "qps": 0.0881,
+        "repeat_rate": 0.0,
+        "rr": "0",
+        "single_E2E_throughput": 11636.9469,
+        "single_output_throughput": 90.1731,
+        "total_req": 16.0
+      },
+      "phase": "2",
+      "requests": [
+        {
+          "id": 1,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 0,
+          "input_tokens": 131126,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 3,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 2,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 4,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 5,
+          "input_tokens": 131126,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 6,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 7,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 9,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 8,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 10,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 11,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 12,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 13,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 14,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 15,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        }
+      ]
+    },
+    {
+      "details": "aisbench-results/20261116_164821/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "log": "128k+1k-concurrency_4-3.log",
+      "metrics": {
+        "E2EL P90": 39395.8,
+        "E2EL avg": 34481.0,
+        "E2E_throughput": 14049.4026,
+        "E2E_time": 150.49558100000002,
+        "TPOT SLO_P90": 16.7,
+        "TPOT avg": 14.9,
+        "TTFT P90": 23608.4,
+        "TTFT avg": 19221.9,
+        "cc": 3.6659,
+        "current_time": "2026-11-16 16:51:11",
+        "input_len": 131124.3125,
+        "input_token_throughput": 13940.5356,
+        "max_cc": "4",
+        "output_len": 1024.0,
+        "output_throughput": 108.867,
+        "prefill_token_throughput": 9999,
+        "qpm": 6.378,
+        "qps": 0.1063,
+        "repeat_rate": 0.0,
+        "rr": "0",
+        "single_E2E_throughput": 14049.4026,
+        "single_output_throughput": 108.867,
+        "total_req": 16.0
+      },
+      "phase": "3",
+      "requests": [
+        {
+          "id": 0,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 1,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 3,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 2,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 4,
+          "input_tokens": 131126,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 5,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 6,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 7,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 8,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 9,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 10,
+          "input_tokens": 131125,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 11,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 12,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 13,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 14,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        },
+        {
+          "id": 15,
+          "input_tokens": 131124,
+          "output_tokens": 1024,
+          "success": true
+        }
+      ]
+    }
+  ],
+  "source": "原项目性能日志和逐请求明细的结构化摘录，保留原始指标字典及逐请求成功状态和 token 数。",
+  "terminal_cumulative_counters": {
+    "d": {
+      "external_prefix_cache_hits_total": 8523168.0,
+      "external_prefix_cache_queries_total": 8523237.0,
+      "prefix_cache_hits_total": 0.0,
+      "prefix_cache_queries_total": 8523237.0
+    },
+    "p": {
+      "external_prefix_cache_hits_total": 0.0,
+      "external_prefix_cache_queries_total": 9048222.0,
+      "prefix_cache_hits_total": 130560.0,
+      "prefix_cache_queries_total": 9178782.0
+    }
+  },
+  "time_zone": "AISBench 原始 current_time 由容器按 UTC 记录，案例日期用 UTC+8。"
+}

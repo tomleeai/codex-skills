@@ -1,0 +1,78 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Atlas 850E",
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "CANN": "9.2.1",
+      "torch-npu": "2.10.0.post7",
+      "vLLM": "0.32.0+empty",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "PP2",
+      "MooncakePushConnector",
+      "AISBench",
+      "finite_batch",
+      "zero_prefix_reuse"
+    ]
+  },
+  "body": {
+    "confirmed": "现场经历了静态 kernel 的 8-rank Gloo 探测超时、健康但并发 Decode 无进展、SQLite 写 NFS 失败三类独立现象。最终重复性能窗口的 48 条长请求均通过。",
+    "do_not_use_when": [
+      "把该组合当作其他模型、版本或跨机 PP 的默认模板。",
+      "用 D external prefix 命中率直接推断跨请求复用。",
+      "用末段 worker 忙或 Gloo 超时单独推定所有停滞的根因。"
+    ],
+    "limitations": [
+      "A3 同时调整调度和 drafter 运行方式，两者贡献未隔离。验证只覆盖有限批并发 4 和指定 128K+1K 负载。"
+    ],
+    "method": [
+      "核对阶段层号和模型特有状态依赖。该权重 24,24 分层把 PLE 放在 rank 0、MTP drafter 放在末段。",
+      "先核对 P/D 和 Proxy，再做 128K×1，随后用一次有代表性的并发长输出作为预热验收。用 generation_tokens_total 增量及运行/排队数判断是否持续生成，记录每段 PP worker 状态。",
+      "遇到静态编译的局部 Gloo 超时，先确认是编译路径并保留日志。若长并发仍停滞，复现时一次记录所有运行参数变化。该版已验收的 D 组合是静态 kernel 关闭、同步调度、eager drafter、目标 FULL_DECODE_ONLY 与 MTP3。",
+      "AISBench SQLite 使用容器本地文件系统，批次完成后回拷结果。跨轮切换 seed，核对实际 token、成功数及本地 HBM 命中；用逐轮分位数和系统 TPS 表达离散度。"
+    ],
+    "use_when": [
+      "在上述软件栈、可见卡布局和 Qwen3.8 48 层权重上验收同类 PD + PP2 + Mooncake Push。"
+    ]
+  },
+  "created_at": "2026-11-17",
+  "evidence": [
+    {
+      "ref": "case:case-qwen38-flash-next-pd-pp2-push-128k-20261117",
+      "role": "部署尝试、长请求验收及三轮独立正式数据"
+    }
+  ],
+  "id": "lesson-qwen38-pd-pp2-push-load-gate-20261117",
+  "kind": "lesson",
+  "observed_at": "2026-11-17",
+  "related_ids": [
+    "case-qwen38-flash-next-pd-pp2-push-128k-20261117",
+    "lesson-pd-mooncake-zero-prefix-counters"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "该版本的 128K×1 验收可通过，而 128K+1K 并发 4 仍会出现 D 输出停滞。最终 D 同步调度、eager MTP drafter、目标 FULL_DECODE_ONLY 和静态 kernel 关闭的组合，完成了预热和三轮正式批。",
+  "supersedes": [],
+  "tags": [
+    "PP2",
+    "MooncakePushConnector",
+    "Qwen3.8-Flash-Next",
+    "128K+1K",
+    "MTP3",
+    "Gloo",
+    "AISBench",
+    "SQLite",
+    "并发验收",
+    "零前缀"
+  ],
+  "title": "Qwen3.8 双机 PP2 + Mooncake Push：把并发长请求纳入启动验收",
+  "updated_at": "2026-11-17"
+}

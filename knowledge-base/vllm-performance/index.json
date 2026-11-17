@@ -126,6 +126,57 @@
     {
       "applies_to": {
         "hardware": [
+          "Atlas 850E",
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "CANN": "9.2.1",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.32.0+empty",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "PP2",
+          "MooncakePushConnector",
+          "AISBench",
+          "finite_batch",
+          "zero_prefix_reuse"
+        ]
+      },
+      "id": "case-qwen38-flash-next-pd-pp2-push-128k-20261117",
+      "kind": "case",
+      "path": "cases/case-qwen38-flash-next-pd-pp2-push-128k-20261117.json",
+      "revision": "45a2d75bd519b0608226dc3d38ace98160882c94986c6d4d444be09035c23b4d",
+      "status": "verified",
+      "summary": "一轮预热和三轮正式批次各 16/16 成功。正式输出 90.1731–108.9535 tok/s，均值 102.6645 tok/s，TTFT P90 为 22.9341–23.7300 s，TPOT P90 为 16.7–37.4 ms。最终配置为 TP4×PP2×DP1，D 同步调度、eager drafter，目标模型保留 FULL_DECODE_ONLY。",
+      "tags": [
+        "Qwen3.8-Flash-Next",
+        "Atlas 850E",
+        "Ascend950DT",
+        "650E",
+        "PD",
+        "PP2",
+        "MooncakePushConnector",
+        "128K+1K",
+        "AISBench",
+        "concurrency 4",
+        "零前缀",
+        "静态 kernel",
+        "Gloo",
+        "MTP3",
+        "SQLite"
+      ],
+      "title": "Qwen3.8-Flash-Next 双机16卡 PD + PP2 + Mooncake Push：128K+1K 零前缀并发4",
+      "updated_at": "2026-11-17"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend"
         ],
         "models": [
@@ -435,6 +486,52 @@
       ],
       "title": "Mooncake 基础 PD 零前缀：按角色、DP 与命中来源核对计数",
       "updated_at": "2026-11-16"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Atlas 850E",
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "CANN": "9.2.1",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.32.0+empty",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "PP2",
+          "MooncakePushConnector",
+          "AISBench",
+          "finite_batch",
+          "zero_prefix_reuse"
+        ]
+      },
+      "id": "lesson-qwen38-pd-pp2-push-load-gate-20261117",
+      "kind": "lesson",
+      "path": "lessons/lesson-qwen38-pd-pp2-push-load-gate-20261117.json",
+      "revision": "bed67b2c9cbb6a9155c6224d0bdc86c42a2dbbb7879a1c47f101ff3abb7fd50a",
+      "status": "verified",
+      "summary": "该版本的 128K×1 验收可通过，而 128K+1K 并发 4 仍会出现 D 输出停滞。最终 D 同步调度、eager MTP drafter、目标 FULL_DECODE_ONLY 和静态 kernel 关闭的组合，完成了预热和三轮正式批。",
+      "tags": [
+        "PP2",
+        "MooncakePushConnector",
+        "Qwen3.8-Flash-Next",
+        "128K+1K",
+        "MTP3",
+        "Gloo",
+        "AISBench",
+        "SQLite",
+        "并发验收",
+        "零前缀"
+      ],
+      "title": "Qwen3.8 双机 PP2 + Mooncake Push：把并发长请求纳入启动验收",
+      "updated_at": "2026-11-17"
     }
   ],
   "schema_version": 1
