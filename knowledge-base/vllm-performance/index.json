@@ -253,9 +253,9 @@
       "id": "case-qwen38-fm16-layerwise-offload-128k-loop-20261118",
       "kind": "case",
       "path": "cases/case-qwen38-fm16-layerwise-offload-128k-loop-20261118.json",
-      "revision": "d68359d67b0605cdff257a141b6f7c53bd6f68348fcf2c4942c32ff0bc1abb0f",
+      "revision": "3a20305c007184d15411635436c92f2148232b9def54de73d97d014790a3d71f",
       "status": "partial",
-      "summary": "同一16K token预算、32 GiB/rank MemCache池，仅将每段6个QSA层改为独立缓冲后，纯P从855.5011升到7791.3003输入token/s（9.1073倍），TTFT从153.2708降到16.8287秒；零前缀PD单请求27.0716输出token/s，TTFT16.9196秒、TPOT20.4ms，PD并发4／4完整为49.3149输出token/s。保留P-DCP2、PP2及其余层Offload。32K预算对照和三轮正式验收尚未完成。",
+      "summary": "16K预算、32GiB/rank池中仅让QSA独立驻留，纯P由855.5011升到7791.3003输入token/s（9.1073倍）。最终纯P并发2／8请求×3轮全部通过，均值8524.5572输入token/s；PD并发4／16首轮62.0288输出token/s，第二轮D设备停滞、第三轮未运行，不能报告三轮PD通过。驻留后32K预算退步已回退16K。",
       "tags": [
         "qwen3.8-flash-next",
         "ascend950dt",
