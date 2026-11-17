@@ -1,0 +1,77 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend"
+    ],
+    "models": [
+      "GLM-5.3"
+    ],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "PD",
+      "finite_batch",
+      "prefix_cache"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "只读核对进程、监听、P/D健康和失败日志，确认无活跃AISBench客户端。",
+      "备份脚本、配置、CSV和失败日志，增加显式Proxy启动入口并修正客户端路由。",
+      "5处AISBench调用改用bash -o pipefail；用exit 7 | cat验证退出码7被捕获。",
+      "最小请求返回8个输出tokens。",
+      "原参数正式重跑一次，逐请求核对20条success与输出长度；补录本轮缺失的prefill字段，没有重跑。"
+    ],
+    "confirmed_findings": [
+      "连接配置是本次首个失败原因，SUMM-MTRC-001是全失败后的后续错误。",
+      "正式重跑退出码0，20/20成功，输出均1024 tokens，批次输出吞吐93.9125 token/s。",
+      "名义输入131072，实际输入19条131084、1条131086，需将chat模板开销纳入跨脚本对比。",
+      "PrefillTokenThroughput为逐请求prefill吞吐统计的均值3705.962，不与Common Metric批次输入吞吐混用。"
+    ],
+    "hypotheses": [],
+    "limitations": [
+      "单次修复验证，不是统计性能比较，不证明性能已优化。",
+      "请求生成参数及所有原始指标见artifact；未加入额外完整批次预热。",
+      "用户命令npu_num默认1，导出的single_*由该数缩放，不能当成真实物理单卡吞吐。",
+      "原失败CSV行留在历史数据中，99999/9999占位指标不得用于性能分析。",
+      "没有调整P/D模型启动配置，也没有验证其他软件版本。"
+    ],
+    "next_step": "后续比较性能时固定真实chat token长度、服务布局、缓存协议和指标口径。",
+    "observations": [
+      "原始批次20请求全部无法连接API，继而出现SUMM-MTRC-001。",
+      "Proxy无参数启动，仅监听回环地址并使用默认后端，与客户端配置及实际P/D服务不匹配。",
+      "shell管道末尾tee成功使check=True无法捕获AISBench失败，进而导出99999/9999占位值。",
+      "原解析器识别带空格的Prefill Token Throughput，未识别当前表格的PrefillTokenThroughput。"
+    ],
+    "task": "修复指定AISBench固定负载运行错误，保持模型和负载参数。"
+  },
+  "created_at": "2026-11-17",
+  "evidence": [
+    {
+      "ref": "artifact:case-aisbench-proxy-bind-pipefail-20261117/verification.json",
+      "role": "Complete sanitized verification, native common metrics, exporter metrics and per-request lengths",
+      "sha256": "5415a191f9d0c2ec7dd6d6539be0ce24740921cd544fb38d3f0deb49c239b956"
+    }
+  ],
+  "id": "case-aisbench-proxy-bind-pipefail-20261117",
+  "kind": "case",
+  "observed_at": "2026-11-17",
+  "related_ids": [
+    "lesson-aisbench-resume-reuse-logs",
+    "lesson-aisbench-csv-metric-semantics"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "20请求全部连接失败后触发SUMM-MTRC-001，外层tee掩盖退出码并导出占位指标。修正Proxy和客户端路由、使用bash pipefail后，同参数20请求全部成功，并适配PrefillTokenThroughput字段。",
+  "supersedes": [],
+  "tags": [
+    "AISBench",
+    "Proxy",
+    "pipefail",
+    "SUMM-MTRC-001",
+    "CSV",
+    "128K"
+  ],
+  "title": "AISBench API连接失败被tee掩盖：Proxy路由与退出码修复",
+  "updated_at": "2026-11-17"
+}
