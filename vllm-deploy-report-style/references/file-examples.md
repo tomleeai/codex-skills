@@ -38,10 +38,23 @@ exec vllm serve "$MODEL_PATH" \
 
 这只展示原生内部 DP 的排版，缺少具体模型和 PD 特性参数。不要将它当作完整 P 服务启动命令。若当前版本/模型不支持这种 DP 组织，应保留其实际启动方式。
 
-复杂 JSON 仍可直接阅读，例如目标版本确实支持下列 connector 时：
+在命令里逐行展开多层 JSON，保留一个 shell 参数。以下 connector 仅作缩进示例。
 
 ```bash
-  --kv-transfer-config '{"kv_connector":"MooncakeHybridConnector","kv_role":"kv_producer","kv_connector_extra_config":{"prefill":{"dp_size":2,"tp_size":4},"decode":{"dp_size":4,"tp_size":2}}}'
+  --kv-transfer-config '{
+    "kv_connector": "MooncakeHybridConnector",
+    "kv_role": "kv_producer",
+    "kv_connector_extra_config": {
+      "prefill": {
+        "dp_size": 2,
+        "tp_size": 4
+      },
+      "decode": {
+        "dp_size": 4,
+        "tp_size": 2
+      }
+    }
+  }'
 ```
 
 同一部署的 D 文件写 `kv_consumer`，其中的 `prefill` 和 `decode` 布局仍与 P 文件相同。这里展示的数值不是容量或性能推荐。
@@ -140,11 +153,57 @@ curl --noproxy '*' -fsS --max-time 600 http://192.0.2.10:8000/v1/chat/completion
 本轮仅完成配置校验，尚未执行健康和模型请求验证。按实际结果更新此处，不将建议命令写成已通过。
 
 原稿归档：`/path/to/work/archive-YYYYMMDD-HHMMSS/`；归档内容未改动。当前脚本直接位于工作目录顶层，以上命令使用这套脚本。过程记录：`/path/to/work/.work/本次运行/`。
+
+## Profiling 采集与解析
+
+按下方示例填写本部署的启动参数、控制端口、采集负载和结果路径。
 ````
 
 如果模型请求已经验证，将末段更新为简短的实际结果；可在首段注明当前状态。如果仍在加载，不应写“服务正常”。README 里的命令和参数只对应当前版本。
 
 多机同组场景，将启动步骤按“角色 + 机器 + 容器”继续展开，并注明哪些 rank 需及时一起加入；不要等组内首节点健康才启动其余 rank。参数表负责对照，环境与改动用短段收束，源码分析和逐轮记录留在隐藏过程目录。
+
+## Profiling 采集与解析
+
+下面以本页示例的 P/D 两侧为例。在对应容器中将工作目录切到 `/path/to/work`。给 P 的 `vllm serve` 命令末行加续行符 `\`，再追加以下参数。D 同样配置并改用 `./profiling/d`。单实例写 `./profiling`。工作目录应可写，容器内的目录要能在采集后访问。
+
+```bash
+  --profiler-config '{
+    "profiler": "torch",
+    "torch_profiler_dir": "./profiling/p",
+    "torch_profiler_with_stack": false
+  }'
+```
+
+P/D 启动并完成预热后，按实际节点与端口开启采集。两侧开始后，通过 Proxy 发送上文的验证请求或本轮指定负载。
+
+```bash
+curl --noproxy '*' -fsS -X POST http://192.0.2.10:7100/start_profile
+curl --noproxy '*' -fsS -X POST http://192.0.2.20:7100/start_profile
+```
+
+目标请求完成后停止采集，等两侧输出写完。若中途失败，也结束已经开启的采集。接口返回 404 时先核对目标是否是实际 vLLM 端口，以及进程启动时是否加载了 `--profiler-config`。
+
+```bash
+curl --noproxy '*' -fsS -X POST http://192.0.2.10:7100/stop_profile
+curl --noproxy '*' -fsS -X POST http://192.0.2.20:7100/stop_profile
+```
+
+回到采集实例的工作目录，查询本轮生成的目录。多 rank 时按需要解析对应的目录。
+
+```bash
+find ./profiling -type d -name '*_ascend_pt'
+```
+
+在有匹配 torch-npu 的环境执行下列 Python 代码，把示例路径换成上一步输出的完整目录名。
+
+```python
+from torch_npu.profiler.profiler import analyse
+
+analyse("./profiling/p/实际目录名_ascend_pt")
+```
+
+解析结果位于该目录下的 `ASCEND_PROFILER_OUTPUT/`。可用 MindStudio Insight 打开 `trace_view.json` 看时间线，或查看 `kernel_details.csv` 核对 kernel 耗时。[vLLM-Ascend 服务性能分析指南](https://docs.vllm.ai/projects/ascend/zh-cn/latest/developer_guide/performance_and_debug/service_profiling_guide.html)
 
 ## 辅助文件
 
