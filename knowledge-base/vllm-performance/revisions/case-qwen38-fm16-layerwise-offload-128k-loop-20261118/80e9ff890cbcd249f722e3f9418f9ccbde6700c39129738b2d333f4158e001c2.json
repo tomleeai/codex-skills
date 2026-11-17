@@ -1,0 +1,202 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Atlas 650E FM16",
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "CANN": "9.3.0",
+      "vLLM": "0.33.0 (4ba787e)",
+      "vLLM-Ascend": "9005a22a"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "PP2",
+      "P DCP2",
+      "P Layerwise KV Offload",
+      "MemCache GVA",
+      "Mooncake V2 Layerwise Push",
+      "zero_prefix_reuse",
+      "AISBench",
+      "direct_prefill"
+    ]
+  },
+  "body": {
+    "confirmed_findings": [
+      "零前缀命中不排除层间缓冲 Offload 在同一请求后续计算步重新读回历史 KV；版本代码显式构造 layerwise_previous_step。",
+      "将预算从 16384 提到 32768 后两个纯 P 轮的 MemCache BatchAlloc 增量从 656 降至 336。计数不代表传输字节或具体等待时间。",
+      "旧 8192 PD 并发 4 只有一条完整输出；另三条 P HTTP 超过 D 默认 480 秒，D 报 Missing terminal Push completion。AISBench 的 success=true 可对应 0 输入、0 输出，必须校验 usage。",
+      "32K 同请求在 P HTTP 返回后另有一个 PP1 rank 未收到 DONE ACK；此单次观测不足以证明由 32K 参数导致。候选只通过纯 P，不作为 PD 已通过。"
+    ],
+    "deployment": {
+      "layout": "双机各 8 张 Ascend 950DT，P/D 各 TP4×PP2×DP1、24+24、关闭 MTP；P DCP2、D DCP1；P 通过 MultiConnector 同时启用 Mooncake V2 Push 和 MemCache Layerwise，4 个共享缓冲，预取 3 层，局部缓存和模型设置保持不变。",
+      "settings": {
+        "block_size": 512,
+        "cp_kv_cache_interleave_size": 512,
+        "d_max_num_batched_tokens": 4096,
+        "gpu_memory_utilization": 0.9,
+        "max_model_len": 143360,
+        "max_num_seqs": 16,
+        "p_max_num_batched_tokens": [
+          8192,
+          16384,
+          32768
+        ]
+      },
+      "weights": "W4A8 MXFP"
+    },
+    "limitations": [
+      "8192 与旧版近邻对照之间软件、DCP、KV Offload、MTP 等不同，不能从跨配置比值归因。",
+      "同步采样的通信耗时受对端到达时差影响，不等同物理带宽，采样 TTFT 不用于性能对照。",
+      "共享知识记录不发布内部 IP、目录、请求原文、连接或服务器日志；当前仍缺同口径并发正式数据和独立输出精度验证。"
+    ],
+    "observations": {
+      "baseline": [
+        {
+          "actual_input": 131124,
+          "batch_tokens": 8192,
+          "case": "pure-p",
+          "concurrency": 1,
+          "input_token_s": 677,
+          "output_tokens": 1,
+          "requests": 1,
+          "ttft_s": 193.68
+        },
+        {
+          "actual_input": 131124,
+          "batch_tokens": 8192,
+          "case": "pd-zero",
+          "concurrency": 1,
+          "output_token_s": 4.2,
+          "output_tokens": 1024,
+          "proxy_prefill_s": 218.99,
+          "requests": 1,
+          "tpot_ms": 22.7,
+          "ttft_s": 220.43
+        }
+      ],
+      "instrumentation": {
+        "gbsa_median_ms": 58.92,
+        "lse_gather_median_ms": 0.23,
+        "measured_p_only_ttft_ms": 242948.4,
+        "query_allgather_ms": {
+          "max": 5782.8,
+          "median": 0.92,
+          "p90": 1572.15
+        },
+        "rank_pack_median_ms": 0.56,
+        "reduce_scatter_median_ms": 1.45,
+        "samples": 240
+      },
+      "trials": [
+        {
+          "actual_input": 131125,
+          "batch_tokens": 16384,
+          "case": "pure-p",
+          "input_token_s": 1104.8288,
+          "meta_batch_alloc_delta": 656,
+          "output_tokens": 1,
+          "phase": "warmup",
+          "seed": 381200,
+          "ttft_ms": 118682.6
+        },
+        {
+          "actual_input": 131124,
+          "batch_tokens": 16384,
+          "case": "pure-p",
+          "input_token_s": 938.9071,
+          "meta_batch_alloc_delta": 656,
+          "output_tokens": 1,
+          "phase": "formal",
+          "seed": 381201,
+          "ttft_ms": 139655.2
+        },
+        {
+          "actual_input": 131124,
+          "batch_tokens": 16384,
+          "case": "pd-zero",
+          "d_external_hit_tokens": 131123,
+          "input_token_s": 862.2277,
+          "meta_batch_alloc_delta": 656,
+          "output_token_s": 6.7335,
+          "output_tokens": 1024,
+          "phase": "formal",
+          "seed": 381301,
+          "tpot_ms": 20.9,
+          "ttft_ms": 130680.9
+        },
+        {
+          "actual_input": 131124,
+          "batch_tokens": 32768,
+          "case": "pure-p",
+          "input_token_s": 1244.983,
+          "meta_batch_alloc_delta": 336,
+          "output_tokens": 1,
+          "phase": "warmup",
+          "seed": 382200,
+          "ttft_ms": 105321.1
+        },
+        {
+          "actual_input": 131124,
+          "batch_tokens": 32768,
+          "case": "pure-p",
+          "input_token_s": 1196.3777,
+          "meta_batch_alloc_delta": 336,
+          "output_tokens": 1,
+          "phase": "formal",
+          "seed": 382201,
+          "ttft_ms": 109600.1
+        },
+        {
+          "batch_tokens": 32768,
+          "case": "pd-zero",
+          "error": "P PP1 一个 rank DONE ACK 超时，D 同请求终态 Push 缺失，停止客户端重试",
+          "phase": "invalid",
+          "proxy_prefill_s": 91.15924371,
+          "seed": 382301
+        }
+      ]
+    },
+    "protocol": "原 AISBench 131072 名义输入，实测约 131124；输出 1 或 1024，诊断并发 1、每轮 1 请求。有效轮校验输入范围、精确输出、本地 HBM 与 P 外部前缀均为零，D 外部仅是当次 Push。8K 为原历史对照，同一 P 容器和物理卡，仅替换 P 启动 token 预算；D、Proxy 与 Meta 保持原进程。"
+  },
+  "created_at": "2026-11-18",
+  "evidence": [
+    {
+      "ref": "case:case-qwen38-flash-next-650e-pd-128k-20261116",
+      "role": "旧版基础 PD 对照，TP4×DP2"
+    },
+    {
+      "ref": "case:case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117",
+      "role": "同机 PP2 Layerwise 的近邻对照"
+    }
+  ],
+  "id": "case-qwen38-fm16-layerwise-offload-128k-loop-20261118",
+  "kind": "case",
+  "observed_at": "2026-11-18",
+  "related_ids": [
+    "case-qwen38-flash-next-650e-pd-128k-20261116",
+    "case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117"
+  ],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "同一 FM16 r112 组合只改 P 的 batch token 预算，8192→16384 后单请求纯 P 938.9071 输入 token/s、TTFT 139.6552 s，零前缀 PD 6.7335 输出 token/s、TTFT 130.6809 s／TPOT 20.9 ms；32768 的纯 P 更快，但同轮 PD 缺少 Push DONE ACK，已回退。并发正式验收尚未完成。",
+  "supersedes": [],
+  "tags": [
+    "qwen3.8-flash-next",
+    "ascend950dt",
+    "128k",
+    "pp2",
+    "p-dcp",
+    "kv-offload",
+    "memcache",
+    "mooncake-v2",
+    "layerwise",
+    "chunked-prefill"
+  ],
+  "title": "Qwen3.8-Flash-Next Atlas 650E FM16：128K 分块预算与 Layerwise Offload、Push 完成通知",
+  "updated_at": "2026-11-18"
+}

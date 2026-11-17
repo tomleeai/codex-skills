@@ -226,6 +226,54 @@
     {
       "applies_to": {
         "hardware": [
+          "Atlas 650E FM16",
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "CANN": "9.3.0",
+          "vLLM": "0.33.0 (4ba787e)",
+          "vLLM-Ascend": "9005a22a"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "PP2",
+          "P DCP2",
+          "P Layerwise KV Offload",
+          "MemCache GVA",
+          "Mooncake V2 Layerwise Push",
+          "zero_prefix_reuse",
+          "AISBench",
+          "direct_prefill"
+        ]
+      },
+      "id": "case-qwen38-fm16-layerwise-offload-128k-loop-20261118",
+      "kind": "case",
+      "path": "cases/case-qwen38-fm16-layerwise-offload-128k-loop-20261118.json",
+      "revision": "bd3045a4db7c19ef2ef6dae5c0feb2426ee022b24709d67bbb8f145c14737456",
+      "status": "partial",
+      "summary": "同一 FM16 r112 组合只改 P 的 batch token 预算，8192→16384 后单请求纯 P 938.9071 输入 token/s、TTFT 139.6552 s，零前缀 PD 6.7335 输出 token/s、TTFT 130.6809 s／TPOT 20.9 ms；32768 的纯 P 更快，但同轮 PD 缺少 Push DONE ACK，已回退。16K 纯 P 并发 2 摸测 812.8382 输入 token/s，仍有长队列；并发正式验收尚未完成。 16K 的 PD 并发4在分配返回空GVA后遇到Layerwise/Mamba状态异常，停止该轮，未获有效吞吐；容量对照正在运行。",
+      "tags": [
+        "qwen3.8-flash-next",
+        "ascend950dt",
+        "128k",
+        "pp2",
+        "p-dcp",
+        "kv-offload",
+        "memcache",
+        "mooncake-v2",
+        "layerwise",
+        "chunked-prefill"
+      ],
+      "title": "Qwen3.8-Flash-Next Atlas 650E FM16：128K 分块预算与 Layerwise Offload、Push 完成通知",
+      "updated_at": "2026-11-18"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend"
         ],
         "models": [
