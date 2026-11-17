@@ -1,7 +1,7 @@
 {
   "applies_to": {
     "hardware": [
-      "Atlas 850E",
+      "Atlas 650E",
       "Ascend950DT"
     ],
     "models": [
@@ -71,7 +71,8 @@
     "AISBench",
     "SQLite",
     "并发验收",
-    "零前缀"
+    "零前缀",
+    "Atlas 650E"
   ],
   "title": "Qwen3.8 双机 PP2 + Mooncake Push：把并发长请求纳入启动验收",
   "updated_at": "2026-11-17"

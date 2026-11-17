@@ -1,7 +1,7 @@
 {
   "applies_to": {
     "hardware": [
-      "Atlas 850E",
+      "Atlas 650E",
       "Ascend950DT"
     ],
     "models": [
@@ -53,7 +53,7 @@
       "speculative_decoding": "qwen3_5_mtp，3 token",
       "weights": "W4A8 MXFP"
     },
-    "hardware_identification": "本次运行结束后，两台目标主机的 dmidecode system-product-name 均报告 Atlas 850E，npu-smi 板卡信息均报告 Ascend950DT V120。任务中使用 650E 称呼，保留为检索线索，未确认其与现场读数的对应关系。",
+    "hardware_identification": "设备产品经用户确认是 Atlas 650E / Ascend950DT，双机各 8 张卡。现场 npu-smi 板卡信息报告 Ascend950DT V120。",
     "hypotheses": [
       "A2 的停滞涉及 PP 末段运行路径，异步调度与 drafter 图路径的独立影响未做单变量复测。",
       "A1 观测到 Gloo 探测失败，未验证按 PP stage 切分静态编译通信组能否修复。"
@@ -176,7 +176,7 @@
   "supersedes": [],
   "tags": [
     "Qwen3.8-Flash-Next",
-    "Atlas 850E",
+    "Atlas 650E",
     "Ascend950DT",
     "650E",
     "PD",
@@ -191,6 +191,6 @@
     "MTP3",
     "SQLite"
   ],
-  "title": "Qwen3.8-Flash-Next 双机16卡 PD + PP2 + Mooncake Push：128K+1K 零前缀并发4",
+  "title": "Qwen3.8-Flash-Next  Atlas 650E 双机16卡 PD + PP2 + Mooncake Push：128K+1K 零前缀并发4",
   "updated_at": "2026-11-17"
 }

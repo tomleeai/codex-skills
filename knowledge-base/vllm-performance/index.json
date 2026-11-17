@@ -126,7 +126,7 @@
     {
       "applies_to": {
         "hardware": [
-          "Atlas 850E",
+          "Atlas 650E",
           "Ascend950DT"
         ],
         "models": [
@@ -151,12 +151,12 @@
       "id": "case-qwen38-flash-next-pd-pp2-push-128k-20261117",
       "kind": "case",
       "path": "cases/case-qwen38-flash-next-pd-pp2-push-128k-20261117.json",
-      "revision": "45a2d75bd519b0608226dc3d38ace98160882c94986c6d4d444be09035c23b4d",
+      "revision": "1a480831dd72c7613518688643a85d1497aec45f0c3fd04bcfed4d732715610d",
       "status": "verified",
       "summary": "一轮预热和三轮正式批次各 16/16 成功。正式输出 90.1731–108.9535 tok/s，均值 102.6645 tok/s，TTFT P90 为 22.9341–23.7300 s，TPOT P90 为 16.7–37.4 ms。最终配置为 TP4×PP2×DP1，D 同步调度、eager drafter，目标模型保留 FULL_DECODE_ONLY。",
       "tags": [
         "Qwen3.8-Flash-Next",
-        "Atlas 850E",
+        "Atlas 650E",
         "Ascend950DT",
         "650E",
         "PD",
@@ -171,7 +171,7 @@
         "MTP3",
         "SQLite"
       ],
-      "title": "Qwen3.8-Flash-Next 双机16卡 PD + PP2 + Mooncake Push：128K+1K 零前缀并发4",
+      "title": "Qwen3.8-Flash-Next  Atlas 650E 双机16卡 PD + PP2 + Mooncake Push：128K+1K 零前缀并发4",
       "updated_at": "2026-11-17"
     },
     {
@@ -490,7 +490,7 @@
     {
       "applies_to": {
         "hardware": [
-          "Atlas 850E",
+          "Atlas 650E",
           "Ascend950DT"
         ],
         "models": [
@@ -515,7 +515,7 @@
       "id": "lesson-qwen38-pd-pp2-push-load-gate-20261117",
       "kind": "lesson",
       "path": "lessons/lesson-qwen38-pd-pp2-push-load-gate-20261117.json",
-      "revision": "bed67b2c9cbb6a9155c6224d0bdc86c42a2dbbb7879a1c47f101ff3abb7fd50a",
+      "revision": "74b177115232bd77d46e854529e2a47cab18b84e1a9ef75f0ff0473b71abb603",
       "status": "verified",
       "summary": "该版本的 128K×1 验收可通过，而 128K+1K 并发 4 仍会出现 D 输出停滞。最终 D 同步调度、eager MTP drafter、目标 FULL_DECODE_ONLY 和静态 kernel 关闭的组合，完成了预热和三轮正式批。",
       "tags": [
@@ -528,7 +528,8 @@
         "AISBench",
         "SQLite",
         "并发验收",
-        "零前缀"
+        "零前缀",
+        "Atlas 650E"
       ],
       "title": "Qwen3.8 双机 PP2 + Mooncake Push：把并发长请求纳入启动验收",
       "updated_at": "2026-11-17"

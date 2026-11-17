@@ -1,0 +1,196 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Atlas 650E",
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "CANN": "9.2.1",
+      "torch-npu": "2.10.0.post7",
+      "vLLM": "0.32.0+empty",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "PP2",
+      "MooncakePushConnector",
+      "AISBench",
+      "finite_batch",
+      "zero_prefix_reuse"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "A1：P 成功返回健康。D 静态 kernel 编译出现本机 8-rank Gloo 探测超时及跳过编译的记录。对 D 停止所属进程组并保留日志，P 保持运行。",
+      "A2：关闭 D 静态 kernel，目标 FULL_DECODE_ONLY 及 MTP3 保留。D 健康，端到端 131072 输入、1 输出耗时 12.465 s。并发 4 首批中，P 处理了 4 个长请求，D 输出计数数分钟停在 7，1 运行、3 等待。PP 末段 worker 忙而首段等待，服务仍能返回健康。该预热未完成。",
+      "A2 的客户端 SQLite 写 NFS 时另见 disk I/O error，导致 AISBench 汇总缺失。恢复时将 SQLite 和 AISBench 工作输出放到 P 容器本地临时盘，完成后回拷脱敏前的原始明细到项目共享目录。日志始终保存在项目目录。",
+      "A3：D 改为同步调度和 eager MTP drafter，保留目标模型 FULL_DECODE_ONLY 与 MTP3。端到端 131072 输入、1 输出耗时 9.174 s。随后预热和三轮正式各 16/16 成功。测试后双机按本轮进程组停止，16 张 NPU 均报告无运行进程。"
+    ],
+    "confirmed_findings": [
+      "该负载既触发两侧长上下文传输，也持续执行 Decode，多请求门槛捕捉到了健康探针和 128K×1 都没有暴露的停滞。",
+      "正式批共 48/48 成功。聊天模板计入后输入为 131123–131126 token，输出逐条确认为 1024。三轮平均输出 102.6645 tok/s，第二轮 90.1731 tok/s 且 TPOT P90 37.4 ms，体现单轮数值的局限。",
+      "各正式窗口 P/D 合计 HBM 命中为 0。P 端累计外部命中为 0，D 外部命中对应本实验的同请求 KV Push。两端合计外部命中率约 50%，分母同时含 P/D 查询。",
+      "历史基础 PD 为 DP2×TP4、EP8、MooncakeConnectorV2，并发 4 单批输出 118.2791 tok/s，TTFT P90 30.0469 s，TPOT P90 11.1 ms。本案例三轮均值比该历史单批低约 13.20%，三轮 TTFT P90 均更低，TPOT P90 均更高。两套实验同时涉及并行与 Decode 配置差异，仅用于描述条件下的观察。"
+    ],
+    "deployment": {
+      "d": "D 侧 TP4×PP2×DP1，EP4，同步调度，目标模型 FULL_DECODE_ONLY，关闭静态 kernel，MTP drafter eager。",
+      "d_max_num_batched_tokens": 4096,
+      "gpu_memory_utilization": 0.9,
+      "kv_transfer": "通过外部模块加载 MooncakePushConnector，回移自 vLLM-Ascend 1af7c5fc8aa2c0007ea53a61d0805f53c7983019。layerwise Proxy 先发 D，D 分配块后回送元数据，再触发 P 逐层 Push。启用缓存，DCP 和 KVPP 均为 1。",
+      "max_model_len": 143360,
+      "max_num_seqs_per_dp": 16,
+      "p": "每侧 8 NPU 中 P 侧为 TP4×PP2×DP1，EP4，异步调度，图模式 NONE，MTP drafter eager。",
+      "p_max_num_batched_tokens": 8192,
+      "partition": "24,24；主模型 48 层，PLE 第 2 层位于 PP rank 0，MTP drafter 在末段。",
+      "source_revisions": {
+        "vllm": "5df63a7",
+        "vllm-ascend": "62fe4cde6"
+      },
+      "speculative_decoding": "qwen3_5_mtp，3 token",
+      "weights": "W4A8 MXFP"
+    },
+    "hardware_identification": "设备产品经用户确认是 Atlas 650E / Ascend950DT，双机各 8 张卡。现场 npu-smi 板卡信息报告 Ascend950DT V120。",
+    "hypotheses": [
+      "A2 的停滞涉及 PP 末段运行路径，异步调度与 drafter 图路径的独立影响未做单变量复测。",
+      "A1 观测到 Gloo 探测失败，未验证按 PP stage 切分静态编译通信组能否修复。"
+    ],
+    "limitations": [
+      "正式数据仅覆盖并发 4 的固定 16 请求批，三轮有可见离散度。未测其他并发、在线到达或性能 SLO。",
+      "历史基础 PD 只有一个并发 4 批次。TP、DP、PP、EP、connector、Decode 静态 kernel、调度和 drafter 执行方式均须按记录核对，未隔离任一因素的性能贡献。",
+      "公开证据保留完整原始指标字段及逐请求长度，项目服务日志和请求正文留在原项目。AISBench 包版本未单独核实。",
+      "原始 single_* 和 prefill_token_throughput 字段按原样保存。整组性能采用 Common Metric output_throughput。"
+    ],
+    "next_step": "如需量化 PP、Push 或 Decode 执行方式的单独影响，在相同卡、镜像、实际 token 和批次协议下安排可行的单因素对照，并重复并发 4。首轮增设 128K×1 及带持续 Decode 的并发验收。",
+    "observations": [
+      {
+        "actual_input_tokens_max": 131126,
+        "actual_input_tokens_min": 131123,
+        "external_hits_queries": "2097972/4195960",
+        "local_hbm_hits_queries": "0/4195960",
+        "output_tokens_per_request": 1024,
+        "output_tps": 108.1479,
+        "phase": "warmup",
+        "successful_requests": 16,
+        "tpot_mean_ms": 15.9,
+        "tpot_p90_ms": 20.4,
+        "ttft_mean_ms": 19076.7,
+        "ttft_p90_ms": 23341.1
+      },
+      {
+        "actual_input_tokens_max": 131126,
+        "actual_input_tokens_min": 131123,
+        "external_hits_queries": "2097973/4195962",
+        "local_hbm_hits_queries": "0/4195962",
+        "output_tokens_per_request": 1024,
+        "output_tps": 108.9535,
+        "phase": "1",
+        "successful_requests": 16,
+        "tpot_mean_ms": 17.6,
+        "tpot_p90_ms": 24.2,
+        "ttft_mean_ms": 16568.7,
+        "ttft_p90_ms": 23730.0
+      },
+      {
+        "actual_input_tokens_max": 131126,
+        "actual_input_tokens_min": 131124,
+        "external_hits_queries": "2097975/4195966",
+        "local_hbm_hits_queries": "0/4195966",
+        "output_tokens_per_request": 1024,
+        "output_tps": 90.1731,
+        "phase": "2",
+        "successful_requests": 16,
+        "tpot_mean_ms": 24.6,
+        "tpot_p90_ms": 37.4,
+        "ttft_mean_ms": 15527.0,
+        "ttft_p90_ms": 22934.1
+      },
+      {
+        "actual_input_tokens_max": 131126,
+        "actual_input_tokens_min": 131124,
+        "external_hits_queries": "2097973/4195962",
+        "local_hbm_hits_queries": "0/4195962",
+        "output_tokens_per_request": 1024,
+        "output_tps": 108.867,
+        "phase": "3",
+        "successful_requests": 16,
+        "tpot_mean_ms": 14.9,
+        "tpot_p90_ms": 16.7,
+        "ttft_mean_ms": 19221.9,
+        "ttft_p90_ms": 23608.4
+      }
+    ],
+    "protocol": {
+      "concurrency": 4,
+      "dataset_type": "prefix_cache",
+      "ignore_eos": true,
+      "input_len": 131072,
+      "measurement": "每批前缀前置与正式 16 请求分开统计。跨批更换数据 seed，核对实际长度和缓存增量。系统输出吞吐取 AISBench Common Metric。",
+      "measurement_seeds": [
+        1,
+        2,
+        3
+      ],
+      "output_len": 1024,
+      "prefix_test": true,
+      "repeat_rate": 0,
+      "request_rate": 0,
+      "requests_per_round": 16,
+      "warmup_seeds": [
+        9002
+      ]
+    },
+    "task": "以双机各 8 张卡完成 PD + PP2 + Mooncake Push 的服务验证及零前缀 128K+1K 并发 4 基准，并在完成后释放两侧 NPU。"
+  },
+  "created_at": "2026-11-17",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-flash-next-pd-pp2-push-128k-20261117/rounds.json",
+      "role": "原始指标字典、64 个请求的长度及成功状态、终值缓存计数",
+      "sha256": "b49df60c5ac442ad4f6280e37d2103edce7da67416257fa0b5c5ff40d7b214b5"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-pd-pp2-push-128k-20261117/summary.csv",
+      "role": "预热与三轮正式请求计数、缓存增量、端到端延迟、TTFT/TPOT 和系统输出 TPS",
+      "sha256": "4915ed6698441a8e0eb2534c6a39fab455c77be432b5c31964e2cf193390661c"
+    },
+    {
+      "ref": "case:case-qwen38-flash-next-650e-pd-128k-20261116",
+      "role": "历史基础 PD 的并发 4 观察与拓扑对照"
+    }
+  ],
+  "id": "case-qwen38-flash-next-pd-pp2-push-128k-20261117",
+  "kind": "case",
+  "observed_at": "2026-11-17",
+  "related_ids": [
+    "case-qwen38-flash-next-650e-pd-128k-20261116",
+    "lesson-pd-mooncake-zero-prefix-counters",
+    "lesson-aisbench-campaign-warmup"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "一轮预热和三轮正式批次各 16/16 成功。正式输出 90.1731–108.9535 tok/s，均值 102.6645 tok/s，TTFT P90 为 22.9341–23.7300 s，TPOT P90 为 16.7–37.4 ms。最终配置为 TP4×PP2×DP1，D 同步调度、eager drafter，目标模型保留 FULL_DECODE_ONLY。",
+  "supersedes": [],
+  "tags": [
+    "Qwen3.8-Flash-Next",
+    "Atlas 650E",
+    "Ascend950DT",
+    "650E",
+    "PD",
+    "PP2",
+    "MooncakePushConnector",
+    "128K+1K",
+    "AISBench",
+    "concurrency 4",
+    "零前缀",
+    "静态 kernel",
+    "Gloo",
+    "MTP3",
+    "SQLite"
+  ],
+  "title": "Qwen3.8-Flash-Next  Atlas 650E 双机16卡 PD + PP2 + Mooncake Push：128K+1K 零前缀并发4",
+  "updated_at": "2026-11-17"
+}
