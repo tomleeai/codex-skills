@@ -1,0 +1,284 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Atlas 650E",
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "CANN": "9.2.1",
+      "torch-npu": "2.10.0.post7",
+      "vLLM": "0.32.0+empty",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "PP2",
+      "MooncakeConnectorV2 layerwise",
+      "AISBench",
+      "finite_batch",
+      "zero_prefix_reuse",
+      "direct_prefill"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "旧镜像 V2 注册 Pull。回移上游 26612dfbf 的 Mooncake 包、注册和 KV 布局规则，按进程加载本地包副本。",
+      "第一轮启动通过，两台均使用 8 NPU。经 layerwise Proxy 的 128K × 1 功能请求耗时 11.927 s。",
+      "压测后按用户指令保留 P、D、Proxy，三个健康入口均正常。"
+    ],
+    "confirmed_findings": [
+      "Mooncake V2 P/D 分别使用 kv_producer/kv_consumer，设置 use_layerwise=true。",
+      "整链路 D 的外部缓存命中来自当前请求 P→D KV，不计为前缀复用。直连 P 本地及外部命中均为零。",
+      "纯 P 的输入吞吐来自 AISBench Common Metric，首 token 后就完成，TPOT 不用于此 case。原始 wrapper 中缺测指标可能保留占位值。"
+    ],
+    "deployment": {
+      "d": "D 侧 TP4×PP2×DP1，EP4，同步调度，目标模型 FULL_DECODE_ONLY，关闭静态 kernel，MTP drafter eager。",
+      "d_max_num_batched_tokens": 4096,
+      "gpu_memory_utilization": 0.9,
+      "kv_transfer": "MooncakeConnectorV2 with use_layerwise=true, layerwise proxy for E2E",
+      "max_model_len": 143360,
+      "max_num_seqs_per_dp": 16,
+      "p": "每侧 8 NPU 中 P 侧为 TP4×PP2×DP1，EP4，异步调度，图模式 NONE，MTP drafter eager。",
+      "p_max_num_batched_tokens": 8192,
+      "partition": "24,24；主模型 48 层，PLE 第 2 层位于 PP rank 0，MTP drafter 在末段。",
+      "source_revisions": {
+        "vLLM": "5df63a7",
+        "vLLM-Ascend": "62fe4cde6",
+        "vLLM-Ascend Mooncake module and V2 registry/layout backport": "26612dfbf"
+      },
+      "speculative_decoding": "qwen3_5_mtp，3 token",
+      "weights": "W4A8 MXFP"
+    },
+    "limitations": [
+      "固定并发 4，未扫并发。测量为同一服务周期的连续批次，未做跨日或随机交错对照。"
+    ],
+    "observations": {
+      "E2E": [
+        {
+          "e2el_mean_ms": "38282.7",
+          "e2el_p90_ms": "52666.5",
+          "external_hits_queries": "2097972/4195960",
+          "input_tokens_avg": "131124.25",
+          "input_tokens_max": "131126",
+          "input_tokens_min": "131123",
+          "local_hbm_hits_queries": "0/4195960",
+          "log": "128k+1k-concurrency_4-warmup.log",
+          "output_tokens_per_request": "1024",
+          "output_tps": "97.1354",
+          "phase": "warmup",
+          "requests_success": "16",
+          "tpot_mean_ms": "19.8",
+          "tpot_p90_ms": "31.7",
+          "ttft_mean_ms": "18029.6",
+          "ttft_p90_ms": "24461.7"
+        },
+        {
+          "e2el_mean_ms": "37569.8",
+          "e2el_p90_ms": "49742.8",
+          "external_hits_queries": "2097973/4195962",
+          "input_tokens_avg": "131124.3125",
+          "input_tokens_max": "131126",
+          "input_tokens_min": "131123",
+          "local_hbm_hits_queries": "0/4195962",
+          "log": "128k+1k-concurrency_4.log",
+          "output_tokens_per_request": "1024",
+          "output_tps": "99.8226",
+          "phase": "1",
+          "requests_success": "16",
+          "tpot_mean_ms": "19.2",
+          "tpot_p90_ms": "27.3",
+          "ttft_mean_ms": "17938.4",
+          "ttft_p90_ms": "24350.6"
+        },
+        {
+          "e2el_mean_ms": "37063.8",
+          "e2el_p90_ms": "49043.3",
+          "external_hits_queries": "2097975/4195966",
+          "input_tokens_avg": "131124.4375",
+          "input_tokens_max": "131126",
+          "input_tokens_min": "131124",
+          "local_hbm_hits_queries": "0/4195966",
+          "log": "128k+1k-concurrency_4-2.log",
+          "output_tokens_per_request": "1024",
+          "output_tps": "97.7326",
+          "phase": "2",
+          "requests_success": "16",
+          "tpot_mean_ms": "18.1",
+          "tpot_p90_ms": "26.2",
+          "ttft_mean_ms": "18519.3",
+          "ttft_p90_ms": "23359.3"
+        },
+        {
+          "e2el_mean_ms": "35200.2",
+          "e2el_p90_ms": "42452.6",
+          "external_hits_queries": "2097973/4195962",
+          "input_tokens_avg": "131124.3125",
+          "input_tokens_max": "131126",
+          "input_tokens_min": "131124",
+          "local_hbm_hits_queries": "0/4195962",
+          "log": "128k+1k-concurrency_4-3.log",
+          "output_tokens_per_request": "1024",
+          "output_tps": "104.9015",
+          "phase": "3",
+          "requests_success": "16",
+          "tpot_mean_ms": "17.1",
+          "tpot_p90_ms": "23.2",
+          "ttft_mean_ms": "17711.9",
+          "ttft_p90_ms": "22684.4"
+        }
+      ],
+      "prefill": [
+        {
+          "batch_duration_ms": "135816.679",
+          "external_hits_queries": "0/2097990",
+          "input_tokens_avg": "131124.375",
+          "input_tokens_max": "131127",
+          "input_tokens_min": "131124",
+          "input_tps": "15447.2191",
+          "local_hbm_hits_queries": "0/2097990",
+          "log": "128k+1token-concurrency_4-warmup.log",
+          "output_tokens_per_request": "1",
+          "phase": "warmup",
+          "requests_per_second": "0.1178",
+          "requests_success": "16",
+          "ttft_mean_ms": "30718.2",
+          "ttft_p90_ms": "34252.5"
+        },
+        {
+          "batch_duration_ms": "135849.0351",
+          "external_hits_queries": "0/2097991",
+          "input_tokens_avg": "131124.4375",
+          "input_tokens_max": "131126",
+          "input_tokens_min": "131123",
+          "input_tps": "15443.5473",
+          "local_hbm_hits_queries": "0/2097991",
+          "log": "128k+1token-concurrency_4.log",
+          "output_tokens_per_request": "1",
+          "phase": "1",
+          "requests_per_second": "0.1178",
+          "requests_success": "16",
+          "ttft_mean_ms": "30731.5",
+          "ttft_p90_ms": "34192.9"
+        },
+        {
+          "batch_duration_ms": "135913.1227",
+          "external_hits_queries": "0/2097992",
+          "input_tokens_avg": "131124.5",
+          "input_tokens_max": "131126",
+          "input_tokens_min": "131124",
+          "input_tps": "15436.2725",
+          "local_hbm_hits_queries": "0/2097992",
+          "log": "128k+1token-concurrency_4-2.log",
+          "output_tokens_per_request": "1",
+          "phase": "2",
+          "requests_per_second": "0.1177",
+          "requests_success": "16",
+          "ttft_mean_ms": "30744.5",
+          "ttft_p90_ms": "34216.1"
+        },
+        {
+          "batch_duration_ms": "136023.5628",
+          "external_hits_queries": "0/2097990",
+          "input_tokens_avg": "131124.375",
+          "input_tokens_max": "131126",
+          "input_tokens_min": "131123",
+          "input_tps": "15423.7248",
+          "local_hbm_hits_queries": "0/2097990",
+          "log": "128k+1token-concurrency_4-3.log",
+          "output_tokens_per_request": "1",
+          "phase": "3",
+          "requests_per_second": "0.1176",
+          "requests_success": "16",
+          "ttft_mean_ms": "30767.1",
+          "ttft_p90_ms": "34255.6"
+        }
+      ]
+    },
+    "protocol": {
+      "concurrency": 4,
+      "dataset_type": "prefix_cache",
+      "ignore_eos": true,
+      "input_len": 131072,
+      "measurement": "finite batches, separate sessions per workload; AISBench Common Metric throughput",
+      "measurement_seeds": [
+        1,
+        2,
+        3
+      ],
+      "output_len": 1024,
+      "prefill_only": {
+        "endpoint": "P directly",
+        "input_length_control": "nominal 131072 before chat template",
+        "measurement_seeds": [
+          101,
+          102,
+          103
+        ],
+        "output_len": 1,
+        "warmup_seeds": [
+          19002
+        ]
+      },
+      "prefix_test": true,
+      "repeat_rate": 0,
+      "request_rate": 0,
+      "requests_per_round": 16,
+      "warmup_seeds": [
+        9002
+      ]
+    },
+    "task": "在已验证双机 PD PP2 服务上切换 Mooncake V2 layerwise 接口，测量 128K+1K 和直连 P 的 128K+1。"
+  },
+  "created_at": "2026-11-17",
+  "evidence": [
+    {
+      "ref": "case:case-qwen38-flash-next-pd-pp2-push-128k-20261117",
+      "role": "历史 Push 验证和 128K+1K 测量口径"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117/128k-1k/summary.csv",
+      "role": "E2E per-round CSV",
+      "sha256": "016e8576305fc00eeb2da23eafc1b459f32cfa40724006329b76842f2ab55c53"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117/128k-1k/rounds.json",
+      "role": "E2E raw metric dictionaries and request lengths",
+      "sha256": "afa77ba8b85dee076bec4dff655a069242905fb3dbf526755400e8a4d8d5fe62"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117/128k-1token/summary.csv",
+      "role": "prefill per-round CSV",
+      "sha256": "80ce857030d86f704bb4eb2a0747c879727a75e2ab571d06aa84e8d9a8357c49"
+    },
+    {
+      "ref": "artifact:case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117/128k-1token/rounds.json",
+      "role": "prefill raw metric dictionaries and request lengths",
+      "sha256": "dc6d62a5f2e67185e3c8afa052e2bfa451c4bacb85911188b49db24e9f355092"
+    }
+  ],
+  "id": "case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117",
+  "kind": "case",
+  "observed_at": "2026-11-17",
+  "related_ids": [
+    "case-qwen38-flash-next-pd-pp2-push-128k-20261117"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "128K+1K 和纯 P 128K+1 各三轮正式，均 48/48 成功，P/D 本地前缀命中为零。端到端平均输出 100.8189 token/s，直连 P 平均输入 15434.5149 token/s。",
+  "supersedes": [],
+  "tags": [
+    "qwen3.8-flash-next",
+    "ascend950dt",
+    "128k",
+    "pp2",
+    "mooncake-v2",
+    "layerwise",
+    "prefill"
+  ],
+  "title": "Qwen3.8-Flash-Next Atlas 650E 双机 PD PP2，Mooncake V2 Layerwise 128K 整链路与纯 P",
+  "updated_at": "2026-11-17"
+}

@@ -1,0 +1,5 @@
+﻿phase,requests_success,input_tokens_avg,input_tokens_min,input_tokens_max,output_tokens_per_request,batch_duration_ms,input_tps,requests_per_second,ttft_mean_ms,ttft_p90_ms,local_hbm_hits_queries,external_hits_queries,log
+warmup,16,131124.375,131124,131127,1,135816.679,15447.2191,0.1178,30718.2,34252.5,0/2097990,0/2097990,128k+1token-concurrency_4-warmup.log
+1,16,131124.4375,131123,131126,1,135849.0351,15443.5473,0.1178,30731.5,34192.9,0/2097991,0/2097991,128k+1token-concurrency_4.log
+2,16,131124.5,131124,131126,1,135913.1227,15436.2725,0.1177,30744.5,34216.1,0/2097992,0/2097992,128k+1token-concurrency_4-2.log
+3,16,131124.375,131123,131126,1,136023.5628,15423.7248,0.1176,30767.1,34255.6,0/2097990,0/2097990,128k+1token-concurrency_4-3.log

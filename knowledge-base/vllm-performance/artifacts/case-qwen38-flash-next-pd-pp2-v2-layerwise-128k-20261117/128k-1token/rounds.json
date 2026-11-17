@@ -1,0 +1,578 @@
+[
+  {
+    "phase": "warmup",
+    "metrics": {
+      "current_time": "2026-11-17 07:22:28",
+      "input_len": 131124.375,
+      "output_len": 1.0,
+      "total_req": 16.0,
+      "max_cc": "4",
+      "cc": 3.6189,
+      "rr": "0",
+      "repeat_rate": 0.0,
+      "TTFT avg": 30718.2,
+      "TTFT P90": 34252.5,
+      "TPOT avg": 99999,
+      "TPOT SLO_P90": 99999,
+      "E2E_time": 135.816679,
+      "output_throughput": 0.1178,
+      "single_output_throughput": 0.1178,
+      "E2E_throughput": 15447.3369,
+      "single_E2E_throughput": 15447.3369,
+      "qps": 0.1178,
+      "qpm": 7.0680000000000005,
+      "input_token_throughput": 15447.2191,
+      "prefill_token_throughput": 9999,
+      "E2EL avg": 30719.0,
+      "E2EL P90": 34253.3
+    },
+    "aisbench_common": {
+      "phase": "warmup",
+      "requests_success": 16,
+      "input_tokens_avg": 131124.375,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131127,
+      "output_tokens_per_request": 1,
+      "batch_duration_ms": 135816.679,
+      "input_tps": 15447.2191,
+      "requests_per_second": 0.1178,
+      "ttft_mean_ms": 30718.2,
+      "ttft_p90_ms": 34252.5,
+      "local_hbm_hits_queries": "0/2097990",
+      "external_hits_queries": "0/2097990",
+      "log": "128k+1token-concurrency_4-warmup.log"
+    },
+    "requests": [
+      {
+        "id": 0,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 1,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 2,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 3,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 4,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 5,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 6,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 7,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 8,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 9,
+        "success": true,
+        "input_tokens": 131127,
+        "output_tokens": 1
+      },
+      {
+        "id": 10,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 11,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 12,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 13,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 14,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 15,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      }
+    ],
+    "details": "aisbench-results/20261117_071953/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+    "log": "128k+1token-concurrency_4-warmup.log"
+  },
+  {
+    "phase": "1",
+    "metrics": {
+      "current_time": "2026-11-17 07:25:37",
+      "input_len": 131124.4375,
+      "output_len": 1.0,
+      "total_req": 16.0,
+      "max_cc": "4",
+      "cc": 3.6196,
+      "rr": "0",
+      "repeat_rate": 0.0,
+      "TTFT avg": 30731.5,
+      "TTFT P90": 34192.9,
+      "TPOT avg": 99999,
+      "TPOT SLO_P90": 99999,
+      "E2E_time": 135.8490351,
+      "output_throughput": 0.1178,
+      "single_output_throughput": 0.1178,
+      "E2E_throughput": 15443.6651,
+      "single_E2E_throughput": 15443.6651,
+      "qps": 0.1178,
+      "qpm": 7.0680000000000005,
+      "input_token_throughput": 15443.5473,
+      "prefill_token_throughput": 9999,
+      "E2EL avg": 30732.3,
+      "E2EL P90": 34193.6
+    },
+    "aisbench_common": {
+      "phase": "1",
+      "requests_success": 16,
+      "input_tokens_avg": 131124.4375,
+      "input_tokens_min": 131123,
+      "input_tokens_max": 131126,
+      "output_tokens_per_request": 1,
+      "batch_duration_ms": 135849.0351,
+      "input_tps": 15443.5473,
+      "requests_per_second": 0.1178,
+      "ttft_mean_ms": 30731.5,
+      "ttft_p90_ms": 34192.9,
+      "local_hbm_hits_queries": "0/2097991",
+      "external_hits_queries": "0/2097991",
+      "log": "128k+1token-concurrency_4.log"
+    },
+    "requests": [
+      {
+        "id": 0,
+        "success": true,
+        "input_tokens": 131123,
+        "output_tokens": 1
+      },
+      {
+        "id": 1,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 2,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 3,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 4,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 5,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 6,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 7,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 8,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 9,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 10,
+        "success": true,
+        "input_tokens": 131126,
+        "output_tokens": 1
+      },
+      {
+        "id": 11,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 12,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 13,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 14,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 15,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      }
+    ],
+    "details": "aisbench-results/20261117_072302/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+    "log": "128k+1token-concurrency_4.log"
+  },
+  {
+    "phase": "2",
+    "metrics": {
+      "current_time": "2026-11-17 07:28:45",
+      "input_len": 131124.5,
+      "output_len": 1.0,
+      "total_req": 16.0,
+      "max_cc": "4",
+      "cc": 3.6194,
+      "rr": "0",
+      "repeat_rate": 0.0,
+      "TTFT avg": 30744.5,
+      "TTFT P90": 34216.1,
+      "TPOT avg": 99999,
+      "TPOT SLO_P90": 99999,
+      "E2E_time": 135.9131227,
+      "output_throughput": 0.1177,
+      "single_output_throughput": 0.1177,
+      "E2E_throughput": 15436.3902,
+      "single_E2E_throughput": 15436.3902,
+      "qps": 0.1177,
+      "qpm": 7.062,
+      "input_token_throughput": 15436.2725,
+      "prefill_token_throughput": 9999,
+      "E2EL avg": 30745.5,
+      "E2EL P90": 34216.9
+    },
+    "aisbench_common": {
+      "phase": "2",
+      "requests_success": 16,
+      "input_tokens_avg": 131124.5,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131126,
+      "output_tokens_per_request": 1,
+      "batch_duration_ms": 135913.1227,
+      "input_tps": 15436.2725,
+      "requests_per_second": 0.1177,
+      "ttft_mean_ms": 30744.5,
+      "ttft_p90_ms": 34216.1,
+      "local_hbm_hits_queries": "0/2097992",
+      "external_hits_queries": "0/2097992",
+      "log": "128k+1token-concurrency_4-2.log"
+    },
+    "requests": [
+      {
+        "id": 0,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 1,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 2,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 3,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 4,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 5,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 6,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 7,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 8,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 9,
+        "success": true,
+        "input_tokens": 131126,
+        "output_tokens": 1
+      },
+      {
+        "id": 10,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 11,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 12,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 13,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 14,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 15,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      }
+    ],
+    "details": "aisbench-results/20261117_072609/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+    "log": "128k+1token-concurrency_4-2.log"
+  },
+  {
+    "phase": "3",
+    "metrics": {
+      "current_time": "2026-11-17 07:32:24",
+      "input_len": 131124.375,
+      "output_len": 1.0,
+      "total_req": 16.0,
+      "max_cc": "4",
+      "cc": 3.6191,
+      "rr": "0",
+      "repeat_rate": 0.0,
+      "TTFT avg": 30767.1,
+      "TTFT P90": 34255.6,
+      "TPOT avg": 99999,
+      "TPOT SLO_P90": 99999,
+      "E2E_time": 136.0235628,
+      "output_throughput": 0.1176,
+      "single_output_throughput": 0.1176,
+      "E2E_throughput": 15423.8424,
+      "single_E2E_throughput": 15423.8424,
+      "qps": 0.1176,
+      "qpm": 7.056,
+      "input_token_throughput": 15423.7248,
+      "prefill_token_throughput": 9999,
+      "E2EL avg": 30768.0,
+      "E2EL P90": 34256.5
+    },
+    "aisbench_common": {
+      "phase": "3",
+      "requests_success": 16,
+      "input_tokens_avg": 131124.375,
+      "input_tokens_min": 131123,
+      "input_tokens_max": 131126,
+      "output_tokens_per_request": 1,
+      "batch_duration_ms": 136023.5628,
+      "input_tps": 15423.7248,
+      "requests_per_second": 0.1176,
+      "ttft_mean_ms": 30767.1,
+      "ttft_p90_ms": 34255.6,
+      "local_hbm_hits_queries": "0/2097990",
+      "external_hits_queries": "0/2097990",
+      "log": "128k+1token-concurrency_4-3.log"
+    },
+    "requests": [
+      {
+        "id": 0,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 1,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 2,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 3,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 4,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 5,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 6,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 7,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 8,
+        "success": true,
+        "input_tokens": 131126,
+        "output_tokens": 1
+      },
+      {
+        "id": 9,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 10,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 11,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 12,
+        "success": true,
+        "input_tokens": 131124,
+        "output_tokens": 1
+      },
+      {
+        "id": 13,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      },
+      {
+        "id": 14,
+        "success": true,
+        "input_tokens": 131123,
+        "output_tokens": 1
+      },
+      {
+        "id": 15,
+        "success": true,
+        "input_tokens": 131125,
+        "output_tokens": 1
+      }
+    ],
+    "details": "aisbench-results/20261117_072934/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+    "log": "128k+1token-concurrency_4-3.log"
+  }
+]
