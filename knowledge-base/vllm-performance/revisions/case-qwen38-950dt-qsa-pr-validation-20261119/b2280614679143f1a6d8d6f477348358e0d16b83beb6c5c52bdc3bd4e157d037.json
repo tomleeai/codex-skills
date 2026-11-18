@@ -1,0 +1,168 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend 950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "CANN": "9.2.1",
+      "driver": "25.6.rc3",
+      "torch": "2.10.0",
+      "torch_npu": "2.10.0.post7",
+      "vLLM": "0.32.0",
+      "vLLM_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "vllm_ascend_image_commit": "62fe4cde69d9e80225283f2e3edf7913d77bc9e8"
+    },
+    "workload_modes": [
+      "two-node PD",
+      "TP4 DP2 EP",
+      "MTP3",
+      "MRV2",
+      "128K+1024 correctness batches"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "No patches -> raw page mismatch on both roles.",
+      "Raw-only -> original warmup norm/RoPE ABI failure on P.",
+      "Historical patch combination -> functional service PASS.",
+      "Release PR base with final tests -> 6 failed/5 passed; fixed source -> 11 passed.",
+      "Final release ede5235 CPU 11/11 and strict real-NPU 48/48 projection/indexer/upstream/graph cases passed.",
+      "Final 6592247 MRV2 consumer test passed in MRoPE and plain-RoPE modes on the image-compatible release backport; compact-stride negative control detected 543 changed bytes in each mode.",
+      "Full main PR runtime collection attempts on available cores fail unrelated API alignments; no whole-main-head NPU pass claimed."
+    ],
+    "confirmed_findings": [
+      "The two historical product defects remain in this original image under the unchanged basic PD configuration.",
+      "Mixed raw widths come from target/draft uses_mrope divergence in this real text-only/MTP3 configuration.",
+      "Actual QSA store/history compression consumers honor padded raw physical stride in the tested backport; independent data references and adjacent-owner byte checks pass.",
+      "Preserve upstream MTP projection for supported inputs; normalization of plain-RoPE three-axis positions is needed before delegation.",
+      "At current main405617b the indexer fallback is already present in ee865a5 (#21771), and main attention inherits upstream projection. Older compressed-key module failures must not be represented as current-main E2E failures.",
+      "Final release PR21979 preserves upstream MTP projection and passes exact-product-code complete PD forward/MTP graph validation, with the raw-stride fix and image-matched compiled artifacts as explicit prerequisites."
+    ],
+    "hypotheses": [],
+    "limitations": [
+      "The different image a142c5e748ee is outside this original-image experiment.",
+      "Main PR21945 integration uses an image-compatible backport with identical raw-branch AST and the common RoPE prerequisite, not the entire main PR tree.",
+      "No model-quality, matched performance speedup, or long-run stability conclusion is established. Full pre-commit is unavailable and repository CI remains required."
+    ],
+    "next_step": "Reviewer replies and repository CI. Whole-main PR21945 runtime validation remains outside the available compatible runtime; repeat with a fully aligned core/Ascend build before claiming it.",
+    "observations": [
+      "Image digest ddc16dd6ba93a789bc836b6ce41049da552f3d25caac7f7e73dd8f79d74aed2a; two nodes each eight 96GiB NPUs. Original launch scripts copied without parameter changes.",
+      "After same-host HCCL topology setup, both roles reject a 2048-byte logical raw view in the 2240-byte physical region. Raw-stride patch alone then reproduces the original target norm/RoPE ABI error.",
+      "Actual owners: 12 target caches width128/uses_mrope=false and one MTP cache width140/uses_mrope=true. Text-only plus MTP3 produces this mix; 2x2 EngineArgs controls identify its configuration source.",
+      "Both historical patches complete warmup and proxy short32 plus exact 131072+1 requests. Exact release PR source additionally needs complete same-image vendor artifacts when run from a separate source directory. Linking only shared libraries misses kernel objects; 22 Swiglu operator checks pass after complete vendor restoration.",
+      "Exact release ede5235 product code plus independent raw patch completed short32, 131072+1 and all 20 long responses (C1 x4, C4 x16), each exactly 131072+1024, with zero local prefix hits on both roles/DPs. Real D target and MTP prefill/decode graphs captured and replayed.",
+      "The original finite-batch controller reports FAIL because eight complete responses have nullable prompt_tokens_details; all original records are retained. Offline reassessment verifies 20/20 response usages/finish reasons and P/D success-counter deltas20. D external KV hits2621420 represent same-request transfer."
+    ],
+    "task": "Use an image-identical fresh deployment to reproduce two historical QSA bugs and answer their upstream reviewers with measured evidence."
+  },
+  "created_at": "2026-11-19",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/source-scope.json",
+      "role": "source scope",
+      "sha256": "ceae9636a7ab57808572f192707ad428d76302e5c2fec5d972597d9196fa891a"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/reproduction.txt",
+      "role": "reproduction.txt",
+      "sha256": "c2714c812bd65c851f5730074d1bcee558159382b6e032313b9a4371a95a5e93"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/failure-evidence.json",
+      "role": "failure evidence",
+      "sha256": "7bd0a67f6fa789d0b3244bd443e28959a5367fdf16091e66ac8c1b497aabf057"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/p-actual-owners.json",
+      "role": "p actual owners",
+      "sha256": "a5e584570915e2b84c09164101b4c2be2bc9a39df2c41935f80fd27e40eefa5f"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/d-actual-owners.json",
+      "role": "d actual owners",
+      "sha256": "33c4a155c0eea7fe4e726e130507a9e186b83fe580b8c88c4637dbdc355ea04b"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/model-config-factor-probe.json",
+      "role": "model config factor probe",
+      "sha256": "e3db6dff787af52f88fe12f905309bc0bcd38dec3ed505d4dc92ee63662e522a"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/raw-pr-cpu-regression.json",
+      "role": "raw pr cpu regression",
+      "sha256": "382d90e00fc9de678931725c7cecc70ff00dfa7f25a2abb18e24e85fe5729c69"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/npu-21979-strict-final.json",
+      "role": "npu 21979 strict final",
+      "sha256": "2b9ae92d67c495e4a5301ee725657798fb07fa15f4aa65ea5951099df3af928c"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/npu-mrv2-modes-mrope.json",
+      "role": "npu mrv2 modes mrope",
+      "sha256": "be3b5faad66616dc1622b3d3788f52f9d4aba2b9cdfc9a64c42bdde063f3a8b2"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/npu-mrv2-modes-plain.json",
+      "role": "npu mrv2 modes plain",
+      "sha256": "11ed4f078c0c7dd06f929380134c45c62505e9a39070f5345a43d72d53996edd"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/release-reassessment.json",
+      "role": "release reassessment",
+      "sha256": "70cbd3e44e2f9be4443a5bb734fafbcc08f8a1980d10ccc02e873d00436d93c4"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/release-service-acceptance.json",
+      "role": "release service acceptance",
+      "sha256": "786aea441457bb216bef22685606877643384da838a46eaebfe60809d840df7c"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/release-mtp-replay-evidence.json",
+      "role": "release mtp replay evidence",
+      "sha256": "8a87bf15dd7c3295e9cc1dc92b5345113251c6edb030f79e7735c7b620cd6786"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/release-graph-capture-evidence.json",
+      "role": "release graph capture evidence",
+      "sha256": "1d380ea187c33a647d4da403f45794e58ceb015a9d2e297454b801bfca3d69f5"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/original-finite-batch-protocol.json",
+      "role": "original finite batch protocol",
+      "sha256": "7a53fd74a059a74d7f955b8f6fc577d4d078f049bf4a6980849e6e49f3c626d4"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-qsa-pr-validation-20261119/release-acceptance-state.json",
+      "role": "release acceptance state",
+      "sha256": "fcfeaabae90dc6859c8f00bb0edd8364d69bd8623a76396d056b5aa3a13af7da"
+    }
+  ],
+  "id": "case-qwen38-950dt-qsa-pr-validation-20261119",
+  "kind": "case",
+  "observed_at": "2026-11-19",
+  "related_ids": [
+    "case-qwen38-flash-next-650e-pd-128k-20261116"
+  ],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "原镜像原脚本复现两项QSA错误；修复后CPU11项、NPU48项、MRV2双模式及20条128K+1024服务请求通过。main整树验证仍受版本对齐限制。",
+  "supersedes": [],
+  "tags": [
+    "QSA",
+    "MRV2",
+    "mixed-width",
+    "physical-stride",
+    "plain-RoPE",
+    "MRoPE",
+    "MTP3",
+    "PD",
+    "PR21945",
+    "PR21979"
+  ],
+  "title": "Qwen3.8 950DT基础PD两项QSA补丁复现及PR验证",
+  "updated_at": "2026-11-19"
+}

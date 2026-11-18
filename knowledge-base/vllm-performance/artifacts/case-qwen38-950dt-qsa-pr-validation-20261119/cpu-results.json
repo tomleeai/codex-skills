@@ -1,0 +1,6 @@
+{
+  "ut-21979-final-head": "11 passed, 17 warnings in 0.14s",
+  "ut-21979-final-base": "6 failed, 5 passed, 17 warnings in 0.35s",
+  "swiglu-vendor-repair-test": "22 passed, 17 warnings in 5.13s",
+  "full_format_ci": "not run: pre-commit absent; focused Ruff check and format passed"
+}

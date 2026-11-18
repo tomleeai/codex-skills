@@ -1,0 +1,14 @@
+[
+  {
+    "name": "image",
+    "qsa_branch_sha256": "eeb91b35bbc50bac3a10686813648248c3e51ea3e0d0af1e8f01388e6a83d55a"
+  },
+  {
+    "name": "release",
+    "qsa_branch_sha256": "eeb91b35bbc50bac3a10686813648248c3e51ea3e0d0af1e8f01388e6a83d55a"
+  },
+  {
+    "name": "main-pr",
+    "qsa_branch_sha256": "eeb91b35bbc50bac3a10686813648248c3e51ea3e0d0af1e8f01388e6a83d55a"
+  }
+]

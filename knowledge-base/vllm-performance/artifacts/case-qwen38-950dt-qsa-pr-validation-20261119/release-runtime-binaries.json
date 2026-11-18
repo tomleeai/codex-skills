@@ -1,0 +1,26 @@
+[
+  {
+    "relative": "vllm_ascend_C.cpython-312-aarch64-linux-gnu.so",
+    "sha256": "efcf0bb123b7834ff9119a8667b275c6e975bb7910c103535a0a95984007cf35"
+  },
+  {
+    "relative": "_cann_ops_custom/vendors/custom_transformer/op_api/lib/libcust_opapi.so",
+    "sha256": "8e4a7845a26e6230cc7b3fd2978e7b19b674dd314aeeed493f304e82dde30ab9"
+  },
+  {
+    "relative": "_cann_ops_custom/vendors/custom_transformer/op_impl/ai_core/tbe/op_tiling/liboptiling.so",
+    "sha256": "cfb269dc74ffe9fc9d8b02423d12e281600157b7c34d27ed8eab69bbf9bd7641"
+  },
+  {
+    "relative": "_cann_ops_custom/vendors/custom_transformer/op_impl/ai_core/tbe/op_tiling/lib/linux/aarch64/libcust_opmaster_rt2.0.so",
+    "sha256": "cfb269dc74ffe9fc9d8b02423d12e281600157b7c34d27ed8eab69bbf9bd7641"
+  },
+  {
+    "relative": "_cann_ops_custom/vendors/custom_transformer/op_impl/cpu/aicpu_kernel/impl/libtransformer_aicpu_kernels.so",
+    "sha256": "5cd69c113d342239a17fc4ad167047cbea9b51c6b46ff8f0eb93fc0d34e58a04"
+  },
+  {
+    "relative": "_cann_ops_custom/vendors/custom_transformer/op_proto/lib/linux/aarch64/libcust_opsproto_rt2.0.so",
+    "sha256": "7c29212eadc28eb5a2148427ca3fb10865685261462178e3d0e5599d5a94f82f"
+  }
+]

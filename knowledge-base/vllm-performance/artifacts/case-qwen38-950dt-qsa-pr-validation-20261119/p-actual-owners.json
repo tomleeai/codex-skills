@@ -1,0 +1,357 @@
+{
+  "owners": [
+    {
+      "prefix": "language_model.model.layers.3.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.7.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.11.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.15.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.19.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.23.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.27.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.31.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.35.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.39.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.43.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "language_model.model.layers.47.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": false,
+      "key_head_size": 128,
+      "storage_head_size": 128,
+      "uses_mrope": false
+    },
+    {
+      "prefix": "mtp.layers.48.self_attn.indexer.raw_key_cache",
+      "cache_rope_positions": true,
+      "key_head_size": 128,
+      "storage_head_size": 140,
+      "uses_mrope": true
+    }
+  ],
+  "layout": [
+    {
+      "layer": "language_model.model.layers.3.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.7.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.11.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.15.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.19.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.23.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.27.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.31.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.35.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.39.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.43.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.47.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2048,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 128,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "mtp.layers.48.self_attn.indexer.raw_key_cache",
+      "role": "qsa_raw",
+      "logical_page": 2240,
+      "physical_page": 2240,
+      "physical_block_stride": 2240,
+      "head_size": 140,
+      "storage_block_size": 8,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.3.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.7.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.11.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.15.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.19.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.23.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.27.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.31.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.35.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.39.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.43.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "language_model.model.layers.47.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    },
+    {
+      "layer": "mtp.layers.48.self_attn.indexer.compressed_key_cache",
+      "role": "qsa_compressed",
+      "logical_page": 32768,
+      "physical_page": 32768,
+      "physical_block_stride": 32768,
+      "head_size": 128,
+      "storage_block_size": 128,
+      "dtype": "torch.bfloat16"
+    }
+  ]
+}

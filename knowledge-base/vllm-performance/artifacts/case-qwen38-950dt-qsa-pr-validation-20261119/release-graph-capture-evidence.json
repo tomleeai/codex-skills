@@ -1,0 +1,50 @@
+[
+  {
+    "line": 5699,
+    "text": "Capturing CUDA graphs (FULL): 100%|██████████| 9/9 [00:05<00:00,  1.91it/s]"
+  },
+  {
+    "line": 5700,
+    "text": "Capturing CUDA graphs (FULL): 100%|██████████| 9/9 [00:05<00:00,  1.69it/s]"
+  },
+  {
+    "line": 5712,
+    "text": "Capturing prefill CUDA graphs (FULL): 100%|██████████| 9/9 [00:01<00:00,  5.97it/s]"
+  },
+  {
+    "line": 5716,
+    "text": "Capturing decode CUDA graphs (FULL): 100%|██████████| 3/3 [00:00<00:00, 14.06it/s]"
+  },
+  {
+    "line": 5717,
+    "text": "(Worker_DP0_TP3_EP3 pid=2942125) INFO 11-18 18:29:18 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.33 GiB"
+  },
+  {
+    "line": 5719,
+    "text": "(Worker_DP0_TP1_EP1 pid=2940899) INFO 11-18 18:29:18 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.33 GiB"
+  },
+  {
+    "line": 5721,
+    "text": "(Worker_DP1_TP0_EP4 pid=2940556) INFO 11-18 18:29:18 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.33 GiB"
+  },
+  {
+    "line": 5723,
+    "text": "(Worker_DP1_TP2_EP6 pid=2941356) INFO 11-18 18:29:18 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.33 GiB"
+  },
+  {
+    "line": 5725,
+    "text": "(Worker_DP0_TP0_EP0 pid=2940555) INFO 11-18 18:29:18 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.33 GiB"
+  },
+  {
+    "line": 5727,
+    "text": "(Worker_DP1_TP3_EP7 pid=2942126) INFO 11-18 18:29:18 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.33 GiB"
+  },
+  {
+    "line": 5729,
+    "text": "(Worker_DP1_TP1_EP5 pid=2940897) INFO 11-18 18:29:18 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.33 GiB"
+  },
+  {
+    "line": 5731,
+    "text": "(Worker_DP0_TP2_EP2 pid=2941355) INFO 11-18 18:29:18 [model_runner.py:1127] Graph capturing finished in 8 secs, took 0.33 GiB"
+  }
+]

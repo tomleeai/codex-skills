@@ -1,0 +1,14 @@
+{
+  "scope": "Exact PR-added test function; image planner and real reshape functions. Fixed raw branch AST equals PR head, not whole main UT collection.",
+  "cases": [
+    {
+      "name": "base",
+      "outcome": "FAIL",
+      "error": "ValueError('model.mtp.layers.48.self_attn.indexer.raw_key_cache Qwen4 hybrid page mismatch: view=2048, region=2240.')"
+    },
+    {
+      "name": "fixed",
+      "outcome": "PASS"
+    }
+  ]
+}

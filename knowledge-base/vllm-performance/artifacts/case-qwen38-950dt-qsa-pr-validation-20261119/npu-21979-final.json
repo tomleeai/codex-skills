@@ -1,0 +1,2710 @@
+{
+  "source": "validation/ascend-21979/vllm_ascend/models/qwen4_exp/qsa.py",
+  "ascend_commit": "bbc45f2ac8dcdce4c7374c5747771e07f6a8323e",
+  "qsa_sha256": "94dec065098b02a13fa7a2bfc8232376bade086c2c9b7694f2c9037121c8016b",
+  "torch_version": "2.10.0+cpu",
+  "threshold": {
+    "rtol": 0.02,
+    "atol": 0.04
+  },
+  "cases": [
+    {
+      "name": "projection-T1-mropeFalse-dim1-gateFalse-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006276583299040794
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0008171602967195213
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeFalse-dim1-gateFalse-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.000568713410757482
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006561535992659628
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "both_none": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "projection-T1-mropeFalse-dim1-gateTrue-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.00390625,
+          "l2_relative": 0.0003291497705504298
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006539747701026499
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeFalse-dim1-gateTrue-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0003922958276234567
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005015627830289304
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "indexer-T1-mropeFalse-dim1",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0009147181990556419
+        },
+        "raw": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "compressed": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0013444862561300397
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeFalse-dim2-gateFalse-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0007707241456955671
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.000546443450730294
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeFalse-dim2-gateFalse-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.00390625,
+          "l2_relative": 0.00036736586480401456
+        },
+        "k": {
+          "max_abs": 0.00390625,
+          "l2_relative": 0.00047586948494426906
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream_exception": "RuntimeError: shape '[3, -1, 256]' is invalid for input of size 512"
+      }
+    },
+    {
+      "name": "projection-T1-mropeFalse-dim2-gateTrue-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0004744374891743064
+        },
+        "k": {
+          "max_abs": 0.00390625,
+          "l2_relative": 0.0004061252693645656
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeFalse-dim2-gateTrue-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0004112390452064574
+        },
+        "k": {
+          "max_abs": 0.00390625,
+          "l2_relative": 0.0003091853577643633
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream_exception": "RuntimeError: shape '[3, -1, 256]' is invalid for input of size 512"
+      }
+    },
+    {
+      "name": "indexer-T1-mropeFalse-dim2",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0007742356974631548
+        },
+        "raw": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "compressed": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0011485519353300333
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeTrue-dim1-gateFalse-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005320291384123266
+        },
+        "k": {
+          "max_abs": 0.00390625,
+          "l2_relative": 0.00044323678594082594
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeTrue-dim1-gateFalse-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0003933985426556319
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005466292495839298
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "both_none": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "projection-T1-mropeTrue-dim1-gateTrue-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0003645943652372807
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0008409456349909306
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeTrue-dim1-gateTrue-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.00046885840129107237
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005478093517012894
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "indexer-T1-mropeTrue-dim1",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006884244503453374
+        },
+        "raw": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "compressed": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006505878991447389
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 2
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeTrue-dim2-gateFalse-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005245977663435042
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005484207067638636
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeTrue-dim2-gateFalse-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006422530277632177
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005134501843713224
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "both_none": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "projection-T1-mropeTrue-dim2-gateTrue-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.00258956803008914
+        },
+        "k": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.002962852129712701
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 1,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T1-mropeTrue-dim2-gateTrue-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.00390625,
+          "l2_relative": 0.0003016324480995536
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005493510398082435
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "indexer-T1-mropeTrue-dim2",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0008383110980503261
+        },
+        "raw": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "compressed": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.001305710757151246
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 2
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeFalse-dim1-gateFalse-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0006458272109739482
+        },
+        "k": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0007189830066636205
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeFalse-dim1-gateFalse-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005196582060307264
+        },
+        "k": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0005734056467190385
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "both_none": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "projection-T8-mropeFalse-dim1-gateTrue-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0006407653563655913
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006061206222511828
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeFalse-dim1-gateTrue-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006380364065989852
+        },
+        "k": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0007273305673152208
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "indexer-T8-mropeFalse-dim1",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0008556518005207181
+        },
+        "raw": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "compressed": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0010868227109313011
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeFalse-dim2-gateFalse-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006544534116983414
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005778219201602042
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeFalse-dim2-gateFalse-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005556066753342748
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.000629669229965657
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream_exception": "RuntimeError: shape '[24, -1, 256]' is invalid for input of size 4096"
+      }
+    },
+    {
+      "name": "projection-T8-mropeFalse-dim2-gateTrue-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005787446280010045
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006498898728750646
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeFalse-dim2-gateTrue-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0006836482789367437
+        },
+        "k": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0005351609434001148
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream_exception": "RuntimeError: shape '[24, -1, 256]' is invalid for input of size 4096"
+      }
+    },
+    {
+      "name": "indexer-T8-mropeFalse-dim2",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0008254283457063138
+        },
+        "raw": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "compressed": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0008219663868658245
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeTrue-dim1-gateFalse-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0006328698946163058
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005462116678245366
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeTrue-dim1-gateFalse-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.000544297625310719
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005980822606943548
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "both_none": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "projection-T8-mropeTrue-dim1-gateTrue-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0005610577645711601
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006317026563920081
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeTrue-dim1-gateTrue-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.000694582297001034
+        },
+        "k": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0006538580637425184
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "indexer-T8-mropeTrue-dim1",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0009103890042752028
+        },
+        "raw": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "compressed": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0010471922578290105
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 2
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeTrue-dim2-gateFalse-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0006778067327104509
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005552528891712427
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeTrue-dim2-gateFalse-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0006013111560605466
+        },
+        "k": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0005784390377812088
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "both_none": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "projection-T8-mropeTrue-dim2-gateTrue-target",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.03125,
+          "l2_relative": 0.002946551889181137
+        },
+        "k": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0030910635832697153
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 1,
+          "indexer": 0
+        }
+      }
+    },
+    {
+      "name": "projection-T8-mropeTrue-dim2-gateTrue-mtp",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0005912086344324052
+        },
+        "k": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0005934650544077158
+        },
+        "v": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "gate": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 0
+        },
+        "upstream": [
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          },
+          {
+            "max_abs": 0.0,
+            "l2_relative": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "indexer-T8-mropeTrue-dim2",
+      "status": "PASS",
+      "result": {
+        "q": {
+          "max_abs": 0.015625,
+          "l2_relative": 0.0009325992432422936
+        },
+        "raw": {
+          "max_abs": 0.0,
+          "l2_relative": 0.0
+        },
+        "compressed": {
+          "max_abs": 0.0078125,
+          "l2_relative": 0.0009069158113561571
+        },
+        "fused_calls": {
+          "main": 0,
+          "indexer": 2
+        }
+      }
+    },
+    {
+      "name": "mtp-projection-graph-T1-mropeFalse",
+      "status": "PASS",
+      "result": {
+        "capture": 1,
+        "replays": 10,
+        "errors": [
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ]
+        ],
+        "implementation": "PR projection",
+        "scope": "real MTP projection, not complete drafter forward"
+      }
+    },
+    {
+      "name": "upstream-mtp-projection-graph-T1-mropeFalse",
+      "status": "PASS",
+      "result": {
+        "capture": 1,
+        "replays": 10,
+        "errors": [
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ]
+        ],
+        "implementation": "upstream",
+        "scope": "real MTP projection, not complete drafter forward"
+      }
+    },
+    {
+      "name": "mtp-projection-graph-T1-mropeTrue",
+      "status": "PASS",
+      "result": {
+        "capture": 1,
+        "replays": 10,
+        "errors": [
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ]
+        ],
+        "implementation": "PR projection",
+        "scope": "real MTP projection, not complete drafter forward"
+      }
+    },
+    {
+      "name": "upstream-mtp-projection-graph-T1-mropeTrue",
+      "status": "PASS",
+      "result": {
+        "capture": 1,
+        "replays": 10,
+        "errors": [
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ]
+        ],
+        "implementation": "upstream",
+        "scope": "real MTP projection, not complete drafter forward"
+      }
+    },
+    {
+      "name": "mtp-projection-graph-T8-mropeFalse",
+      "status": "PASS",
+      "result": {
+        "capture": 1,
+        "replays": 10,
+        "errors": [
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ]
+        ],
+        "implementation": "PR projection",
+        "scope": "real MTP projection, not complete drafter forward"
+      }
+    },
+    {
+      "name": "upstream-mtp-projection-graph-T8-mropeFalse",
+      "status": "PASS",
+      "result": {
+        "capture": 1,
+        "replays": 10,
+        "errors": [
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ]
+        ],
+        "implementation": "upstream",
+        "scope": "real MTP projection, not complete drafter forward"
+      }
+    },
+    {
+      "name": "mtp-projection-graph-T8-mropeTrue",
+      "status": "PASS",
+      "result": {
+        "capture": 1,
+        "replays": 10,
+        "errors": [
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ]
+        ],
+        "implementation": "PR projection",
+        "scope": "real MTP projection, not complete drafter forward"
+      }
+    },
+    {
+      "name": "upstream-mtp-projection-graph-T8-mropeTrue",
+      "status": "PASS",
+      "result": {
+        "capture": 1,
+        "replays": 10,
+        "errors": [
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ],
+          [
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            },
+            {
+              "max_abs": 0.0,
+              "l2_relative": 0.0
+            }
+          ]
+        ],
+        "implementation": "upstream",
+        "scope": "real MTP projection, not complete drafter forward"
+      }
+    }
+  ],
+  "counts": {
+    "main": 2,
+    "indexer": 8
+  }
+}

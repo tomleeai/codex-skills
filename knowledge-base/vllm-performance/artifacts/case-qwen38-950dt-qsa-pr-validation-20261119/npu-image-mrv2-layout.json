@@ -1,0 +1,96 @@
+{
+  "source": "image/vllm-ascend/vllm_ascend/worker/v2/attn_utils.py",
+  "consumer": "image/vllm-ascend/vllm_ascend/models/qwen4_exp/qsa.py",
+  "cases": [
+    {
+      "name": "mrv2-history-compression",
+      "result": {
+        "shape": [
+          3,
+          8,
+          1,
+          128
+        ],
+        "stride": [
+          1120,
+          128,
+          1024,
+          1
+        ],
+        "physical_page_bytes": 2240,
+        "logical_page_bytes": 2048,
+        "direct_boundary_slots": [
+          7,
+          8,
+          9
+        ],
+        "rounds": [
+          {
+            "positions": [
+              0,
+              1,
+              2
+            ],
+            "historical_rows_read": 0,
+            "physical_blocks": [
+              2,
+              1
+            ],
+            "compressed_rows": 0,
+            "max_abs": 0.0
+          },
+          {
+            "positions": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "historical_rows_read": 1,
+            "physical_blocks": [
+              2,
+              1
+            ],
+            "compressed_rows": 4,
+            "max_abs": 0.0078125
+          },
+          {
+            "positions": [
+              10,
+              11
+            ],
+            "historical_rows_read": 1,
+            "physical_blocks": [
+              2,
+              1
+            ],
+            "compressed_rows": 2,
+            "max_abs": 0.00390625
+          }
+        ],
+        "padding_and_adjacent_raw_owners": "byte-exact",
+        "reference": "independent logical history, FP32 norm/RoPE"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "compact-stride-negative-control",
+      "result": {
+        "detected_mismatched_bytes": 543,
+        "boundary_slots": [
+          7,
+          8,
+          9
+        ]
+      },
+      "status": "EXPECTED_FAILURE"
+    }
+  ],
+  "threshold": {
+    "atol": 0.04,
+    "rtol": 0.02
+  }
+}

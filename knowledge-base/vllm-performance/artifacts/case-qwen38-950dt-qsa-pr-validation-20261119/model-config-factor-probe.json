@@ -1,0 +1,114 @@
+[
+  {
+    "language_model_only": true,
+    "mtp3": true,
+    "configs": [
+      {
+        "role": "target",
+        "uses_mrope": false,
+        "raw_storage_width": 128,
+        "rope_parameters": {
+          "partial_rotary_factor": 0.25,
+          "rope_theta": 10000000,
+          "rope_type": "default"
+        }
+      },
+      {
+        "role": "draft",
+        "uses_mrope": true,
+        "raw_storage_width": 140,
+        "rope_parameters": {
+          "mrope_interleaved": true,
+          "mrope_section": [
+            11,
+            11,
+            10
+          ],
+          "partial_rotary_factor": 0.25,
+          "rope_theta": 10000000,
+          "rope_type": "default"
+        }
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "language_model_only": true,
+    "mtp3": false,
+    "configs": [
+      {
+        "role": "target",
+        "uses_mrope": false,
+        "raw_storage_width": 128,
+        "rope_parameters": {
+          "partial_rotary_factor": 0.25,
+          "rope_theta": 10000000,
+          "rope_type": "default"
+        }
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "language_model_only": false,
+    "mtp3": true,
+    "configs": [
+      {
+        "role": "target",
+        "uses_mrope": true,
+        "raw_storage_width": 140,
+        "rope_parameters": {
+          "mrope_interleaved": true,
+          "mrope_section": [
+            11,
+            11,
+            10
+          ],
+          "partial_rotary_factor": 0.25,
+          "rope_theta": 10000000,
+          "rope_type": "default"
+        }
+      },
+      {
+        "role": "draft",
+        "uses_mrope": true,
+        "raw_storage_width": 140,
+        "rope_parameters": {
+          "mrope_interleaved": true,
+          "mrope_section": [
+            11,
+            11,
+            10
+          ],
+          "partial_rotary_factor": 0.25,
+          "rope_theta": 10000000,
+          "rope_type": "default"
+        }
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "language_model_only": false,
+    "mtp3": false,
+    "configs": [
+      {
+        "role": "target",
+        "uses_mrope": true,
+        "raw_storage_width": 140,
+        "rope_parameters": {
+          "mrope_interleaved": true,
+          "mrope_section": [
+            11,
+            11,
+            10
+          ],
+          "partial_rotary_factor": 0.25,
+          "rope_theta": 10000000,
+          "rope_type": "default"
+        }
+      }
+    ],
+    "status": "PASS"
+  }
+]

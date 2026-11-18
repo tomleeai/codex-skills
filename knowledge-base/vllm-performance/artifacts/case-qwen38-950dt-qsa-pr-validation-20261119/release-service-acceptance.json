@@ -1,0 +1,17 @@
+{
+  "time": 1795026947.4029732,
+  "ascend_head": "ede5235c161683ce3b4e2b5f70292d3dddfea271",
+  "qsa_sha256": "94dec065098b02a13fa7a2bfc8232376bade086c2c9b7694f2c9037121c8016b",
+  "roles": {
+    "p": {
+      "service_log": "p-release-complete-service.log",
+      "error_count": 0,
+      "lines": 5746
+    },
+    "d": {
+      "service_log": "d-release-complete-service.log",
+      "error_count": 0,
+      "lines": 6132
+    }
+  }
+}

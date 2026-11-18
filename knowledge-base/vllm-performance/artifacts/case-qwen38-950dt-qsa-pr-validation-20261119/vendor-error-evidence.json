@@ -1,0 +1,14 @@
+{
+  "p": [
+    {
+      "line": 5194,
+      "text": "[rank0]:[E1118 18:13:17.587131260 OpParamMaker.cpp:517] call aclnnSwigluGroupQuant failed, detail:[PID: 1492151] 2026-11-18-18:13:17.349.475 Invalid_Argument(EE1011): Obtaining the kernel function handle based on the function entry failed. Value 2 for parameter funcEntry is invalid. Reason: The funcHandle cannot be found through funcEntry."
+    }
+  ],
+  "d": [
+    {
+      "line": 5243,
+      "text": "[rank7]:[E1118 18:12:45.046387380 OpParamMaker.cpp:517] call aclnnSwigluGroupQuant failed, detail:[PID: 2904766] 2026-11-18-18:12:45.038.714 Invalid_Argument(EE1011): Obtaining the kernel function handle based on the function entry failed. Value 2 for parameter funcEntry is invalid. Reason: The funcHandle cannot be found through funcEntry."
+    }
+  ]
+}

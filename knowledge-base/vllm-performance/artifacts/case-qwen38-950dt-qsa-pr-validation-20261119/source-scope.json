@@ -1,0 +1,60 @@
+{
+  "original_and_new_container_image": "sha256:ddc16dd6ba93a789bc836b6ce41049da552f3d25caac7f7e73dd8f79d74aed2a",
+  "image_core": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+  "image_ascend": "62fe4cde69d9e80225283f2e3edf7913d77bc9e8",
+  "hardware": "2 nodes, each Ascend 950DT 8x96GiB",
+  "torch": "2.10.0",
+  "torch_npu": "2.10.0.post7",
+  "cann": "9.2.1",
+  "driver": "25.6.rc3",
+  "pr21979_final_candidate": "bbc45f2ac8dcdce4c7374c5747771e07f6a8323e",
+  "pr21979_previous_npu_commit": "d756c13d81e7b71ceb4cd86aa9553d0e14821560",
+  "candidate_metadata_note": "bbc45f2 product code equals ede5235; final ede5235 CPU 11/11 and strict NPU 48/48 rerun passed. Full service used ede5235 product code, plus the explicitly recorded independent raw-stride patch and same-image compiled runtime.",
+  "common_raw_patch_sha256": "d7fc91c109e23b45ace9afc56454557e67114f1a0fd3be999b701dbcb988e42c",
+  "cpu_final_head": {
+    "passed": 11,
+    "failed": 0
+  },
+  "cpu_final_base_same_tests": {
+    "failed": 6,
+    "passed": 5
+  },
+  "main_current_inspected": "405617bae227fe5b097ff163efaa60bb7f22c698",
+  "main_qsa_sha256": "f4881d5e8b3574a39509700eea4b430d357bb7c7e310cf94331953c9cd2069f0",
+  "main_correction": "Older PR21945 QSA snapshot reproduced the compressed-key ValueError under image core/version-dispatch override. Current main has indexer upstream fallbacks from ee865a5 (#21771), and inherits attention projection. The older result is not a current-main E2E failure.",
+  "main_full_runtime_limit": "Image core, verified-core snapshot and latest-core snapshot each had unrelated API/collection incompatibilities with the whole main PR tree. No whole-main PR NPU/E2E pass is claimed.",
+  "format_ci": "Attempted bash format.sh ci for both PR trees; pre-commit is absent. Focused Ruff checks/format pass. Full CI remains required.",
+  "current_main_raw_branch": "At inspected 405617b, raw page equality and compact addressing remain; PR21945 changes are still absent.",
+  "vendor_runtime_repair": {
+    "files": 1060,
+    "sorted_manifest_sha256": "a333040adb194badc03c5fccd4a4c58c95198cb1f7cb6f333432798793cb3d7f",
+    "repair": "Complete vendor artifacts from the same base image, not only shared libraries."
+  },
+  "swiglu_repair_regression": {
+    "passed": 22,
+    "failed": 0
+  },
+  "mrv2_manual_test_commit": "6592247c21b7c9aa2461eb08c86b9bad958b6274",
+  "pr21979_final_head": "ede5235c161683ce3b4e2b5f70292d3dddfea271",
+  "last_commit_scope": "Test-only: propagate numerical assertion failures; catch only the known upstream plain-RoPE three-axis reshape error. Product source is identical to bbc45f2.",
+  "pr21945_final_head": "6592247c21b7c9aa2461eb08c86b9bad958b6274",
+  "raw_consumer_modes": "Final 6592247 test script passed MRoPE default and optional --plain-rope on release ede5235 plus raw-stride patch. Consumer runtime is a release backport, not whole PR21945 main runtime.",
+  "service_acceptance": {
+    "valid_responses": 20,
+    "prompt_tokens_each": 131072,
+    "completion_tokens_each": 1024,
+    "cases": [
+      {
+        "concurrency": 1,
+        "requests": 4
+      },
+      {
+        "concurrency": 4,
+        "requests": 16
+      }
+    ],
+    "local_prefix_hits_each_role_each_dp": 0,
+    "original_controller": "FAIL: 8 nullable prompt_tokens_details client errors after successful complete server responses; preserved and reassessed offline using original usages plus metrics."
+  },
+  "handoff": "After all NPU regressions, both nodes had no running NPU processes at 2026-11-18 18:40:55 UTC. The user-designated follow-on PP/MTP3 chat was resumed. No further NPU workload in this case."
+}

@@ -78,6 +78,52 @@
     {
       "applies_to": {
         "hardware": [
+          "Ascend 950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "CANN": "9.2.1",
+          "driver": "25.6.rc3",
+          "torch": "2.10.0",
+          "torch_npu": "2.10.0.post7",
+          "vLLM": "0.32.0",
+          "vLLM_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+          "vllm_ascend_image_commit": "62fe4cde69d9e80225283f2e3edf7913d77bc9e8"
+        },
+        "workload_modes": [
+          "two-node PD",
+          "TP4 DP2 EP",
+          "MTP3",
+          "MRV2",
+          "128K+1024 correctness batches"
+        ]
+      },
+      "id": "case-qwen38-950dt-qsa-pr-validation-20261119",
+      "kind": "case",
+      "path": "cases/case-qwen38-950dt-qsa-pr-validation-20261119.json",
+      "revision": "54a54d488fb06098724bfc5ac8c121308df12148f20091f6ca5a0ee4bcf091d0",
+      "status": "partial",
+      "summary": "原镜像原脚本复现两项QSA错误；修复后CPU11项、NPU48项、MRV2双模式及20条128K+1024服务请求通过。main整树验证仍受版本对齐限制。",
+      "tags": [
+        "QSA",
+        "MRV2",
+        "mixed-width",
+        "physical-stride",
+        "plain-RoPE",
+        "MRoPE",
+        "MTP3",
+        "PD",
+        "PR21945",
+        "PR21979"
+      ],
+      "title": "Qwen3.8 950DT基础PD两项QSA补丁复现及PR验证",
+      "updated_at": "2026-11-19"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend 650E"
         ],
         "models": [

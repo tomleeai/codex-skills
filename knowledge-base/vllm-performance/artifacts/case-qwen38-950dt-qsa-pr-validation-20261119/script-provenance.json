@@ -1,0 +1,22 @@
+{
+  "run_p.sh": {
+    "sha256": "ad292cd860c29391be3d03fa991f0cedc2b763f497c005964651a54db49b2221",
+    "identical_to_pd": true
+  },
+  "run_d.sh": {
+    "sha256": "cbe3b28b9765efb444961c9f14d6e57e5eef7aa46c8e66c4e2aa95d8223191b7",
+    "identical_to_pd": true
+  },
+  "env.sh": {
+    "sha256": "26118471b9a7956a5b2a7a77a16920542edf0b81744b20104f8b685107ebbaa6",
+    "identical_to_pd": true
+  },
+  "proxy.sh": {
+    "sha256": "05909d916628564d03311ec4d4af31993c311f4cf6ffe992cb329b1199c8f501",
+    "identical_to_pd": true
+  },
+  "verify_128k.py": {
+    "sha256": "6088857c9199f483d8287b85bf68618418182a4bdc0b0a72e5407de9c6ee6ed4",
+    "identical_to_pd": true
+  }
+}

@@ -1,0 +1,86 @@
+QSA reproduction and validation, original v0.32 RC deployment
+
+Hardware/runtime: two nodes, eight Ascend 950DT NPUs per node; original image
+sha256:ddc16dd6ba93a789bc836b6ce41049da552f3d25caac7f7e73dd8f79d74aed2a;
+vLLM 5df63a7 (0.32.0), image Ascend 62fe4cde6, CANN 9.2.1,
+torch 2.10.0 and torch_npu 2.10.0.post7. W4A8-MXFP checkpoint:
+Qwen3.8-Flash-Next. Both endpoints use all eight cards, TP4/DP2/EP,
+MRV2, language-model-only and MTP3. P uses eager; D uses FULL_DECODE_ONLY
+and npugraph_ex with speculative enforce_eager=false.
+
+Prerequisites: correct same-host HCCL topology information and the complete
+compiled custom-op vendor artifacts from the same image. A source checkout
+contains only source; linking its shared libraries alone is insufficient.
+
+The adjacent run_p.sh, run_d.sh, env.sh and proxy.sh are sanitized copies of
+the actual scripts. Only endpoint/NIC/checkpoint/profiler paths and identifying
+comments were parameterized. Original script hashes are in script-provenance.json.
+Bash syntax validation passed; the parameterized copies were not separately
+executed as a new full experiment. Actual experiments used unchanged originals.
+
+On the P node set MODEL_PATH, P_HOST and NIC_NAME; run bash run_p.sh.
+On the D node set MODEL_PATH, D_HOST and NIC_NAME; run bash run_d.sh.
+Launch both roles together. After both health endpoints are ready, set P_HOST
+and D_HOST on P and run bash proxy.sh. Ports are P8247/D8248/proxy8246.
+
+1. With the unmodified image source and original scripts, both roles fail
+   raw-key view initialization: view=2048, region=2240.
+2. Apply qsa-raw-stride.patch in the image Ascend source tree; keep the same
+   scripts. P then reproduces the original fused norm+RoPE ABI warmup error.
+3. Add the historical qsa-rope-fallback.patch: both roles finish warmup and
+   complete short32 and exact 131072+1 requests through the proxy.
+   This historical patch is distinct from the revised PR21979 implementation.
+4. For the revised release PR, use PYTHONPATH pointing at ede5235c and apply
+   qsa-raw-stride.patch as the independent prerequisite. Use image-matched
+   complete runtime binaries/vendor artifacts. Run the same original scripts.
+
+Configuration control (does not load model weights):
+  python qsa_owner_config_probe.py --model "$MODEL_PATH"
+Inspect actual owners in a full run as well: target cache prefixes layers
+3,7,...,47 have width128/uses_mrope=false; MTP layer48 has width140/true.
+The 12 extra BF16 elements contain three int64 positions. The config probe
+reports predicted widths from the real target/draft uses_mrope values; it is
+not a substitute for the observed constructor/allocated-layout records.
+
+NPU tests in the PR trees:
+  python tests/e2e/manual/qsa_norm_rope_npu.py --graph --output projection.json
+  python tests/e2e/manual/qsa_mrv2_consumers_npu.py --output consumers-mrope.json
+  python tests/e2e/manual/qsa_mrv2_consumers_npu.py --plain-rope --output consumers-plain.json
+The consumer run recorded here uses the release/image-compatible planner and
+raw-branch backport plus the revised release RoPE implementation. Its raw QSA
+reshape AST matches PR21945. It is not a whole-main-PR runtime validation.
+
+Finite service correctness batches use fresh independently randomized token
+prefixes, exactly 131072 input and 1024 output tokens, ignore_eos=true,
+concurrency1 with4 requests then concurrency4 with16 requests. Require zero
+P prefix-cache hits in each measurement window, and report same-request P-to-D
+KV delivery separately. These batches are not an AISBench speedup comparison.
+
+Final published PR heads: 21945=6592247, 21979=ede5235.
+Consumer script defaults to legal MRoPE so the raw-stride regression can run
+independently of the separate plain-RoPE fix. Optional --plain-rope needs that fix.
+Both modes passed on the explicitly scoped release backport; the compact-stride
+negative control detects 543 mismatched bytes in each mode.
+
+Exact release product code full-service acceptance passed short32 and 131072+1,
+then 20/20 responses with 131072 input +1024 output: C1 x4 and C4 x16.
+P and D success counters increased by 20 each; both DPs have zero local prefix
+hits on both roles. D external KV hits 2621420 are same-request P-to-D transfer.
+The original client falsely failed eight complete responses when
+prompt_tokens_details=null. Original controller FAIL/protocol are retained.
+release-reassessment.json checks every original token usage/finish reason and
+the settled per-DP metrics. The nullable-field client handling is corrected in
+service_finite_batch.py; its original version is retained beside it. No inference
+was repeated for this offline reassessment. These are correctness batches;
+no matched AISBench performance or output-quality claim is made.
+
+Reproduction of finite batches: set P_URL, D_URL and PROXY_URL (full http URLs),
+then python service_finite_batch.py --output-dir ./finite-batch --tag release.
+The copied public scripts have endpoint/path variables and were syntax checked;
+the actual measured service ran the unchanged original scripts.
+
+See release-mtp-replay-evidence.json and release-graph-capture-evidence.json
+for target and real MTP prefill/decode graph capture/replay on both D DPs.
+The raw NPU test script commit is 6592247; the actual consumer source is the
+release ede5235 runtime plus the raw-stride patch, as recorded in JSON source
+fields. This distinction applies to every device consumer result in this case.

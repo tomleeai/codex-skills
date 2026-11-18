@@ -1,0 +1,26 @@
+[
+  {
+    "line": 5922,
+    "text": "(Worker_DP1_TP0_EP4 pid=2940556) INFO 11-18 18:29:58 [aclgraph_utils.py:189] ACL graph replay is active for the V2 target model (logged once)."
+  },
+  {
+    "line": 5923,
+    "text": "(Worker_DP1_TP0_EP4 pid=2940556) INFO 11-18 18:29:58 [aclgraph.py:143] ACL graph replay is active for the V2 draft model (prefill, logged once per phase)."
+  },
+  {
+    "line": 5924,
+    "text": "(Worker_DP1_TP0_EP4 pid=2940556) INFO 11-18 18:29:58 [aclgraph.py:143] ACL graph replay is active for the V2 draft model (decode, logged once per phase)."
+  },
+  {
+    "line": 5925,
+    "text": "(Worker_DP0_TP0_EP0 pid=2940555) INFO 11-18 18:29:58 [aclgraph_utils.py:189] ACL graph replay is active for the V2 target model (logged once)."
+  },
+  {
+    "line": 5926,
+    "text": "(Worker_DP0_TP0_EP0 pid=2940555) INFO 11-18 18:29:58 [aclgraph.py:143] ACL graph replay is active for the V2 draft model (prefill, logged once per phase)."
+  },
+  {
+    "line": 5927,
+    "text": "(Worker_DP0_TP0_EP0 pid=2940555) INFO 11-18 18:29:58 [aclgraph.py:143] ACL graph replay is active for the V2 draft model (decode, logged once per phase)."
+  }
+]

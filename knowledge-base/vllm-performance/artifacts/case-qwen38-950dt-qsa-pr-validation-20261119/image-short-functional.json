@@ -1,0 +1,12 @@
+{
+  "usage": {
+    "prompt_tokens": 14,
+    "total_tokens": 46,
+    "completion_tokens": 32,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": null
+  },
+  "validation_elapsed_seconds": 44.763150240061805
+}

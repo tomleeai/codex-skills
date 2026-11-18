@@ -1,0 +1,22 @@
+{
+  "p-rootinfo": [
+    {
+      "line": 5425,
+      "text": "(Worker_DP0_TP2_EP2 pid=1267574) ERROR 11-18 17:02:12 [multiproc_executor.py:1063] ValueError: language_model.model.layers.3.self_attn.indexer.raw_key_cache Qwen4 hybrid page mismatch: view=2048, region=2240."
+    }
+  ],
+  "d-rootinfo": [
+    {
+      "line": 5666,
+      "text": "(Worker_DP1_TP0_EP4 pid=2713766) ERROR 11-18 17:02:23 [multiproc_executor.py:1063] ValueError: language_model.model.layers.3.self_attn.indexer.raw_key_cache Qwen4 hybrid page mismatch: view=2048, region=2240."
+    }
+  ],
+  "p-raw-only": [
+    {
+      "line": 5843,
+      "text": "(Worker_DP0_TP0_EP0 pid=1317996) ERROR 11-18 17:15:55 [multiproc_executor.py:1063]     raise ValueError(\"QSA main-attention fused norm+RoPE ABI is not satisfied\")"
+    }
+  ],
+  "p-release-candidate": [],
+  "d-release-candidate": []
+}

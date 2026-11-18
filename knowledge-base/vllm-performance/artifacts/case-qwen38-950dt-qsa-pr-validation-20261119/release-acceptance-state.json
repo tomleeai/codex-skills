@@ -1,0 +1,7 @@
+{
+  "state": "FAIL",
+  "started": 1795025784.115011,
+  "proxy_pid": 1554170,
+  "error": "RuntimeError('batch exited 1')",
+  "finished": 1795026864.0545309
+}

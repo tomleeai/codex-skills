@@ -1,0 +1,30 @@
+{
+  "source": "validation/ascend-21945/vllm_ascend/models/qwen4_exp/qsa.py",
+  "scope": "normalize_compressed_keys on exact main QSA module with image core, version dispatch 0.33.0",
+  "cases": [
+    {
+      "tokens": 1,
+      "mrope": false,
+      "status": "FAIL",
+      "error": "ValueError('QSA compressed-key fused norm+RoPE ABI is not satisfied')"
+    },
+    {
+      "tokens": 1,
+      "mrope": true,
+      "status": "PASS",
+      "finite": true
+    },
+    {
+      "tokens": 8,
+      "mrope": false,
+      "status": "FAIL",
+      "error": "ValueError('QSA compressed-key fused norm+RoPE ABI is not satisfied')"
+    },
+    {
+      "tokens": 8,
+      "mrope": true,
+      "status": "PASS",
+      "finite": true
+    }
+  ]
+}

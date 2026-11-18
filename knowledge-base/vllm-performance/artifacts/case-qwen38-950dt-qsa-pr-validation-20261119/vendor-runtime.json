@@ -1,0 +1,5 @@
+{
+  "files": 1060,
+  "sorted_manifest_sha256": "a333040adb194badc03c5fccd4a4c58c95198cb1f7cb6f333432798793cb3d7f",
+  "repair": "Complete vendor artifacts from the same base image, not only shared libraries."
+}
