@@ -58,7 +58,10 @@
   "aisbench_policy": {
     "data_num_rule": "default data_num = 4 * concurrency; explicit user protocol takes precedence",
     "data_num": null,
-    "concurrency": null
+    "concurrency": null,
+    "entry_ref": null,
+    "result_parser_ref": null,
+    "fresh_seed_policy": null
   },
   "repetition": {
     "warmup_policy": "case_sweep: 2-3 same-case checks at campaign start, reuse verified evidence; no full warmup at every point; rewarm after actual service restart or relevant configuration change; prefix preparation remains separate. statistical_comparison: design explicit warmup/repeats.",
@@ -76,6 +79,32 @@
     "on_exhausted": "preserve scene, summarize existing results and checkpoint, stop automatic retries and wait for human intervention",
     "checkpoint_state_on_exhausted": "waiting_for_human"
   },
+  "regression_loop": {
+    "enabled": false,
+    "historical_reference_ref": null,
+    "current_degraded_baseline_ref": null,
+    "best_measured_config_ref": null,
+    "final_retention_target_ref": null,
+    "protected_features": [],
+    "candidate_ledger_ref": null,
+    "max_candidates": null,
+    "gates": {
+      "probe_case_refs": [],
+      "screening_case_refs": [],
+      "formal_case_refs": [],
+      "stability_case_refs": [],
+      "performance_criteria": null,
+      "stability_criteria": null
+    },
+    "deadline": null,
+    "deadline_timezone": null,
+    "recovery_and_archive_reserve_seconds": null,
+    "stop_after_current_batch": false,
+    "handoff": {
+      "leave_services_running": null,
+      "manual_retest_entry_ref": null
+    }
+  },
   "acceptance": {
     "success_target": null,
     "per_request_lengths": true,
@@ -87,6 +116,7 @@
   "metrics": {
     "ttft": "client request mean with declared boundary",
     "tpot": "client request mean with declared definition",
+    "input_tps": "total measured input tokens / common duration; primary throughput for pure-prefill cases",
     "output_tps": "total measured output tokens / common duration",
     "auxiliary": [
       "e2e",
