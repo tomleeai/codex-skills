@@ -26,6 +26,57 @@
     ]
   },
   "body": {
+    "additional_failed_or_rejected_trials": [
+      {
+        "client_finished_indicator": 4,
+        "client_posted": 8,
+        "observation": "P idle, D2running2deferred, PP1 copy-event wait; stream59/sq4/task888/head883/flip205/pending6; no new allocator failures",
+        "planned_requests": 16,
+        "run": "fair8k-pd-c4",
+        "status": "invalid_stalled_D",
+        "valid_full_batch_tps": null
+      },
+      {
+        "later_inspection": "No owner or leftover model process found; origin not confirmed; same configuration retry succeeded; no sysctl or service-port changes",
+        "port": 33485,
+        "requests_sent": 0,
+        "run": "d-no-graph-attempt1",
+        "status": "startup_failed_port_in_use"
+      },
+      {
+        "followup_formal_and_stability": "not_run; excessive decode cost; not a stability pass",
+        "output_token_s": 4.4503,
+        "run": "d-no-graph-warmup",
+        "status": "valid_probe_rejected_cost",
+        "tpot_avg_ms": 206.2
+      },
+      {
+        "client_finished_indicator": 0,
+        "observation": "Output wait moved to WorkerAsyncOutputCopy but remained stalled; stream59/sq4/task29/head24/flip0/pending12",
+        "planned_requests": 1,
+        "run": "d-async-warmup",
+        "status": "invalid_stalled_D",
+        "valid_full_batch_tps": null
+      },
+      {
+        "client_finished_indicator": 10,
+        "concurrency": 8,
+        "observation": "Original graph/no-async D stalled again; P idle, D2running6waiting; PP1 copy-event synchronize. Client stopped after 180 seconds without completion; same-parameter D recovery, no device or host reset.",
+        "planned_requests": 32,
+        "run": "until1240-pd-c8",
+        "status": "invalid_stalled_D",
+        "valid_full_batch_tps": null
+      },
+      {
+        "client_finished_indicator": 24,
+        "concurrency": 4,
+        "observation": "Newly restored original D stalled after FIN24; P idle, D2running2waiting, generation zero. PP1 same AsyncOutput event wait; client stopped after 180 seconds without completion. Same-parameter D recovery while running independent P-only followups; no further long PD batch.",
+        "planned_requests": 32,
+        "run": "until1240-pd-c4-stability",
+        "status": "invalid_stalled_D",
+        "valid_full_batch_tps": null
+      }
+    ],
     "capacity_group_c4_failure": {
       "concurrency": 4,
       "error": "D missing terminal Push completion while last request still at P; no new alloc failures",
@@ -70,9 +121,10 @@
       "同为16K预算与32GiB/rank，仅改变QSA独立缓冲，正式纯P提升9.1073倍。结合reused buffer从block0读回历史的代码路径，支持该配置中QSA历史KV反复读回是主要慢点，不能泛化为所有平台必需QSA驻留。",
       "扩大池后并发4没有新增分配失败，但3/4完整、末条仍超过D等待时限；QSA驻留后同样并发4全部完整。原失败轮不发布有效TPS。",
       "QSA驻留后继续提预算到32K反而退步，不能把非驻留组32K的收益拼接到驻留组。",
-      "最终纯P三轮24条完整，输入吞吐8577.4473、8575.0309、8421.1934，算术均值8524.5572；PD首轮16条完整、62.0288输出token/s。PD第二轮设备停滞使最终验收仍为partial。",
       "新停滞时P已空闲，D为2 running与2 deferred、KV fetch completed waiting，PP0等RPC、PP1等copy event；这区别于此前P排队超出D终态Push等待。没有确认故障kernel，也未证明是QSA驻留造成。",
-      "本轮无需整机重启即可按原命令恢复D并完成最小PD复验；此结果不证明UB告警已修复，也不能代替完整三轮稳定性验收。用户随后要求停止实验、保留服务空转，正式续跑未启动。"
+      "纯P C2/8三轮24条完整，均值8524.5572输入token/s；后续原D C4/16三轮48条完整，均值61.4304666667输出token/s。此后D再次停滞，不能当作长期稳定性验收。",
+      "D NONE图单请求TPOT206.2ms，解码性能不可接受；异步D仍停在输出copy event；已恢复原FULL_DECODE_ONLY和同步调度，不修改runtime源码。",
+      "顶层P现为16384与每段QSA独立，池32GiB/rank；最小真实复检P2/2为8221.6131输入token/s，PD4/4为49.2595输出token/s，参数与运行配置核对通过。"
     ],
     "d_device_stall": {
       "client_finished": 8,
@@ -90,7 +142,7 @@
       "p_waiting": 0,
       "pending_num": 6,
       "pp1_stream": 59,
-      "recovery": "Subsequently restored original D by process restart with identical argv/software; no host reboot or device reset; warmup and C4/4 minimal validation passed; full follow-up cancelled by user; services left idle",
+      "recovery": "Historical early stall: restored original D by process restart with identical argv/software; no host reboot or device reset. Later formal three rounds passed, then original D stalled again. Latest scope is deadline_continuation; event synchronization root cause remains unresolved.",
       "register_export_warning_local_time": "02:51:24",
       "root_cause": "unconfirmed; post-export error not treated as independent proof of original stall",
       "round": 2,
@@ -101,6 +153,41 @@
       "timezone": "Asia/Shanghai",
       "vector_timeout_error_code": 507034,
       "vector_timeout_reported_local_time": "02:51:13"
+    },
+    "d_event_wait_interpretation": "Local original source vllm/v1/worker/gpu/async_utils.py: AsyncOutput copy_stream first wait_stream(main_stream), copies sampled outputs/counts, then records copy_event; get_output synchronizes that event. The observed wait can include upstream computation/communication dependencies, so it does not by itself identify a faulty output-copy kernel. No runtime source modified.",
+    "deadline_continuation": {
+      "cancelled_before_dispatch": "all remaining batches including final C1 plan",
+      "client_hard_stop": "2026-11-18T12:39:30+08:00",
+      "input_token_s": 8579.6538,
+      "last_run": "until1240-p-c2-r2",
+      "next_dispatch": null,
+      "phase": "user_stopped_after_current_batch",
+      "requests": 8,
+      "services": "retained; no machine cleanup or resource release",
+      "time": "2026-11-18T12:34:49.476619+08:00"
+    },
+    "deadline_incomplete_trials": [
+      {
+        "client_finished_indicator": 24,
+        "run": "until1240-pd-c4-stability",
+        "status": "incomplete_at_export",
+        "valid_full_batch_tps": null
+      },
+      {
+        "client_finished_indicator": 10,
+        "run": "until1240-pd-c8",
+        "status": "incomplete_at_export",
+        "valid_full_batch_tps": null
+      }
+    ],
+    "delivery_state": {
+      "D": "original FULL_DECODE_ONLY/no-async restored; event synchronization stall unresolved",
+      "manual_retest": "fresh seed CLI added; --plan verified; no score protocol change",
+      "resource_release": "user-managed; no host or device cleanup",
+      "top_level_changed": [
+        "P launcher: batch16384 and independent QSA per PP stage",
+        "DRAM pool32GiB per rank"
+      ]
     },
     "deployment": {
       "layout": "双机各 8 张 Ascend 950DT，P/D 各 TP4×PP2×DP1、24+24、关闭 MTP；P DCP2、D DCP1；P 通过 MultiConnector 同时启用 Mooncake V2 Push 和 MemCache Layerwise，4 个共享缓冲，预取 3 层，局部缓存和模型设置保持不变。",
@@ -120,37 +207,100 @@
       "weights": "W4A8 MXFP"
     },
     "final_verification": {
-      "actual_input_max": 131125,
-      "actual_input_min": 131124,
-      "auxiliary_jobs": "benchmark, dispatch and identity watcher stopped; no automatic continuation",
-      "d_recovery": "same original command and software; process restart only; no host reboot or device reset",
-      "device_warning": "NPU 1/7 UB warning was present before restart; not claimed repaired",
-      "fair_prefill_trials": "prepared but cancelled before service change; no performance claims",
-      "full_performance_verification": "partial; previous P three rounds valid, previous PD first round valid, later formal PD not completed",
-      "minimal_requests": 4,
-      "output_per_request": 1024,
-      "output_token_s": 47.0904,
-      "queues": {
-        "D_running": 0,
-        "D_waiting": 0,
-        "P_running": 0,
-        "P_waiting": 0
+      "final-best-p-c2-quick": {
+        "input_token_s": 8221.6131,
+        "output_token_s": 0.0627,
+        "requests": 2,
+        "tpot_p90_ms": null,
+        "ttft_p90_ms": 30542.2
       },
-      "recorded_at": "2026-11-18T09:25:58.618740+08:00",
-      "resource_release": "left to user; service remains idle",
-      "resumed_formal_rounds_executed": 0,
-      "services": {
-        "D": "healthy and idle",
-        "Meta": "running",
-        "P": "healthy and idle",
-        "Proxy": "healthy"
+      "final-best-pd-c4-quick": {
+        "input_token_s": 6307.7507,
+        "output_token_s": 49.2595,
+        "requests": 4,
+        "tpot_p90_ms": 20.6,
+        "ttft_p90_ms": 58669.9
+      }
+    },
+    "formal_summary": {
+      "p-c2": {
+        "concurrency": 2,
+        "metrics": {
+          "input_token_s": {
+            "max": 8577.4473,
+            "mean": 8524.5572,
+            "min": 8421.1934
+          },
+          "output_token_s": {
+            "max": 0.0654,
+            "mean": 0.065,
+            "min": 0.0642
+          },
+          "ttft_avg_ms": {
+            "max": 29665.2,
+            "mean": 29287.833333333332,
+            "min": 29092.1
+          },
+          "ttft_p90_ms": {
+            "max": 33287.7,
+            "mean": 33014.799999999996,
+            "min": 32878.1
+          }
+        },
+        "requests_per_round": 8,
+        "rounds": 3,
+        "seeds": [
+          387110,
+          387111,
+          387112
+        ],
+        "valid_requests": 24
       },
-      "status": "minimal_validation_passed_then_stopped_by_user",
-      "top_level_launchers": "original parameters preserved; candidate not promoted as fully verified",
-      "tpot_avg_ms": 23.2,
-      "tpot_p90_ms": 24.3,
-      "ttft_avg_ms": 41567.3,
-      "ttft_p90_ms": 58606.7
+      "pd-c4": {
+        "concurrency": 4,
+        "metrics": {
+          "input_token_s": {
+            "max": 7945.9342,
+            "mean": 7866.245,
+            "min": 7805.2465
+          },
+          "output_token_s": {
+            "max": 62.0528,
+            "mean": 61.43046666666667,
+            "min": 60.9541
+          },
+          "tpot_avg_ms": {
+            "max": 23.6,
+            "mean": 22.866666666666667,
+            "min": 21.8
+          },
+          "tpot_p90_ms": {
+            "max": 27.1,
+            "mean": 25.533333333333335,
+            "min": 23.1
+          },
+          "ttft_avg_ms": {
+            "max": 38794.6,
+            "mean": 38317.1,
+            "min": 37797.1
+          },
+          "ttft_p90_ms": {
+            "max": 48702.8,
+            "mean": 46609.66666666667,
+            "min": 45438.3
+          }
+        },
+        "requests_per_round": 16,
+        "rounds": 3,
+        "seeds": [
+          391210,
+          391211,
+          391212
+        ],
+        "valid_requests": 48
+      },
+      "protocol": "Three rounds; P C2 x8 and PD C4 x16; cold prefix; per-round AISBench Common Metric",
+      "total_valid_formal_requests": 72
     },
     "latest_validated_trials": [
       {
@@ -1416,12 +1566,971 @@
         "tpot_p90_ms": 20.5,
         "ttft_avg_ms": 18322.9,
         "ttft_p90_ms": 18322.9
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 72186.2,
+          "E2EL avg": 62064.6,
+          "E2E_throughput": 7908.8388,
+          "E2E_time": 267.3432905,
+          "TPOT SLO_P90": 26.4,
+          "TPOT avg": 23.2,
+          "TTFT P90": 48702.8,
+          "TTFT avg": 38359.6,
+          "cc": 3.7144,
+          "current_time": "2026-11-18 01:55:12",
+          "input_len": 131124.4375,
+          "input_token_throughput": 7847.5543,
+          "max_cc": "4",
+          "output_len": 1024.0,
+          "output_throughput": 61.2845,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.588,
+          "qps": 0.0598,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 7908.8388,
+          "single_output_throughput": 61.2845,
+          "total_req": 16.0
+        },
+        "cache": {
+          "D": {
+            "external_hits": 2097975,
+            "external_queries": 2097991,
+            "hbm_hits": 0,
+            "hbm_queries": 2097991
+          },
+          "P": {
+            "external_hits": 0,
+            "external_queries": 2097975,
+            "hbm_hits": 0,
+            "hbm_queries": 2097975
+          }
+        },
+        "concurrency": 4,
+        "detail": "aisbench-results/20261118_015025/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 267343.2905,
+        "input_token_s": 7847.5543,
+        "input_tokens_max": 131127,
+        "input_tokens_min": 131124,
+        "output_token_s": 61.2845,
+        "output_tokens_per_request": 1024,
+        "phase": "1",
+        "request_s": 0.05984814494530956,
+        "requests": 16,
+        "run": "resume0950-pd-c4",
+        "seed": 391210,
+        "tpot_avg_ms": 23.2,
+        "tpot_p90_ms": 26.4,
+        "ttft_avg_ms": 38359.6,
+        "ttft_p90_ms": 48702.8
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 69332.8,
+          "E2EL avg": 61089.5,
+          "E2E_throughput": 8007.987,
+          "E2E_time": 264.0332723,
+          "TPOT SLO_P90": 23.1,
+          "TPOT avg": 21.8,
+          "TTFT P90": 45687.9,
+          "TTFT avg": 38794.6,
+          "cc": 3.7019,
+          "current_time": "2026-11-18 02:00:34",
+          "input_len": 131124.4375,
+          "input_token_throughput": 7945.9342,
+          "max_cc": "4",
+          "output_len": 1024.0,
+          "output_throughput": 62.0528,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.636,
+          "qps": 0.0606,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8007.987,
+          "single_output_throughput": 62.0528,
+          "total_req": 16.0
+        },
+        "cache": {
+          "D": {
+            "external_hits": 2097975,
+            "external_queries": 2097991,
+            "hbm_hits": 0,
+            "hbm_queries": 2097991
+          },
+          "P": {
+            "external_hits": 0,
+            "external_queries": 2097975,
+            "hbm_hits": 0,
+            "hbm_queries": 2097975
+          }
+        },
+        "concurrency": 4,
+        "detail": "aisbench-results/20261118_015549/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 264033.2723,
+        "input_token_s": 7945.9342,
+        "input_tokens_max": 131127,
+        "input_tokens_min": 131124,
+        "output_token_s": 62.0528,
+        "output_tokens_per_request": 1024,
+        "phase": "2",
+        "request_s": 0.060598423299547156,
+        "requests": 16,
+        "run": "resume0950-pd-c4",
+        "seed": 391211,
+        "tpot_avg_ms": 21.8,
+        "tpot_p90_ms": 23.1,
+        "ttft_avg_ms": 38794.6,
+        "ttft_p90_ms": 45687.9
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 71969.4,
+          "E2EL avg": 61990.6,
+          "E2E_throughput": 7866.2007,
+          "E2E_time": 268.79240610000005,
+          "TPOT SLO_P90": 27.1,
+          "TPOT avg": 23.6,
+          "TTFT P90": 45438.3,
+          "TTFT avg": 37797.1,
+          "cc": 3.69,
+          "current_time": "2026-11-18 02:05:58",
+          "input_len": 131124.4375,
+          "input_token_throughput": 7805.2465,
+          "max_cc": "4",
+          "output_len": 1024.0,
+          "output_throughput": 60.9541,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.57,
+          "qps": 0.0595,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 7866.2007,
+          "single_output_throughput": 60.9541,
+          "total_req": 16.0
+        },
+        "cache": {
+          "D": {
+            "external_hits": 2097975,
+            "external_queries": 2097991,
+            "hbm_hits": 0,
+            "hbm_queries": 2097991
+          },
+          "P": {
+            "external_hits": 0,
+            "external_queries": 2097975,
+            "hbm_hits": 0,
+            "hbm_queries": 2097975
+          }
+        },
+        "concurrency": 4,
+        "detail": "aisbench-results/20261118_020109/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 268792.4061,
+        "input_token_s": 7805.2465,
+        "input_tokens_max": 131127,
+        "input_tokens_min": 131124,
+        "output_token_s": 60.9541,
+        "output_tokens_per_request": 1024,
+        "phase": "3",
+        "request_s": 0.059525491185370205,
+        "requests": 16,
+        "run": "resume0950-pd-c4",
+        "seed": 391212,
+        "tpot_avg_ms": 23.6,
+        "tpot_p90_ms": 27.1,
+        "ttft_avg_ms": 37797.1,
+        "ttft_p90_ms": 45438.3
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 36417.9,
+          "E2EL avg": 31704.7,
+          "E2E_throughput": 8122.9012,
+          "E2E_time": 129.1415435,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 36417.1,
+          "TTFT avg": 31703.9,
+          "cc": 1.964,
+          "current_time": "2026-11-18 02:18:17",
+          "input_len": 131124.5,
+          "input_token_throughput": 8122.8393,
+          "max_cc": "2",
+          "output_len": 1.0,
+          "output_throughput": 0.0619,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.714,
+          "qps": 0.0619,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8122.9012,
+          "single_output_throughput": 0.0619,
+          "total_req": 8.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 1048996,
+            "hbm_hits": 0,
+            "hbm_queries": 1048996
+          }
+        },
+        "concurrency": 2,
+        "detail": "aisbench-results/20261118_021547/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 129141.5435,
+        "input_token_s": 8122.8393,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131124,
+        "output_token_s": 0.0619,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.06194753278599307,
+        "requests": 8,
+        "run": "fair8k-p-c2",
+        "seed": 389102,
+        "ttft_avg_ms": 31703.9,
+        "ttft_p90_ms": 36417.1
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 33343.1,
+          "E2EL avg": 33044.4,
+          "E2E_throughput": 7846.5224,
+          "E2E_time": 33.422449500000006,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 33342.3,
+          "TTFT avg": 33043.6,
+          "cc": 1.9774,
+          "current_time": "2026-11-18 02:15:11",
+          "input_len": 131124.0,
+          "input_token_throughput": 7846.4626,
+          "max_cc": "2",
+          "output_len": 1.0,
+          "output_throughput": 0.0598,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.588,
+          "qps": 0.0598,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 7846.5224,
+          "single_output_throughput": 0.0598,
+          "total_req": 2.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 262248,
+            "hbm_hits": 0,
+            "hbm_queries": 262248
+          }
+        },
+        "concurrency": 2,
+        "detail": "aisbench-results/20261118_021416/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 33422.4495,
+        "input_token_s": 7846.4626,
+        "input_tokens_max": 131124,
+        "input_tokens_min": 131124,
+        "output_token_s": 0.0598,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.05984001860785218,
+        "requests": 2,
+        "run": "fair8k-p-c2-quick",
+        "seed": 389101,
+        "ttft_avg_ms": 33043.6,
+        "ttft_p90_ms": 33342.3
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 83772.7,
+          "E2EL avg": 71490.8,
+          "E2E_throughput": 6233.9445,
+          "E2E_time": 84.7923821,
+          "TPOT SLO_P90": 26.3,
+          "TPOT avg": 24.2,
+          "TTFT P90": 60969.6,
+          "TTFT avg": 46764.8,
+          "cc": 3.3725,
+          "current_time": "2026-11-18 02:20:40",
+          "input_len": 131123.75,
+          "input_token_throughput": 6185.6382,
+          "max_cc": "4",
+          "output_len": 1024.0,
+          "output_throughput": 48.3062,
+          "prefill_token_throughput": 9999,
+          "qpm": 2.832,
+          "qps": 0.0472,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 6233.9445,
+          "single_output_throughput": 48.3062,
+          "total_req": 4.0
+        },
+        "cache": {
+          "D": {
+            "external_hits": 524491,
+            "external_queries": 524495,
+            "hbm_hits": 0,
+            "hbm_queries": 524495
+          },
+          "P": {
+            "external_hits": 0,
+            "external_queries": 524491,
+            "hbm_hits": 0,
+            "hbm_queries": 524491
+          }
+        },
+        "concurrency": 4,
+        "detail": "aisbench-results/20261118_021855/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 84792.3821,
+        "input_token_s": 6185.6382,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131123,
+        "output_token_s": 48.3062,
+        "output_tokens_per_request": 1024,
+        "phase": "1",
+        "request_s": 0.047174049141379175,
+        "requests": 4,
+        "run": "fair8k-pd-c4-quick",
+        "seed": 389204,
+        "tpot_avg_ms": 24.2,
+        "tpot_p90_ms": 26.3,
+        "ttft_avg_ms": 46764.8,
+        "ttft_p90_ms": 60969.6
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 17329.0,
+          "E2EL avg": 17329.0,
+          "E2E_throughput": 7566.8151,
+          "E2E_time": 17.3289552,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 17328.1,
+          "TTFT avg": 17328.1,
+          "cc": 1.0,
+          "current_time": "2026-11-18 02:13:40",
+          "input_len": 131124.0,
+          "input_token_throughput": 7566.7574,
+          "max_cc": "1",
+          "output_len": 1.0,
+          "output_throughput": 0.0577,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.462,
+          "qps": 0.0577,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 7566.8151,
+          "single_output_throughput": 0.0577,
+          "total_req": 1.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 131124,
+            "hbm_hits": 0,
+            "hbm_queries": 131124
+          }
+        },
+        "concurrency": 1,
+        "detail": "aisbench-results/20261118_021302/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 17328.9552,
+        "input_token_s": 7566.7574,
+        "input_tokens_max": 131124,
+        "input_tokens_min": 131124,
+        "output_token_s": 0.0577,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.05770688356329757,
+        "requests": 1,
+        "run": "fair8k-warmup",
+        "seed": 389000,
+        "ttft_avg_ms": 17328.1,
+        "ttft_p90_ms": 17328.1
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 230097.1,
+          "E2EL avg": 230097.1,
+          "E2E_throughput": 574.3228,
+          "E2E_time": 230.0970844,
+          "TPOT SLO_P90": 206.2,
+          "TPOT avg": 206.2,
+          "TTFT P90": 19137.2,
+          "TTFT avg": 19137.2,
+          "cc": 1.0,
+          "current_time": "2026-11-18 02:56:19",
+          "input_len": 131126.0,
+          "input_token_throughput": 569.8725,
+          "max_cc": "1",
+          "output_len": 1024.0,
+          "output_throughput": 4.4503,
+          "prefill_token_throughput": 9999,
+          "qpm": 0.258,
+          "qps": 0.0043,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 574.3228,
+          "single_output_throughput": 4.4503,
+          "total_req": 1.0
+        },
+        "cache": {
+          "D": {
+            "external_hits": 131125,
+            "external_queries": 131126,
+            "hbm_hits": 0,
+            "hbm_queries": 131126
+          },
+          "P": {
+            "external_hits": 0,
+            "external_queries": 131125,
+            "hbm_hits": 0,
+            "hbm_queries": 131125
+          }
+        },
+        "concurrency": 1,
+        "detail": "aisbench-results/20261118_025208/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 230097.0844,
+        "input_token_s": 569.8725,
+        "input_tokens_max": 131126,
+        "input_tokens_min": 131126,
+        "output_token_s": 4.4503,
+        "output_tokens_per_request": 1024,
+        "phase": "1",
+        "request_s": 0.004345991617440938,
+        "requests": 1,
+        "run": "d-no-graph-warmup",
+        "seed": 392000,
+        "tpot_avg_ms": 206.2,
+        "tpot_p90_ms": 206.2,
+        "ttft_avg_ms": 19137.2,
+        "ttft_p90_ms": 19137.2
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 30542.9,
+          "E2EL avg": 25146.0,
+          "E2E_throughput": 8221.6758,
+          "E2E_time": 31.8973903,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 30542.2,
+          "TTFT avg": 25145.3,
+          "cc": 1.5767,
+          "current_time": "2026-11-18 03:20:03",
+          "input_len": 131124.0,
+          "input_token_throughput": 8221.6131,
+          "max_cc": "2",
+          "output_len": 1.0,
+          "output_throughput": 0.0627,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.7620000000000005,
+          "qps": 0.0627,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8221.6758,
+          "single_output_throughput": 0.0627,
+          "total_req": 2.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 262248,
+            "hbm_hits": 0,
+            "hbm_queries": 262248
+          }
+        },
+        "concurrency": 2,
+        "detail": "aisbench-results/20261118_031910/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 31897.3903,
+        "input_token_s": 8221.6131,
+        "input_tokens_max": 131124,
+        "input_tokens_min": 131124,
+        "output_token_s": 0.0627,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.06270105426148295,
+        "requests": 2,
+        "run": "final-best-p-c2-quick",
+        "seed": 394102,
+        "ttft_avg_ms": 25145.3,
+        "ttft_p90_ms": 30542.2
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 79625.2,
+          "E2EL avg": 62961.8,
+          "E2E_throughput": 6357.0102,
+          "E2E_time": 83.1515107,
+          "TPOT SLO_P90": 20.6,
+          "TPOT avg": 20.5,
+          "TTFT P90": 58669.9,
+          "TTFT avg": 41965.9,
+          "cc": 3.0288,
+          "current_time": "2026-11-18 03:22:24",
+          "input_len": 131124.75,
+          "input_token_throughput": 6307.7507,
+          "max_cc": "4",
+          "output_len": 1024.0,
+          "output_throughput": 49.2595,
+          "prefill_token_throughput": 9999,
+          "qpm": 2.8859999999999997,
+          "qps": 0.0481,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 6357.0102,
+          "single_output_throughput": 49.2595,
+          "total_req": 4.0
+        },
+        "cache": {
+          "D": {
+            "external_hits": 524495,
+            "external_queries": 524499,
+            "hbm_hits": 0,
+            "hbm_queries": 524499
+          },
+          "P": {
+            "external_hits": 0,
+            "external_queries": 524495,
+            "hbm_hits": 0,
+            "hbm_queries": 524495
+          }
+        },
+        "concurrency": 4,
+        "detail": "aisbench-results/20261118_032041/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 83151.5107,
+        "input_token_s": 6307.7507,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131124,
+        "output_token_s": 49.2595,
+        "output_tokens_per_request": 1024,
+        "phase": "1",
+        "request_s": 0.04810495884351985,
+        "requests": 4,
+        "run": "final-best-pd-c4-quick",
+        "seed": 394204,
+        "tpot_avg_ms": 20.5,
+        "tpot_p90_ms": 20.6,
+        "ttft_avg_ms": 41965.9,
+        "ttft_p90_ms": 58669.9
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 32868.2,
+          "E2EL avg": 29093.4,
+          "E2E_throughput": 8578.6036,
+          "E2E_time": 122.2813235,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 32867.2,
+          "TTFT avg": 29092.4,
+          "cc": 1.9034,
+          "current_time": "2026-11-18 04:28:00",
+          "input_len": 131124.375,
+          "input_token_throughput": 8578.5382,
+          "max_cc": "2",
+          "output_len": 1.0,
+          "output_throughput": 0.0654,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.924,
+          "qps": 0.0654,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8578.6036,
+          "single_output_throughput": 0.0654,
+          "total_req": 8.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 1048995,
+            "hbm_hits": 0,
+            "hbm_queries": 1048995
+          }
+        },
+        "concurrency": 2,
+        "detail": "aisbench-results/20261118_042537/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 122281.3235,
+        "input_token_s": 8578.5382,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131124,
+        "output_token_s": 0.0654,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.06542290981991211,
+        "requests": 8,
+        "run": "until1240-p-c2-r0",
+        "seed": 402000,
+        "ttft_avg_ms": 29092.4,
+        "ttft_p90_ms": 32867.2
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 32888.0,
+          "E2EL avg": 29107.3,
+          "E2E_throughput": 8574.4676,
+          "E2E_time": 122.3403079,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 32887.1,
+          "TTFT avg": 29106.4,
+          "cc": 1.9034,
+          "current_time": "2026-11-18 04:31:01",
+          "input_len": 131124.375,
+          "input_token_throughput": 8574.4022,
+          "max_cc": "2",
+          "output_len": 1.0,
+          "output_throughput": 0.0654,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.924,
+          "qps": 0.0654,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8574.4676,
+          "single_output_throughput": 0.0654,
+          "total_req": 8.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 1048995,
+            "hbm_hits": 0,
+            "hbm_queries": 1048995
+          }
+        },
+        "concurrency": 2,
+        "detail": "aisbench-results/20261118_042838/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 122340.3079,
+        "input_token_s": 8574.4022,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131124,
+        "output_token_s": 0.0654,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.0653913672224786,
+        "requests": 8,
+        "run": "until1240-p-c2-r1",
+        "seed": 402001,
+        "ttft_avg_ms": 29106.4,
+        "ttft_p90_ms": 32887.1
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 32869.2,
+          "E2EL avg": 29089.9,
+          "E2E_throughput": 8579.7193,
+          "E2E_time": 122.2653057,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 32868.2,
+          "TTFT avg": 29089.0,
+          "cc": 1.9034,
+          "current_time": "2026-11-18 04:34:00",
+          "input_len": 131124.25,
+          "input_token_throughput": 8579.6538,
+          "max_cc": "2",
+          "output_len": 1.0,
+          "output_throughput": 0.0654,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.924,
+          "qps": 0.0654,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8579.7193,
+          "single_output_throughput": 0.0654,
+          "total_req": 8.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 1048994,
+            "hbm_hits": 0,
+            "hbm_queries": 1048994
+          }
+        },
+        "concurrency": 2,
+        "detail": "aisbench-results/20261118_043137/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 122265.3057,
+        "input_token_s": 8579.6538,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131123,
+        "output_token_s": 0.0654,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.0654314807802423,
+        "requests": 8,
+        "run": "until1240-p-c2-r2",
+        "seed": 402002,
+        "ttft_avg_ms": 29089.0,
+        "ttft_p90_ms": 32868.2
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 32870.3,
+          "E2EL avg": 29104.8,
+          "E2E_throughput": 8574.242,
+          "E2E_time": 122.34341,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 32869.4,
+          "TTFT avg": 29103.9,
+          "cc": 1.9032,
+          "current_time": "2026-11-18 04:19:43",
+          "input_len": 131124.25,
+          "input_token_throughput": 8574.1766,
+          "max_cc": "2",
+          "output_len": 1.0,
+          "output_throughput": 0.0654,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.924,
+          "qps": 0.0654,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8574.242,
+          "single_output_throughput": 0.0654,
+          "total_req": 8.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 1048994,
+            "hbm_hits": 0,
+            "hbm_queries": 1048994
+          }
+        },
+        "concurrency": 2,
+        "detail": "aisbench-results/20261118_041720/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 122343.41,
+        "input_token_s": 8574.1766,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131124,
+        "output_token_s": 0.0654,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.0653897091800858,
+        "requests": 8,
+        "run": "until1240-p-c2-recovery0",
+        "seed": 404000,
+        "ttft_avg_ms": 29103.9,
+        "ttft_p90_ms": 32869.4
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 32886.4,
+          "E2EL avg": 29095.0,
+          "E2E_throughput": 8578.4451,
+          "E2E_time": 122.2833492,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 32885.4,
+          "TTFT avg": 29094.1,
+          "cc": 1.9035,
+          "current_time": "2026-11-18 04:22:41",
+          "input_len": 131124.125,
+          "input_token_throughput": 8578.3797,
+          "max_cc": "2",
+          "output_len": 1.0,
+          "output_throughput": 0.0654,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.924,
+          "qps": 0.0654,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8578.4451,
+          "single_output_throughput": 0.0654,
+          "total_req": 8.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 1048993,
+            "hbm_hits": 0,
+            "hbm_queries": 1048993
+          }
+        },
+        "concurrency": 2,
+        "detail": "aisbench-results/20261118_042018/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 122283.3492,
+        "input_token_s": 8578.3797,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131123,
+        "output_token_s": 0.0654,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.06542182604857866,
+        "requests": 8,
+        "run": "until1240-p-c2-recovery1",
+        "seed": 404001,
+        "ttft_avg_ms": 29094.1,
+        "ttft_p90_ms": 32885.4
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 61148.4,
+          "E2EL avg": 55617.1,
+          "E2E_throughput": 8640.6171,
+          "E2E_time": 242.8073092,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 61147.5,
+          "TTFT avg": 55616.2,
+          "cc": 3.6649,
+          "current_time": "2026-11-18 03:46:20",
+          "input_len": 131124.3125,
+          "input_token_throughput": 8640.5513,
+          "max_cc": "4",
+          "output_len": 1.0,
+          "output_throughput": 0.0659,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.954,
+          "qps": 0.0659,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8640.6171,
+          "single_output_throughput": 0.0659,
+          "total_req": 16.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 2097989,
+            "hbm_hits": 0,
+            "hbm_queries": 2097989
+          }
+        },
+        "concurrency": 4,
+        "detail": "aisbench-results/20261118_034157/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 242807.3092,
+        "input_token_s": 8640.5513,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131124,
+        "output_token_s": 0.0659,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.0658958746040912,
+        "requests": 16,
+        "run": "until1240-p-c4",
+        "seed": 401104,
+        "ttft_avg_ms": 55616.2,
+        "ttft_p90_ms": 61147.5
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 120439.3,
+          "E2EL avg": 108170.6,
+          "E2E_throughput": 8677.7646,
+          "E2E_time": 483.53593109999997,
+          "TPOT SLO_P90": 99999,
+          "TPOT avg": 99999,
+          "TTFT P90": 120438.3,
+          "TTFT avg": 108169.7,
+          "cc": 7.1586,
+          "current_time": "2026-11-18 04:05:10",
+          "input_len": 131124.3438,
+          "input_token_throughput": 8677.6984,
+          "max_cc": "8",
+          "output_len": 1.0,
+          "output_throughput": 0.0662,
+          "prefill_token_throughput": 9999,
+          "qpm": 3.9719999999999995,
+          "qps": 0.0662,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 8677.7646,
+          "single_output_throughput": 0.0662,
+          "total_req": 32.0
+        },
+        "cache": {
+          "P": {
+            "external_hits": 0,
+            "external_queries": 4195979,
+            "hbm_hits": 0,
+            "hbm_queries": 4195979
+          }
+        },
+        "concurrency": 8,
+        "detail": "aisbench-results/20261118_035646/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 483535.9311,
+        "input_token_s": 8677.6984,
+        "input_tokens_max": 131126,
+        "input_tokens_min": 131123,
+        "output_token_s": 0.0662,
+        "output_tokens_per_request": 1,
+        "phase": "1",
+        "request_s": 0.06617915638079455,
+        "requests": 32,
+        "run": "until1240-p-c8",
+        "seed": 401108,
+        "ttft_avg_ms": 108169.7,
+        "ttft_p90_ms": 120438.3
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 39446.1,
+          "E2EL avg": 39446.1,
+          "E2E_throughput": 3350.0935,
+          "E2E_time": 39.446063699999996,
+          "TPOT SLO_P90": 20.5,
+          "TPOT avg": 20.5,
+          "TTFT P90": 18464.8,
+          "TTFT avg": 18464.8,
+          "cc": 1.0,
+          "current_time": "2026-11-18 04:25:01",
+          "input_len": 131124.0,
+          "input_token_throughput": 3324.134,
+          "max_cc": "1",
+          "output_len": 1024.0,
+          "output_throughput": 25.9595,
+          "prefill_token_throughput": 9999,
+          "qpm": 1.524,
+          "qps": 0.0254,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 3350.0935,
+          "single_output_throughput": 25.9595,
+          "total_req": 1.0
+        },
+        "cache": {
+          "D": {
+            "external_hits": 131123,
+            "external_queries": 131124,
+            "hbm_hits": 0,
+            "hbm_queries": 131124
+          },
+          "P": {
+            "external_hits": 0,
+            "external_queries": 131123,
+            "hbm_hits": 0,
+            "hbm_queries": 131123
+          }
+        },
+        "concurrency": 1,
+        "detail": "aisbench-results/20261118_042400/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 39446.0637,
+        "input_token_s": 3324.134,
+        "input_tokens_max": 131124,
+        "input_tokens_min": 131124,
+        "output_token_s": 25.9595,
+        "output_tokens_per_request": 1024,
+        "phase": "1",
+        "request_s": 0.025351071975275447,
+        "requests": 1,
+        "run": "until1240-pd-recovery-final-quick",
+        "seed": 404101,
+        "tpot_avg_ms": 20.5,
+        "tpot_p90_ms": 20.5,
+        "ttft_avg_ms": 18464.8,
+        "ttft_p90_ms": 18464.8
       }
     ],
     "limitations": [
-      "8192 与旧版近邻对照之间软件、DCP、KV Offload、MTP 等不同，不能从跨配置比值归因。",
-      "同步采样的通信耗时受对端到达时差影响，不等同物理带宽，采样 TTFT 不用于性能对照。",
-      "共享记录不含内部地址、目录、请求原文或私密服务器日志。纯P三轮完成；PD完整三轮验收未完成。最小恢复复验不能证明罕见设备停滞已解决，未做独立输出精度或热DRAM前缀复用验证，未达到基础PD吞吐。"
+      "D输出事件同步停滞多次复现；具体故障kernel和底层原因仍未确认，未声称稳定性修复。",
+      "NONE图模式仅完成单请求探针，TPOT206.2ms后筛除；异步调度首个长请求不完整，均无正式或长跑验收。",
+      "PD C8/32在FIN10后停滞；恢复后C4/32又在FIN24后停滞，均无有效整轮吞吐。恢复与并行纯P补测有共享磁盘IO，不当作严格参数收益。",
+      "当前正式72条来自不同时间段，后续D仍停滞；P并发4等新点是单轮摸测，不替代三轮基线。",
+      "没有独立输出精度、热DRAM前缀复用或与基础PD同版本同拓扑的严格对照；历史基础PD版本、并行与MTP不同。",
+      "公开材料保留全部数值与原始Common Metric，仅排除服务器身份、原始请求、凭据及私有日志。"
     ],
     "minimal_recovery_validation": {
       "actual_input_max": 131125,
@@ -1429,6 +2538,7 @@
       "cache_validation": "P and D local HBM hits zero; P external hits zero; D external is current Push",
       "controller_precheck_error": "Initial coordinator read remote D PID in P local proc namespace and exited before sending requests; corrected to D-local identity heartbeat with clock-skew allowance; no model restart needed for this controller correction",
       "current_scope": "Minimal validation complete; user cancelled queued fairness tuning and full follow-up; no automatic continuation; all service queues empty; auxiliary experiment processes stopped",
+      "historical_scope": "早前用户要求的最小停止检查，后已恢复继续实验；最新状态见deadline_continuation和formal_summary。",
       "input_token_s": 6030.0004,
       "interpretation": "Comparable quick baseline was47.1051; do not compare four-request tail amortization directly to sixteen-request formal throughput62.0288",
       "output_per_request": 1024,
@@ -1574,9 +2684,15 @@
         }
       ]
     },
-    "protocol": "原 AISBench 131072 名义输入，实测约 131124；输出 1 或 1024，诊断并发 1、每轮 1 请求。有效轮校验输入范围、精确输出、本地 HBM 与 P 外部前缀均为零，D 外部仅是当次 Push。8K 为原历史对照，同一 P 容器和物理卡，仅替换 P 启动 token 预算；D、Proxy 与 Meta 保持原进程。 最终复验纯P C2／8请求×3轮，seed 387110～387112；PD C4／16请求，首轮seed387210通过，第二轮seed387211停滞而中止，第三轮未运行。两者不混用快速点首尾摊销；各轮P90不等于全体请求池化P90。",
+    "pipeline_capacity_inference": {
+      "calculation": "8524.5572 * 1024 / 131124",
+      "estimated_output_token_s": 66.57169223635643,
+      "interpretation": "Approximate P-side supply from separate P-only batches, not a strict bound or proof of bottleneck; suggests P steady-state efficiency remains relevant. Requires same-version/same-topology baseline and profiling to attribute remaining gap.",
+      "measured_pd_formal_output_token_s": 61.43046666666667
+    },
+    "protocol": "原 AISBench 131072 名义输入，实测约 131124；输出 1 或 1024，诊断并发 1、每轮 1 请求。有效轮校验输入范围、精确输出、本地 HBM 与 P 外部前缀均为零，D 外部仅是当次 Push。8K 为原历史对照，同一 P 容器和物理卡，仅替换 P 启动 token 预算；D、Proxy 与 Meta 保持原进程。 最终复验纯P C2／8请求×3轮，seed 387110～387112；PD C4／16请求，首轮seed387210通过，第二轮seed387211停滞而中止，第三轮未运行。两者不混用快速点首尾摊销；各轮P90不等于全体请求池化P90。 后续原D新三轮C4/16分别seed391210～391212，48/48完整，与原P24条合为72条配置验收记录，非一次连续72请求稳定性通过。截止前并发及填充点单列，不并入正式均值。",
     "qsa_residency_tradeoff": {
-      "future_scope": "32K budget was rejected; D process recovered and minimal C4 validation passed. Fair-prefill thresholds8192/4096 were prepared but not executed before user requested stop. No performance claims for fairness tuning.",
+      "future_scope": "32K预算与8K公平步进均未胜出；已恢复16K/QSA独立/32GiB并同步顶层。未来优先定位D同步停滞，再做同版本同拓扑对照；不能宣称已达到历史基础PD性能。",
       "global_pp1_independent_layers": [
         24,
         27,
@@ -1598,6 +2714,29 @@
         23
       ],
       "scope": "其他层继续复用与Offload；QSA也继续发布外部缓存，仅跳过本请求已有历史的重复读回"
+    },
+    "runtime_at_export": {
+      "roles": {
+        "D": {
+          "health_http": 200,
+          "running": 0.0,
+          "waiting": 0.0
+        },
+        "Meta": {
+          "alloc_failures_total": 15.0,
+          "batch_alloc_failures_total": 6.0,
+          "health_http": 200
+        },
+        "P": {
+          "health_http": 200,
+          "running": 0.0,
+          "waiting": 0.0
+        },
+        "Proxy": {
+          "health_http": 200
+        }
+      },
+      "time": "2026-11-18T12:37:55.166087+08:00"
     }
   },
   "created_at": "2026-11-18",
@@ -1654,6 +2793,21 @@
       "ref": "artifact:case-qwen38-fm16-layerwise-offload-128k-loop-20261118/results-minimal-stop.csv",
       "role": "30行指标账本，追加恢复预热与并发4最小验证；未执行的调参和正式续跑无成绩",
       "sha256": "8a10c92b45d68aebcf47fe19608777cedc3fb6005386d8b93a4ce8542dbf1cd1"
+    },
+    {
+      "ref": "artifact:case-qwen38-fm16-layerwise-offload-128k-loop-20261118/validated-results-deadline-final.json",
+      "role": "全部完整逐轮数值、原始Common Metric、缓存与失败边界；不含私有现场",
+      "sha256": "36a9cb5bdf20ecb3b354058c8f02e5a1aef4c75ed90644361edd51686e3188ba"
+    },
+    {
+      "ref": "artifact:case-qwen38-fm16-layerwise-offload-128k-loop-20261118/results-deadline-final.csv",
+      "role": "含历史对照、有效摸点、正式三轮与失败空成绩的完整账本",
+      "sha256": "26438f6abb4d3a30f49d8b6e2a97e5788490f7b859dd3e7dd572550046c208c1"
+    },
+    {
+      "ref": "artifact:case-qwen38-fm16-layerwise-offload-128k-loop-20261118/all-validated-rounds-deadline-final.csv",
+      "role": "逐轮完整记录，带run/phase/seed；预热、诊断和摸点不混入正式均值",
+      "sha256": "d88ec114c23af61ae55318658f6341b6e9e2b30d220f7f4ca929073e88e7105d"
     }
   ],
   "id": "case-qwen38-fm16-layerwise-offload-128k-loop-20261118",
@@ -1665,7 +2819,7 @@
   ],
   "schema_version": 1,
   "status": "partial",
-  "summary": "QSA独立驻留在16K/32GiB控制组使纯P提速9.1073倍；P并发2三轮均值8524.5572输入token/s。PD并发4/16首轮62.0288输出token/s，第二轮D停滞。D按原命令进程级恢复后，本轮只做C4/4最小复验：4/4完整、47.0904输出token/s、TTFT P90 58.6067秒、TPOT P90 24.3ms；按用户要求停止实验并保持服务空转，未完成三轮PD验收。",
+  "summary": "QSA独立驻留的单变量对照使纯P提速9.1073倍；P C2/8三轮均值8524.5572输入token/s，原D C4/16新三轮均值61.4304666667输出token/s。D在后续长跑再次输出同步停滞；NONE图解码成本过高，异步调度仍停滞，已恢复原图/同步参数。顶层P与32GiB配置已同步，保留完整逐轮指标；短批次通过不代表长期稳定。",
   "supersedes": [],
   "tags": [
     "qwen3.8-flash-next",

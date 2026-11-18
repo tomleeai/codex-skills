@@ -253,9 +253,9 @@
       "id": "case-qwen38-fm16-layerwise-offload-128k-loop-20261118",
       "kind": "case",
       "path": "cases/case-qwen38-fm16-layerwise-offload-128k-loop-20261118.json",
-      "revision": "0f5fc96f4d7f9b3295ab4f2711b11f88345f60d43a84eee0d83a330882771882",
+      "revision": "de3e7484ee37abf9940c78947ea5f4244139d7dfe66714aac1cc91c1db49b579",
       "status": "partial",
-      "summary": "QSA独立驻留在16K/32GiB控制组使纯P提速9.1073倍；P并发2三轮均值8524.5572输入token/s。PD并发4/16首轮62.0288输出token/s，第二轮D停滞。D按原命令进程级恢复后，本轮只做C4/4最小复验：4/4完整、47.0904输出token/s、TTFT P90 58.6067秒、TPOT P90 24.3ms；按用户要求停止实验并保持服务空转，未完成三轮PD验收。",
+      "summary": "QSA独立驻留的单变量对照使纯P提速9.1073倍；P C2/8三轮均值8524.5572输入token/s，原D C4/16新三轮均值61.4304666667输出token/s。D在后续长跑再次输出同步停滞；NONE图解码成本过高，异步调度仍停滞，已恢复原图/同步参数。顶层P与32GiB配置已同步，保留完整逐轮指标；短批次通过不代表长期稳定。",
       "tags": [
         "qwen3.8-flash-next",
         "ascend950dt",
