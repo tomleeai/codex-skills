@@ -1,0 +1,7 @@
+case,round,seed,concurrency,requests,input_tokens_min,input_tokens_max,output_tokens_per_request,input_token_s,output_token_s,ttft_avg_ms,ttft_p90_ms,tpot_avg_ms,tpot_p90_ms,duration_ms,source
+p-only,1,1795028316,2,8,131123,131126,1,8346.9082,0.0637,29542.5,31966.9,,,125674.6778,.work/bench-p-only-20261118-185835-712170/1/result.json
+p-only,2,1795028317,2,8,131124,131126,1,8346.9528,0.0637,29540.8,31966.4,,,125674.0067,.work/bench-p-only-20261118-185835-712170/2/result.json
+p-only,3,1795028930,2,8,131124,131125,1,8345.9151,0.0636,29545.2,31964.0,,,125689.3926,.work/p-formal-third-local/1/result.json
+pd-zero,1,1795029109,4,16,131124,131127,1024,7673.8142,59.9276,45549.3,51019.4,15.5,19.2,273396.7688,.work/pd-formal-local/1/result.json
+pd-zero,2,1795029110,4,16,131124,131127,1024,7844.2156,61.2583,42914.6,49929.4,18.9,23.7,267457.59,.work/pd-formal-local/2/result.json
+pd-zero,3,1795029111,4,16,131124,131127,1024,7620.6355,59.5123,42852.6,49631.5,18.5,24.1,275304.3367,.work/pd-formal-local/3/result.json

@@ -1,0 +1,486 @@
+{
+  "date": "2026-11-19",
+  "features": "TP4 PP2 DP1 DCP1 MTP3; P KV offload; MemCache layerwise; Mooncake V2 layerwise Push",
+  "records": [
+    {
+      "phase": "1",
+      "seed": 1795028316,
+      "concurrency": 2,
+      "requests": 8,
+      "input_tokens_min": 131123,
+      "input_tokens_max": 131126,
+      "output_tokens_per_request": 1,
+      "duration_ms": 125674.6778,
+      "input_token_s": 8346.9082,
+      "output_token_s": 0.0637,
+      "request_s": 0.06365641941594061,
+      "ttft_avg_ms": 29542.5,
+      "ttft_p90_ms": 31966.9,
+      "cache": {
+        "p": {
+          "hbm_hits": 0,
+          "hbm_queries": 1048995,
+          "external_hits": 0,
+          "external_queries": 1048995
+        }
+      },
+      "aisbench_common": {
+        "current_time": "2026-11-18 19:01:34",
+        "input_len": 131124.375,
+        "output_len": 1.0,
+        "total_req": 8.0,
+        "max_cc": "2",
+        "cc": 1.8806,
+        "rr": "0",
+        "repeat_rate": 0.0,
+        "TTFT avg": 29542.5,
+        "TTFT P90": 31966.9,
+        "TPOT avg": 99999,
+        "TPOT SLO_P90": 99999,
+        "E2E_time": 125.67467780000001,
+        "output_throughput": 0.0637,
+        "single_output_throughput": 0.0637,
+        "E2E_throughput": 8346.9719,
+        "single_E2E_throughput": 8346.9719,
+        "qps": 0.0637,
+        "qpm": 3.8220000000000005,
+        "input_token_throughput": 8346.9082,
+        "prefill_token_throughput": 9999,
+        "E2EL avg": 29543.3,
+        "E2EL P90": 31967.7
+      },
+      "detail": "aisbench-results/20261118_185908/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "case": "p-only",
+      "source": ".work/bench-p-only-20261118-185835-712170/1/result.json",
+      "round": 1
+    },
+    {
+      "phase": "2",
+      "seed": 1795028317,
+      "concurrency": 2,
+      "requests": 8,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131126,
+      "output_tokens_per_request": 1,
+      "duration_ms": 125674.0067,
+      "input_token_s": 8346.9528,
+      "output_token_s": 0.0637,
+      "request_s": 0.06365675934162765,
+      "ttft_avg_ms": 29540.8,
+      "ttft_p90_ms": 31966.4,
+      "cache": {
+        "p": {
+          "hbm_hits": 0,
+          "hbm_queries": 1048995,
+          "external_hits": 0,
+          "external_queries": 1048995
+        }
+      },
+      "aisbench_common": {
+        "current_time": "2026-11-18 19:04:32",
+        "input_len": 131124.375,
+        "output_len": 1.0,
+        "total_req": 8.0,
+        "max_cc": "2",
+        "cc": 1.8805,
+        "rr": "0",
+        "repeat_rate": 0.0,
+        "TTFT avg": 29540.8,
+        "TTFT P90": 31966.4,
+        "TPOT avg": 99999,
+        "TPOT SLO_P90": 99999,
+        "E2E_time": 125.6740067,
+        "output_throughput": 0.0637,
+        "single_output_throughput": 0.0637,
+        "E2E_throughput": 8347.0164,
+        "single_E2E_throughput": 8347.0164,
+        "qps": 0.0637,
+        "qpm": 3.8220000000000005,
+        "input_token_throughput": 8346.9528,
+        "prefill_token_throughput": 9999,
+        "E2EL avg": 29541.6,
+        "E2EL P90": 31967.2
+      },
+      "detail": "aisbench-results/20261118_190206/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "case": "p-only",
+      "source": ".work/bench-p-only-20261118-185835-712170/2/result.json",
+      "round": 2
+    },
+    {
+      "phase": "1",
+      "seed": 1795028930,
+      "concurrency": 2,
+      "requests": 8,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131125,
+      "output_tokens_per_request": 1,
+      "duration_ms": 125689.3926,
+      "input_token_s": 8345.9151,
+      "output_token_s": 0.0636,
+      "request_s": 0.06364896698530151,
+      "ttft_avg_ms": 29545.2,
+      "ttft_p90_ms": 31964.0,
+      "cache": {
+        "p": {
+          "hbm_hits": 0,
+          "hbm_queries": 1048993,
+          "external_hits": 0,
+          "external_queries": 1048993
+        }
+      },
+      "aisbench_common": {
+        "current_time": "2026-11-18 19:11:47",
+        "input_len": 131124.125,
+        "output_len": 1.0,
+        "total_req": 8.0,
+        "max_cc": "2",
+        "cc": 1.8806,
+        "rr": "0",
+        "repeat_rate": 0.0,
+        "TTFT avg": 29545.2,
+        "TTFT P90": 31964.0,
+        "TPOT avg": 99999,
+        "TPOT SLO_P90": 99999,
+        "E2E_time": 125.6893926,
+        "output_throughput": 0.0636,
+        "single_output_throughput": 0.0636,
+        "E2E_throughput": 8345.9787,
+        "single_E2E_throughput": 8345.9787,
+        "qps": 0.0636,
+        "qpm": 3.8160000000000003,
+        "input_token_throughput": 8345.9151,
+        "prefill_token_throughput": 9999,
+        "E2EL avg": 29546.1,
+        "E2EL P90": 31964.9
+      },
+      "detail": "aisbench-results/20261118_190921/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "case": "p-only",
+      "source": ".work/p-formal-third-local/1/result.json",
+      "round": 3
+    },
+    {
+      "phase": "1",
+      "seed": 1795029109,
+      "concurrency": 4,
+      "requests": 16,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131127,
+      "output_tokens_per_request": 1024,
+      "duration_ms": 273396.7688,
+      "input_token_s": 7673.8142,
+      "output_token_s": 59.9276,
+      "request_s": 0.05852300329015446,
+      "ttft_avg_ms": 45549.3,
+      "ttft_p90_ms": 51019.4,
+      "cache": {
+        "p": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097980,
+          "external_hits": 0,
+          "external_queries": 2097980
+        },
+        "d": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097996,
+          "external_hits": 2097980,
+          "external_queries": 2097996
+        }
+      },
+      "aisbench_common": {
+        "current_time": "2026-11-18 19:23:07",
+        "input_len": 131124.75,
+        "output_len": 1024.0,
+        "total_req": 16.0,
+        "max_cc": "4",
+        "cc": 3.5914,
+        "rr": "0",
+        "repeat_rate": 0.0,
+        "TTFT avg": 45549.3,
+        "TTFT P90": 51019.4,
+        "TPOT avg": 15.5,
+        "TPOT SLO_P90": 19.2,
+        "E2E_time": 273.3967688,
+        "output_throughput": 59.9276,
+        "single_output_throughput": 59.9276,
+        "E2E_throughput": 7733.7417,
+        "single_E2E_throughput": 7733.7417,
+        "qps": 0.0585,
+        "qpm": 3.5100000000000002,
+        "input_token_throughput": 7673.8142,
+        "prefill_token_throughput": 9999,
+        "E2EL avg": 61367.4,
+        "E2EL P90": 69361.7
+      },
+      "tpot_avg_ms": 15.5,
+      "tpot_p90_ms": 19.2,
+      "detail": "aisbench-results/20261118_191813/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "case": "pd-zero",
+      "source": ".work/pd-formal-local/1/result.json",
+      "round": 1
+    },
+    {
+      "phase": "2",
+      "seed": 1795029110,
+      "concurrency": 4,
+      "requests": 16,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131127,
+      "output_tokens_per_request": 1024,
+      "duration_ms": 267457.59,
+      "input_token_s": 7844.2156,
+      "output_token_s": 61.2583,
+      "request_s": 0.05982256850516001,
+      "ttft_avg_ms": 42914.6,
+      "ttft_p90_ms": 49929.4,
+      "cache": {
+        "p": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097979,
+          "external_hits": 0,
+          "external_queries": 2097979
+        },
+        "d": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097995,
+          "external_hits": 2097979,
+          "external_queries": 2097995
+        }
+      },
+      "aisbench_common": {
+        "current_time": "2026-11-18 19:28:29",
+        "input_len": 131124.6875,
+        "output_len": 1024.0,
+        "total_req": 16.0,
+        "max_cc": "4",
+        "cc": 3.7253,
+        "rr": "0",
+        "repeat_rate": 0.0,
+        "TTFT avg": 42914.6,
+        "TTFT P90": 49929.4,
+        "TPOT avg": 18.9,
+        "TPOT SLO_P90": 23.7,
+        "E2E_time": 267.45759000000004,
+        "output_throughput": 61.2583,
+        "single_output_throughput": 61.2583,
+        "E2E_throughput": 7905.4739,
+        "single_E2E_throughput": 7905.4739,
+        "qps": 0.0598,
+        "qpm": 3.588,
+        "input_token_throughput": 7844.2156,
+        "prefill_token_throughput": 9999,
+        "E2EL avg": 62272.8,
+        "E2EL P90": 75471.4
+      },
+      "tpot_avg_ms": 18.9,
+      "tpot_p90_ms": 23.7,
+      "detail": "aisbench-results/20261118_192341/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "case": "pd-zero",
+      "source": ".work/pd-formal-local/2/result.json",
+      "round": 2
+    },
+    {
+      "phase": "3",
+      "seed": 1795029111,
+      "concurrency": 4,
+      "requests": 16,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131127,
+      "output_tokens_per_request": 1024,
+      "duration_ms": 275304.3367,
+      "input_token_s": 7620.6355,
+      "output_token_s": 59.5123,
+      "request_s": 0.05811750076946754,
+      "ttft_avg_ms": 42852.6,
+      "ttft_p90_ms": 49631.5,
+      "cache": {
+        "p": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097978,
+          "external_hits": 0,
+          "external_queries": 2097978
+        },
+        "d": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097994,
+          "external_hits": 2097978,
+          "external_queries": 2097994
+        }
+      },
+      "aisbench_common": {
+        "current_time": "2026-11-18 19:34:01",
+        "input_len": 131124.625,
+        "output_len": 1024.0,
+        "total_req": 16.0,
+        "max_cc": "4",
+        "cc": 3.5878,
+        "rr": "0",
+        "repeat_rate": 0.0,
+        "TTFT avg": 42852.6,
+        "TTFT P90": 49631.5,
+        "TPOT avg": 18.5,
+        "TPOT SLO_P90": 24.1,
+        "E2E_time": 275.30433669999996,
+        "output_throughput": 59.5123,
+        "single_output_throughput": 59.5123,
+        "E2E_throughput": 7680.1478,
+        "single_E2E_throughput": 7680.1478,
+        "qps": 0.0581,
+        "qpm": 3.4859999999999998,
+        "input_token_throughput": 7620.6355,
+        "prefill_token_throughput": 9999,
+        "E2EL avg": 61734.1,
+        "E2EL P90": 74431.1
+      },
+      "tpot_avg_ms": 18.5,
+      "tpot_p90_ms": 24.1,
+      "detail": "aisbench-results/20261118_192904/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+      "case": "pd-zero",
+      "source": ".work/pd-formal-local/3/result.json",
+      "round": 3
+    }
+  ],
+  "summary": {
+    "p-only": {
+      "requests": 24,
+      "rounds": 3,
+      "metrics": {
+        "input_token_s": {
+          "mean": 8346.592033333332,
+          "min": 8345.9151,
+          "max": 8346.9528
+        },
+        "output_token_s": {
+          "mean": 0.06366666666666668,
+          "min": 0.0636,
+          "max": 0.0637
+        },
+        "ttft_avg_ms": {
+          "mean": 29542.833333333332,
+          "min": 29540.8,
+          "max": 29545.2
+        },
+        "ttft_p90_ms": {
+          "mean": 31965.766666666666,
+          "min": 31964.0,
+          "max": 31966.9
+        }
+      }
+    },
+    "pd-zero": {
+      "requests": 48,
+      "rounds": 3,
+      "metrics": {
+        "input_token_s": {
+          "mean": 7712.8884333333335,
+          "min": 7620.6355,
+          "max": 7844.2156
+        },
+        "output_token_s": {
+          "mean": 60.232733333333336,
+          "min": 59.5123,
+          "max": 61.2583
+        },
+        "ttft_avg_ms": {
+          "mean": 43772.166666666664,
+          "min": 42852.6,
+          "max": 45549.3
+        },
+        "ttft_p90_ms": {
+          "mean": 50193.433333333334,
+          "min": 49631.5,
+          "max": 51019.4
+        },
+        "tpot_avg_ms": {
+          "mean": 17.633333333333333,
+          "min": 15.5,
+          "max": 18.9
+        },
+        "tpot_p90_ms": {
+          "mean": 22.333333333333332,
+          "min": 19.2,
+          "max": 24.1
+        }
+      }
+    }
+  },
+  "limits": [
+    "Finite-batch token/count/cache validation; not independent accuracy or indefinite stability certification",
+    "Client AF_UNIX long path and NFS Remote I/O batches excluded; completed earlier formal rounds preserved",
+    "No model service restart required"
+  ],
+  "warmup_records": [
+    {
+      "phase": "warmup",
+      "seed": 1795029108,
+      "concurrency": 4,
+      "requests": 16,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131126,
+      "output_tokens_per_request": 1024,
+      "duration_ms": 271156.4606,
+      "input_token_s": 7737.1972,
+      "output_token_s": 60.4227,
+      "request_s": 0.05900652326186913,
+      "ttft_avg_ms": 35879.2,
+      "ttft_p90_ms": 46266.2,
+      "cache": {
+        "p": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097975,
+          "external_hits": 0,
+          "external_queries": 2097975
+        },
+        "d": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097991,
+          "external_hits": 2097975,
+          "external_queries": 2097991
+        }
+      },
+      "aisbench_common": {
+        "current_time": "2026-11-18 19:17:38",
+        "input_len": 131124.4375,
+        "output_len": 1024.0,
+        "total_req": 16.0,
+        "max_cc": "4",
+        "cc": 3.742,
+        "rr": "0",
+        "repeat_rate": 0.0,
+        "TTFT avg": 35879.2,
+        "TTFT P90": 46266.2,
+        "TPOT avg": 26.9,
+        "TPOT SLO_P90": 39.7,
+        "E2E_time": 271.1564606,
+        "output_throughput": 60.4227,
+        "single_output_throughput": 60.4227,
+        "E2E_throughput": 7797.6199,
+        "single_E2E_throughput": 7797.6199,
+        "qps": 0.059,
+        "qpm": 3.54,
+        "input_token_throughput": 7737.1972,
+        "prefill_token_throughput": 9999,
+        "E2EL avg": 63417.0,
+        "E2EL P90": 82744.4
+      },
+      "tpot_avg_ms": 26.9,
+      "tpot_p90_ms": 39.7,
+      "detail": "aisbench-results/20261118_191245/performances/vllm-api-stream-chat/gsm8k_details.jsonl"
+    }
+  ],
+  "failed_attempts": [
+    {
+      "phase": "P warmup",
+      "status": "invalid_aggregate",
+      "error": "AF_UNIX path too long / SyncManager EOFError",
+      "completed_requests": 8,
+      "throughput": null
+    },
+    {
+      "phase": "P original third formal",
+      "status": "invalid_archive",
+      "error": "NFS Remote I/O error on console close",
+      "throughput": null,
+      "replacement": "p-formal-third-local"
+    }
+  ]
+}
