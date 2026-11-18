@@ -71,7 +71,8 @@
       "扩大池后并发4没有新增分配失败，但3/4完整、末条仍超过D等待时限；QSA驻留后同样并发4全部完整。原失败轮不发布有效TPS。",
       "QSA驻留后继续提预算到32K反而退步，不能把非驻留组32K的收益拼接到驻留组。",
       "最终纯P三轮24条完整，输入吞吐8577.4473、8575.0309、8421.1934，算术均值8524.5572；PD首轮16条完整、62.0288输出token/s。PD第二轮设备停滞使最终验收仍为partial。",
-      "新停滞时P已空闲，D为2 running与2 deferred、KV fetch completed waiting，PP0等RPC、PP1等copy event；这区别于此前P排队超出D终态Push等待。没有确认故障kernel，也未证明是QSA驻留造成。"
+      "新停滞时P已空闲，D为2 running与2 deferred、KV fetch completed waiting，PP0等RPC、PP1等copy event；这区别于此前P排队超出D终态Push等待。没有确认故障kernel，也未证明是QSA驻留造成。",
+      "本轮无需整机重启即可按原命令恢复D并完成最小PD复验；此结果不证明UB告警已修复，也不能代替完整三轮稳定性验收。用户随后要求停止实验、保留服务空转，正式续跑未启动。"
     ],
     "d_device_stall": {
       "client_finished": 8,
@@ -89,7 +90,7 @@
       "p_waiting": 0,
       "pending_num": 6,
       "pp1_stream": 59,
-      "recovery": "owned D stopped; device warning remains; no reset or reboot; host recovery requires user confirmation because other containers are running",
+      "recovery": "Subsequently restored original D by process restart with identical argv/software; no host reboot or device reset; warmup and C4/4 minimal validation passed; full follow-up cancelled by user; services left idle",
       "register_export_warning_local_time": "02:51:24",
       "root_cause": "unconfirmed; post-export error not treated as independent proof of original stall",
       "round": 2,
@@ -119,25 +120,37 @@
       "weights": "W4A8 MXFP"
     },
     "final_verification": {
-      "device_warning_before_register_export": {
-        "code": "81AF8009",
-        "npu_ids": [
-          1,
-          7
-        ]
+      "actual_input_max": 131125,
+      "actual_input_min": 131124,
+      "auxiliary_jobs": "benchmark, dispatch and identity watcher stopped; no automatic continuation",
+      "d_recovery": "same original command and software; process restart only; no host reboot or device reset",
+      "device_warning": "NPU 1/7 UB warning was present before restart; not claimed repaired",
+      "fair_prefill_trials": "prepared but cancelled before service change; no performance claims",
+      "full_performance_verification": "partial; previous P three rounds valid, previous PD first round valid, later formal PD not completed",
+      "minimal_requests": 4,
+      "output_per_request": 1024,
+      "output_token_s": 47.0904,
+      "queues": {
+        "D_running": 0,
+        "D_waiting": 0,
+        "P_running": 0,
+        "P_waiting": 0
       },
-      "diagnostic_note": "Register export requested after stall; tool reported reboot required and DUMP FORCE; later vector timeout not used as independent proof of original cause",
-      "meta_alloc_failures_total_after": 15,
-      "meta_alloc_failures_total_before": 15,
-      "p_c2_valid_formal_requests": 24,
-      "p_input_token_s_mean": 8524.5572,
-      "pd_c4_invalid_round": 2,
-      "pd_c4_round3": "not_run",
-      "pd_c4_valid_formal_rounds": 1,
-      "pd_output_token_s_first_round": 62.0288,
-      "reason": "D stalled with 2 running and 2 deferred; PP1 waiting on copy event; no confirmed fault kernel",
-      "state": "D stopped; no host reboot or device reset; awaiting user approval for host recovery; original top-level parameters not promoted",
-      "verification": "partial"
+      "recorded_at": "2026-11-18T09:25:58.618740+08:00",
+      "resource_release": "left to user; service remains idle",
+      "resumed_formal_rounds_executed": 0,
+      "services": {
+        "D": "healthy and idle",
+        "Meta": "running",
+        "P": "healthy and idle",
+        "Proxy": "healthy"
+      },
+      "status": "minimal_validation_passed_then_stopped_by_user",
+      "top_level_launchers": "original parameters preserved; candidate not promoted as fully verified",
+      "tpot_avg_ms": 23.2,
+      "tpot_p90_ms": 24.3,
+      "ttft_avg_ms": 41567.3,
+      "ttft_p90_ms": 58606.7
     },
     "latest_validated_trials": [
       {
@@ -1287,13 +1300,147 @@
         "tpot_p90_ms": 24.3,
         "ttft_avg_ms": 41579.5,
         "ttft_p90_ms": 58627.9
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 83460.3,
+          "E2EL avg": 65347.9,
+          "E2E_throughput": 6077.0908,
+          "E2E_time": 86.9815863,
+          "TPOT SLO_P90": 24.3,
+          "TPOT avg": 23.2,
+          "TTFT P90": 58606.7,
+          "TTFT avg": 41567.3,
+          "cc": 3.0051,
+          "current_time": "2026-11-18 01:23:31",
+          "input_len": 131124.75,
+          "input_token_throughput": 6030.0004,
+          "max_cc": "4",
+          "output_len": 1024.0,
+          "output_throughput": 47.0904,
+          "prefill_token_throughput": 9999,
+          "qpm": 2.76,
+          "qps": 0.046,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 6077.0908,
+          "single_output_throughput": 47.0904,
+          "total_req": 4.0
+        },
+        "cache": {
+          "D": {
+            "external_hits": 524495,
+            "external_queries": 524499,
+            "hbm_hits": 0,
+            "hbm_queries": 524499
+          },
+          "P": {
+            "external_hits": 0,
+            "external_queries": 524495,
+            "hbm_hits": 0,
+            "hbm_queries": 524495
+          }
+        },
+        "concurrency": 4,
+        "detail": "aisbench-results/20261118_012143/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 86981.5863,
+        "input_token_s": 6030.0004,
+        "input_tokens_max": 131125,
+        "input_tokens_min": 131124,
+        "output_token_s": 47.0904,
+        "output_tokens_per_request": 1024,
+        "phase": "1",
+        "request_s": 0.04598674466804936,
+        "requests": 4,
+        "run": "resume0910-pd-c4-quick",
+        "seed": 388004,
+        "tpot_avg_ms": 23.2,
+        "tpot_p90_ms": 24.3,
+        "ttft_avg_ms": 41567.3,
+        "ttft_p90_ms": 58606.7
+      },
+      {
+        "aisbench_common": {
+          "E2EL P90": 39298.1,
+          "E2EL avg": 39298.1,
+          "E2E_throughput": 3362.757,
+          "E2E_time": 39.298112,
+          "TPOT SLO_P90": 20.5,
+          "TPOT avg": 20.5,
+          "TTFT P90": 18322.9,
+          "TTFT avg": 18322.9,
+          "cc": 1.0,
+          "current_time": "2026-11-18 01:21:10",
+          "input_len": 131126.0,
+          "input_token_throughput": 3336.6997,
+          "max_cc": "1",
+          "output_len": 1024.0,
+          "output_throughput": 26.0572,
+          "prefill_token_throughput": 9999,
+          "qpm": 1.524,
+          "qps": 0.0254,
+          "repeat_rate": 0.0,
+          "rr": "0",
+          "single_E2E_throughput": 3362.757,
+          "single_output_throughput": 26.0572,
+          "total_req": 1.0
+        },
+        "cache": {
+          "D": {
+            "external_hits": 131125,
+            "external_queries": 131126,
+            "hbm_hits": 0,
+            "hbm_queries": 131126
+          },
+          "P": {
+            "external_hits": 0,
+            "external_queries": 131125,
+            "hbm_hits": 0,
+            "hbm_queries": 131125
+          }
+        },
+        "concurrency": 1,
+        "detail": "aisbench-results/20261118_012010/performances/vllm-api-stream-chat/gsm8k_details.jsonl",
+        "duration_ms": 39298.112,
+        "input_token_s": 3336.6997,
+        "input_tokens_max": 131126,
+        "input_tokens_min": 131126,
+        "output_token_s": 26.0572,
+        "output_tokens_per_request": 1024,
+        "phase": "1",
+        "request_s": 0.025446515089579874,
+        "requests": 1,
+        "run": "resume0910-pd-warmup",
+        "seed": 388000,
+        "tpot_avg_ms": 20.5,
+        "tpot_p90_ms": 20.5,
+        "ttft_avg_ms": 18322.9,
+        "ttft_p90_ms": 18322.9
       }
     ],
     "limitations": [
       "8192 与旧版近邻对照之间软件、DCP、KV Offload、MTP 等不同，不能从跨配置比值归因。",
       "同步采样的通信耗时受对端到达时差影响，不等同物理带宽，采样 TTFT 不用于性能对照。",
-      "共享知识不发布内部地址、目录、请求原文、连接、私密服务器日志。纯P三轮完成；PD第二轮停滞，缺三轮验收。未做独立输出精度或热DRAM前缀复用验证，未宣称达到基础PD性能。"
+      "共享记录不含内部地址、目录、请求原文或私密服务器日志。纯P三轮完成；PD完整三轮验收未完成。最小恢复复验不能证明罕见设备停滞已解决，未做独立输出精度或热DRAM前缀复用验证，未达到基础PD吞吐。"
     ],
+    "minimal_recovery_validation": {
+      "actual_input_max": 131125,
+      "actual_input_min": 131124,
+      "cache_validation": "P and D local HBM hits zero; P external hits zero; D external is current Push",
+      "controller_precheck_error": "Initial coordinator read remote D PID in P local proc namespace and exited before sending requests; corrected to D-local identity heartbeat with clock-skew allowance; no model restart needed for this controller correction",
+      "current_scope": "Minimal validation complete; user cancelled queued fairness tuning and full follow-up; no automatic continuation; all service queues empty; auxiliary experiment processes stopped",
+      "input_token_s": 6030.0004,
+      "interpretation": "Comparable quick baseline was47.1051; do not compare four-request tail amortization directly to sixteen-request formal throughput62.0288",
+      "output_per_request": 1024,
+      "output_token_s": 47.0904,
+      "quick_seed": 388004,
+      "requests": 4,
+      "tpot_avg_ms": 23.2,
+      "tpot_p90_ms": 24.3,
+      "ttft_avg_ms": 41567.3,
+      "ttft_p90_ms": 58606.7,
+      "warmup_seed": 388000
+    },
     "observations": {
       "baseline": [
         {
@@ -1429,7 +1576,7 @@
     },
     "protocol": "原 AISBench 131072 名义输入，实测约 131124；输出 1 或 1024，诊断并发 1、每轮 1 请求。有效轮校验输入范围、精确输出、本地 HBM 与 P 外部前缀均为零，D 外部仅是当次 Push。8K 为原历史对照，同一 P 容器和物理卡，仅替换 P 启动 token 预算；D、Proxy 与 Meta 保持原进程。 最终复验纯P C2／8请求×3轮，seed 387110～387112；PD C4／16请求，首轮seed387210通过，第二轮seed387211停滞而中止，第三轮未运行。两者不混用快速点首尾摊销；各轮P90不等于全体请求池化P90。",
     "qsa_residency_tradeoff": {
-      "future_scope": "驻留后仅将16K→32K的正式纯P降到4010.8232输入token/s，未达门槛而回退16K；P C2/8三轮通过，PD C4/16第一轮通过、第二轮D停滞，待设备恢复后继续。顶层入口未晋升。",
+      "future_scope": "32K budget was rejected; D process recovered and minimal C4 validation passed. Fair-prefill thresholds8192/4096 were prepared but not executed before user requested stop. No performance claims for fairness tuning.",
       "global_pp1_independent_layers": [
         24,
         27,
@@ -1497,6 +1644,16 @@
       "ref": "artifact:case-qwen38-fm16-layerwise-offload-128k-loop-20261118/c1-performance-comparison.png",
       "role": "单请求摸点对照图，预热与插桩轮不计分，不代表三轮稳定性验收",
       "sha256": "20c7cd3ba1fc3f931a0839bcd4c0f7785cb23c1f3a673fb04954fe88c58d067d"
+    },
+    {
+      "ref": "artifact:case-qwen38-fm16-layerwise-offload-128k-loop-20261118/validated-results-minimal-stop.json",
+      "role": "24个有效轮次的完整数值、Common Metric与缓存计数，附历史失败及当前最小复验后用户停止状态",
+      "sha256": "c7569a3b100b2fb2fa6b9c3cb8ae2201d83fc86b21d32a32873ad68d1029ba61"
+    },
+    {
+      "ref": "artifact:case-qwen38-fm16-layerwise-offload-128k-loop-20261118/results-minimal-stop.csv",
+      "role": "30行指标账本，追加恢复预热与并发4最小验证；未执行的调参和正式续跑无成绩",
+      "sha256": "8a10c92b45d68aebcf47fe19608777cedc3fb6005386d8b93a4ce8542dbf1cd1"
     }
   ],
   "id": "case-qwen38-fm16-layerwise-offload-128k-loop-20261118",
@@ -1508,7 +1665,7 @@
   ],
   "schema_version": 1,
   "status": "partial",
-  "summary": "16K预算、32GiB/rank池中仅让QSA独立驻留，纯P由855.5011升到7791.3003输入token/s（9.1073倍）。最终纯P并发2／8请求×3轮全部通过，均值8524.5572输入token/s；PD并发4／16首轮62.0288输出token/s，第二轮D设备停滞、第三轮未运行，不能报告三轮PD通过。驻留后32K预算退步已回退16K。",
+  "summary": "QSA独立驻留在16K/32GiB控制组使纯P提速9.1073倍；P并发2三轮均值8524.5572输入token/s。PD并发4/16首轮62.0288输出token/s，第二轮D停滞。D按原命令进程级恢复后，本轮只做C4/4最小复验：4/4完整、47.0904输出token/s、TTFT P90 58.6067秒、TPOT P90 24.3ms；按用户要求停止实验并保持服务空转，未完成三轮PD验收。",
   "supersedes": [],
   "tags": [
     "qwen3.8-flash-next",
