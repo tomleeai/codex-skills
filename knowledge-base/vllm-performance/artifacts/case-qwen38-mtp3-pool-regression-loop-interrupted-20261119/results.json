@@ -1,0 +1,125 @@
+{
+  "records": [
+    {
+      "configuration": "baseline16k",
+      "case": "p-only",
+      "phase": "1",
+      "seed": 1795052247,
+      "concurrency": 2,
+      "requests": 8,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131125,
+      "output_tokens_per_request": 1,
+      "duration_ms": 125704.6838,
+      "input_token_s": 8344.9078,
+      "output_token_s": 0.0636,
+      "request_s": 0.0636412244807699,
+      "ttft_avg_ms": 29548.2,
+      "ttft_p90_ms": 31977.4,
+      "cache": {
+        "p": {
+          "hbm_hits": 0,
+          "hbm_queries": 1048994,
+          "external_hits": 0,
+          "external_queries": 1048994
+        }
+      },
+      "aisbench_common": {
+        "current_time": "2026-11-19 01:23:44",
+        "input_len": 131124.25,
+        "output_len": 1.0,
+        "total_req": 8.0,
+        "max_cc": "2",
+        "cc": 1.8805,
+        "rr": "0",
+        "repeat_rate": 0.0,
+        "TTFT avg": 29548.2,
+        "TTFT P90": 31977.4,
+        "TPOT avg": 99999,
+        "TPOT SLO_P90": 99999,
+        "E2E_time": 125.7046838,
+        "output_throughput": 0.0636,
+        "single_output_throughput": 0.0636,
+        "E2E_throughput": 8344.9715,
+        "single_E2E_throughput": 8344.9715,
+        "qps": 0.0636,
+        "qpm": 3.8160000000000003,
+        "input_token_throughput": 8344.9078,
+        "prefill_token_throughput": 9999,
+        "E2EL avg": 29549.2,
+        "E2EL P90": 31978.4
+      },
+      "detail": "aisbench-results/20261119_012118/performances/vllm-api-stream-chat/gsm8k_details.jsonl"
+    },
+    {
+      "configuration": "baseline16k",
+      "case": "pd-zero",
+      "phase": "1",
+      "seed": 1795052426,
+      "concurrency": 4,
+      "requests": 16,
+      "input_tokens_min": 131124,
+      "input_tokens_max": 131127,
+      "output_tokens_per_request": 1024,
+      "duration_ms": 268455.1189,
+      "input_token_s": 7815.0605,
+      "output_token_s": 61.0307,
+      "request_s": 0.059600279054317556,
+      "ttft_avg_ms": 42693.8,
+      "ttft_p90_ms": 49307.8,
+      "cache": {
+        "p": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097977,
+          "external_hits": 0,
+          "external_queries": 2097977
+        },
+        "d": {
+          "hbm_hits": 0,
+          "hbm_queries": 2097993,
+          "external_hits": 2097977,
+          "external_queries": 2097993
+        }
+      },
+      "aisbench_common": {
+        "current_time": "2026-11-19 01:29:11",
+        "input_len": 131124.5625,
+        "output_len": 1024.0,
+        "total_req": 16.0,
+        "max_cc": "4",
+        "cc": 3.6518,
+        "rr": "0",
+        "repeat_rate": 0.0,
+        "TTFT avg": 42693.8,
+        "TTFT P90": 49307.8,
+        "TPOT avg": 18.2,
+        "TPOT SLO_P90": 23.3,
+        "E2E_time": 268.4551189,
+        "output_throughput": 61.0307,
+        "single_output_throughput": 61.0307,
+        "E2E_throughput": 7876.0912,
+        "single_E2E_throughput": 7876.0912,
+        "qps": 0.0596,
+        "qpm": 3.576,
+        "input_token_throughput": 7815.0605,
+        "prefill_token_throughput": 9999,
+        "E2EL avg": 61271.2,
+        "E2EL P90": 68153.9
+      },
+      "tpot_avg_ms": 18.2,
+      "tpot_p90_ms": 23.3,
+      "detail": "aisbench-results/20261119_012421/performances/vllm-api-stream-chat/gsm8k_details.jsonl"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "p32k",
+      "status": "interrupted_before_readiness",
+      "score": null,
+      "reason": "P externally terminated, D also shut down; not a measured config rejection"
+    }
+  ],
+  "status": "user-stopped-preserve-scene",
+  "best": "baseline16k",
+  "services": "P and D stopped externally; Meta and Proxy retained"
+}
