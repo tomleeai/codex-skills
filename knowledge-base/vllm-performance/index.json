@@ -297,7 +297,7 @@
       "id": "case-qwen38-mtp3-pool-regression-loop-interrupted-20261119",
       "kind": "case",
       "path": "cases/case-qwen38-mtp3-pool-regression-loop-interrupted-20261119.json",
-      "revision": "150a5ad00dfa1c02b5e43b446b5b5ff695f9fcaff889ad24b67c56d01d7c2900",
+      "revision": "e8df3b8e0bb634cc8959f3b3ce11783d67ec7728c6041b35a56a57ae9fd7c4a9",
       "status": "partial",
       "summary": "同机热服务fresh-seed完整复测P C2×8输入8344.9078 token/s、PD C4×16输出61.0307 token/s，共24/24通过。P32K启动时P进程退出-9、D同时关闭，随后其他工作负载启动；32K无成绩，用户要求停止保留现场。",
       "tags": [
@@ -313,6 +313,58 @@
         "resource-interruption"
       ],
       "title": "Qwen3.8-Flash-Next MTP3池化性能loop：16K劣化复现，32K初始化期间外部资源切换后停止",
+      "updated_at": "2026-11-19"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Atlas 650E FM16",
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "MemCache": "1.3.0",
+          "MemFabric": "1.3.0",
+          "torch": "2.10.0+cpu",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.33.0 (4ba787ec9959e566d3b587a796dff07673324da5)",
+          "vLLM-Ascend": "9005a22a862a95d52025b70fb2bff8eed8a5a5e3"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "PP2",
+          "DCP disabled",
+          "MTP3",
+          "P layerwise KV offload",
+          "MemCache device_uboe DRAM",
+          "Mooncake V2 layerwise Push",
+          "zero prefix",
+          "AISBench"
+        ]
+      },
+      "id": "case-qwen38-pd-pp-mtp3-offload-layerwise-128k-20261119",
+      "kind": "case",
+      "path": "cases/case-qwen38-pd-pp-mtp3-offload-layerwise-128k-20261119.json",
+      "revision": "7ca70eb8ea9d169d54a54e19823775a48f275e4fd75ba4632bd21a81d7fa27d6",
+      "status": "verified",
+      "summary": "已验证TP4×PP2、两侧DCP1/MTP3、P KV offload和MemCache layerwise、MooncakeConnectorV2 layerwise Push；纯P24/24、PD48/48正式请求通过。服务配置、源码依赖、复测方法和停止断点已归档；用户不再以基础PD比较为当前优化目标，实验保持停止。",
+      "tags": [
+        "qwen3.8-flash-next",
+        "128k",
+        "mtp3",
+        "dcp1",
+        "pd",
+        "pp2",
+        "kv-offload",
+        "memcache",
+        "layerwise",
+        "aisbench",
+        "af-unix",
+        "nfs"
+      ],
+      "title": "Qwen3.8-Flash-Next：PD+PP+P KV offload+MemCache layerwise+Mooncake V2 layer Push服务记忆",
       "updated_at": "2026-11-19"
     },
     {

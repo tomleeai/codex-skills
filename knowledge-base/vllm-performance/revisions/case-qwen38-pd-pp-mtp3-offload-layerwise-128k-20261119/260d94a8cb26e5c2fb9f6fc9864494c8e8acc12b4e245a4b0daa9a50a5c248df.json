@@ -1,0 +1,181 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Atlas 650E FM16",
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "MemCache": "1.3.0",
+      "MemFabric": "1.3.0",
+      "torch": "2.10.0+cpu",
+      "torch-npu": "2.10.0.post7",
+      "vLLM": "0.33.0 (4ba787ec9959e566d3b587a796dff07673324da5)",
+      "vLLM-Ascend": "9005a22a862a95d52025b70fb2bff8eed8a5a5e3"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "PP2",
+      "DCP disabled",
+      "MTP3",
+      "P layerwise KV offload",
+      "MemCache device_uboe DRAM",
+      "Mooncake V2 layerwise Push",
+      "zero prefix",
+      "AISBench"
+    ]
+  },
+  "body": {
+    "attempts": [
+      {
+        "completed_requests": 8,
+        "error": "AF_UNIX path too long / SyncManager EOFError",
+        "phase": "P warmup",
+        "status": "invalid_aggregate",
+        "throughput": null
+      },
+      {
+        "error": "NFS Remote I/O error on console close",
+        "phase": "P original third formal",
+        "replacement": "p-formal-third-local",
+        "status": "invalid_archive",
+        "throughput": null
+      }
+    ],
+    "configuration": {
+      "common": "max_model_len143360 block512 gpu_memory_utilization0.9; MTP method qwen3_5_mtp normalized to mtp by runtime",
+      "d": "TP4 PP2 DP1 DCP1 MTP3 FULL_DECODE_ONLY no-async; budget4096 max_seqs16",
+      "p": "TP4 PP2 DP1 DCP1 MTP3 eager async; budget16384 max_seqs16",
+      "pool": "32GiB/rank initial DRAM; 4 shared buffers, prefetch3; stage-local independent layers [0,3,7,11,15,19,23]"
+    },
+    "confirmed_findings": [
+      "指定组合在本次六轮72条正式请求中完成长度、成功数和缓存计数验收。",
+      "过长TMPDIR会导致multiprocessing SyncManager AF_UNIX path too long并触发客户端汇总EOFError。短路径共享内存目录避免该错误。",
+      "NFS console关闭Remote I/O使一次批次无法完整归档；改用共享内存保存测量输出，验证后归档，仅补跑缺失轮次。"
+    ],
+    "limitations": [
+      "Finite-batch token/count/cache validation; not independent accuracy or indefinite stability certification",
+      "Client AF_UNIX long path and NFS Remote I/O batches excluded; completed earlier formal rounds preserved",
+      "No model service restart required",
+      "没有独立精度验证，不宣称长期稳定性或旧D停滞根因已解决。",
+      "新DCP1+MTP3与旧DCP2+MTP关闭不是严格单变量，不作性能因果归因。"
+    ],
+    "next_step": "在相同特性下可继续更长批次稳定性验证；本次指定cases已完成。",
+    "observations": [
+      "首轮服务拉起成功，正式期间无模型服务重启。",
+      "纯P与PD分别采用并发2/4、每轮8/16请求、3轮；fresh seeds，预热不计正式。",
+      "P本地/外部前缀命中为0；D外部命中为P→D Push。",
+      "D的draft与accepted token计数实际增长，MTP运行生效。",
+      "最终P/D/Proxy健康通过，两侧running/waiting均为0。"
+    ],
+    "results": {
+      "p-only": {
+        "metrics": {
+          "input_token_s": {
+            "max": 8346.9528,
+            "mean": 8346.592033333332,
+            "min": 8345.9151
+          },
+          "output_token_s": {
+            "max": 0.0637,
+            "mean": 0.06366666666666668,
+            "min": 0.0636
+          },
+          "ttft_avg_ms": {
+            "max": 29545.2,
+            "mean": 29542.833333333332,
+            "min": 29540.8
+          },
+          "ttft_p90_ms": {
+            "max": 31966.9,
+            "mean": 31965.766666666666,
+            "min": 31964.0
+          }
+        },
+        "requests": 24,
+        "rounds": 3
+      },
+      "pd-zero": {
+        "metrics": {
+          "input_token_s": {
+            "max": 7844.2156,
+            "mean": 7712.8884333333335,
+            "min": 7620.6355
+          },
+          "output_token_s": {
+            "max": 61.2583,
+            "mean": 60.232733333333336,
+            "min": 59.5123
+          },
+          "tpot_avg_ms": {
+            "max": 18.9,
+            "mean": 17.633333333333333,
+            "min": 15.5
+          },
+          "tpot_p90_ms": {
+            "max": 24.1,
+            "mean": 22.333333333333332,
+            "min": 19.2
+          },
+          "ttft_avg_ms": {
+            "max": 45549.3,
+            "mean": 43772.166666666664,
+            "min": 42852.6
+          },
+          "ttft_p90_ms": {
+            "max": 51019.4,
+            "mean": 50193.433333333334,
+            "min": 49631.5
+          }
+        },
+        "requests": 48,
+        "rounds": 3
+      }
+    },
+    "task": "保持需求特性，loop拉起服务并完成128K+1纯P和128K+1024零前缀AISBench验证。"
+  },
+  "created_at": "2026-11-19",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-pd-pp-mtp3-offload-layerwise-128k-20261119/results.json",
+      "role": "全部正式轮次及有效PD预热的原始指标、缓存计数、失败尝试与汇总",
+      "sha256": "a0f0c540055954a3e95e045c812d463082f3b9a7eb91274b0a99d6283d28ffb5"
+    },
+    {
+      "ref": "artifact:case-qwen38-pd-pp-mtp3-offload-layerwise-128k-20261119/results.csv",
+      "role": "六轮完整指标",
+      "sha256": "84f3022c87293b232ccc3fbfda15cf51a2bfc9f6d12b4998f4844917b1ec80b7"
+    },
+    {
+      "ref": "artifact:case-qwen38-pd-pp-mtp3-offload-layerwise-128k-20261119/rounds.png",
+      "role": "三轮吞吐和延迟趋势",
+      "sha256": "d946a7d82d78bea57e0b407d8fb8f2363859b240ea87750fec6df32ee366073d"
+    }
+  ],
+  "id": "case-qwen38-pd-pp-mtp3-offload-layerwise-128k-20261119",
+  "kind": "case",
+  "observed_at": "2026-11-19",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "TP4×PP2、DCP1、MTP3，P KV offload + MemCache layerwise + Mooncake V2 Push。纯P C2/8×3共24/24，平均输入8346.592033333332 token/s；PD C4/16×3共48/48，平均输出60.232733333333336 token/s。客户端长TMPDIR和NFS输出故障修复后续测，无模型重启。",
+  "supersedes": [],
+  "tags": [
+    "qwen3.8-flash-next",
+    "128k",
+    "mtp3",
+    "dcp1",
+    "pd",
+    "pp2",
+    "kv-offload",
+    "memcache",
+    "layerwise",
+    "aisbench",
+    "af-unix",
+    "nfs"
+  ],
+  "title": "Qwen3.8-Flash-Next双机池化：关闭DCP、开启MTP3，128K纯P与零前缀PD六轮通过",
+  "updated_at": "2026-11-19"
+}

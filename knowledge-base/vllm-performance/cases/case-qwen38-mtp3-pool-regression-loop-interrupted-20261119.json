@@ -65,6 +65,7 @@
       "32K is unmeasured and must not be classified as a performance or memory rejection.",
       "Top-level P launcher restored16K, candidate32K and logs preserved, no active owned benchmark/controller at stop."
     ],
+    "current_user_intent": "2026-11-19：忽略基础PD比较优化目标，整理本组合服务记忆，继续停止保留现场。",
     "hypotheses": [
       "P throughput and PD TTFT implicate P-side efficiency; larger token budget may reduce chunk count and repeated offload step/lifecycle overhead. No measured causal result yet."
     ],
@@ -73,7 +74,7 @@
       "Optimization and long-batch stability not completed.",
       "Service could not be restored on the now-shared resources; user explicitly stopped and requested scene preservation."
     ],
-    "next_step": "Only on user resume and exclusive resources: restore original D if absent; retry32K with same required features and full P/PD probes. No automatic dispatch.",
+    "next_step": "保持停止；32K只作未测历史候选，不再作为默认待跑目标。后续操作由用户新指令决定。",
     "task": "保持用户要求的PD、PP、P KV offload、MemCache layerwise、两侧DCP关闭和MTP3，优化128K纯P及128K+1024端到端性能。"
   },
   "created_at": "2026-11-19",
@@ -92,7 +93,9 @@
   "id": "case-qwen38-mtp3-pool-regression-loop-interrupted-20261119",
   "kind": "case",
   "observed_at": "2026-11-19",
-  "related_ids": [],
+  "related_ids": [
+    "case-qwen38-pd-pp-mtp3-offload-layerwise-128k-20261119"
+  ],
   "schema_version": 1,
   "status": "partial",
   "summary": "同机热服务fresh-seed完整复测P C2×8输入8344.9078 token/s、PD C4×16输出61.0307 token/s，共24/24通过。P32K启动时P进程退出-9、D同时关闭，随后其他工作负载启动；32K无成绩，用户要求停止保留现场。",
