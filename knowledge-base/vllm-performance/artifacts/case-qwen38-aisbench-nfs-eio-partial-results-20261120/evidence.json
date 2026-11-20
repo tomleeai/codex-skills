@@ -1,0 +1,44 @@
+{
+  "workload": {
+    "input_len": 131072,
+    "output_len": 1024,
+    "data_num": 16,
+    "concurrency": 4,
+    "request_rate": 0,
+    "dataset_type": "prefix_cache",
+    "repeat_rate": 0
+  },
+  "progress": {
+    "finished": 16,
+    "fail": 0
+  },
+  "write_failure": {
+    "errno": 5,
+    "operation": "open append gsm8k_details.jsonl",
+    "filesystem": "NFSv4.2"
+  },
+  "persisted": {
+    "detail_rows": 1,
+    "request_id": 14,
+    "sqlite_numpy_store_rows": 16,
+    "summary_total_requests": 1,
+    "summary_success_requests": 1,
+    "summary_input_tokens": 131124,
+    "summary_output_tokens": 1024,
+    "summary_output_throughput": "30.2059 token/s",
+    "valid_full_batch": false
+  },
+  "local_io_probe": {
+    "filesystem": "tmpfs",
+    "writers": 4,
+    "rows": 64,
+    "bytes": 2099544,
+    "passed": true
+  },
+  "limits": [
+    "No model rerun or service restart",
+    "NFS server-side root cause not established",
+    "SQLite has timing arrays; full request detail recovery not established",
+    "Local IO probe is not an end-to-end benchmark validation"
+  ]
+}

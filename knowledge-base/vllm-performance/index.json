@@ -124,6 +124,38 @@
     {
       "applies_to": {
         "hardware": [
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {},
+        "workload_modes": [
+          "AISBench",
+          "finite_batch",
+          "128K+1024",
+          "prefix_cache"
+        ]
+      },
+      "id": "case-qwen38-aisbench-nfs-eio-partial-results-20261120",
+      "kind": "case",
+      "path": "cases/case-qwen38-aisbench-nfs-eio-partial-results-20261120.json",
+      "revision": "aee309d25d78bdb2221cf05e3fc8ffd3b300b4b529774e5b5f7267a5b13bbcef",
+      "status": "partial",
+      "summary": "Append-open EIO on NFS left 1/16 detail records; summarization still ran and emitted an invalid full-batch score. Container tmpfs IO probe passed; no benchmark rerun.",
+      "tags": [
+        "AISBench",
+        "NFS",
+        "EIO",
+        "partial-results",
+        "false-success"
+      ],
+      "title": "AISBench NFS EIO: 16 finished requests but only one persisted result",
+      "updated_at": "2026-11-20"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend 650E"
         ],
         "models": [

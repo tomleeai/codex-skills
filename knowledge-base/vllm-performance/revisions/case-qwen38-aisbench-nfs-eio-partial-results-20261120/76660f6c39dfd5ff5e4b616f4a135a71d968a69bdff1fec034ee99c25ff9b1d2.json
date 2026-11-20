@@ -1,0 +1,69 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "finite_batch",
+      "128K+1024",
+      "prefix_cache"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "Preserved existing logs and summary.",
+      "Prepared an isolated container tmpfs working copy; 64 concurrent append records validated."
+    ],
+    "confirmed_findings": [
+      "The reported 30.2059 output token/s is a single persisted request score, not the 16-request batch score.",
+      "Observed failure belongs to result file append/open, not HCCL initialization."
+    ],
+    "hypotheses": [
+      "Underlying NFS-side storage or client fault requires further evidence."
+    ],
+    "limitations": [
+      "No model rerun or service restart",
+      "NFS server-side root cause not established",
+      "SQLite has timing arrays; full request detail recovery not established",
+      "Local IO probe is not an end-to-end benchmark validation"
+    ],
+    "next_step": "Run only under explicit benchmark authorization from local tmpfs, validate 16 detailed records and summary count, then archive to NFS.",
+    "observations": [
+      "Progress reported 16 finished and zero failed requests.",
+      "NFS output details contained one JSON record; Common Metric counted one request.",
+      "The wrapper continued to CSV export after the inference subprocess exception.",
+      "SQLite numpy_store contained 16 arrays but did not contain complete missing per-request detail records."
+    ],
+    "task": "Diagnose result persistence failure without restarting services or dispatching model requests."
+  },
+  "created_at": "2026-11-20",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-aisbench-nfs-eio-partial-results-20261120/evidence.json",
+      "role": "sanitized observed counters and validation boundary",
+      "sha256": "05eade398aabf2705419caee6004941ce51dd280f3b196eb43d14052c5010415"
+    }
+  ],
+  "id": "case-qwen38-aisbench-nfs-eio-partial-results-20261120",
+  "kind": "case",
+  "observed_at": "2026-11-20",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "Append-open EIO on NFS left 1/16 detail records; summarization still ran and emitted an invalid full-batch score. Container tmpfs IO probe passed; no benchmark rerun.",
+  "supersedes": [],
+  "tags": [
+    "AISBench",
+    "NFS",
+    "EIO",
+    "partial-results",
+    "false-success"
+  ],
+  "title": "AISBench NFS EIO: 16 finished requests but only one persisted result",
+  "updated_at": "2026-11-20"
+}
