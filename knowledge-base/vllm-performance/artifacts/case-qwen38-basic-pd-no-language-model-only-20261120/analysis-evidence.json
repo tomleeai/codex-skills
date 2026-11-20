@@ -1,0 +1,407 @@
+{
+  "observed_date": "2026-11-20",
+  "finding": "The large apparent speedup is explained primarily by cross-run prefix-cache reuse. A zero nominal in-dataset prefix ratio did not prevent reusing the preceding run.",
+  "old_basic_pd_valid_reference": {
+    "concurrency": 4,
+    "seed": 111604,
+    "total": 16,
+    "success": 16,
+    "input_min": 131124,
+    "input_max": 131126,
+    "output_tokens_per_request": 1024,
+    "output_throughput": 118.2791,
+    "duration_s": 138.51982819999998,
+    "TTFT avg": 24755.5,
+    "TTFT P90": 30046.9,
+    "TPOT avg": 8.0,
+    "TPOT SLO_P90": 11.1,
+    "p_prefix_cache_queries": 2097976,
+    "p_prefix_cache_hits": 0,
+    "p_external_prefix_cache_queries": 2097976,
+    "p_external_prefix_cache_hits": 0,
+    "d_prefix_cache_queries": 2097992,
+    "d_prefix_cache_hits": 0,
+    "d_external_prefix_cache_queries": 2097992,
+    "d_external_prefix_cache_hits": 2097976,
+    "dataset_sha256": "b27775816252a007f5b26dca1db03d0d9f6aabcb3ea935af94eb732a631ab4ff",
+    "zero_reuse": true
+  },
+  "new_second_run_metrics": {
+    "current_time": "2026-11-20 10:38:16",
+    "input_len": 131124.3125,
+    "output_len": 1024.0,
+    "total_req": 16.0,
+    "max_cc": "4",
+    "cc": 3.798,
+    "rr": "0",
+    "repeat_rate": 0.0,
+    "TTFT avg": 926.6,
+    "TTFT P90": 1180.9,
+    "TPOT avg": 7.5,
+    "TPOT SLO_P90": 8.3,
+    "E2E_time": 36.158658,
+    "output_throughput": 453.1142,
+    "single_output_throughput": 453.1142,
+    "E2E_throughput": 58474.8748,
+    "single_E2E_throughput": 58474.8748,
+    "qps": 0.4425,
+    "qpm": 26.55,
+    "input_token_throughput": 58021.7606,
+    "prefill_token_throughput": 9999,
+    "E2EL avg": 8583.1,
+    "E2EL P90": 9323.6
+  },
+  "timezone_correction": {
+    "host_utc_offset": "+08:00",
+    "container_utc_offset": "+00:00",
+    "second_run_local_time": "2026-11-20 18:37-18:38",
+    "initial_time_order_inference": "Incorrect; the benchmark happened after current script edits and process start."
+  },
+  "two_existing_runs": {
+    "first": "20261120_102428",
+    "second": "20261120_103709",
+    "seed_both": 1,
+    "requested_concurrency_both": 4,
+    "requested_samples_both": 16,
+    "nominal_repeat_ratio_both": 0,
+    "first_client_finish_count": 16,
+    "first_client_fail_count": 0,
+    "first_detail_write_error": "OSError Errno 5 Input/output error on NFS",
+    "first_detail_rows": 1,
+    "second_detail_rows": 16,
+    "first_surviving_input_matches_second": [
+      [
+        14,
+        14
+      ]
+    ]
+  },
+  "p_cumulative_metrics": {
+    "time_to_first_token_seconds_sum": 539.8876519203186,
+    "time_to_first_token_seconds_count": 32.0,
+    "request_queue_time_seconds_sum": 120.84774742997251,
+    "request_queue_time_seconds_count": 32.0,
+    "request_prefill_time_seconds_sum": 362.37962960021105,
+    "request_prefill_time_seconds_count": 32.0,
+    "prefix_cache_queries_total": 4195946.0,
+    "prefix_cache_hits_total": 2097152.0,
+    "external_prefix_cache_queries_total": 2098794.0,
+    "external_prefix_cache_hits_total": 0.0,
+    "mm_cache_queries_total": 0.0,
+    "mm_cache_hits_total": 0.0,
+    "prompt_tokens_total": 4195946.0,
+    "generation_tokens_total": 32.0,
+    "request_success_total": 32.0
+  },
+  "d_cumulative_metrics": {
+    "prefix_cache_queries_total": 4195978.0,
+    "prefix_cache_hits_total": 652800.0,
+    "external_prefix_cache_queries_total": 3543178.0,
+    "external_prefix_cache_hits_total": 3543146.0,
+    "mm_cache_queries_total": 0.0,
+    "mm_cache_hits_total": 0.0,
+    "prompt_tokens_total": 4195978.0,
+    "generation_tokens_total": 32768.0,
+    "request_success_total": 32.0,
+    "time_to_first_token_seconds_sum": 76.80298614501953,
+    "time_to_first_token_seconds_count": 32.0,
+    "request_queue_time_seconds_sum": 29.78392691956833,
+    "request_queue_time_seconds_count": 32.0,
+    "request_prefill_time_seconds_sum": 30.24645522015635,
+    "request_prefill_time_seconds_count": 32.0
+  },
+  "p_hit_accounting": {
+    "hits_total": 2097152,
+    "equal_to": "16 * 131072",
+    "fraction_of_second_run_input": 0.9996010465259827,
+    "attribution": "High-confidence reconstruction using two-run logs, repeated seed, surviving identical input, 32 completions, and exact hit-token count; no before/after per-run counter snapshots."
+  },
+  "recovered_timing": {
+    "20261120_102428": {
+      "timing_rows": 16,
+      "db_sha256": "dc77317c60500b4fbc25918236fb97e05cb3f2152bc063a8c89c93fec9877667",
+      "batch_span_s": 192.70919002010487,
+      "candidate_ttft_mean_ms": 37786.50448938424,
+      "first_timing_sample": [
+        957715.0189392,
+        957782.67206548,
+        957782.67210988,
+        957782.67233142
+      ],
+      "last_timing_sample": [
+        957792.56156541,
+        957792.58393378,
+        957792.58412278
+      ],
+      "output_tps_assuming_1024_each": 85.01929772156014,
+      "rows": [
+        {
+          "db_id": 1,
+          "start": 957715.0189392,
+          "first": 957782.67206548,
+          "end": 957792.58412278,
+          "n_timestamps": 293
+        },
+        {
+          "db_id": 2,
+          "start": 957715.01488629,
+          "first": 957782.2196994,
+          "end": 957793.28702531,
+          "n_timestamps": 340
+        },
+        {
+          "db_id": 3,
+          "start": 957715.03034498,
+          "first": 957785.33195191,
+          "end": 957794.04034956,
+          "n_timestamps": 365
+        },
+        {
+          "db_id": 4,
+          "start": 957715.02426726,
+          "first": 957785.41595306,
+          "end": 957794.52697112,
+          "n_timestamps": 377
+        },
+        {
+          "db_id": 5,
+          "start": 957792.58658367,
+          "first": 957809.90065904,
+          "end": 957816.11824645,
+          "n_timestamps": 319
+        },
+        {
+          "db_id": 6,
+          "start": 957793.28895097,
+          "first": 957812.86599794,
+          "end": 957822.93122453,
+          "n_timestamps": 216
+        },
+        {
+          "db_id": 7,
+          "start": 957794.52867812,
+          "first": 957828.81891054,
+          "end": 957835.44460734,
+          "n_timestamps": 338
+        },
+        {
+          "db_id": 8,
+          "start": 957794.04229032,
+          "first": 957831.74577606,
+          "end": 957838.91724083,
+          "n_timestamps": 364
+        },
+        {
+          "db_id": 9,
+          "start": 957822.93299656,
+          "first": 957846.52993108,
+          "end": 957855.52465698,
+          "n_timestamps": 305
+        },
+        {
+          "db_id": 10,
+          "start": 957816.12011581,
+          "first": 957849.35045198,
+          "end": 957857.49686396,
+          "n_timestamps": 417
+        },
+        {
+          "db_id": 11,
+          "start": 957838.91921448,
+          "first": 957864.22665277,
+          "end": 957873.82123168,
+          "n_timestamps": 146
+        },
+        {
+          "db_id": 12,
+          "start": 957835.44663804,
+          "first": 957866.95234858,
+          "end": 957874.15422912,
+          "n_timestamps": 368
+        },
+        {
+          "db_id": 13,
+          "start": 957857.49848525,
+          "first": 957881.8901054,
+          "end": 957889.70764967,
+          "n_timestamps": 399
+        },
+        {
+          "db_id": 14,
+          "start": 957855.52642257,
+          "first": 957884.73999566,
+          "end": 957894.98544692,
+          "n_timestamps": 275
+        },
+        {
+          "db_id": 15,
+          "start": 957874.15592533,
+          "first": 957899.55632353,
+          "end": 957905.10995187,
+          "n_timestamps": 283
+        },
+        {
+          "db_id": 16,
+          "start": 957873.82341089,
+          "first": 957901.32539914,
+          "end": 957907.72407631,
+          "n_timestamps": 327
+        }
+      ]
+    },
+    "20261120_103709": {
+      "timing_rows": 16,
+      "db_sha256": "41a439c06a9c90e75298ba7993d38fe8d8148885cf40110e49df94730b273f1c",
+      "batch_span_s": 36.158658019965515,
+      "candidate_ttft_mean_ms": 926.579791259428,
+      "first_timing_sample": [
+        958474.96878699,
+        958475.69123618,
+        958475.69133138,
+        958475.6916864
+      ],
+      "last_timing_sample": [
+        958482.9892674,
+        958483.01121067,
+        958483.01132996
+      ],
+      "output_tps_assuming_1024_each": 453.11416123223773,
+      "rows": [
+        {
+          "db_id": 1,
+          "start": 958474.96878699,
+          "first": 958475.69123618,
+          "end": 958483.01132996,
+          "n_timestamps": 349
+        },
+        {
+          "db_id": 2,
+          "start": 958474.97457943,
+          "first": 958476.00795487,
+          "end": 958483.15476044,
+          "n_timestamps": 341
+        },
+        {
+          "db_id": 3,
+          "start": 958474.98087221,
+          "first": 958476.03513434,
+          "end": 958484.24895143,
+          "n_timestamps": 391
+        },
+        {
+          "db_id": 4,
+          "start": 958474.96477461,
+          "first": 958476.09178359,
+          "end": 958486.9840937,
+          "n_timestamps": 245
+        },
+        {
+          "db_id": 5,
+          "start": 958483.15654533,
+          "first": 958483.92746556,
+          "end": 958491.01107804,
+          "n_timestamps": 333
+        },
+        {
+          "db_id": 6,
+          "start": 958483.01337818,
+          "first": 958483.80824002,
+          "end": 958491.69293625,
+          "n_timestamps": 367
+        },
+        {
+          "db_id": 7,
+          "start": 958484.25071455,
+          "first": 958485.21862882,
+          "end": 958493.62985134,
+          "n_timestamps": 399
+        },
+        {
+          "db_id": 8,
+          "start": 958486.98575622,
+          "first": 958487.81370594,
+          "end": 958495.69578066,
+          "n_timestamps": 371
+        },
+        {
+          "db_id": 9,
+          "start": 958491.69453654,
+          "first": 958492.56346818,
+          "end": 958499.5548216,
+          "n_timestamps": 321
+        },
+        {
+          "db_id": 10,
+          "start": 958491.01318942,
+          "first": 958491.68958803,
+          "end": 958500.23957232,
+          "n_timestamps": 393
+        },
+        {
+          "db_id": 11,
+          "start": 958493.63208495,
+          "first": 958494.6384209,
+          "end": 958502.32094074,
+          "n_timestamps": 354
+        },
+        {
+          "db_id": 12,
+          "start": 958495.70185119,
+          "first": 958496.42605501,
+          "end": 958503.62866552,
+          "n_timestamps": 337
+        },
+        {
+          "db_id": 13,
+          "start": 958499.55733648,
+          "first": 958500.87057942,
+          "end": 958507.96505477,
+          "n_timestamps": 335
+        },
+        {
+          "db_id": 14,
+          "start": 958500.24132598,
+          "first": 958501.47603547,
+          "end": 958508.00644956,
+          "n_timestamps": 311
+        },
+        {
+          "db_id": 15,
+          "start": 958502.3228379,
+          "first": 958503.16002814,
+          "end": 958510.15013814,
+          "n_timestamps": 340
+        },
+        {
+          "db_id": 16,
+          "start": 958503.63040602,
+          "first": 958504.49592819,
+          "end": 958511.12343263,
+          "n_timestamps": 327
+        }
+      ]
+    }
+  },
+  "source_mechanism": {
+    "core_lm_only_hook": "model_executor/models/config.py:948 calls _strip_qwen4_exp_mrope",
+    "strip_function": "Removes mrope_section and mrope_interleaved from rope_parameters.",
+    "original_qsa": "Fused-path eligibility requires MRoPE [11,11,10]; ineligible compressed/query/main paths raise ABI errors.",
+    "old_container_qsa": "Has explicit norm+RoPE fallbacks for fusion-ineligible inputs.",
+    "current_qsa_sha256": "66301529c11bf7b733f039f709671337dfcee51d2fc917e3372676608d2e3ca7",
+    "old_container_qsa_sha256": "ac4efe252088ebfdfcb11edcbdcd130fa5b5dada3c7971258af114a2b234fac7"
+  },
+  "script_comparison": "TP4 DP2, token budgets, async scheduling, MTP3, D graph and connector settings match the specified archive. Main serving argv change removes language-model-only; other edits remove comments/existence checks and whitespace.",
+  "confirmed_conclusions": [
+    "Second run batch output throughput is real but cannot be classified as actual zero-cache reuse.",
+    "Prior statement of a 3.83x basic-PD compute improvement was premature.",
+    "Existing first-run timing is still in the tens-of-seconds TTFT range.",
+    "LM-only changes the RoPE execution path, explaining original-image compatibility separately from cache-driven apparent speedup."
+  ],
+  "limitations": [
+    "No service changes or new benchmark requests performed.",
+    "First-run detailed record is incomplete: recovered timing is diagnostic, not a valid replacement formal performance round.",
+    "Only one first-run input survived for exact text comparison; all 16 original first-run inputs were not recovered.",
+    "No controlled cold/cold language-model-only A/B or semantic correctness test.",
+    "Old current container source is a read-only snapshot, not a complete frozen source identity for the historical benchmark."
+  ]
+}

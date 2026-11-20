@@ -177,9 +177,9 @@
       "id": "case-qwen38-basic-pd-no-language-model-only-20261120",
       "kind": "case",
       "path": "cases/case-qwen38-basic-pd-no-language-model-only-20261120.json",
-      "revision": "3aa6edf5421fd251863cdaee35bec27c05917969835629b1386af63e8fac3594",
+      "revision": "853e5988582c5dcd859a3463825d9a9fd3d4ebe239b052d62f71556108ca6f8d",
       "status": "partial",
-      "summary": "当前TP4×DP2基础PD两侧不带language-model-only且健康；用户提供的单轮C4/M16日志输出453.1142 token/s。日志早于当前脚本修改，不能建立参数与性能的因果关系。",
+      "summary": "追查发现相同seed首轮已完成16请求但NFS落盘失败，第二轮P累计命中恰好16×131072。453.1142 tok/s为热复用结果，不能视作零命中冷算3.83倍提升；源码确认LM-only会剥离MRoPE。",
       "tags": [
         "Qwen3.8",
         "PD",
@@ -187,9 +187,14 @@
         "TP4",
         "DP2",
         "128K",
-        "prefix"
+        "prefix",
+        "APC",
+        "cross-run reuse",
+        "fixed seed",
+        "MRoPE",
+        "NFS EIO"
       ],
-      "title": "Qwen3.8基础PD：不带language-model-only的运行现场与128K+1K零名义前缀成绩",
+      "title": "Qwen3.8基础PD：453 TPS由跨轮APC复用解释，LM-only另影响MRoPE启动兼容性",
       "updated_at": "2026-11-20"
     },
     {
