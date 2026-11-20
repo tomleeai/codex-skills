@@ -1,0 +1,66 @@
+{
+  "protocol": "fixed256GiB; H/D1/D2; M=4*C; 50pct E50 paused",
+  "h_c16_m64": {
+    "completed_rounds": 3,
+    "attempted_rounds": 3,
+    "incomplete_or_invalid_rounds": [],
+    "planned_rounds": 3,
+    "requests": 192,
+    "c": 16,
+    "data_num_per_round": 64,
+    "duration_s": 365.1859269,
+    "input_tokens": 25165824,
+    "observed_input_tps": 68912.3598316844,
+    "lengths_valid": true,
+    "source_valid": true,
+    "round_input_tps": [
+      68948.556,
+      68906.648,
+      68881.9084
+    ],
+    "ttft_ms": {
+      "mean": 27620.760559948394,
+      "p50": 29706.473784986883,
+      "p90": 29733.763377042487
+    }
+  },
+  "d1_c16_stopped": {
+    "conservative_minimum_elapsed_s": 404.9464750289917,
+    "conservative_tps_upper_bound": 20715.350095094487,
+    "threshold_ruled_out": true
+  },
+  "d2_c1_m4": {
+    "input_tps": 1390.5426,
+    "duration_ms": 377038.4416,
+    "count": 4,
+    "source": {
+      "changes": {
+        "prefix_cache_hits_total": 0.0,
+        "external_prefix_cache_hits_total": 471040.0
+      },
+      "expected_external": 471040,
+      "source_valid": true,
+      "request_records": 4,
+      "unique_request_ids": 4,
+      "hit_lengths": [
+        117760
+      ],
+      "load_lengths": [
+        117760
+      ]
+    }
+  },
+  "profiling": {
+    "requests": 2,
+    "input_each": 131072,
+    "output_each": 1,
+    "rank_count": 16,
+    "coverage_complete": true,
+    "p_external_total": 235520,
+    "d_local_total": 117248,
+    "d_external_total": 144894
+  },
+  "overall_acceptance_pass": false,
+  "functional_accuracy": "unresolved; prior DRAM cached-region retrieval failure remains",
+  "scope": "C1 diagnostic is not selected-C16 formal acceptance; H oldM128 is historical"
+}

@@ -102,9 +102,9 @@
       "id": "case-qwen38-950dt-layerwise-pp-prefix-20261120",
       "kind": "case",
       "path": "cases/case-qwen38-950dt-layerwise-pp-prefix-20261120.json",
-      "revision": "220ed68508f94e007407647f045fb9871f1554e8cb1a5f18bbf185daeea60470",
+      "revision": "df2b84cf1c89236ceb14f32727dfd865b539fe57d524ae8e355bfdbff5f818f3",
       "status": "unresolved",
-      "summary": "PP空组永久miss经owner传播恢复命中；同输入DRAM热检索4/4失败，HBM热检索2/2正确，新P/D/Meta且无驱逐仍复现。三项候选拒绝，未通过验收。",
+      "summary": "M=4C修订后H C16/M64三轮68912.36；D1并发层加载停滞，D2 C1/M4真实DRAM诊断1390.54；双侧16rank两请求profiling完成，整体未通过。",
       "tags": [
         "Qwen3.8-Flash-Next",
         "950DT",
