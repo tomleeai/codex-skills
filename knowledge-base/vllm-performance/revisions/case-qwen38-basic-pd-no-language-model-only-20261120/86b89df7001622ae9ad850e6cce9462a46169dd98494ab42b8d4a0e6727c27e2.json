@@ -1,0 +1,141 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "torch": "2.10.0+cpu",
+      "torch-npu": "2.10.0.post7",
+      "vLLM": "0.32.0+empty",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "TP4 DP2",
+      "AISBench",
+      "finite_batch"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "Read existing scripts, archive and benchmark log; inspect live command lines, image IDs, versions, Git status and health."
+    ],
+    "confirmed_findings": [
+      "Current live basic PD omits language-model-only on both sides and is healthy.",
+      "Existing log reports 16 successes, zero failures, exactly 1024 outputs per request and batch output throughput 453.1142 token/s.",
+      "Current basic PD uses TP4 DP2 rather than the historical pooled TP4 PP2 layout."
+    ],
+    "hypotheses": [
+      "Removing language-model-only may change the relevant model execution path; no controlled causal evidence collected."
+    ],
+    "limitations": [
+      "Current scripts modified after 17:00; benchmark log records 10:38. Historical launch and source identity are not established.",
+      "Archived scripts contain language-model-only; current scripts and live commands omit it. No controlled A/B was executed.",
+      "Nominal prefix ratio 0 is dataset configuration, not proof of zero actual cache reuse or disabled APC.",
+      "Single existing performance batch, no semantic accuracy validation or new benchmark.",
+      "Historical pooled PP2 reference uses different image, source, layout, connector and scheduling. Ratios are descriptive only.",
+      "Original log npu numbers=1 and single_* fields do not establish per-device throughput."
+    ],
+    "next_step": "Only if separately requested: recover historical launch evidence or run an authorized controlled comparison with verified resources.",
+    "observations": [
+      {
+        "ascend_commit": "62fe4cde69d9e80225283f2e3edf7913d77bc9e8",
+        "both_sides_health_http": 200,
+        "connector": "MooncakeConnectorV2",
+        "core_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+        "d_batch_tokens": 4096,
+        "d_speculative_enforce_eager": false,
+        "dp": 2,
+        "image_id": "sha256:ddc16dd6ba93a789bc836b6ce41049da552f3d25caac7f7e73dd8f79d74aed2a",
+        "language_model_only_flag": false,
+        "layerwise_explicit": false,
+        "memcache_connector": false,
+        "mtp_tokens": 3,
+        "observed_date": "2026-11-20",
+        "p_and_d_async": true,
+        "p_batch_tokens": 8192,
+        "pp_explicit": false,
+        "prefix_caching": true,
+        "tp": 4,
+        "tracked_git_changes": [],
+        "versions": {
+          "torch": "2.10.0+cpu",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.32.0+empty",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        }
+      },
+      {
+        "accuracy_test": false,
+        "benchmark_duration_ms": 36158.658,
+        "failed_requests": 0,
+        "input_tokens_total": 2097989,
+        "nominal_prefix_ratio": 0.0,
+        "num_warmups": 0,
+        "output_tokens_max": 1024,
+        "output_tokens_min": 1024,
+        "output_tokens_total": 16384,
+        "server_cache_hit_counters_available": false,
+        "successful_requests": 16
+      },
+      {
+        "E2EL P90": 9323.6,
+        "E2EL avg": 8583.1,
+        "E2E_throughput": 58474.8748,
+        "E2E_time": 36.158658,
+        "TPOT SLO_P90": 8.3,
+        "TPOT avg": 7.5,
+        "TTFT P90": 1180.9,
+        "TTFT avg": 926.6,
+        "cc": 3.798,
+        "current_time": "2026-11-20 10:38:16",
+        "input_len": 131124.3125,
+        "input_token_throughput": 58021.7606,
+        "max_cc": "4",
+        "output_len": 1024.0,
+        "output_throughput": 453.1142,
+        "prefill_token_throughput": 9999,
+        "qpm": 26.55,
+        "qps": 0.4425,
+        "repeat_rate": 0.0,
+        "rr": "0",
+        "single_E2E_throughput": 58474.8748,
+        "single_output_throughput": 453.1142,
+        "total_req": 16.0
+      }
+    ],
+    "task": "Read-only verification of colleague-provided basic PD deployment and existing benchmark."
+  },
+  "created_at": "2026-11-20",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-basic-pd-no-language-model-only-20261120/evidence.json",
+      "role": "sanitized read-only observations and full raw metric dictionary",
+      "sha256": "cede3d54a1ddb192162be1f1cb575ba85dc7754e32d6d4d37b697064d3a918ef"
+    }
+  ],
+  "id": "case-qwen38-basic-pd-no-language-model-only-20261120",
+  "kind": "case",
+  "observed_at": "2026-11-20",
+  "related_ids": [
+    "case-qwen38-flash-next-650e-pd-128k-20261116"
+  ],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "当前TP4×DP2基础PD两侧不带language-model-only且健康；用户提供的单轮C4/M16日志输出453.1142 token/s。日志早于当前脚本修改，不能建立参数与性能的因果关系。",
+  "supersedes": [],
+  "tags": [
+    "Qwen3.8",
+    "PD",
+    "language-model-only",
+    "TP4",
+    "DP2",
+    "128K",
+    "prefix"
+  ],
+  "title": "Qwen3.8基础PD：不带language-model-only的运行现场与128K+1K零名义前缀成绩",
+  "updated_at": "2026-11-20"
+}

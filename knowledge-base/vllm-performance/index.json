@@ -156,6 +156,45 @@
     {
       "applies_to": {
         "hardware": [
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "torch": "2.10.0+cpu",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.32.0+empty",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "TP4 DP2",
+          "AISBench",
+          "finite_batch"
+        ]
+      },
+      "id": "case-qwen38-basic-pd-no-language-model-only-20261120",
+      "kind": "case",
+      "path": "cases/case-qwen38-basic-pd-no-language-model-only-20261120.json",
+      "revision": "3aa6edf5421fd251863cdaee35bec27c05917969835629b1386af63e8fac3594",
+      "status": "partial",
+      "summary": "当前TP4×DP2基础PD两侧不带language-model-only且健康；用户提供的单轮C4/M16日志输出453.1142 token/s。日志早于当前脚本修改，不能建立参数与性能的因果关系。",
+      "tags": [
+        "Qwen3.8",
+        "PD",
+        "language-model-only",
+        "TP4",
+        "DP2",
+        "128K",
+        "prefix"
+      ],
+      "title": "Qwen3.8基础PD：不带language-model-only的运行现场与128K+1K零名义前缀成绩",
+      "updated_at": "2026-11-20"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend 650E"
         ],
         "models": [

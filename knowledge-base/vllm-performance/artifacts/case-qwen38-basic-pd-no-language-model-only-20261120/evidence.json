@@ -1,0 +1,82 @@
+{
+  "source": "Existing AISBench log supplied by user, downloaded read-only on 2026-11-20",
+  "source_sha256": "011f88014604a8f3e9614558b0062ab68e0469ec0f468e0cb362fc5bedb386b6",
+  "raw_summary": {
+    "current_time": "2026-11-20 10:38:16",
+    "input_len": 131124.3125,
+    "output_len": 1024.0,
+    "total_req": 16.0,
+    "max_cc": "4",
+    "cc": 3.798,
+    "rr": "0",
+    "repeat_rate": 0.0,
+    "TTFT avg": 926.6,
+    "TTFT P90": 1180.9,
+    "TPOT avg": 7.5,
+    "TPOT SLO_P90": 8.3,
+    "E2E_time": 36.158658,
+    "output_throughput": 453.1142,
+    "single_output_throughput": 453.1142,
+    "E2E_throughput": 58474.8748,
+    "single_E2E_throughput": 58474.8748,
+    "qps": 0.4425,
+    "qpm": 26.55,
+    "input_token_throughput": 58021.7606,
+    "prefill_token_throughput": 9999,
+    "E2EL avg": 8583.1,
+    "E2EL P90": 9323.6
+  },
+  "log_validation": {
+    "successful_requests": 16,
+    "failed_requests": 0,
+    "input_tokens_total": 2097989,
+    "output_tokens_total": 16384,
+    "output_tokens_min": 1024,
+    "output_tokens_max": 1024,
+    "benchmark_duration_ms": 36158.658,
+    "num_warmups": 0,
+    "accuracy_test": false,
+    "nominal_prefix_ratio": 0.0,
+    "server_cache_hit_counters_available": false
+  },
+  "current_runtime_observation": {
+    "observed_date": "2026-11-20",
+    "image_id": "sha256:ddc16dd6ba93a789bc836b6ce41049da552f3d25caac7f7e73dd8f79d74aed2a",
+    "both_sides_health_http": 200,
+    "tp": 4,
+    "dp": 2,
+    "pp_explicit": false,
+    "language_model_only_flag": false,
+    "prefix_caching": true,
+    "p_batch_tokens": 8192,
+    "d_batch_tokens": 4096,
+    "p_and_d_async": true,
+    "mtp_tokens": 3,
+    "d_speculative_enforce_eager": false,
+    "connector": "MooncakeConnectorV2",
+    "layerwise_explicit": false,
+    "memcache_connector": false,
+    "core_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+    "ascend_commit": "62fe4cde69d9e80225283f2e3edf7913d77bc9e8",
+    "tracked_git_changes": [],
+    "versions": {
+      "vLLM": "0.32.0+empty",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6",
+      "torch": "2.10.0+cpu",
+      "torch-npu": "2.10.0.post7"
+    }
+  },
+  "limitations": [
+    "Current scripts modified after 17:00; benchmark log records 10:38. Historical launch and source identity are not established.",
+    "Archived scripts contain language-model-only; current scripts and live commands omit it. No controlled A/B was executed.",
+    "Nominal prefix ratio 0 is dataset configuration, not proof of zero actual cache reuse or disabled APC.",
+    "Single existing performance batch, no semantic accuracy validation or new benchmark.",
+    "Historical pooled PP2 reference uses different image, source, layout, connector and scheduling. Ratios are descriptive only.",
+    "Original log npu numbers=1 and single_* fields do not establish per-device throughput."
+  ],
+  "historical_reference": {
+    "output_throughput_three_round_mean": 60.232733333333336,
+    "descriptive_ratio": 7.522723524639426
+  },
+  "actions": "Read-only SSH inspection, local evidence archival; no remote mutations or inference requests."
+}
