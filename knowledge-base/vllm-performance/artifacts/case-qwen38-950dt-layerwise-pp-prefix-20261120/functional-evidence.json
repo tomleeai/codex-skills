@@ -1,0 +1,751 @@
+{
+  "gold": "VIOLET-73649182",
+  "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+  "input_tokens": 131072,
+  "output_tokens": 1024,
+  "marker_position_body_tokens": 60000,
+  "warm_boundary": 65536,
+  "cases": [
+    {
+      "name": "cold0",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 31.551244735717773,
+      "external_hits": 0.0,
+      "local_hits": 0.0,
+      "marker_found": true,
+      "prediction_sha256": "5ce3c2be42a6d020c3ab81ba8a34fd418232ad591a3e6b84e403f15be521ecbb",
+      "prediction_chars": 4110,
+      "server_id": "chatcmpl-81c68e71-d4b0-4291-885c-27863948d20c",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 94
+        }
+      },
+      "first_observed_marker": "VIOLET-73649182",
+      "all_observed_markers": [
+        "VIOLET-73649182"
+      ],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 4057.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_segment_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_segment_allocated_bytes": [
+          235715166208.0,
+          225695916032.0
+        ],
+        "memcache_total_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_allocated_bytes": [
+          235715166208.0,
+          225695916032.0
+        ],
+        "memcache_ubs_io_disk_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_ubs_io_mem_capacity_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "cold1",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 31.598711013793945,
+      "external_hits": 0.0,
+      "local_hits": 0.0,
+      "marker_found": true,
+      "prediction_sha256": "9ba6416427983a957b2b51d7c573ae803b59f52cf527ade82b814de6883bfef0",
+      "prediction_chars": 4119,
+      "server_id": "chatcmpl-421c3815-a419-4413-9fae-aaa4bb738b9c",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 94
+        }
+      },
+      "first_observed_marker": "VIOLET-73649182",
+      "all_observed_markers": [
+        "VIOLET-73649182"
+      ],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 2032.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_segment_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_segment_allocated_bytes": [
+          225695916032.0,
+          243440992256.0
+        ],
+        "memcache_total_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_allocated_bytes": [
+          225695916032.0,
+          243440992256.0
+        ],
+        "memcache_ubs_io_disk_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_ubs_io_mem_capacity_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "h-cold0",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 29.490145683288574,
+      "external_hits": 0.0,
+      "local_hits": 0.0,
+      "marker_found": true,
+      "prediction_sha256": "fabc7b188f517afb11f73abb30829683902d46b7e0dbf37a0e77db06dd341305",
+      "prediction_chars": 1627,
+      "server_id": "chatcmpl-a07d8174-ef5a-4294-b33f-79734b6bbaa1",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 117
+        }
+      },
+      "first_observed_marker": "VIOLET-73649182",
+      "all_observed_markers": [
+        "VIOLET-73649182"
+      ],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 0.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_total_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_allocated_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "h-warm0",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 22.035966396331787,
+      "external_hits": 0.0,
+      "local_hits": 65536.0,
+      "marker_found": true,
+      "prediction_sha256": "fabc7b188f517afb11f73abb30829683902d46b7e0dbf37a0e77db06dd341305",
+      "prediction_chars": 1627,
+      "server_id": "chatcmpl-03443d24-a2ae-49a4-9ca7-4e15df1816ce",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 117
+        }
+      },
+      "first_observed_marker": "VIOLET-73649182",
+      "all_observed_markers": [
+        "VIOLET-73649182"
+      ],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 0.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_total_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_allocated_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "h-warm1",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 22.208774089813232,
+      "external_hits": 0.0,
+      "local_hits": 65536.0,
+      "marker_found": true,
+      "prediction_sha256": "fabc7b188f517afb11f73abb30829683902d46b7e0dbf37a0e77db06dd341305",
+      "prediction_chars": 1627,
+      "server_id": "chatcmpl-69815497-76b9-4d8d-82e0-cf72ddf3f335",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 117
+        }
+      },
+      "first_observed_marker": "VIOLET-73649182",
+      "all_observed_markers": [
+        "VIOLET-73649182"
+      ],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 0.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_total_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_allocated_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "restored-cold0",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 33.23636817932129,
+      "external_hits": 0.0,
+      "local_hits": 0.0,
+      "marker_found": true,
+      "prediction_sha256": "fabc7b188f517afb11f73abb30829683902d46b7e0dbf37a0e77db06dd341305",
+      "prediction_chars": 1627,
+      "server_id": "chatcmpl-430b7c6b-3c19-40c8-b7c7-68f675d506ec",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 117
+        }
+      },
+      "first_observed_marker": "VIOLET-73649182",
+      "all_observed_markers": [
+        "VIOLET-73649182"
+      ],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 0.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_segment_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_segment_allocated_bytes": [
+          0.0,
+          45572317184.0
+        ],
+        "memcache_total_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_allocated_bytes": [
+          0.0,
+          45572317184.0
+        ],
+        "memcache_ubs_io_disk_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_ubs_io_mem_capacity_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "restored-warm0",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 100.40877032279968,
+      "external_hits": 65536.0,
+      "local_hits": 0.0,
+      "marker_found": false,
+      "prediction_sha256": "acefe473216f7ae1a8788e6f37055f5f47abdfd426754ead84ab0dd22bb34414",
+      "prediction_chars": 4801,
+      "server_id": "chatcmpl-c499a00a-12d8-4a05-8ed5-841730505b7b",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1024
+        }
+      },
+      "first_observed_marker": null,
+      "all_observed_markers": [],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 0.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_segment_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_segment_allocated_bytes": [
+          68438704128.0,
+          91144658944.0
+        ],
+        "memcache_total_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_allocated_bytes": [
+          68438704128.0,
+          91144658944.0
+        ],
+        "memcache_ubs_io_disk_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_ubs_io_mem_capacity_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "restored-warm1",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 95.28943133354187,
+      "external_hits": 65536.0,
+      "local_hits": 0.0,
+      "marker_found": false,
+      "prediction_sha256": "823271345ebe227badb58427f370bea8a4818442be317642854bac78df8bc124",
+      "prediction_chars": 466,
+      "server_id": "chatcmpl-2e4f9dfc-f49e-4999-83b9-975da47e3823",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 111
+        }
+      },
+      "first_observed_marker": "VIOLET-73642815",
+      "all_observed_markers": [
+        "VIOLET-73642815"
+      ],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 0.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_segment_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_segment_allocated_bytes": [
+          114011045888.0,
+          136717000704.0
+        ],
+        "memcache_total_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_allocated_bytes": [
+          114011045888.0,
+          136717000704.0
+        ],
+        "memcache_ubs_io_disk_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_ubs_io_mem_capacity_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "warm0",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 84.48348450660706,
+      "external_hits": 65536.0,
+      "local_hits": 0.0,
+      "marker_found": false,
+      "prediction_sha256": "6e80c1839881881bd3b79383ca62444d22f0c3b11ae1181a1a4c4aae9113a102",
+      "prediction_chars": 505,
+      "server_id": "chatcmpl-8d8196cc-0373-40ca-8fbe-4401ce74b607",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 116
+        }
+      },
+      "first_observed_marker": "VIOLET-73412985",
+      "all_observed_markers": [
+        "VIOLET-73412985"
+      ],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 2022.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_segment_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_segment_allocated_bytes": [
+          238969307136.0,
+          233736355840.0
+        ],
+        "memcache_total_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_allocated_bytes": [
+          238969307136.0,
+          233736355840.0
+        ],
+        "memcache_ubs_io_disk_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_ubs_io_mem_capacity_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "warm1",
+      "input_tokens": 131072,
+      "output_tokens": 1024,
+      "duration_s": 88.53342175483704,
+      "external_hits": 65536.0,
+      "local_hits": 0.0,
+      "marker_found": false,
+      "prediction_sha256": "830236396ab62b2535a66b7c882bf5c79d1ac6b77a24b648e903cf7b8ec8dd5f",
+      "prediction_chars": 719,
+      "server_id": "chatcmpl-1a9e5d83-1c9f-4847-a790-3a07e2c7df80",
+      "usage": {
+        "prompt_tokens": 131072,
+        "total_tokens": 132096,
+        "completion_tokens": 1024,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 110
+        }
+      },
+      "first_observed_marker": "VIOLET-73214856",
+      "all_observed_markers": [
+        "VIOLET-73214856"
+      ],
+      "input_sha256": "f44fd3f7754894a0d704f85f9b82b00277e62e39a68d20006cf0f043c3d278cd",
+      "d_cache_delta": {
+        "vllm:prefix_cache_queries_total": 131072.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_total": 131072.0,
+        "vllm:external_prefix_cache_hits_total": 131071.0
+      },
+      "meta_delta": {
+        "memcache_alloc_failures_total": 0.0,
+        "memcache_batch_alloc_failures_total": 0.0,
+        "memcache_get_failures_total": 0.0,
+        "memcache_batch_get_failures_total": 0.0,
+        "memcache_remove_failures_total": 0.0,
+        "memcache_batch_remove_failures_total": 0.0,
+        "memcache_remove_all_failures_total": 0.0,
+        "memcache_update_state_failures_total": 0.0,
+        "memcache_batch_update_state_failures_total": 0.0,
+        "memcache_query_failures_total": 0.0,
+        "memcache_batch_query_failures_total": 0.0,
+        "memcache_get_all_keys_failures_total": 0.0,
+        "memcache_exist_key_failures_total": 0.0,
+        "memcache_batch_exist_key_failures_total": 0.0,
+        "memcache_mount_failures_total": 0.0,
+        "memcache_unmount_failures_total": 0.0,
+        "memcache_evict_operations_total": 2040.0,
+        "memcache_evict_running": 0.0,
+        "memcache_rewarm_failed_total": 0.0
+      },
+      "meta_memory_before_after": {
+        "memcache_segment_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_segment_allocated_bytes": [
+          228985503744.0,
+          224221241344.0
+        ],
+        "memcache_total_capacity_bytes": [
+          274877906944.0,
+          274877906944.0
+        ],
+        "memcache_allocated_bytes": [
+          228985503744.0,
+          224221241344.0
+        ],
+        "memcache_ubs_io_disk_capacity_bytes": [
+          0.0,
+          0.0
+        ],
+        "memcache_ubs_io_mem_capacity_bytes": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ],
+  "note": "Functional-only, not performance rounds. First marker is extracted from full prediction including reasoning; raw requests/responses retained."
+}

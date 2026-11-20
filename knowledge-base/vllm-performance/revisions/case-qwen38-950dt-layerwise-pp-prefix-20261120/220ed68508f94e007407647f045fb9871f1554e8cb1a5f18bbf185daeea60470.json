@@ -1,0 +1,139 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend 950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "MemCache": "1.3.0",
+      "vLLM": "0.33.0",
+      "vLLM-Ascend-baseline": "9005a22a862a95d52025b70fb2bff8eed8a5a5e3",
+      "vLLM-core-baseline": "4ba787ec9959e566d3b587a796dff07673324da5"
+    },
+    "workload_modes": [
+      "PD",
+      "TP4-PP2-DP1-DCP1-MTP3",
+      "P-KV-offload",
+      "MemCache-layerwise",
+      "MooncakeConnectorV2-layerwise-Push",
+      "131072+1-prefix90",
+      "131072+1024-prefix50"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "AISBench本版本retry=0循环零次、没有有效发压；retry=1为一次尝试。保留无效准备记录，后续全部正式使用一次尝试，严格核验成功数、实际input/output。",
+      "沿用原工具生成器，保留原稿/Manifest，以最小后缀修正使chat模板后恰好131072；BatchEncoding的len不是token长度，应encode完整模板字符串。冻结同文件配对，跨轮使用独立后缀；32前缀顺序由原工具row_index % prefix_num构造。",
+      "功能修复：core KVCacheConfig加group PP owner字段；planner从最终worker投影推导owner并传递；Ascend key builder只检查真实owner且要求全部实际分片；MemCache binder传入字段。无字段保留旧行为，非法owner拒绝。未改key格式和物理KV布局。",
+      "候选1 max_transfer_blocks32：纯P C1/M2输入751.3553 tok/s，较修复版下降53.15516022493094%，真实命中相同。E50两条未完整成功，D报507034；native原始1.648 output tok/s不计成绩。",
+      "D设备日志：_expand_idx_mapping_kernel报无可用向量核，56核被较早stream43任务占住。HCCL watchdog为后续现象，底层卡住的kernel仍未知；没有套用QLI/507014补丁。原参数恢复一次后健康。",
+      "候选2 device_sdma：首个建池写入BatchCopyG2G wait失败ret=-7、save(L2G)失败，未进入性能测试，保留partial及CPU栈后回退UBoE。曾提议scheduler lazy_init=False，复核构造器默认已False，启动前撤回冗余改动。",
+      "候选3 buffers8/prefetch7：planner回退完整缓存，实际layer reuse为0、容量回到2392952；预检在发压前拒绝，不以关闭实际复用取得成绩。",
+      "三项均无有效改善，停止新增候选，恢复UBoE buffers4/prefetch3、token budget16384。临时诊断/拷贝计时已撤回，功能PP修复保留。",
+      "SDK batch_copy观测：约14MB/224地址耗时1.7-4秒，部分save约0.4MB/2地址亦1.45-1.5秒。CPU采样指向原生拷贝/Event等待，不是NPU profiling。",
+      "独立读带宽微探针因额外UB上下文/whitelist peer8失败，没有带宽成绩；按身份停止辅助进程，未将失败当带宽结果。",
+      "隔离直连P多token诊断选错入口：共享循环状态+MTP不支持decode commit，首条冷请求HTTP500并抛NotImplementedError，P引擎退出。无直连P热回读证据，不将此当设备算子故障；已转HBM Proxy冷/热控制并恢复服务。"
+    ],
+    "confirmed_findings": [
+      "PP owner必须来自planner真实物理投影，不能把全局组存在等同于每个stage都有数据。",
+      "实际外部复用可恢复，但当前UBoE诊断性能严重慢；不能据此宣布5%正式验收通过。",
+      "更多共享缓冲在当前布局可能触发full-cache回退，必须验证实际layer reuse而非只看启动参数。",
+      "原始请求时间点在SQLite numpy_store中，以原工具load_all_numpy_from_db和derive_request_metrics还原；合并P90从全部请求重算。"
+    ],
+    "hypotheses": [
+      "旧公开SDK源码中的批次描述符分配/H2D或native提交开销可能相关，但其版本早于现场1.3.0，未证实为根因，未更换SDK。",
+      "D较早卡住任务和多次P实例切换的关系未证实；不能将最后报错的展开索引kernel当根因。",
+      "热回读错误可能涉及状态/组件映射、物理槽生命周期或恢复后消费；仅凭metadata key存在和native返回成功不能证明内容正确。该候选方向未完成tensor级比对，不是已确认根因。"
+    ],
+    "limitations": [
+      "DCP1范围，未验证DCP>1/PCP或不同executor排序。",
+      "SDMA未通过首个建池，不支持本环境已验证有效的结论。",
+      "NPU profiler仅预留，未start_profile；等用户指定case后采2或3条完整请求。",
+      "原始数据含无效准备与失败尝试；原始标志不能替代长度、来源和完整性联合判断。",
+      "D1/D32正式三轮、E50第三轮/最终配对和独立长稳定性批次因功能正确性问题暂停。",
+      "D1/D32各三轮、E50完整基线与最终配对、独立长批次、张量等价与逐层源槽时间线、真实HBM峰值节省均未完成。",
+      "没有把旧进程、满池驱逐、错误码或最后报错kernel直接当根因。恢复后的无驱逐失败说明仅扩容/重启不能消除本case错误。"
+    ],
+    "next_step": "停止性能派发，先用相同功能输入比对恢复前后的QSA/GDN等状态、group地址/checkpoint和槽生命周期，定位并修复内容错误；再验证D32容量，重建受影响的H与完整正式矩阵。现场patch与PR草案本地保留，未发布上游PR。",
+    "observations": [
+      "H匹配修复后源码三轮C16各128条全部有效，Q分别69758.3652、69731.8205、69720.6158 tok/s；正式时长240504.7188、240596.2711、240634.9371 ms。合并69736.93024983637 tok/s，95%阈值66250.08373734455。每条本地命中117760，外部0。初始修复前H为69763.65955605841，漂移-0.03831408270743575%。",
+      "原目标连完全相同请求也外部命中0。修复后C1、2条纯P诊断输入1603.9233 tok/s、时长163439.2399 ms，每条真实外部命中117760、本地0；不是C16正式成绩。",
+      "真实50%前缀C2、2条完整Proxy探针输出12.0133 tok/s，正式时长170477.6584 ms，每条输入131072、输出1024、外部复用65536。TTFT mean=135749.53485501464 / P90=138475.9042990161 ms，TPOT mean=30.493813206237775 / P90=30.587945530807392 ms。不是3轮正式E50。",
+      "最初名义50%但真实复用0的探针输出38.6985 tok/s，不作为50%缓存优化基线。",
+      "元数据检查：某GDN组仅PP0有真实层，另一组仅PP1；旧检查要求两段均有key，非owner缺key导致永久miss。DRAM key info介质1、GVA>0。GVA直接拷贝不增加常规Meta Get计数，Get=0不能独自证明没有回读。",
+      "7777个运行源码文件与修改前清单比较，恰好4个P文件新增变化，D源码未变；6项CPU回归通过，真实服务回读与两条完整PD请求已验证。",
+      "同显存预算H可容纳2392952 token，4/3目标为2889900，容量增幅20.767152872268223%；预分配使总HBM占用接近，不能将此数当占用节省率。",
+      "E50 C4/M16摸点14.7684 output tok/s；基线前两轮18.8199、17.0282，各16条完整131072+1024且实际外部65536/条。第三轮因正确性问题暂停，不能作正式三轮汇总。",
+      "同一功能输入131072 token，在缓存区域60000 token附近埋入校验值。两个盐隔离冷Proxy请求均正确，两个独立建池的热Proxy请求均取错数字；热请求每条外部65536、本地0、完整1024输出。冷请求全文也非逐字确定，但均取对值，不能据此将热请求错误判为正常。",
+      "当前8×32GiB实际池为256GiB；独立填池快照测90%公共前缀约41561513984字节，32种仅公共部分估算1329968447488字节。准备过192GiB/rank配置但未应用，功能问题优先。",
+      "相同功能输入，H配置保持同布局与layerwise Push、仅关闭P Offload/MemCache；一个冷请求和两个HBM本地复用65536 token的热请求全部取回正确值。相同D进程参与，支持问题与启用池化/Offload后的路径有关，尚未定位具体组件。",
+      "全新P/D/Meta、原目标参数复查：冷1/1正确，两个独立DRAM热请求0/2正确，均完整131072+1024、外部65536、本地0。热请求时长100.40877032279968、95.28943133354187秒；前后驱逐计数及可见失败计数增量均0，池占用分别91144658944、136717000704字节，低于274877906944容量。原目标热检索0/2；H配置热检索2/2正确。",
+      "全部10条功能请求D外部命中均131071、本地0，真实P到D传输与P跨请求前缀复用分别统计。功能输入由原工具数据作仅限功能的token替换，所有完整输入SHA一致，marker在缓存区token60000附近，独立cache_salt隔离。",
+      "E50已完成两轮C4/M16的合并输出17.879291250485764 tok/s；32请求合并TTFT mean203345.2244568798/P90245536.66770104322 ms，TPOT mean12.625707373827328/P9013.85324870086915 ms。功能正确性失败，不能作合格三轮/最终优化收益。",
+      "最终入口健康、P/D队列0、自有测试客户端退出；保留的是已知正确性失败的空闲复现场景，不是已验收版本。NPU profiling未启动，等待用户指定case。"
+    ],
+    "task": "同卡串行H、D1、D32纯P验收：131072+1、名义90%前缀，H选C16、每轮128条、三轮。D32工具生成32种交错前缀。新增Proxy端到端131072+1024、50%前缀，目标保留指定组合。判据D1/D32均严格>0.95H；E50固定并发和4C请求数比较。"
+  },
+  "created_at": "2026-11-20",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-950dt-layerwise-pp-prefix-20261120/functional-evidence.json",
+      "role": "Observed metrics and functional evidence; private environment identities and raw full prompts/logs excluded",
+      "sha256": "a6f8d7d7ab7c22a26719ad6cd1bfd0bad1a38a8ee59511ef2950b3c162914352"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-layerwise-pp-prefix-20261120/measurements.csv",
+      "role": "Observed metrics and functional evidence; private environment identities and raw full prompts/logs excluded",
+      "sha256": "de03a88750f7996f0083c1f3e01eb759890a20ccb7cc3e42dc6df142dc2ff671"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-layerwise-pp-prefix-20261120/measurements.json",
+      "role": "Observed metrics and functional evidence; private environment identities and raw full prompts/logs excluded",
+      "sha256": "5e331fbb143be3435cc7c132a1e486031c372dd08babc8700b2d21d1af069431"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-layerwise-pp-prefix-20261120/request-metrics.csv",
+      "role": "Observed metrics and functional evidence; private environment identities and raw full prompts/logs excluded",
+      "sha256": "75eb7152169673033c35c37319602514adac3698aeb255c41c6b67496e2d66a4"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-layerwise-pp-prefix-20261120/request-statistics.json",
+      "role": "Observed metrics and functional evidence; private environment identities and raw full prompts/logs excluded",
+      "sha256": "8dc82b015a1e9163b1fea1c00a8b72ccc369c329048e3148f49caa866c367616"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-layerwise-pp-prefix-20261120/summary.json",
+      "role": "Observed metrics and functional evidence; private environment identities and raw full prompts/logs excluded",
+      "sha256": "4b55555ffb9797c79d0480d637199e3b64a820e264a603ed95d4a8d629a655f1"
+    },
+    {
+      "ref": "artifact:case-qwen38-950dt-layerwise-pp-prefix-20261120/tests.log",
+      "role": "Observed metrics and functional evidence; private environment identities and raw full prompts/logs excluded",
+      "sha256": "c6b9b1f09add0403cc07e90bfdf272129b1ddfa2f8f7675ea8218862f2516371"
+    }
+  ],
+  "id": "case-qwen38-950dt-layerwise-pp-prefix-20261120",
+  "kind": "case",
+  "observed_at": "2026-11-20",
+  "related_ids": [],
+  "schema_version": 1,
+  "status": "unresolved",
+  "summary": "PP空组永久miss经owner传播恢复命中；同输入DRAM热检索4/4失败，HBM热检索2/2正确，新P/D/Meta且无驱逐仍复现。三项候选拒绝，未通过验收。",
+  "supersedes": [],
+  "tags": [
+    "Qwen3.8-Flash-Next",
+    "950DT",
+    "PP",
+    "MemCache",
+    "layerwise",
+    "GVA",
+    "DRAM",
+    "prefix-cache",
+    "AISBench",
+    "device_uboe"
+  ],
+  "title": "Qwen3.8 Flash Next层式池化：PP归属误判、真实DRAM命中与慢拷贝",
+  "updated_at": "2026-11-20"
+}
