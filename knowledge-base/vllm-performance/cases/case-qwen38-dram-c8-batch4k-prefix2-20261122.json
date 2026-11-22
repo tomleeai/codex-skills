@@ -1,0 +1,187 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "CANN": "9.2.1",
+      "memcache-hybrid": "1.3.0",
+      "torch": "2.10.0+cpu",
+      "torch-npu": "2.10.0.post7",
+      "vLLM": "0.32.0+empty",
+      "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "TP4 PP2",
+      "KV offload",
+      "Memcache layerwise",
+      "Mooncake layerwise Push",
+      "AISBench finite batch",
+      "prefix_cache 0.9",
+      "one prefix",
+      "two prefixes"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "保留PD/PP/KV offload/DRAM池化/Mooncake Push与真实负载，先复现再分别调整batch预算和池容量。",
+      "原C8固定参数对照后，用户提醒并发交互；计划补扫C4/C12/C16。C4发生GVA失败；后续D2 C8也出现同一首错，不能认定仅由C4触发。C12/C16最终未派发，因为扩大容量后的C8已过目标。",
+      "用户明确纠正主线是未完成的D2，并要求在最终同一容量下补测D1；两项分别完成。",
+      "最终按用户机时截止设定两机独立定时清理与到期启动锁；实际到期执行审计属于后续事件，不在性能通过结论中声称已完成。"
+    ],
+    "confirmed_findings": [
+      "吞吐门槛下D1、D2在同一P4096/768GiB/C8配置各两轮通过；主机DRAM比512GiB增加256GiB，即50%，NPU资源和显存比例不变。",
+      "GVA登记失败先于不完整KV/state拒绝、Mamba pending校验及其余rank事件/通信等待。线程等待位置不是根因定位。",
+      "本地审查cfe30446f43d533ff18d746f2e14b633e518ca6f源码：旧ReleaseLease只pop队列，区间与key索引由1秒周期清理，登记Add在重叠时拒绝。",
+      "本地Git对象核查上游a3794e3b4b9cd9feb4d4916e84bfb358e51ed837、MR706，在最后操作结束时同步移除两个索引，包含最后读/写释放、立即地址复用、多操作保留区间的回归用例。本轮未回移/重编/替换二进制。"
+    ],
+    "deployment": {
+      "async_scheduling": true,
+      "batch_chunk_count": 3,
+      "batch_chunk_mb": 1,
+      "d_apc": true,
+      "d_batch_tokens": 4096,
+      "d_graph": "FULL_DECODE_ONLY",
+      "d_mtp_eager": false,
+      "dcp": 1,
+      "devices": 16,
+      "devices_per_role": 8,
+      "dp": 1,
+      "ep": true,
+      "gpu_memory_utilization": 0.9,
+      "independent_layers": [
+        0,
+        3,
+        7,
+        11,
+        15,
+        19,
+        23
+      ],
+      "max_model_len": 143360,
+      "max_num_seqs": 16,
+      "mtp_tokens": 3,
+      "p_apc": false,
+      "p_batch_tokens_final": 4096,
+      "p_graph": "NONE",
+      "p_mtp_eager": true,
+      "pool_final_gib": 768,
+      "pool_initial_gib": 512,
+      "pp": 2,
+      "pp_partition": [
+        24,
+        24
+      ],
+      "prefetch_layers": 3,
+      "rank_pool_final_gib": 96,
+      "rank_pool_initial_gib": 64,
+      "read_threads": 12,
+      "shared_buffers": 4,
+      "stack": "当前0.32兼容回移运行副本，来源基线62fe4cde6及PR20949、20311、20940、21690、22327相关适配；本轮未修改运行源码/原生库",
+      "tp": 4,
+      "write_threads": 4
+    },
+    "historical_reference": {
+      "avg_ttft_ms": 9721.1,
+      "current_turn_rerun": false,
+      "input_token_throughput": 100223.3409,
+      "name": "HBM single-prefix C8",
+      "throughput_gate": 95212.173855,
+      "user_D1_initial_tps": 89560.7699
+    },
+    "hypotheses": [
+      "现场与GVA租约缓存滞后、Meta先复用地址的已知问题高度吻合；仍需核对现场1.3.0原生库build SHA，不能仅按包版本断言缺少特定提交。"
+    ],
+    "limitations": [
+      "HBM参考为历史单前缀C8，D2为双前缀；此门槛比较是交付目标，不是严格隔离介质的单变量因果实验。",
+      "两正式轮及本周期160条有限批次不证明长期稳定性；768GiB仍发生驱逐。",
+      "没有本轮完整精度、PP分片完整性、Push源缓冲安全释放或HBM峰值节省的独立通过结论。",
+      "包内准备失败和无效批次不计性能均值；raw-performance包含15个有效性能轮的完整原始字段，汇总保留2个中止记录，服务原日志和网络标签留现场。"
+    ],
+    "next_step": "若继续底层修复，先核对二进制构建来源是否包含a3794e3；缺少时复用上游最小修复，独立产物回归真实小池驱逐/地址复用，再回到相同D1/D2负载验证512/768GiB与并发，保留完整性检查。",
+    "observations": [
+      "P8192的D1 C8两轮89714.1894、89875.8884，均值89795.0389，复现历史慢点。",
+      "P16384正式轮51441.7390、TTFT19239.6ms，筛除；P平均推理阶段3.93秒/请求升至10.37秒/请求，不能将全部差距单独归因于命中或某个kernel。",
+      "P4096、512GiB下D1两轮115022.6789、107243.9127，均已过吞吐门槛；C4扫描后发生GVA登记失败，未完成轮不报吞吐。",
+      "D2 P4096、512GiB C8第一正式轮93903.1285，第二轮GVA登记失败后停滞，无有效第二轮成绩。",
+      "仅扩大到96GiB/rank、总768GiB，D2两正式轮95388.6158、97733.0420，均值96560.8289，平均TTFT10193.7/9978.7ms；两轮各32/32有效，数据确认两前缀各16请求。",
+      "在同一768GiB配置、同一服务周期补测D1：112997.1173/113341.9181，均值113169.5177，TTFT8518.2/8488.8ms。最终服务周期D2预热+两正式轮+D1两正式轮共160条请求完成，P/D健康队列为空。",
+      "768GiB正式轮仍有驱逐：D2为16459/28749，D1为20572/20669；不能称无驱逐，也不能把扩大容量当作根因修复。"
+    ],
+    "protocol": {
+      "D1_prefix_num": 1,
+      "D2_prefix_num": 2,
+      "D2_requests_per_prefix": [
+        16,
+        16
+      ],
+      "actual_chat_input_tokens": "本轮15个有效批次usage范围131123至131126，逐条原始usage完整保留",
+      "concurrency": 8,
+      "generation": "wrapper在设置seed前生成公共前缀，每次调用可能换前缀；首批冷请求属于该轮，不能替换为相同完整数据全热重跑",
+      "input_len_nominal": 131072,
+      "measure": "现场AISBench wrapper，先整场预热，正式两轮；D1在同服务D2完成后复测不重复模型预热",
+      "output_tokens": 1,
+      "repeat_rate": 0.9,
+      "request_rate": 0,
+      "requests_per_round": 32
+    },
+    "task": "继续pool-dram优化，使Input Token Throughput相对用户指定HBM历史C8基线劣化不超过5%；主指标为吞吐，TTFT报告而非5%硬门槛。"
+  },
+  "created_at": "2026-11-22",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-dram-c8-batch4k-prefix2-20261122/raw-performance.json",
+      "role": "raw_metrics",
+      "sha256": "5aeb11c6ceb359442b86c1161a92e17e9d0745ab019a951f4bf0d2f415f35111"
+    },
+    {
+      "ref": "artifact:case-qwen38-dram-c8-batch4k-prefix2-20261122/summary.json",
+      "role": "per_round_summary",
+      "sha256": "943dd4ff8dbf34d0bd82df83f161d22c468d6918eaec9495db66f58a0148fb09"
+    },
+    {
+      "ref": "artifact:case-qwen38-dram-c8-batch4k-prefix2-20261122/summary.csv",
+      "role": "per_round_csv",
+      "sha256": "ffe8a45959c0a00e922352620d8481652cafacfbf8c3ccb485508b5d6f88ea59"
+    },
+    {
+      "ref": "artifact:case-qwen38-dram-c8-batch4k-prefix2-20261122/metric-tables.txt",
+      "role": "original_latency_tables",
+      "sha256": "59ded557e8ece7456a1604fc91b966f9825654a2d401d3cd711b5daa249e367a"
+    },
+    {
+      "ref": "artifact:case-qwen38-dram-c8-batch4k-prefix2-20261122/performance.png",
+      "role": "performance_plot",
+      "sha256": "420fe3722b1822de6d59ec201fb0adba470fadf7544aa337657c19710ebe05f1"
+    }
+  ],
+  "id": "case-qwen38-dram-c8-batch4k-prefix2-20261122",
+  "kind": "case",
+  "observed_at": "2026-11-22",
+  "related_ids": [
+    "case-qwen38-flash-next-pd-pp2-v2-layerwise-128k-20261117"
+  ],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "HBM历史C8参考100223.3409 input token/s；同一P4096、768GiB、C8下D1均值113169.5177，D2均值96560.8289，D2劣化3.654%。原512GiB发生GVA登记冲突；找到上游a3794e3但未回移二进制。",
+  "supersedes": [],
+  "tags": [
+    "qwen3.8",
+    "dram",
+    "prefix",
+    "C8",
+    "batch_tokens",
+    "768GiB",
+    "GVA",
+    "lease",
+    "regression-loop",
+    "finite-batch"
+  ],
+  "title": "Qwen3.8 C8池化验收 P4K与768GiB使D1和D2达标，GVA租约残留仍待修复",
+  "updated_at": "2026-11-22"
+}

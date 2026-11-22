@@ -1,0 +1,344 @@
+### original-warm-v4
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median             │ P75                │ P90               │ P99                │  N  │
+│ E2EL                     │ total   │ 11151.5 ms         │ 7836.3 ms         │ 20999.5 ms         │ 9789.5 ms          │ 10808.1 ms         │ 16961.8 ms        │ 20596.0 ms         │ 32  │
+│ TTFT                     │ total   │ 11150.8 ms         │ 7835.6 ms         │ 20998.8 ms         │ 9788.9 ms          │ 10807.4 ms         │ 16961.2 ms        │ 20595.4 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.0 ms            │ 1.2 ms             │ 0.3 ms             │ 0.6 ms             │ 0.6 ms            │ 1.0 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0938        │ 131123.0          │ 131126.0           │ 131124.0           │ 131124.0           │ 131124.0          │ 131125.69          │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0               │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.0962 token/s     │ 0.0476 token/s    │ 0.1276 token/s     │ 0.1022 token/s     │ 0.1097 token/s     │ 0.1182 token/s    │ 0.1249 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 12615.3319 token/s │ 6244.3467 token/s │ 16734.3341 token/s │ 13395.3763 token/s │ 14390.6604 token/s │ 15499.361 token/s │ 16379.2653 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 47777.6025 ms      │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.4689             │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.6698 req/s       │
+│ Total Input Tokens      │ total   │ 4195971            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 87822.9711 token/s │
+│ Output Token Throughput │ total   │ 0.6698 token/s     │
+│ Total Token Throughput  │ total   │ 87823.6408 token/s │
+
+### original-r1
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median            │ P75                │ P90                │ P99                │  N  │
+│ E2EL                     │ total   │ 10900.3 ms         │ 7871.6 ms         │ 19930.7 ms         │ 9813.2 ms         │ 10606.5 ms         │ 15905.1 ms         │ 19525.0 ms         │ 32  │
+│ TTFT                     │ total   │ 10899.7 ms         │ 7871.0 ms         │ 19930.0 ms         │ 9812.5 ms         │ 10605.8 ms         │ 15904.5 ms         │ 19524.4 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.0 ms            │ 1.2 ms             │ 0.2 ms            │ 0.5 ms             │ 0.6 ms             │ 1.1 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0312        │ 131123.0          │ 131125.0           │ 131124.0          │ 131124.0           │ 131124.0           │ 131125.0           │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.0972 token/s     │ 0.0502 token/s    │ 0.127 token/s      │ 0.1019 token/s    │ 0.1093 token/s     │ 0.1181 token/s     │ 0.1244 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 12746.4251 token/s │ 6579.2223 token/s │ 16659.1232 token/s │ 13363.201 token/s │ 14337.3536 token/s │ 15481.0185 token/s │ 16313.8637 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 46770.4053 ms      │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.4579             │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.6842 req/s       │
+│ Total Input Tokens      │ total   │ 4195969            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 89714.1894 token/s │
+│ Output Token Throughput │ total   │ 0.6842 token/s     │
+│ Total Token Throughput  │ total   │ 89714.8735 token/s │
+
+### original-r2
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median             │ P75                │ P90                │ P99                │  N  │
+│ E2EL                     │ total   │ 10881.3 ms         │ 7851.3 ms         │ 19861.2 ms         │ 9819.3 ms          │ 10608.7 ms         │ 15854.0 ms         │ 19458.5 ms         │ 32  │
+│ TTFT                     │ total   │ 10880.7 ms         │ 7850.6 ms         │ 19860.7 ms         │ 9818.7 ms          │ 10608.3 ms         │ 15853.5 ms         │ 19458.0 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.1 ms            │ 0.7 ms             │ 0.2 ms             │ 0.5 ms             │ 0.5 ms             │ 0.6 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0312        │ 131123.0          │ 131125.0           │ 131124.0           │ 131124.0           │ 131124.0           │ 131125.0           │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.0973 token/s     │ 0.0503 token/s    │ 0.1274 token/s     │ 0.1018 token/s     │ 0.1096 token/s     │ 0.1181 token/s     │ 0.1247 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 12764.2406 token/s │ 6602.1844 token/s │ 16702.4724 token/s │ 13354.7123 token/s │ 14373.9831 token/s │ 15489.1627 token/s │ 16352.5378 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 46686.2589 ms      │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.4583             │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.6854 req/s       │
+│ Total Input Tokens      │ total   │ 4195969            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 89875.8884 token/s │
+│ Output Token Throughput │ total   │ 0.6854 token/s     │
+│ Total Token Throughput  │ total   │ 89876.5739 token/s │
+
+### b16-warm
+│ Performance Parameters   │ Stage   │ Average           │ Min               │ Max               │ Median            │ P75               │ P90               │ P99               │  N  │
+│ E2EL                     │ total   │ 19494.7 ms        │ 13260.8 ms        │ 36675.9 ms        │ 16341.5 ms        │ 18766.7 ms        │ 30356.6 ms        │ 36047.1 ms        │ 32  │
+│ TTFT                     │ total   │ 19494.1 ms        │ 13260.1 ms        │ 36675.4 ms        │ 16340.9 ms        │ 18766.1 ms        │ 30356.1 ms        │ 36046.6 ms        │ 32  │
+│ ITL                      │ total   │ 0.3 ms            │ 0.1 ms            │ 0.9 ms            │ 0.3 ms            │ 0.5 ms            │ 0.6 ms            │ 0.9 ms            │ 32  │
+│ InputTokens              │ total   │ 131124.0312       │ 131123.0          │ 131125.0          │ 131124.0          │ 131124.0          │ 131124.0          │ 131125.0          │ 32  │
+│ OutputTokens             │ total   │ 1.0               │ 1.0               │ 1.0               │ 1.0               │ 1.0               │ 1.0               │ 1.0               │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.0552 token/s    │ 0.0273 token/s    │ 0.0754 token/s    │ 0.0612 token/s    │ 0.0614 token/s    │ 0.0614 token/s    │ 0.0725 token/s    │ 32  │
+│ PrefillTokenThroughput   │ total   │ 7232.8086 token/s │ 3575.2332 token/s │ 9888.6152 token/s │ 8024.2865 token/s │ 8046.0582 token/s │ 8052.1735 token/s │ 9508.4876 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 82601.3998 ms      │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.5523             │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.3874 req/s       │
+│ Total Input Tokens      │ total   │ 4195969            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 50797.7953 token/s │
+│ Output Token Throughput │ total   │ 0.3874 token/s     │
+│ Total Token Throughput  │ total   │ 50798.1827 token/s │
+
+### b16-r1
+│ Performance Parameters   │ Stage   │ Average           │ Min               │ Max               │ Median            │ P75               │ P90               │ P99              │  N  │
+│ E2EL                     │ total   │ 19240.2 ms        │ 13223.3 ms        │ 35627.4 ms        │ 16342.7 ms        │ 17995.8 ms        │ 29314.5 ms        │ 34997.4 ms       │ 32  │
+│ TTFT                     │ total   │ 19239.6 ms        │ 13222.7 ms        │ 35626.9 ms        │ 16342.1 ms        │ 17995.2 ms        │ 29314.0 ms        │ 34996.8 ms       │ 32  │
+│ ITL                      │ total   │ 0.3 ms            │ 0.1 ms            │ 0.6 ms            │ 0.3 ms            │ 0.5 ms            │ 0.6 ms            │ 0.6 ms           │ 32  │
+│ InputTokens              │ total   │ 131124.0312       │ 131123.0          │ 131125.0          │ 131124.0          │ 131124.0          │ 131124.0          │ 131125.0         │ 32  │
+│ OutputTokens             │ total   │ 1.0               │ 1.0               │ 1.0               │ 1.0               │ 1.0               │ 1.0               │ 1.0              │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.0555 token/s    │ 0.0281 token/s    │ 0.0756 token/s    │ 0.0612 token/s    │ 0.0613 token/s    │ 0.0613 token/s    │ 0.0727 token/s   │ 32  │
+│ PrefillTokenThroughput   │ total   │ 7278.6848 token/s │ 3680.4529 token/s │ 9916.6088 token/s │ 8023.6756 token/s │ 8037.9311 token/s │ 8042.7614 token/s │ 9537.012 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 81567.402 ms       │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.5482             │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.3923 req/s       │
+│ Total Input Tokens      │ total   │ 4195969            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 51441.739 token/s  │
+│ Output Token Throughput │ total   │ 0.3923 token/s     │
+│ Total Token Throughput  │ total   │ 51442.1313 token/s │
+
+### b4-warm
+│ Performance Parameters   │ Stage   │ Average           │ Min             │ Max               │ Median             │ P75                │ P90               │ P99                │  N  │
+│ E2EL                     │ total   │ 8756.6 ms         │ 7139.6 ms       │ 16314.0 ms        │ 7278.8 ms          │ 8387.9 ms          │ 13526.4 ms        │ 16066.9 ms         │ 32  │
+│ TTFT                     │ total   │ 8755.9 ms         │ 7138.9 ms       │ 16313.4 ms        │ 7278.2 ms          │ 8387.2 ms          │ 13525.7 ms        │ 16066.2 ms         │ 32  │
+│ ITL                      │ total   │ 0.4 ms            │ 0.1 ms          │ 1.6 ms            │ 0.3 ms             │ 0.6 ms             │ 0.6 ms            │ 1.4 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0312       │ 131123.0        │ 131125.0          │ 131124.0           │ 131124.0           │ 131124.0          │ 131125.0           │ 32  │
+│ OutputTokens             │ total   │ 1.0               │ 1.0             │ 1.0               │ 1.0                │ 1.0                │ 1.0               │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1223 token/s    │ 0.0613 token/s  │ 0.1401 token/s    │ 0.1374 token/s     │ 0.1376 token/s     │ 0.1379 token/s    │ 0.1394 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 16042.724 token/s │ 8037.75 token/s │ 18367.491 token/s │ 18016.0272 token/s │ 18040.5104 token/s │ 18086.972 token/s │ 18283.6013 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value               │
+│ Benchmark Duration      │ total   │ 38050.2939 ms       │
+│ Total Requests          │ total   │ 32                  │
+│ Failed Requests         │ total   │ 0                   │
+│ Success Requests        │ total   │ 32                  │
+│ Concurrency             │ total   │ 7.3642              │
+│ Max Concurrency         │ total   │ 8                   │
+│ Request Throughput      │ total   │ 0.841 req/s         │
+│ Total Input Tokens      │ total   │ 4195969             │
+│ Total Generated Tokens  │ total   │ 32                  │
+│ Input Token Throughput  │ total   │ 110274.2863 token/s │
+│ Output Token Throughput │ total   │ 0.841 token/s       │
+│ Total Token Throughput  │ total   │ 110275.1273 token/s │
+
+### b4-r1
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median             │ P75                │ P90                │ P99                │  N  │
+│ E2EL                     │ total   │ 8378.1 ms          │ 7086.7 ms         │ 14803.2 ms         │ 7279.0 ms          │ 7914.4 ms          │ 12052.8 ms         │ 14550.0 ms         │ 32  │
+│ TTFT                     │ total   │ 8377.4 ms          │ 7086.1 ms         │ 14802.6 ms         │ 7278.4 ms          │ 7913.7 ms          │ 12052.2 ms         │ 14549.4 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.0 ms            │ 0.7 ms             │ 0.3 ms             │ 0.6 ms             │ 0.6 ms             │ 0.7 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0938        │ 131123.0          │ 131125.0           │ 131124.0           │ 131124.0           │ 131124.9           │ 131125.0           │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1251 token/s     │ 0.0676 token/s    │ 0.1411 token/s     │ 0.1374 token/s     │ 0.1375 token/s     │ 0.1378 token/s     │ 0.1402 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 16410.9661 token/s │ 8858.1058 token/s │ 18504.4317 token/s │ 18015.5612 token/s │ 18034.8025 token/s │ 18074.5864 token/s │ 18381.3928 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value               │
+│ Benchmark Duration      │ total   │ 36479.5103 ms       │
+│ Total Requests          │ total   │ 32                  │
+│ Failed Requests         │ total   │ 0                   │
+│ Success Requests        │ total   │ 32                  │
+│ Concurrency             │ total   │ 7.3493              │
+│ Max Concurrency         │ total   │ 8                   │
+│ Request Throughput      │ total   │ 0.8772 req/s        │
+│ Total Input Tokens      │ total   │ 4195971             │
+│ Total Generated Tokens  │ total   │ 32                  │
+│ Input Token Throughput  │ total   │ 115022.6789 token/s │
+│ Output Token Throughput │ total   │ 0.8772 token/s      │
+│ Total Token Throughput  │ total   │ 115023.5561 token/s │
+
+### b4-r2
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median             │ P75                │ P90                │ P99                │  N  │
+│ E2EL                     │ total   │ 8568.8 ms          │ 7285.7 ms         │ 14874.7 ms         │ 7322.9 ms          │ 9279.9 ms          │ 12056.7 ms         │ 14613.6 ms         │ 32  │
+│ TTFT                     │ total   │ 8568.1 ms          │ 7285.0 ms         │ 14874.1 ms         │ 7322.1 ms          │ 9279.3 ms          │ 12056.0 ms         │ 14613.0 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.1 ms            │ 0.7 ms             │ 0.4 ms             │ 0.6 ms             │ 0.6 ms             │ 0.7 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0312        │ 131123.0          │ 131125.0           │ 131124.0           │ 131124.0           │ 131124.0           │ 131125.0           │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1223 token/s     │ 0.0672 token/s    │ 0.1373 token/s     │ 0.1366 token/s     │ 0.1367 token/s     │ 0.1369 token/s     │ 0.1372 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 16041.9683 token/s │ 8815.6109 token/s │ 17999.3726 token/s │ 17907.9015 token/s │ 17926.4334 token/s │ 17952.3196 token/s │ 17989.6078 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value               │
+│ Benchmark Duration      │ total   │ 39125.4748 ms       │
+│ Total Requests          │ total   │ 32                  │
+│ Failed Requests         │ total   │ 0                   │
+│ Success Requests        │ total   │ 32                  │
+│ Concurrency             │ total   │ 7.0082              │
+│ Max Concurrency         │ total   │ 8                   │
+│ Request Throughput      │ total   │ 0.8179 req/s        │
+│ Total Input Tokens      │ total   │ 4195969             │
+│ Total Generated Tokens  │ total   │ 32                  │
+│ Input Token Throughput  │ total   │ 107243.9127 token/s │
+│ Output Token Throughput │ total   │ 0.8179 token/s      │
+│ Total Token Throughput  │ total   │ 107244.7306 token/s │
+
+### d2-b4-warm
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median             │ P75                │ P90                │ P99                │  N  │
+│ E2EL                     │ total   │ 10646.7 ms         │ 7233.5 ms         │ 23363.7 ms         │ 7705.8 ms          │ 10941.8 ms         │ 20193.8 ms         │ 23016.2 ms         │ 32  │
+│ TTFT                     │ total   │ 10646.0 ms         │ 7232.8 ms         │ 23363.2 ms         │ 7705.2 ms          │ 10941.2 ms         │ 20193.2 ms         │ 23015.8 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.1 ms            │ 1.0 ms             │ 0.2 ms             │ 0.5 ms             │ 0.7 ms             │ 0.9 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.125         │ 131123.0          │ 131126.0           │ 131124.0           │ 131124.0           │ 131124.9           │ 131125.69          │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1109 token/s     │ 0.0428 token/s    │ 0.1382 token/s     │ 0.1298 token/s     │ 0.1348 token/s     │ 0.1352 token/s     │ 0.1373 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 14548.3677 token/s │ 5612.4081 token/s │ 18129.0443 token/s │ 17017.6122 token/s │ 17674.5018 token/s │ 17727.0078 token/s │ 18008.1521 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 45791.158 ms       │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.4402             │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.6988 req/s       │
+│ Total Input Tokens      │ total   │ 4195972            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 91632.7996 token/s │
+│ Output Token Throughput │ total   │ 0.6988 token/s     │
+│ Total Token Throughput  │ total   │ 91633.4984 token/s │
+
+### d2-b4-r1
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median             │ P75                │ P90                │ P99                │  N  │
+│ E2EL                     │ total   │ 10352.9 ms         │ 7476.4 ms         │ 21775.2 ms         │ 7712.6 ms          │ 9808.8 ms          │ 18674.9 ms         │ 21441.6 ms         │ 32  │
+│ TTFT                     │ total   │ 10352.3 ms         │ 7475.8 ms         │ 21774.6 ms         │ 7712.1 ms          │ 9808.1 ms          │ 18674.3 ms         │ 21441.0 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.1 ms            │ 0.7 ms             │ 0.4 ms             │ 0.5 ms             │ 0.5 ms             │ 0.6 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0312        │ 131123.0          │ 131125.0           │ 131124.0           │ 131124.0           │ 131124.0           │ 131125.0           │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1109 token/s     │ 0.0459 token/s    │ 0.1338 token/s     │ 0.1297 token/s     │ 0.1301 token/s     │ 0.1303 token/s     │ 0.1327 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 14546.6475 token/s │ 6021.8733 token/s │ 17539.7311 token/s │ 17002.3911 token/s │ 17058.9907 token/s │ 17088.2996 token/s │ 17404.9128 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 44684.0171 ms      │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.4141             │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.7161 req/s       │
+│ Total Input Tokens      │ total   │ 4195969            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 93903.1285 token/s │
+│ Output Token Throughput │ total   │ 0.7161 token/s     │
+│ Total Token Throughput  │ total   │ 93903.8446 token/s │
+
+### d2-b4-96-warm
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median             │ P75                │ P90                │ P99                │  N  │
+│ E2EL                     │ total   │ 10457.0 ms         │ 7230.2 ms         │ 22806.4 ms         │ 7469.3 ms          │ 10698.7 ms         │ 19703.0 ms         │ 22472.6 ms         │ 32  │
+│ TTFT                     │ total   │ 10456.4 ms         │ 7229.6 ms         │ 22805.8 ms         │ 7468.7 ms          │ 10698.2 ms         │ 19702.4 ms         │ 22472.0 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.0 ms            │ 0.6 ms             │ 0.1 ms             │ 0.5 ms             │ 0.5 ms             │ 0.6 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0312        │ 131123.0          │ 131125.0           │ 131124.0           │ 131124.0           │ 131124.0           │ 131125.0           │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1125 token/s     │ 0.0438 token/s    │ 0.1383 token/s     │ 0.1339 token/s     │ 0.1345 token/s     │ 0.1347 token/s     │ 0.1372 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 14746.9526 token/s │ 5749.5421 token/s │ 18137.0928 token/s │ 17556.5588 token/s │ 17633.4839 token/s │ 17664.3958 token/s │ 17992.5065 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 45002.3516 ms      │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.4357             │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.7111 req/s       │
+│ Total Input Tokens      │ total   │ 4195969            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 93238.8831 token/s │
+│ Output Token Throughput │ total   │ 0.7111 token/s     │
+│ Total Token Throughput  │ total   │ 93239.5942 token/s │
+
+### d2-b4-96-r1
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max               │ Median             │ P75                │ P90                │ P99               │  N  │
+│ E2EL                     │ total   │ 10194.3 ms         │ 7326.8 ms         │ 21490.4 ms        │ 7568.8 ms          │ 9689.0 ms          │ 18437.1 ms         │ 21159.3 ms        │ 32  │
+│ TTFT                     │ total   │ 10193.7 ms         │ 7326.2 ms         │ 21489.9 ms        │ 7568.3 ms          │ 9688.6 ms          │ 18436.6 ms         │ 21158.9 ms        │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.1 ms            │ 0.6 ms            │ 0.3 ms             │ 0.5 ms             │ 0.5 ms             │ 0.6 ms            │ 32  │
+│ InputTokens              │ total   │ 131123.9688        │ 131123.0          │ 131125.0          │ 131124.0           │ 131124.0           │ 131124.0           │ 131125.0          │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0               │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1128 token/s     │ 0.0465 token/s    │ 0.1365 token/s    │ 0.1321 token/s     │ 0.1323 token/s     │ 0.1329 token/s     │ 0.1354 token/s    │ 32  │
+│ PrefillTokenThroughput   │ total   │ 14796.7968 token/s │ 6101.5981 token/s │ 17897.798 token/s │ 17325.4726 token/s │ 17352.6007 token/s │ 17424.1726 token/s │ 17760.682 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 43988.1318 ms      │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.416              │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.7275 req/s       │
+│ Total Input Tokens      │ total   │ 4195967            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 95388.6158 token/s │
+│ Output Token Throughput │ total   │ 0.7275 token/s     │
+│ Total Token Throughput  │ total   │ 95389.3433 token/s │
+
+### d2-b4-96-r2
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median             │ P75                │ P90                │ P99                │  N  │
+│ E2EL                     │ total   │ 9979.3 ms          │ 7157.8 ms         │ 21015.1 ms         │ 7354.9 ms          │ 10252.9 ms         │ 18193.9 ms         │ 20761.1 ms         │ 32  │
+│ TTFT                     │ total   │ 9978.7 ms          │ 7157.2 ms         │ 21014.6 ms         │ 7354.3 ms          │ 10252.4 ms         │ 18193.3 ms         │ 20760.5 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.1 ms            │ 0.7 ms             │ 0.2 ms             │ 0.5 ms             │ 0.6 ms             │ 0.6 ms             │ 32  │
+│ InputTokens              │ total   │ 131123.9062        │ 131123.0          │ 131125.0           │ 131124.0           │ 131124.0           │ 131124.0           │ 131124.69          │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1156 token/s     │ 0.0476 token/s    │ 0.1397 token/s     │ 0.136 token/s      │ 0.1361 token/s     │ 0.1362 token/s     │ 0.1387 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 15152.6894 token/s │ 6239.6156 token/s │ 18320.6582 token/s │ 17829.5012 token/s │ 17846.5049 token/s │ 17853.8553 token/s │ 18185.3578 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value              │
+│ Benchmark Duration      │ total   │ 42932.9213 ms      │
+│ Total Requests          │ total   │ 32                 │
+│ Failed Requests         │ total   │ 0                  │
+│ Success Requests        │ total   │ 32                 │
+│ Concurrency             │ total   │ 7.438              │
+│ Max Concurrency         │ total   │ 8                  │
+│ Request Throughput      │ total   │ 0.7453 req/s       │
+│ Total Input Tokens      │ total   │ 4195965            │
+│ Total Generated Tokens  │ total   │ 32                 │
+│ Input Token Throughput  │ total   │ 97733.042 token/s  │
+│ Output Token Throughput │ total   │ 0.7453 token/s     │
+│ Total Token Throughput  │ total   │ 97733.7874 token/s │
+
+### d1-b4-96-r1
+│ Performance Parameters   │ Stage   │ Average            │ Min               │ Max                │ Median             │ P75                │ P90                │ P99                │  N  │
+│ E2EL                     │ total   │ 8518.8 ms          │ 7271.3 ms         │ 14993.4 ms         │ 7429.2 ms          │ 7981.5 ms          │ 12156.3 ms         │ 14734.3 ms         │ 32  │
+│ TTFT                     │ total   │ 8518.2 ms          │ 7270.7 ms         │ 14992.8 ms         │ 7428.7 ms          │ 7980.9 ms          │ 12155.6 ms         │ 14733.7 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms             │ 0.1 ms            │ 0.6 ms             │ 0.3 ms             │ 0.5 ms             │ 0.5 ms             │ 0.6 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0312        │ 131123.0          │ 131125.0           │ 131124.0           │ 131124.0           │ 131124.0           │ 131125.0           │ 32  │
+│ OutputTokens             │ total   │ 1.0                │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1229 token/s     │ 0.0667 token/s    │ 0.1375 token/s     │ 0.1346 token/s     │ 0.1349 token/s     │ 0.1351 token/s     │ 0.1368 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 16114.2569 token/s │ 8745.7945 token/s │ 18034.6226 token/s │ 17651.1446 token/s │ 17687.5323 token/s │ 17713.2493 token/s │ 17936.4495 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value               │
+│ Benchmark Duration      │ total   │ 37133.4163 ms       │
+│ Total Requests          │ total   │ 32                  │
+│ Failed Requests         │ total   │ 0                   │
+│ Success Requests        │ total   │ 32                  │
+│ Concurrency             │ total   │ 7.3412              │
+│ Max Concurrency         │ total   │ 8                   │
+│ Request Throughput      │ total   │ 0.8618 req/s        │
+│ Total Input Tokens      │ total   │ 4195969             │
+│ Total Generated Tokens  │ total   │ 32                  │
+│ Input Token Throughput  │ total   │ 112997.1173 token/s │
+│ Output Token Throughput │ total   │ 0.8618 token/s      │
+│ Total Token Throughput  │ total   │ 112997.979 token/s  │
+
+### d1-b4-96-r2
+│ Performance Parameters   │ Stage   │ Average           │ Min               │ Max                │ Median             │ P75                │ P90               │ P99                │  N  │
+│ E2EL                     │ total   │ 8489.3 ms         │ 7253.4 ms         │ 14983.9 ms         │ 7395.4 ms          │ 7972.0 ms          │ 12124.4 ms        │ 14721.6 ms         │ 32  │
+│ TTFT                     │ total   │ 8488.8 ms         │ 7252.9 ms         │ 14983.5 ms         │ 7394.9 ms          │ 7971.4 ms          │ 12123.9 ms        │ 14721.1 ms         │ 32  │
+│ ITL                      │ total   │ 0.3 ms            │ 0.1 ms            │ 0.6 ms             │ 0.2 ms             │ 0.4 ms             │ 0.5 ms            │ 0.6 ms             │ 32  │
+│ InputTokens              │ total   │ 131124.0312       │ 131123.0          │ 131125.0           │ 131124.0           │ 131124.0           │ 131124.0          │ 131125.0           │ 32  │
+│ OutputTokens             │ total   │ 1.0               │ 1.0               │ 1.0                │ 1.0                │ 1.0                │ 1.0               │ 1.0                │ 32  │
+│ OutputTokenThroughput    │ total   │ 0.1234 token/s    │ 0.0667 token/s    │ 0.1379 token/s     │ 0.1352 token/s     │ 0.1355 token/s     │ 0.1358 token/s    │ 0.1373 token/s     │ 32  │
+│ PrefillTokenThroughput   │ total   │ 16178.079 token/s │ 8751.2249 token/s │ 18078.9393 token/s │ 17731.7285 token/s │ 17769.2318 token/s │ 17806.419 token/s │ 17999.3208 token/s │ 32  │
+│ Common Metric           │ Stage   │ Value               │
+│ Benchmark Duration      │ total   │ 37020.4517 ms       │
+│ Total Requests          │ total   │ 32                  │
+│ Failed Requests         │ total   │ 0                   │
+│ Success Requests        │ total   │ 32                  │
+│ Concurrency             │ total   │ 7.338               │
+│ Max Concurrency         │ total   │ 8                   │
+│ Request Throughput      │ total   │ 0.8644 req/s        │
+│ Total Input Tokens      │ total   │ 4195969             │
+│ Total Generated Tokens  │ total   │ 32                  │
+│ Input Token Throughput  │ total   │ 113341.9181 token/s │
+│ Output Token Throughput │ total   │ 0.8644 token/s      │
+│ Total Token Throughput  │ total   │ 113342.7825 token/s │

@@ -1,0 +1,1242 @@
+{
+  "original-warm-v4": {
+    "label": "original-warm-v4",
+    "valid": true,
+    "rc": 0,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131125,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131126,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "tps": 87822.9711,
+    "degradation_percent": 12.372736419126895,
+    "target": false,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "47777.6025 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.4689
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.6698 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195971
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "87822.9711 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.6698 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "87823.6408 token/s"
+      }
+    },
+    "timestamp": 1795344897.9397
+  },
+  "original-r1": {
+    "label": "original-r1",
+    "valid": true,
+    "rc": 0,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "tps": 89714.1894,
+    "degradation_percent": 10.485732570505435,
+    "target": false,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "46770.4053 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.4579
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.6842 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "89714.1894 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.6842 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "89714.8735 token/s"
+      }
+    },
+    "timestamp": 1795344973.8853097
+  },
+  "original-r2": {
+    "label": "original-r2",
+    "valid": true,
+    "rc": 0,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "tps": 89875.8884,
+    "degradation_percent": 10.3243939057314,
+    "target": false,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "46686.2589 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.4583
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.6854 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "89875.8884 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.6854 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "89876.5739 token/s"
+      }
+    },
+    "timestamp": 1795345050.0499902
+  },
+  "b16-warm": {
+    "label": "b16-warm",
+    "valid": true,
+    "rc": 0,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "tps": 50797.7953,
+    "degradation_percent": 49.31540413257167,
+    "target": false,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "82601.3998 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.5523
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.3874 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "50797.7953 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.3874 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "50798.1827 token/s"
+      }
+    },
+    "timestamp": 1795345810.94486
+  },
+  "b16-r1": {
+    "label": "b16-r1",
+    "valid": true,
+    "rc": 0,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "tps": 51441.739,
+    "degradation_percent": 48.6728954173189,
+    "target": false,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "81567.402 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.5482
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.3923 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "51441.739 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.3923 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "51442.1313 token/s"
+      }
+    },
+    "timestamp": 1795345921.8313015
+  },
+  "b4-warm": {
+    "label": "b4-warm",
+    "concurrency": 8,
+    "valid": true,
+    "rc": 0,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "tps": 110274.2863,
+    "degradation_percent": -10.028547551641243,
+    "target": true,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "38050.2939 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.3642
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.841 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "110274.2863 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.841 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "110275.1273 token/s"
+      }
+    },
+    "timestamp": 1795346638.3515675
+  },
+  "b4-r1": {
+    "label": "b4-r1",
+    "concurrency": 8,
+    "valid": true,
+    "rc": 0,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "tps": 115022.6789,
+    "degradation_percent": -14.766358681623238,
+    "target": true,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "36479.5103 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.3493
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.8772 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195971
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "115022.6789 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.8772 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "115023.5561 token/s"
+      }
+    },
+    "timestamp": 1795346704.4563718
+  },
+  "b4-r2": {
+    "label": "b4-r2",
+    "concurrency": 8,
+    "valid": true,
+    "rc": 0,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "tps": 107243.9127,
+    "degradation_percent": -7.004926933143185,
+    "target": true,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "39125.4748 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.0082
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.8179 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "107243.9127 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.8179 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "107244.7306 token/s"
+      }
+    },
+    "timestamp": 1795346773.451046
+  },
+  "d2-b4-warm": {
+    "valid": true,
+    "phase": "warm",
+    "concurrency": 8,
+    "prefix_num": 2,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131125,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131126,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "input_token_throughput": 91632.7996,
+    "avg_ttft_ms": 10646.0,
+    "throughput_degradation_vs_hbm_percent": 8.571397862870478,
+    "throughput_threshold_met": false,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "45791.158 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.4402
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.6988 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195972
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "91632.7996 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.6988 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "91633.4984 token/s"
+      }
+    }
+  },
+  "d2-b4-r1": {
+    "valid": true,
+    "phase": "measure",
+    "concurrency": 8,
+    "prefix_num": 2,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "input_token_throughput": 93903.1285,
+    "avg_ttft_ms": 10352.3,
+    "throughput_degradation_vs_hbm_percent": 6.306128236441566,
+    "throughput_threshold_met": false,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "44684.0171 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.4141
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.7161 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "93903.1285 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.7161 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "93903.8446 token/s"
+      }
+    }
+  },
+  "d2-b4-96-warm": {
+    "valid": true,
+    "phase": "warm",
+    "concurrency": 8,
+    "prefix_num": 2,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "input_token_throughput": 93238.8831,
+    "avg_ttft_ms": 10456.4,
+    "throughput_degradation_vs_hbm_percent": 6.96889341073641,
+    "throughput_threshold_met": false,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "45002.3516 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.4357
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.7111 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "93238.8831 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.7111 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "93239.5942 token/s"
+      }
+    }
+  },
+  "d2-b4-96-r1": {
+    "valid": true,
+    "phase": "measure",
+    "concurrency": 8,
+    "prefix_num": 2,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131123,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123
+    ],
+    "input_token_throughput": 95388.6158,
+    "avg_ttft_ms": 10193.7,
+    "throughput_degradation_vs_hbm_percent": 4.8239512438763565,
+    "throughput_threshold_met": true,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "43988.1318 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.416
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.7275 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195967
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "95388.6158 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.7275 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "95389.3433 token/s"
+      }
+    }
+  },
+  "d2-b4-96-r2": {
+    "valid": true,
+    "phase": "measure",
+    "concurrency": 8,
+    "prefix_num": 2,
+    "requests": 32,
+    "input_tokens": [
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124
+    ],
+    "input_token_throughput": 97733.042,
+    "avg_ttft_ms": 9978.7,
+    "throughput_degradation_vs_hbm_percent": 2.4847494382418844,
+    "throughput_threshold_met": true,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "42932.9213 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.438
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.7453 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195965
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "97733.042 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.7453 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "97733.7874 token/s"
+      }
+    }
+  },
+  "d1-b4-96-r1": {
+    "valid": true,
+    "phase": "measure",
+    "concurrency": 8,
+    "prefix_num": 1,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124
+    ],
+    "input_token_throughput": 112997.1173,
+    "avg_ttft_ms": 8518.2,
+    "throughput_degradation_vs_hbm_percent": -12.745310907910469,
+    "throughput_threshold_met": true,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "37133.4163 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.3412
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.8618 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "112997.1173 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.8618 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "112997.979 token/s"
+      }
+    }
+  },
+  "d1-b4-96-r2": {
+    "valid": true,
+    "phase": "measure",
+    "concurrency": 8,
+    "prefix_num": 1,
+    "requests": 32,
+    "input_tokens": [
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131123,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131125,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124,
+      131124
+    ],
+    "input_token_throughput": 113341.9181,
+    "avg_ttft_ms": 8488.8,
+    "throughput_degradation_vs_hbm_percent": -13.089343342774162,
+    "throughput_threshold_met": true,
+    "raw": {
+      "Benchmark Duration": {
+        "total": "37020.4517 ms"
+      },
+      "Total Requests": {
+        "total": 32
+      },
+      "Failed Requests": {
+        "total": 0
+      },
+      "Success Requests": {
+        "total": 32
+      },
+      "Concurrency": {
+        "total": 7.338
+      },
+      "Max Concurrency": {
+        "total": 8
+      },
+      "Request Throughput": {
+        "total": "0.8644 req/s"
+      },
+      "Total Input Tokens": {
+        "total": 4195969
+      },
+      "Total Generated Tokens": {
+        "total": 32
+      },
+      "Input Token Throughput": {
+        "total": "113341.9181 token/s"
+      },
+      "Output Token Throughput": {
+        "total": "0.8644 token/s"
+      },
+      "Total Token Throughput": {
+        "total": "113342.7825 token/s"
+      }
+    }
+  }
+}

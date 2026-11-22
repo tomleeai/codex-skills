@@ -200,6 +200,56 @@
     {
       "applies_to": {
         "hardware": [
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "CANN": "9.2.1",
+          "memcache-hybrid": "1.3.0",
+          "torch": "2.10.0+cpu",
+          "torch-npu": "2.10.0.post7",
+          "vLLM": "0.32.0+empty",
+          "vLLM-Ascend": "0.19.1rc2.dev3322+g62fe4cde6"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "TP4 PP2",
+          "KV offload",
+          "Memcache layerwise",
+          "Mooncake layerwise Push",
+          "AISBench finite batch",
+          "prefix_cache 0.9",
+          "one prefix",
+          "two prefixes"
+        ]
+      },
+      "id": "case-qwen38-dram-c8-batch4k-prefix2-20261122",
+      "kind": "case",
+      "path": "cases/case-qwen38-dram-c8-batch4k-prefix2-20261122.json",
+      "revision": "1aed1447aab9dc0248942b321982bc20367658938fc8266c29031982077dfea0",
+      "status": "partial",
+      "summary": "HBM历史C8参考100223.3409 input token/s；同一P4096、768GiB、C8下D1均值113169.5177，D2均值96560.8289，D2劣化3.654%。原512GiB发生GVA登记冲突；找到上游a3794e3但未回移二进制。",
+      "tags": [
+        "qwen3.8",
+        "dram",
+        "prefix",
+        "C8",
+        "batch_tokens",
+        "768GiB",
+        "GVA",
+        "lease",
+        "regression-loop",
+        "finite-batch"
+      ],
+      "title": "Qwen3.8 C8池化验收 P4K与768GiB使D1和D2达标，GVA租约残留仍待修复",
+      "updated_at": "2026-11-22"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend 650E"
         ],
         "models": [
