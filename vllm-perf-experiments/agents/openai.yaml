@@ -1,4 +1,4 @@
 interface:
   display_name: "vLLM性能实验"
-  short_description: "vLLM基线劣化诊断、配置迭代寻优、AISBench自动测试与性能交付"
-  default_prompt: "使用 $vllm-perf-experiments，先区分讨论、分析与执行；按已有授权复用历史，按指定cases自动运行AISBench并核验完整性、缓存、指标与目标TPOT，需要配置寻优时定位劣化、迭代候选并接受或回退，交付可复测方案与逐轮CSV。"
+  short_description: "vLLM需求审查、部署审核、AISBench验收与机时续跑"
+  default_prompt: "使用 $vllm-perf-experiments，先独立核对我给的需求和验收目标，列出需要向同事确认的问题，随后按已审核的方案执行部署、AISBench和调优，保留可复测交付与续跑断点。"
