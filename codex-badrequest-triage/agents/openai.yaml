@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Bad Request 诊断"
+  short_description: "取证诊断 Codex 400 Bad Request，先否证再下结论"
+  default_prompt: "使用 $codex-badrequest-triage，先定位真正报 Bad Request 的回合（区分手动打断），按 ttft 判断是首个请求被拒还是中途被拒，逐项做时序反证与跨会话对比，明确区分已证实、已否证与推断，再给出止损与预防。"

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Ascend vLLM 算子修复"
+  short_description: "定位 Ascend vLLM 算子故障，保留原配置并交付最小补丁和验证记录"
+  default_prompt: "使用 $ascend-vllm-operator-repair 排查服务中的算子异常，保留原启动参数，按统一目录保存证据、带注释的最小补丁和中文报告。"
+policy:
+  allow_implicit_invocation: true
