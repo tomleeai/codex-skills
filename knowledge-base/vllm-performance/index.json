@@ -2,6 +2,47 @@
   "entries": [
     {
       "applies_to": {
+        "hardware": [],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "Python": "3.12.16"
+        },
+        "workload_modes": [
+          "AISBench",
+          "PD disaggregation",
+          "KV pool",
+          "finite_batch",
+          "128K+1",
+          "prefix_cache"
+        ]
+      },
+      "id": "case-aisbench-work-path-symlink-20261124",
+      "kind": "case",
+      "path": "cases/case-aisbench-work-path-symlink-20261124.json",
+      "revision": "40d4873b5c431eeed3060a8805dadb43f8da2a373fae261f9948e14dac4851ce",
+      "status": "verified",
+      "summary": "数据集生成后，modify_aisbench_api 创建 vllm_api_chat_temp.py 软链接时报 Errno 2。按当前解释器实际导入的 AISBench 包计算 WORK_PATH，并校正代理与 tokenizer。原 128K+1、C8 单前缀复跑 32/32 成功。",
+      "tags": [
+        "aisbench",
+        "work-path",
+        "filenotfounderror",
+        "errno-2",
+        "symlink",
+        "python",
+        "vllm_api_chat_temp.py",
+        "prefix-cache",
+        "配置迁移",
+        "软链接",
+        "启动失败"
+      ],
+      "title": "AISBench 启动前 FileNotFoundError：旧 WORK_PATH 指向另一 Python 安装",
+      "updated_at": "2026-11-24"
+    },
+    {
+      "applies_to": {
         "hardware": [
           "Ascend"
         ],
@@ -492,6 +533,37 @@
       ],
       "title": "前缀缓存：逐DP核查覆盖，区分名义比例与运行命中",
       "updated_at": "2026-11-08"
+    },
+    {
+      "applies_to": {
+        "hardware": [],
+        "models": [],
+        "software_versions": {},
+        "workload_modes": [
+          "AISBench",
+          "wrapper setup"
+        ]
+      },
+      "id": "lesson-aisbench-resolve-runtime-work-path",
+      "kind": "lesson",
+      "path": "lessons/lesson-aisbench-resolve-runtime-work-path.json",
+      "revision": "a8f073506a064273929d2e279e83d32d079575d4a97fd85ed32e3d37cc0ea606",
+      "status": "verified",
+      "summary": "看到 modify_aisbench_api / symlink_force / FileNotFoundError 时，先核实 python3、ais_bench shebang、包实际导入位置和 link_name 父目录。按已导入模块推导 WORK_PATH，避免复制上个容器的 site-packages 路径。",
+      "tags": [
+        "aisbench",
+        "work-path",
+        "filenotfounderror",
+        "errno-2",
+        "symlink",
+        "python",
+        "pythonpath",
+        "vllm_api_chat_temp.py",
+        "配置复用",
+        "软链接"
+      ],
+      "title": "AISBench 建配置软链接报 Errno 2：先确认 CLI 实际导入位置",
+      "updated_at": "2026-11-24"
     },
     {
       "applies_to": {

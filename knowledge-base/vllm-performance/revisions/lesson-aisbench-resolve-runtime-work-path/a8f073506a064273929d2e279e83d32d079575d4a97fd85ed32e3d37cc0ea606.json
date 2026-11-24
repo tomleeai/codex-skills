@@ -1,0 +1,64 @@
+{
+  "applies_to": {
+    "hardware": [],
+    "models": [],
+    "software_versions": {},
+    "workload_modes": [
+      "AISBench",
+      "wrapper setup"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "在压测所用容器和 shell 中执行 command -v python3 ais_bench、head -n 1 \"$(command -v ais_bench)\"，再执行 python3 -c 'import sys, ais_bench.benchmark as b; print(sys.executable, b.__file__)'。如果 CLI 脚本指向另一解释器，用该解释器再确认同一模块的导入位置。",
+      "对使用 WORK_PATH/ais_bench/benchmark/configs 结构的 wrapper，在 config.py 中 import ais_bench.benchmark as _aisbench_benchmark，然后设 WORK_PATH = str(Path(_aisbench_benchmark.__file__).resolve().parents[2])。先验证拼接出来的 vllm_api 配置目录和生成的 temp_api.py 各自存在。其他包布局按实际文件解析。",
+      "配置来自其他部署时，一并核对代理健康路由、P/D 健康、served model、tokenizer 和 metrics 来源。共用包会被 wrapper 写入软链接时，用独立副本或部署已有的互斥机制。结果库有 NFS 兼容问题的部署使用容器本地工作目录并归档结果。"
+    ],
+    "confirmed_findings": [
+      "Qwen3.8-Flash-Next 池化案例已按该方法修复，原 128K+1、C8 单前缀批次 32/32 成功。历史案例也观察到 WORK_PATH 与实际包位置不一致。"
+    ],
+    "hypotheses": [],
+    "limitations": [
+      "适用于使用 WORK_PATH 拼接 AISBench 配置路径的 wrapper。导入失败、文件权限、符号链接环、开始发请求后的 HTTP 错误和 NFS I/O 错误分别核对。",
+      "不要在旧 WORK_PATH 下补空目录来掩盖 Errno 2。只有实际运行的 CLI 加载修改后的包树，配置才会生效。"
+    ],
+    "next_step": "复用旧测试目录或切换镜像后，在生成大数据集前完成一次解释器、包路径、配置目录、目标模型和输出目录检查。",
+    "observations": [
+      "已验证的指纹是生成数据成功，随后 modify_aisbench_api → symlink_force → os.symlink 创建 vllm_api_chat_temp.py 时报 FileNotFoundError。Linux 软链接可以指向尚不存在的目标，因此诊断此处 Errno 2 时先查作为 link_name 的目的路径及其父目录。",
+      "CLI 可能通过 PYTHONPATH 或源码检出导入 AISBench，仅凭 Python 版本、pip 安装目录或目录存在就不能确认 CLI 使用的包树。"
+    ],
+    "task": "避免 AISBench wrapper 在换容器、解释器、源码检出位置或复用他人目录后，因保留旧 WORK_PATH 而在请求发出前退出。"
+  },
+  "created_at": "2026-11-24",
+  "evidence": [
+    {
+      "ref": "case:case-aisbench-work-path-symlink-20261124",
+      "role": "同故障指纹、修复记录及 32/32 复测结果"
+    }
+  ],
+  "id": "lesson-aisbench-resolve-runtime-work-path",
+  "kind": "lesson",
+  "observed_at": "2026-11-24",
+  "related_ids": [
+    "case-aisbench-work-path-symlink-20261124",
+    "case-qwen38-flash-next-650e-pd-128k-20261116"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "看到 modify_aisbench_api / symlink_force / FileNotFoundError 时，先核实 python3、ais_bench shebang、包实际导入位置和 link_name 父目录。按已导入模块推导 WORK_PATH，避免复制上个容器的 site-packages 路径。",
+  "supersedes": [],
+  "tags": [
+    "aisbench",
+    "work-path",
+    "filenotfounderror",
+    "errno-2",
+    "symlink",
+    "python",
+    "pythonpath",
+    "vllm_api_chat_temp.py",
+    "配置复用",
+    "软链接"
+  ],
+  "title": "AISBench 建配置软链接报 Errno 2：先确认 CLI 实际导入位置",
+  "updated_at": "2026-11-24"
+}

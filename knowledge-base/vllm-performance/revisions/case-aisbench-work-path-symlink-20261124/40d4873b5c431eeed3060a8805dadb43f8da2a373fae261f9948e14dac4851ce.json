@@ -1,0 +1,95 @@
+{
+  "applies_to": {
+    "hardware": [],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "Python": "3.12.16"
+    },
+    "workload_modes": [
+      "AISBench",
+      "PD disaggregation",
+      "KV pool",
+      "finite_batch",
+      "128K+1",
+      "prefix_cache"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "配置根据当前 Python 导入的 ais_bench.benchmark.__file__ 计算 WORK_PATH，并校正代理地址、served model、目标 tokenizer 和 P/D metrics 来源。AISBench 工作输出放到容器本地 /tmp，规避既往独立的 NFS 持久化问题。",
+      "先用容器默认环境验证实际包位置、软链接父目录和 tokenizer。复跑前检查服务健康和空闲请求数，持有既有验收锁。将实际 AISBench 包复制到容器本地临时目录，并设置 PYTHONPATH 供同一解释器和 CLI 使用，避免本轮覆盖共享包的配置及数据集软链接。",
+      "同一 aisbench_test.py 入口按原参数复跑：input_len=131072，output_len=1，data_num=32，request_rate=0，concurrency=8，dataset_type=prefix_cache，repeat_rate=0.9，prefix_num=1。沿用 wrapper 默认值，没有添加前缀预热请求。"
+    ],
+    "confirmed_findings": [
+      "过期的 WORK_PATH 令 os.symlink 尝试在不存在的父目录下建立链接。这次 traceback 出现在客户端初始化阶段，未向服务发请求。Triton 的 FutureWarning 在当前窗口不阻断客户端启动。",
+      "复跑 wrapper 退出码为 0，32 条全部成功，实际输入 131123～131125 token，每条输出 1 token。AISBench Common Metric 的 Input Token Throughput 为 108440.1392 token/s，Output Token Throughput 为 0.827 token/s，平均 TTFT 为 8895.7 ms，P90 为 13476.3 ms。",
+      "P 侧外部前缀计数增量为 3641344 hit / 4195938 query，P 侧本地计数增量为 0 hit / 0 query。D 侧本地为 2813952 / 4195970，外部为 1381986 / 1382018。复跑后 P、D、Proxy 健康检查通过。"
+    ],
+    "hypotheses": [],
+    "limitations": [
+      "只验证了这一套 Python/CLI 和单次 C8 负载。用户反馈同类故障出现过多次。历史案例也记录过 WORK_PATH 与实际导入位置不一致，其他历史发生次数与具体版本未核实。",
+      "旧端点及模型配置已校正。它们是在首个错误之后才会影响请求的独立问题。NFS 写入失败有独立案例，此次首个报错并非写库错误。",
+      "设备型号、AISBench 包精确版本未记录。完整现场日志、配置和包含请求内容的逐条明细保留在原项目；共享附件只包含非私密指标与必要证据。",
+      "输出长度为 1 token，wrapper 的 TPOT 99999.0 和 prefill_token_throughput 9999.0 保留为原始占位值，不用于性能判断。CSV 只取与原始 Common Metric 一致的同轮记录。"
+    ],
+    "next_step": "同指纹再次出现时，先核对 CLI 解释器及实际导入的包位置并验证 link_name 父目录，再检查目标服务身份。复跑以逐请求成功数、输出 token 数及原始结果文件为准。",
+    "observations": [
+      "首轮完成了 1 条公共前缀和 32 条测试样本的生成。尚未启动推理子进程便报 FileNotFoundError: [Errno 2] No such file or directory。调用链是 aisbench_test.py → modify_aisbench_api → symlink_force → os.symlink，link_name 是 WORK_PATH 下 ais_bench/benchmark/configs/models/vllm_api/vllm_api_chat_temp.py。",
+      "客户端配置沿用 Python 3.11 的 site-packages 路径。容器中 python3 和 ais_bench CLI 的 shebang 对应 Python 3.12.16，且 ais_bench 实际从共享源码检出目录导入。软链接目标文件 temp_api.py 已生成，缺少的是 link_name 的父目录。",
+      "旧客户端配置同时指向上一套部署的服务地址、served model 名和 tokenizer。P、D 和代理健康检查通过，P/D 的 /v1/models 返回了目标 served model。代理自身的健康路由为 /healthcheck。"
+    ],
+    "task": "修复在 PD 分离及 DRAM KV 池服务上执行 AISBench 客户端批量测试时的启动失败，按原负载验证。"
+  },
+  "created_at": "2026-11-24",
+  "evidence": [
+    {
+      "ref": "artifact:case-aisbench-work-path-symlink-20261124/aisbench-common-metrics.json",
+      "role": "AISBench Common Metric 原始结果 JSON",
+      "sha256": "a4ca16452badea7bc2507b6031339f0fa439b088d0aa03f8318ba34e8c85fb19"
+    },
+    {
+      "ref": "artifact:case-aisbench-work-path-symlink-20261124/wrapper-result.csv",
+      "role": "复跑同一轮的客户端 CSV 记录，保留原字段和值",
+      "sha256": "2b290c85d7226c068f42eedec82d272c6544de754b67ffdc470bcb8da22848a3"
+    },
+    {
+      "ref": "artifact:case-aisbench-work-path-symlink-20261124/request-token-counts.jsonl",
+      "role": "从 32 条原始请求明细提取的成功状态与输入、输出 token 数",
+      "sha256": "2cb4caa7b0ae35a65f10f224bcb9505f9a1461eabf289392fff89fe186ed8e0a"
+    },
+    {
+      "ref": "artifact:case-aisbench-work-path-symlink-20261124/prefix-cache-metric-deltas.json",
+      "role": "同一轮 P/D 前缀缓存计数增量与 wrapper 退出码",
+      "sha256": "f33ced61e0b535ad757ee700ef575f317fdd4396a22b617347ba6e8fabcf96da"
+    }
+  ],
+  "id": "case-aisbench-work-path-symlink-20261124",
+  "kind": "case",
+  "observed_at": "2026-11-24",
+  "related_ids": [
+    "case-qwen38-flash-next-650e-pd-128k-20261116",
+    "case-qwen38-aisbench-nfs-eio-partial-results-20261120"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "数据集生成后，modify_aisbench_api 创建 vllm_api_chat_temp.py 软链接时报 Errno 2。按当前解释器实际导入的 AISBench 包计算 WORK_PATH，并校正代理与 tokenizer。原 128K+1、C8 单前缀复跑 32/32 成功。",
+  "supersedes": [],
+  "tags": [
+    "aisbench",
+    "work-path",
+    "filenotfounderror",
+    "errno-2",
+    "symlink",
+    "python",
+    "vllm_api_chat_temp.py",
+    "prefix-cache",
+    "配置迁移",
+    "软链接",
+    "启动失败"
+  ],
+  "title": "AISBench 启动前 FileNotFoundError：旧 WORK_PATH 指向另一 Python 安装",
+  "updated_at": "2026-11-24"
+}

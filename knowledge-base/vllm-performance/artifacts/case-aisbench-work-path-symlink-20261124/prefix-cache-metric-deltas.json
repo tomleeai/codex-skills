@@ -1,0 +1,23 @@
+{
+  "wrapper_exit_code": 0,
+  "prefill": {
+    "prefix_cache": {
+      "queries": 0,
+      "hits": 0
+    },
+    "external_prefix_cache": {
+      "queries": 4195938,
+      "hits": 3641344
+    }
+  },
+  "decode": {
+    "prefix_cache": {
+      "queries": 4195970,
+      "hits": 2813952
+    },
+    "external_prefix_cache": {
+      "queries": 1382018,
+      "hits": 1381986
+    }
+  }
+}
