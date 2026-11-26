@@ -1,0 +1,73 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "NFS": "4.2"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "shared storage",
+      "AISBench",
+      "incident recovery"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "先验证隔离访问、核对待处理请求与挂载持有者，随后对确认的旧故障对象执行定向停用。",
+      "使用独立客户端身份恢复原路径的 NFSv4.2 访问，从目标容器和宿主核对。"
+    ],
+    "confirmed_findings": [
+      "16 条记录逐条 fsync 后跨节点读回并核对 SHA-256。原持卡进程退出，受影响节点 8/8 卡空闲，后续 AISBench 正常续跑。",
+      "从写入完成标记的容器挂载视图确认状态，解决一次跨视图未见标记导致的切换超时。"
+    ],
+    "hypotheses": [
+      "跨视图延迟与独立挂载的目录项缓存相符。"
+    ],
+    "limitations": [
+      "已验证范围是当时运行态和续跑。重启持久性、其他容器恢复以及其他 NFS 故障类型未验证。",
+      "定向停用可能影响同一故障挂载上的其他持有者，操作边界需按现场归属和授权判断。"
+    ],
+    "next_step": "应用时优先保护现有轮次与挂载持有者，分别确认目标容器读写、旧进程状态和实际空闲设备。",
+    "observations": [
+      "NFSv4.2 reset 报 client ID 冲突，日志写回进程停在不可中断 I/O。普通信号清理后仍有卡占用。",
+      "旧故障挂载有其他持有者。私有克隆的强制分离尝试使挂起写请求重新排队。"
+    ],
+    "task": "恢复共享盘运行态访问，解除实验旧进程的持卡状态并保全已验证结果。"
+  },
+  "created_at": "2026-11-26",
+  "evidence": [
+    {
+      "ref": "artifact:case-nfsv42-log-writeback-npu-recovery-20261125/recovery-observations.json",
+      "role": "故障签名、隔离验证、运行态恢复和设备确认",
+      "sha256": "cddbff8fb286c4ce6776184702856f03d47bdd106c48bd631c186b727093de68"
+    }
+  ],
+  "id": "case-nfsv42-log-writeback-npu-recovery-20261125",
+  "kind": "case",
+  "observed_at": "2026-11-25",
+  "related_ids": [
+    "case-qwen38-pd-pool-urma-uboe-128k-20261125"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "日志写回卡在旧 NFSv4.2 会话时，结束进程后 NPU 仍被持有。现场隔离并恢复挂载后完成跨节点 fsync 与读回校验，旧持卡进程退出，8 张 NPU 释放，正式实验续跑。",
+  "supersedes": [],
+  "tags": [
+    "NFSv4.2",
+    "NFS",
+    "clientid",
+    "AISBench",
+    "D state",
+    "writeback",
+    "NPU",
+    "续跑"
+  ],
+  "title": "NFSv4.2 客户端 ID 冲突：日志写回阻塞持卡与运行态恢复",
+  "updated_at": "2026-11-26"
+}
