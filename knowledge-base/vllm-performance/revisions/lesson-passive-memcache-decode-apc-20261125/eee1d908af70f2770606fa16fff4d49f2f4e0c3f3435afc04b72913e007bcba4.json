@@ -1,0 +1,62 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "vLLM": "0.33.0"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "PP2",
+      "AISBench",
+      "prefix_cache",
+      "128K+1",
+      "C8"
+    ]
+  },
+  "body": {
+    "apply_when": [
+      "Memcache 后端、kv_consumer、bulk（非 layerwise）、can_put 为假且 consumer_is_to_load 为假。",
+      "活跃 Mooncake 连接器仍负责 KV，由计数器验证 D 本地 APC，同时检查双端 provider 数和容量。"
+    ],
+    "avoid_when": [
+      "D 侧 Memcache 实际承担 KV 读、写或逐层操作。不同角色、连接器语义或版本应重新验证。"
+    ],
+    "guidance": "聚合连接器可能因任何子连接器不支持而关闭混合本地命中。先确认被动子连接器完全不读写 KV，再在该组合限定兼容判断。",
+    "observed_result": "两种传输合计各 16 个 provider rank，512 GiB 保持。正式批次 D 本地命中 2696704 至 2813952。D2 均未达到吞吐线。"
+  },
+  "created_at": "2026-11-26",
+  "evidence": [
+    {
+      "ref": "case:case-qwen38-pd-pool-urma-uboe-128k-20261125",
+      "role": "双池 URMA 与 UBoE 现场验证"
+    }
+  ],
+  "id": "lesson-passive-memcache-decode-apc-20261125",
+  "kind": "lesson",
+  "observed_at": "2026-11-25",
+  "related_ids": [
+    "case-qwen38-pd-pool-urma-uboe-128k-20261125"
+  ],
+  "schema_version": 1,
+  "status": "verified",
+  "summary": "双池 D 侧只贡献 DRAM 容量时，可针对该角色修正混合本地命中兼容能力。两种传输均验证 D 本地命中恢复和双池容量保留，吞吐继续按端到端门槛验收。",
+  "supersedes": [],
+  "tags": [
+    "Memcache",
+    "APC",
+    "Mooncake",
+    "MultiConnector",
+    "URMA",
+    "UBoE",
+    "Decode",
+    "双池"
+  ],
+  "title": "双池 Decode：仅提供 DRAM 的 Memcache consumer 与 Mooncake APC 的兼容条件",
+  "updated_at": "2026-11-26"
+}

@@ -78,6 +78,44 @@
     {
       "applies_to": {
         "hardware": [
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "NFS": "4.2"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "shared storage",
+          "AISBench",
+          "incident recovery"
+        ]
+      },
+      "id": "case-nfsv42-log-writeback-npu-recovery-20261125",
+      "kind": "case",
+      "path": "cases/case-nfsv42-log-writeback-npu-recovery-20261125.json",
+      "revision": "e35f5105a65a0873f98bc5e7302b6a12879ab337c7644c1b8362b060b016e2b4",
+      "status": "verified",
+      "summary": "日志写回卡在旧 NFSv4.2 会话时，结束进程后 NPU 仍被持有。现场隔离并恢复挂载后完成跨节点 fsync 与读回校验，旧持卡进程退出，8 张 NPU 释放，正式实验续跑。",
+      "tags": [
+        "NFSv4.2",
+        "NFS",
+        "clientid",
+        "AISBench",
+        "D state",
+        "writeback",
+        "NPU",
+        "续跑"
+      ],
+      "title": "NFSv4.2 客户端 ID 冲突：日志写回阻塞持卡与运行态恢复",
+      "updated_at": "2026-11-26"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend 950DT"
         ],
         "models": [
@@ -268,6 +306,48 @@
       ],
       "title": "Qwen3.8-Flash-Next Atlas 650E 双机 PD PP2，Mooncake V2 Layerwise 128K 整链路与纯 P",
       "updated_at": "2026-11-17"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "vLLM": "0.33.0"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "PP2",
+          "AISBench",
+          "prefix_cache",
+          "128K+1",
+          "C8"
+        ]
+      },
+      "id": "case-qwen38-pd-pool-urma-uboe-128k-20261125",
+      "kind": "case",
+      "path": "cases/case-qwen38-pd-pool-urma-uboe-128k-20261125.json",
+      "revision": "9dbe25ae5f904bde596594c42c040e428b846e2d774f5bde6307373ca2e9df07",
+      "status": "partial",
+      "summary": "共用历史 HBM D1 的 95% 门槛。两种 URMA 的正式 D1 达标，全部已完成的 D2 低于门槛。双池 D 侧 APC 命中恢复，512 GiB 池保留。单 UBoE 的 4 MiB 候选经一次有效预热筛除。",
+      "tags": [
+        "AISBench",
+        "URMA",
+        "UBoE",
+        "APC",
+        "D2",
+        "PP2",
+        "Memcache",
+        "Mooncake",
+        "GVA",
+        "基线劣化"
+      ],
+      "title": "Qwen3.8-Flash-Next 950DT：四种 URMA/UBoE 池化 128K+1 优化与 D 侧 APC 验证",
+      "updated_at": "2026-11-26"
     },
     {
       "applies_to": {
@@ -542,6 +622,46 @@
     {
       "applies_to": {
         "hardware": [
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "vLLM": "0.33.0"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "PP2",
+          "AISBench",
+          "prefix_cache",
+          "128K+1",
+          "C8"
+        ]
+      },
+      "id": "lesson-passive-memcache-decode-apc-20261125",
+      "kind": "lesson",
+      "path": "lessons/lesson-passive-memcache-decode-apc-20261125.json",
+      "revision": "eee1d908af70f2770606fa16fff4d49f2f4e0c3f3435afc04b72913e007bcba4",
+      "status": "verified",
+      "summary": "双池 D 侧只贡献 DRAM 容量时，可针对该角色修正混合本地命中兼容能力。两种传输均验证 D 本地命中恢复和双池容量保留，吞吐继续按端到端门槛验收。",
+      "tags": [
+        "Memcache",
+        "APC",
+        "Mooncake",
+        "MultiConnector",
+        "URMA",
+        "UBoE",
+        "Decode",
+        "双池"
+      ],
+      "title": "双池 Decode：仅提供 DRAM 的 Memcache consumer 与 Mooncake APC 的兼容条件",
+      "updated_at": "2026-11-26"
+    },
+    {
+      "applies_to": {
+        "hardware": [
           "Ascend 650E"
         ],
         "models": [
@@ -682,6 +802,46 @@
       ],
       "title": "Qwen3.8-Flash-Next W4A8 MXFP｜650E 双机 PD+PP2+Mooncake V2 Layerwise 的 128K 整链路与纯 P 测法",
       "updated_at": "2026-11-17"
+    },
+    {
+      "applies_to": {
+        "hardware": [
+          "Ascend950DT"
+        ],
+        "models": [
+          "Qwen3.8-Flash-Next"
+        ],
+        "software_versions": {
+          "AISBench": null,
+          "vLLM": "0.33.0"
+        },
+        "workload_modes": [
+          "PD disaggregation",
+          "PP2",
+          "AISBench",
+          "prefix_cache",
+          "128K+1",
+          "C8"
+        ]
+      },
+      "id": "lesson-screen-hard-case-before-formal-matrix-20261125",
+      "kind": "lesson",
+      "path": "lessons/lesson-screen-hard-case-before-formal-matrix-20261125.json",
+      "revision": "e9f2c0568fcfdb5e09c669f4a779f7baac0c0ba3bf99336f447f3ca8ee72aea6",
+      "status": "candidate",
+      "summary": "本轮用一次有效预热筛掉严重退化候选，为下一种部署留出机时。最难场景可优先用于探索筛选，最终组合仍按用户约定完成全部正式场景。",
+      "tags": [
+        "AISBench",
+        "预热",
+        "筛选",
+        "phase",
+        "D2",
+        "机时",
+        "落盘",
+        "验收"
+      ],
+      "title": "基线劣化寻优：预热可筛除严重退化，难例筛选与正式验收分开",
+      "updated_at": "2026-11-26"
     }
   ],
   "schema_version": 1

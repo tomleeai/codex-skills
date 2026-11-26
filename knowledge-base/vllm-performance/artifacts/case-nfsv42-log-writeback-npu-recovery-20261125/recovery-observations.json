@@ -1,0 +1,29 @@
+{
+  "evidence_origin": "依据本地交接记录与留存的状态探针摘录。故障挂载标识、节点信息与原日志留在原项目。",
+  "protocol": "NFSv4.2",
+  "kernel_signatures": [
+    "clientid is in use",
+    "NFSv4 session reset error 1",
+    "folio_wait_writeback on NFS logger writes"
+  ],
+  "observed_failure": {
+    "requests_interrupted": true,
+    "uninterruptible_processes_held_npu": true,
+    "ordinary_process_kill_released_npu": false
+  },
+  "recovery": {
+    "isolated_mount_verified_first": true,
+    "affected_mount_had_other_holders": true,
+    "force_lazy_attempt_requeued_pending_write_rpcs": true,
+    "targeted_stale_client_shutdown_unblocked_writes": true,
+    "unique_client_identity": true,
+    "new_mount_protocol": "NFSv4.2",
+    "host_and_target_container_original_path_readable": true,
+    "fsync_records_written_and_read_back_across_nodes": 16,
+    "cross_node_sha256_match": true,
+    "idle_cards_on_recovered_node": 8,
+    "service_and_aisbench_resumed": true,
+    "reboot_persistence_verified": false
+  },
+  "handoff_observation": "换组时从另一挂载视图暂时读不到完成标记。从写入标记的容器视图读取并校验同轮汇总后继续。"
+}

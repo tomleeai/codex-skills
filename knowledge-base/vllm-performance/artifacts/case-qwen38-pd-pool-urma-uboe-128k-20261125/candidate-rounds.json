@@ -1,0 +1,316 @@
+{
+  "evidence_origin": "依据本地交接记录与留存的阶段控制台输出摘录。仅记录可复核字段。完整后期指标导出、请求明细、服务日志及原始配置留于原项目。",
+  "protocol": {
+    "metric": "AISBench input_token_throughput",
+    "nominal_input_tokens": 131072,
+    "observed_input_tokens_min": 131123,
+    "observed_input_tokens_max": 131126,
+    "output_tokens": 1,
+    "data_num": 32,
+    "request_rate": 0,
+    "concurrency": 8,
+    "dataset_type": "prefix_cache",
+    "repeat_rate": 0.9,
+    "d1_prefix_num": 1,
+    "d2_prefix_num": 2,
+    "run_order": [
+      "warm",
+      "d1-r1",
+      "d1-r2",
+      "d2-r1",
+      "d2-r2"
+    ],
+    "interval_seconds": 15,
+    "baseline_kind": "historical base-hbm-4096 D1",
+    "baseline_input_tps": 118493.95225,
+    "threshold_input_tps": 112569.2546375,
+    "hbm_d2_dispatched": false
+  },
+  "single_urma_prefetch4": {
+    "change": "layerwise prefetch 3 to 4",
+    "d1_mean_input_tps": 125843.84645,
+    "d2_first_input_tps": 91838.9854,
+    "d2_second_status": "not_dispatched_after_transient_health_timeout"
+  },
+  "single_urma_shared_buffers6": {
+    "change": "shared buffers 4 to 6",
+    "status": "startup_failed",
+    "first_error": "Scheduler read leases require layerwise KV offload",
+    "aisbench_dispatched": false
+  },
+  "single_urma_prefetch2": {
+    "change": "256 GiB, layerwise prefetch 3 to 2",
+    "rounds": [
+      {
+        "phase": "warm",
+        "valid_requests": 32,
+        "input_token_throughput": 123356.3779,
+        "avg_ttft_ms": 7813.3,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 0
+      },
+      {
+        "phase": "d1-r1",
+        "valid_requests": 32,
+        "input_token_throughput": 123048.3677,
+        "avg_ttft_ms": 7837.1,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 10487
+      },
+      {
+        "phase": "d1-r2",
+        "valid_requests": 32,
+        "input_token_throughput": 123779.68,
+        "avg_ttft_ms": 7786.4,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 10479
+      },
+      {
+        "phase": "d2-r1",
+        "valid_requests": 32,
+        "input_token_throughput": 101133.8596,
+        "avg_ttft_ms": 9622.0,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 13026,
+        "p_mean_queue_s": 7.076,
+        "p_mean_prefill_s": 2.237,
+        "d_mean_active_prefill_s": 0.095
+      },
+      {
+        "phase": "d2-r2",
+        "valid_requests": 32,
+        "input_token_throughput": 103470.1608,
+        "avg_ttft_ms": 9432.3,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 12937,
+        "p_mean_queue_s": 6.946,
+        "p_mean_prefill_s": 2.183,
+        "d_mean_active_prefill_s": 0.094
+      }
+    ],
+    "formal_cases": {
+      "d1": {
+        "mean_input_tps": 123414.02385,
+        "mean_ttft_ms": 7811.75,
+        "valid_requests": 64,
+        "passed": true
+      },
+      "d2": {
+        "mean_input_tps": 102302.0102,
+        "mean_ttft_ms": 9527.15,
+        "valid_requests": 64,
+        "passed": false
+      }
+    }
+  },
+  "single_urma_768_gib": {
+    "change": "32 to 96 GiB per rank, prefetch 3",
+    "rounds": [
+      {
+        "phase": "warm",
+        "valid_requests": 32,
+        "input_token_throughput": 124255.2779,
+        "avg_ttft_ms": 7759.1,
+        "memcache_evict_operations_total_delta": 0
+      },
+      {
+        "phase": "d1-r1",
+        "valid_requests": 32,
+        "input_token_throughput": 124656.5448,
+        "avg_ttft_ms": 7732.2,
+        "memcache_evict_operations_total_delta": 0
+      },
+      {
+        "phase": "d1-r2",
+        "valid_requests": 32,
+        "input_token_throughput": 125228.3733,
+        "avg_ttft_ms": 7697.9,
+        "memcache_evict_operations_total_delta": 0
+      },
+      {
+        "phase": "d2-r1",
+        "valid_requests": 32,
+        "input_token_throughput": 104467.8015,
+        "avg_ttft_ms": 9322.5,
+        "memcache_evict_operations_total_delta": 11836,
+        "p_mean_queue_s": 6.85,
+        "p_mean_prefill_s": 2.153,
+        "d_mean_active_prefill_s": 0.096,
+        "p_external_prefix_cache_hits_total_delta": 3525120
+      },
+      {
+        "phase": "d2-r2",
+        "valid_requests": 32,
+        "input_token_throughput": 101991.7872,
+        "memcache_evict_operations_total_delta": 11807,
+        "p_mean_queue_s": 7.018,
+        "p_mean_prefill_s": 2.213,
+        "d_mean_active_prefill_s": 0.094,
+        "p_external_prefix_cache_hits_total_delta": 3508736
+      }
+    ],
+    "formal_cases": {
+      "d1": {
+        "mean_input_tps": 124942.45905,
+        "mean_ttft_ms": 7715.05,
+        "valid_requests": 64,
+        "passed": true
+      },
+      "d2": {
+        "mean_input_tps": 103229.79435,
+        "mean_ttft_ms": 9434.45,
+        "valid_requests": 64,
+        "passed": false
+      }
+    }
+  },
+  "double_urma_passive_d_apc": {
+    "change": "D passive Memcache consumer compatibility, both roles provide 512 GiB total",
+    "rounds": [
+      {
+        "phase": "warm",
+        "valid_requests": 32,
+        "input_token_throughput": 123139.0202,
+        "avg_ttft_ms": 7829.6,
+        "d_prefix_cache_hits_total_delta": 2813952
+      },
+      {
+        "phase": "d1-r1",
+        "valid_requests": 32,
+        "input_token_throughput": 124193.9912,
+        "avg_ttft_ms": 7764.9,
+        "d_prefix_cache_hits_total_delta": 2813952
+      },
+      {
+        "phase": "d1-r2",
+        "valid_requests": 32,
+        "input_token_throughput": 124198.9461,
+        "avg_ttft_ms": 7761.8,
+        "d_prefix_cache_hits_total_delta": 2813952
+      },
+      {
+        "phase": "d2-r1",
+        "valid_requests": 32,
+        "input_token_throughput": 103618.9609,
+        "avg_ttft_ms": 9399.2,
+        "d_prefix_cache_hits_total_delta": 2696704,
+        "memcache_evict_operations_total_delta": 13102,
+        "p_mean_queue_s": 6.936,
+        "p_mean_prefill_s": 2.17,
+        "d_mean_active_prefill_s": 0.096,
+        "p_external_prefix_cache_hits_total_delta": 3521536
+      },
+      {
+        "phase": "d2-r2",
+        "valid_requests": 32,
+        "input_token_throughput": 101502.1969,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 10451,
+        "p_mean_queue_s": 7.053,
+        "p_mean_prefill_s": 2.232,
+        "d_mean_active_prefill_s": 0.096,
+        "p_external_prefix_cache_hits_total_delta": 3508736
+      }
+    ],
+    "formal_cases": {
+      "d1": {
+        "mean_input_tps": 124196.46865,
+        "mean_ttft_ms": 7763.35,
+        "valid_requests": 64,
+        "passed": true
+      },
+      "d2": {
+        "mean_input_tps": 102560.5789,
+        "mean_ttft_ms": 9495.95,
+        "valid_requests": 64,
+        "passed": false
+      }
+    }
+  },
+  "single_uboe_batch_cap_4mib": {
+    "change": "MAX_BATCH_BYTES 3145728 to 4194304, max batch addresses 128, original QoS",
+    "status": "screened_out_after_warmup",
+    "phase": "warm",
+    "valid_requests": 32,
+    "input_token_throughput": 13580.1186,
+    "avg_ttft_ms": 66971.8,
+    "p_mean_queue_s": 47.182,
+    "p_mean_prefill_s": 18.609,
+    "d_mean_active_prefill_s": 0.102,
+    "p_external_prefix_cache_hits_total_delta": 3641344,
+    "memcache_evict_operations_total_delta": 0,
+    "memcache_batch_alloc_failures_total_delta": 0,
+    "formal_case_means_available": false
+  },
+  "double_uboe_passive_d_apc": {
+    "change": "D passive Memcache consumer compatibility, both roles provide 512 GiB total",
+    "rounds": [
+      {
+        "phase": "warm",
+        "valid_requests": 32,
+        "input_token_throughput": 94373.7523,
+        "avg_ttft_ms": 10307.8,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 0
+      },
+      {
+        "phase": "d1-r1",
+        "valid_requests": 32,
+        "input_token_throughput": 107142.3556,
+        "avg_ttft_ms": 8988.1,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 0
+      },
+      {
+        "phase": "d1-r2",
+        "valid_requests": 32,
+        "input_token_throughput": 106491.6956,
+        "avg_ttft_ms": 9034.9,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 10528
+      },
+      {
+        "phase": "d2-r1",
+        "valid_requests": 32,
+        "input_token_throughput": 84611.3843,
+        "avg_ttft_ms": 11550.3,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 13103
+      },
+      {
+        "phase": "d2-r2",
+        "valid_requests": 32,
+        "input_token_throughput": 90115.0973,
+        "d_prefix_cache_hits_total_delta": 2813952,
+        "memcache_evict_operations_total_delta": 10432
+      }
+    ],
+    "formal_cases": {
+      "d1": {
+        "mean_input_tps": 106817.0256,
+        "mean_ttft_ms": 9011.5,
+        "valid_requests": 64,
+        "passed": false
+      },
+      "d2": {
+        "mean_input_tps": 87363.2408,
+        "mean_ttft_ms": 11170.225,
+        "valid_requests": 64,
+        "passed": false
+      }
+    }
+  },
+  "apc_patch_sha256": "9627fa99ffebf71939d2cb17e02f5c1be139ec4e158888c0fc41f2239560791e",
+  "release": {
+    "deadline_local_time": "2026-11-26T00:00:00+08:00",
+    "nodes": 2,
+    "npu_idle_counts": [
+      8,
+      8
+    ],
+    "release_exit_codes": [
+      0,
+      0
+    ]
+  }
+}

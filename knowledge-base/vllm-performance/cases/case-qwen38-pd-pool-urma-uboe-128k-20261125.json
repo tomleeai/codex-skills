@@ -1,0 +1,84 @@
+{
+  "applies_to": {
+    "hardware": [
+      "Ascend950DT"
+    ],
+    "models": [
+      "Qwen3.8-Flash-Next"
+    ],
+    "software_versions": {
+      "AISBench": null,
+      "vLLM": "0.33.0"
+    },
+    "workload_modes": [
+      "PD disaggregation",
+      "PP2",
+      "AISBench",
+      "prefix_cache",
+      "128K+1",
+      "C8"
+    ]
+  },
+  "body": {
+    "attempts": [
+      "单 URMA 测试预取、共享缓冲、P token 预算、原生分块尺寸和容量。",
+      "单 UBoE 测试 QoS 和 GVA 批次字节上限。原生分块尺寸与批次字节上限属于不同参数。",
+      "双 URMA 与双 UBoE 在 D 进程独立挂载命名空间加载同一 APC 兼容补丁，核验实际传输和双池注册。"
+    ],
+    "confirmed_findings": [
+      "单 URMA 扩至 768 GiB 后 D2 103229.79435 tokens/s，仍有 11836 和 11807 次驱逐，增益仅与历史参考比较。",
+      "双 URMA 和双 UBoE 的 D 本地前缀命中恢复，正式批次各出现 2696704 至 2813952 个命中 token，总池容量仍为 512 GiB。",
+      "双 URMA D1/D2 为 124196.46865/102560.5789，双 UBoE 为 106817.0256/87363.2408 tokens/s。单 UBoE 4 MiB 的预热 32/32，吞吐 13580.1186，仍有 3641344 个 P 外部命中且无分配失败。"
+    ],
+    "hypotheses": [
+      "该 URMA D2 的阶段耗时支持优先定位 P 排队、prefill 和池驱逐。一次容量对照无法量化驱逐对吞吐的因果影响。"
+    ],
+    "limitations": [
+      "补丁候选与未打补丁的吞吐为历史对照，当前会话缺少配对 A/B。先前版本与更低门槛下的 768 GiB 成功经验无法直接作为本轮达标证据。",
+      "4 MiB 只有预热结果，QoS 4 的 D2 因存储故障中断。无长期稳定性或通用硬件结论。"
+    ],
+    "next_step": "候选筛选可用同协议的 D2 难例和分阶段指标，通过筛选再从同一最终配置完成原定的 D1/D2 验收。",
+    "observations": [
+      "D1 和 D2 共用历史 HBM D1 的 118493.95225 tokens/s，门槛 112569.2546375。HBM D2 按用户要求未派发。",
+      "正式候选各完成一轮预热、D1 两轮和 D2 两轮，轮间隔 15 秒。每轮核对请求、实际 token 和 P/D 计数器。"
+    ],
+    "task": "固定 128K+1、C8、每批 32 条、90% 前缀复用，对四种 P 或 P+D DRAM 池化寻找不超过 5% 的输入吞吐劣化。"
+  },
+  "created_at": "2026-11-26",
+  "evidence": [
+    {
+      "ref": "artifact:case-qwen38-pd-pool-urma-uboe-128k-20261125/historical-and-early-rounds.json",
+      "role": "历史参考、已保全的早期逐轮结果与原始统计字段",
+      "sha256": "00a9ac12539ea0dab26160d0c97d89eb8095632753033acad93283dfe3afebb8"
+    },
+    {
+      "ref": "artifact:case-qwen38-pd-pool-urma-uboe-128k-20261125/candidate-rounds.json",
+      "role": "恢复后逐轮观测、筛除轮、阶段计数与预算收尾",
+      "sha256": "1fb49a5c965fee68e88d6ca141f7b9655567bdb009127be03bb6905f1bd5a866"
+    }
+  ],
+  "id": "case-qwen38-pd-pool-urma-uboe-128k-20261125",
+  "kind": "case",
+  "observed_at": "2026-11-25",
+  "related_ids": [
+    "case-nfsv42-log-writeback-npu-recovery-20261125"
+  ],
+  "schema_version": 1,
+  "status": "partial",
+  "summary": "共用历史 HBM D1 的 95% 门槛。两种 URMA 的正式 D1 达标，全部已完成的 D2 低于门槛。双池 D 侧 APC 命中恢复，512 GiB 池保留。单 UBoE 的 4 MiB 候选经一次有效预热筛除。",
+  "supersedes": [],
+  "tags": [
+    "AISBench",
+    "URMA",
+    "UBoE",
+    "APC",
+    "D2",
+    "PP2",
+    "Memcache",
+    "Mooncake",
+    "GVA",
+    "基线劣化"
+  ],
+  "title": "Qwen3.8-Flash-Next 950DT：四种 URMA/UBoE 池化 128K+1 优化与 D 侧 APC 验证",
+  "updated_at": "2026-11-26"
+}
